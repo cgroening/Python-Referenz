@@ -1,0 +1,469 @@
+{
+  "vaultName": "Python-Referenz",
+  "lastExport": 1748668999128,
+  "pluginVersion": "1.8.01",
+  "validBodyClasses": "publish css-settings-manager theme-dark show-inline-title show-ribbon",
+  "useCustomHeadContent": false,
+  "useCustomFavicon": false,
+  "files": [
+    "01 Links.md",
+    "02 Datentypen.md",
+    "03 Datenstrukturen (Collections).md",
+    "04 Kommentare.md",
+    "05 Ein- und Ausgabe.md",
+    "06 Operatoren.md",
+    "07 Kontrollstrukturen.md",
+    "08 Funktionen.md",
+    "09 Grundlagen der Objektorientierung.md",
+    "10 Fortgeschrittene Objektorientierung.md",
+    "11 Fortgeschrittene Funktionstechniken.md",
+    "12 Typannotationen.md",
+    "13 Fehlerbehandlung.md",
+    "14 Speicherverhalten, Referenzen und Mutability.md",
+    "15 Multithreading und -processing.md",
+    "16 Leistungsoptimierung.md",
+    "17 Debugging.md",
+    "18 Profiling und Timing.md",
+    "19 Pakete und HTML-Dokumentation.md",
+    "20 Disassembler, Syntax Tree und Flow Graph.md",
+    "index.md",
+    "lib/fonts/94f2f163d4b698242fef.otf",
+    "lib/fonts/72505e6a122c6acd5471.woff2",
+    "lib/fonts/2d5198822ab091ce4305.woff2",
+    "lib/fonts/c8ba52b05a9ef10f4758.woff2",
+    "lib/fonts/cb10ffd7684cd9836a05.woff2",
+    "lib/fonts/b5f0f109bc88052d4000.woff2",
+    "lib/fonts/cbe0ae49c52c920fd563.woff2",
+    "lib/fonts/535a6cf662596b3bd6a6.woff2",
+    "lib/fonts/70cc7ff27245e82ad414.ttf",
+    "lib/fonts/454577c22304619db035.ttf",
+    "lib/fonts/52ac8f3034507f1d9e53.ttf",
+    "lib/fonts/05b618077343fbbd92b7.ttf",
+    "lib/fonts/4bb6ac751d1c5478ff3a.woff2",
+    "lib/media/6155340132a851f6089e.svg",
+    "lib/html/file-tree.html",
+    "lib/scripts/webpage.js",
+    "lib/scripts/minisearch.js",
+    "lib/media/favicon.png",
+    "lib/styles/obsidian.css",
+    "lib/styles/global-variable-styles.css",
+    "lib/styles/main-styles.css",
+    "lib/styles/snippets.css"
+  ],
+  "mainDependencies": [
+    "lib/fonts/94f2f163d4b698242fef.otf",
+    "lib/fonts/72505e6a122c6acd5471.woff2",
+    "lib/fonts/2d5198822ab091ce4305.woff2",
+    "lib/fonts/c8ba52b05a9ef10f4758.woff2",
+    "lib/fonts/cb10ffd7684cd9836a05.woff2",
+    "lib/fonts/b5f0f109bc88052d4000.woff2",
+    "lib/fonts/cbe0ae49c52c920fd563.woff2",
+    "lib/fonts/535a6cf662596b3bd6a6.woff2",
+    "lib/fonts/70cc7ff27245e82ad414.ttf",
+    "lib/fonts/454577c22304619db035.ttf",
+    "lib/fonts/52ac8f3034507f1d9e53.ttf",
+    "lib/fonts/05b618077343fbbd92b7.ttf",
+    "lib/fonts/4bb6ac751d1c5478ff3a.woff2",
+    "lib/media/6155340132a851f6089e.svg",
+    "lib/html/file-tree.html",
+    "lib/scripts/webpage.js",
+    "lib/scripts/minisearch.js",
+    "lib/media/favicon.png",
+    "lib/styles/obsidian.css",
+    "lib/styles/global-variable-styles.css",
+    "lib/styles/main-styles.css",
+    "lib/styles/snippets.css"
+  ],
+  "fileInfo": {
+    "01 Links.md": {
+      "modifiedTime": 1747379024923,
+      "sourceSize": 470,
+      "exportedPath": "01-links.html",
+      "dependencies": []
+    },
+    "02 Datentypen.md": {
+      "modifiedTime": 1747379024923,
+      "sourceSize": 4778,
+      "exportedPath": "02-datentypen.html",
+      "dependencies": []
+    },
+    "03 Datenstrukturen (Collections).md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 6759,
+      "exportedPath": "03-datenstrukturen-(collections).html",
+      "dependencies": []
+    },
+    "04 Kommentare.md": {
+      "modifiedTime": 1747379024923,
+      "sourceSize": 2983,
+      "exportedPath": "04-kommentare.html",
+      "dependencies": []
+    },
+    "05 Ein- und Ausgabe.md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 9360,
+      "exportedPath": "05-ein-und-ausgabe.html",
+      "dependencies": []
+    },
+    "06 Operatoren.md": {
+      "modifiedTime": 1747379024923,
+      "sourceSize": 2338,
+      "exportedPath": "06-operatoren.html",
+      "dependencies": []
+    },
+    "07 Kontrollstrukturen.md": {
+      "modifiedTime": 1747379024923,
+      "sourceSize": 3421,
+      "exportedPath": "07-kontrollstrukturen.html",
+      "dependencies": []
+    },
+    "08 Funktionen.md": {
+      "modifiedTime": 1747379024923,
+      "sourceSize": 6196,
+      "exportedPath": "08-funktionen.html",
+      "dependencies": []
+    },
+    "09 Grundlagen der Objektorientierung.md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 4130,
+      "exportedPath": "09-grundlagen-der-objektorientierung.html",
+      "dependencies": []
+    },
+    "10 Fortgeschrittene Objektorientierung.md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 9948,
+      "exportedPath": "10-fortgeschrittene-objektorientierung.html",
+      "dependencies": []
+    },
+    "11 Fortgeschrittene Funktionstechniken.md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 6393,
+      "exportedPath": "11-fortgeschrittene-funktionstechniken.html",
+      "dependencies": []
+    },
+    "12 Typannotationen.md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 4794,
+      "exportedPath": "12-typannotationen.html",
+      "dependencies": []
+    },
+    "13 Fehlerbehandlung.md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 3061,
+      "exportedPath": "13-fehlerbehandlung.html",
+      "dependencies": []
+    },
+    "14 Speicherverhalten, Referenzen und Mutability.md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 11878,
+      "exportedPath": "14-speicherverhalten,-referenzen-und-mutability.html",
+      "dependencies": []
+    },
+    "15 Multithreading und -processing.md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 7129,
+      "exportedPath": "15-multithreading-und-processing.html",
+      "dependencies": []
+    },
+    "16 Leistungsoptimierung.md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 4561,
+      "exportedPath": "16-leistungsoptimierung.html",
+      "dependencies": []
+    },
+    "17 Debugging.md": {
+      "modifiedTime": 1747379024923,
+      "sourceSize": 5950,
+      "exportedPath": "17-debugging.html",
+      "dependencies": []
+    },
+    "18 Profiling und Timing.md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 7940,
+      "exportedPath": "18-profiling-und-timing.html",
+      "dependencies": []
+    },
+    "19 Pakete und HTML-Dokumentation.md": {
+      "modifiedTime": 1747379024923,
+      "sourceSize": 2446,
+      "exportedPath": "19-pakete-und-html-dokumentation.html",
+      "dependencies": []
+    },
+    "20 Disassembler, Syntax Tree und Flow Graph.md": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 4168,
+      "exportedPath": "20-disassembler,-syntax-tree-und-flow-graph.html",
+      "dependencies": []
+    },
+    "index.md": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 1900,
+      "exportedPath": "index.html",
+      "dependencies": []
+    },
+    "lib/fonts/94f2f163d4b698242fef.otf": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 66800,
+      "exportedPath": "lib/fonts/94f2f163d4b698242fef.otf",
+      "dependencies": []
+    },
+    "lib/fonts/72505e6a122c6acd5471.woff2": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 104232,
+      "exportedPath": "lib/fonts/72505e6a122c6acd5471.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/2d5198822ab091ce4305.woff2": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 104332,
+      "exportedPath": "lib/fonts/2d5198822ab091ce4305.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/c8ba52b05a9ef10f4758.woff2": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 98868,
+      "exportedPath": "lib/fonts/c8ba52b05a9ef10f4758.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/cb10ffd7684cd9836a05.woff2": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 106876,
+      "exportedPath": "lib/fonts/cb10ffd7684cd9836a05.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/b5f0f109bc88052d4000.woff2": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 105804,
+      "exportedPath": "lib/fonts/b5f0f109bc88052d4000.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/cbe0ae49c52c920fd563.woff2": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 106108,
+      "exportedPath": "lib/fonts/cbe0ae49c52c920fd563.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/535a6cf662596b3bd6a6.woff2": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 111708,
+      "exportedPath": "lib/fonts/535a6cf662596b3bd6a6.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/70cc7ff27245e82ad414.ttf": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 192740,
+      "exportedPath": "lib/fonts/70cc7ff27245e82ad414.ttf",
+      "dependencies": []
+    },
+    "lib/fonts/454577c22304619db035.ttf": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 161376,
+      "exportedPath": "lib/fonts/454577c22304619db035.ttf",
+      "dependencies": []
+    },
+    "lib/fonts/52ac8f3034507f1d9e53.ttf": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 191568,
+      "exportedPath": "lib/fonts/52ac8f3034507f1d9e53.ttf",
+      "dependencies": []
+    },
+    "lib/fonts/05b618077343fbbd92b7.ttf": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 155288,
+      "exportedPath": "lib/fonts/05b618077343fbbd92b7.ttf",
+      "dependencies": []
+    },
+    "lib/fonts/4bb6ac751d1c5478ff3a.woff2": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 7876,
+      "exportedPath": "lib/fonts/4bb6ac751d1c5478ff3a.woff2",
+      "dependencies": []
+    },
+    "lib/media/6155340132a851f6089e.svg": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 315,
+      "exportedPath": "lib/media/6155340132a851f6089e.svg",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_zero.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 1368,
+      "exportedPath": "lib/fonts/mathjax_zero.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_main-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 34160,
+      "exportedPath": "lib/fonts/mathjax_main-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_main-bold.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 34464,
+      "exportedPath": "lib/fonts/mathjax_main-bold.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_math-italic.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 19360,
+      "exportedPath": "lib/fonts/mathjax_math-italic.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_main-italic.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 20832,
+      "exportedPath": "lib/fonts/mathjax_main-italic.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_math-bolditalic.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 19776,
+      "exportedPath": "lib/fonts/mathjax_math-bolditalic.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_size1-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 5792,
+      "exportedPath": "lib/fonts/mathjax_size1-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_size2-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 5464,
+      "exportedPath": "lib/fonts/mathjax_size2-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_size3-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 3244,
+      "exportedPath": "lib/fonts/mathjax_size3-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_size4-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 5148,
+      "exportedPath": "lib/fonts/mathjax_size4-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_ams-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 40808,
+      "exportedPath": "lib/fonts/mathjax_ams-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_calligraphic-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 9600,
+      "exportedPath": "lib/fonts/mathjax_calligraphic-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_calligraphic-bold.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 9908,
+      "exportedPath": "lib/fonts/mathjax_calligraphic-bold.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_fraktur-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 21480,
+      "exportedPath": "lib/fonts/mathjax_fraktur-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_fraktur-bold.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 22340,
+      "exportedPath": "lib/fonts/mathjax_fraktur-bold.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_sansserif-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 12660,
+      "exportedPath": "lib/fonts/mathjax_sansserif-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_sansserif-bold.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 15944,
+      "exportedPath": "lib/fonts/mathjax_sansserif-bold.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_sansserif-italic.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 14628,
+      "exportedPath": "lib/fonts/mathjax_sansserif-italic.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_script-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 11852,
+      "exportedPath": "lib/fonts/mathjax_script-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_typewriter-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 17604,
+      "exportedPath": "lib/fonts/mathjax_typewriter-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_vector-regular.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 1136,
+      "exportedPath": "lib/fonts/mathjax_vector-regular.woff",
+      "dependencies": []
+    },
+    "lib/fonts/mathjax_vector-bold.woff": {
+      "modifiedTime": 1747379101976,
+      "sourceSize": 1116,
+      "exportedPath": "lib/fonts/mathjax_vector-bold.woff",
+      "dependencies": []
+    },
+    "lib/html/file-tree.html": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 7805,
+      "exportedPath": "lib/html/file-tree.html",
+      "dependencies": []
+    },
+    "lib/scripts/webpage.js": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 47290,
+      "exportedPath": "lib/scripts/webpage.js",
+      "dependencies": []
+    },
+    "lib/scripts/minisearch.js": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 29422,
+      "exportedPath": "lib/scripts/minisearch.js",
+      "dependencies": []
+    },
+    "lib/media/favicon.png": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 1105,
+      "exportedPath": "lib/media/favicon.png",
+      "dependencies": []
+    },
+    "lib/styles/obsidian.css": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 138258,
+      "exportedPath": "lib/styles/obsidian.css",
+      "dependencies": []
+    },
+    "lib/styles/global-variable-styles.css": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 443,
+      "exportedPath": "lib/styles/global-variable-styles.css",
+      "dependencies": []
+    },
+    "lib/styles/main-styles.css": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 23130,
+      "exportedPath": "lib/styles/main-styles.css",
+      "dependencies": []
+    },
+    "lib/styles/snippets.css": {
+      "modifiedTime": 1748668999128,
+      "sourceSize": 49224,
+      "exportedPath": "lib/styles/snippets.css",
+      "dependencies": []
+    }
+  }
+}
