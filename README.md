@@ -5,7 +5,7 @@
 > 
 > [cgroening.github.io/Python-Referenz/](https://cgroening.github.io/Python-Referenz/)
 
-Diese deutschsprachige Referenz zu Python ist im Rahmen meiner eigenen Weiterbildung entstanden. Ich nutze sie als persönliches Nachschlagewerk, um zentrale Sprachkonzepte, Syntaxbesonderheiten und häufige Muster schnell auffrischen zu können.
+Diese deutschsprachige Referenz zu Python ist im Rahmen meiner eigenen Weiterbildung entstanden. Ich nutze sie als persönliches Nachschlagewerk, um zentrale Sprachkonzepte, Syntaxbesonderheiten und häufige Muster schnell wiederholen zu können.
 
 Die Referenz richtet sich an Programmierer, die bereits Erfahrung mit einer Sprache haben und sich zügig in eine weitere Sprache einarbeiten möchten, ohne bei Null anfangen zu müssen.
 
