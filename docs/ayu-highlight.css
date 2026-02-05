@@ -1,0 +1,139 @@
+/* Syntax Highlighting Theme - Based on Neovim Config */
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background: #13191d;
+  color: #d4d4d4;
+  padding: 0.5em;
+}
+
+/* Comments */
+.hljs-comment,
+.hljs-quote {
+  color: #67c1e5;
+  font-style: italic;
+}
+
+/* Keywords & Control Flow */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #b27cde;
+}
+
+/* Strings */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet {
+  /* color: #61C161; */
+  color: #72b072ff;
+}
+
+/* Numbers & Literals */
+.hljs-number,
+.hljs-literal {
+  color: #e5cb49;
+}
+
+/* Functions & Methods */
+.hljs-title,
+.hljs-section {
+  color: #78c2b3;
+}
+
+/* Types & Built-ins */
+.hljs-type,
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #d3d3d3;
+}
+
+/* Variables & Attributes */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attribute,
+.hljs-attr {
+  color: #d3d3d3;
+}
+
+/* Tags & Names (HTML/XML) */
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #ed94ff;
+}
+
+/* Operators */
+.hljs-operator {
+  color: #fe7057;
+}
+
+/* Macros & Preprocessor */
+.hljs-meta,
+.hljs-meta-keyword {
+  color: #fa7f38;
+}
+
+/* Parameters */
+.hljs-params {
+  color: #ed94ff;
+}
+
+/* Links & Regexp */
+.hljs-regexp,
+.hljs-link {
+  color: #56b6c2;
+}
+
+/* Special */
+.hljs-built_in {
+  color: #56b6c2;
+}
+
+/* Emphasis & Strong */
+.hljs-emphasis {
+  font-style: italic;
+  color: #b27cde;
+}
+
+.hljs-strong {
+  font-weight: bold;
+  color: #01e030;
+}
+
+/* Diff colors */
+.hljs-addition {
+  color: #587c0c;
+  background-color: #2a4a2a;
+}
+
+.hljs-deletion {
+  color: #94151b;
+  background-color: #4a1a1a;
+}
+
+/* Subst & Section (for various languages) */
+.hljs-subst {
+  color: #d4d4d4;
+}
+
+/* Doctag for documentation comments */
+.hljs-doctag {
+  color: #14b71c;
+}
+
+/* Class & Function Names */
+.hljs-class .hljs-title {
+  color: #78c2b3;
+}
+
+/* Attribute Selector */
+.hljs-selector-attr {
+  color: #ed94ff;
+}
+
+/* Pseudo-classes/elements */
+.hljs-selector-pseudo {
+  color: #b27cde;
+}
