@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Fortgeschrittene Funktionstechniken - Python-Referenz</title>
+        <title>Netzwerk und APIs - Python-Referenz</title>
 
 
         <!-- Custom HTML head -->
@@ -416,218 +416,691 @@
   --color-pink: #d53984;
 }
 </style>
-<p>Closures, Decorators und verwandte Konzepte sind Kernelemente der funktionalen Programmierung in Python. Sie ermöglichen sauberen, wiederverwendbaren und eleganten Code.</p>
-<h2 id="1----closures"><a class="header" href="#1----closures">1    Closures</a></h2>
-<p>Ein Closure ist eine verschachtelte Funktion, die auf Variablen der äußeren Funktion auch nach deren Ausführung noch zugreifen kann. Dadurch entsteht ein erhaltener Zustand ohne Verwendung von Klassen.</p>
-<h3 id="11----beispiel-einfaches-closure"><a class="header" href="#11----beispiel-einfaches-closure">1.1    Beispiel: Einfaches Closure</a></h3>
-<pre><code class="language-python">def greeting(name):
-    # innere Funktion greift auf 'name' zu
-    def say_hello():
-        print(f'Hallo {name}!')
-    return say_hello
-
-greet = greeting('Stefan')
-greet()  # Ausgabe: Hallo Stefan!
+<h1 id="netzwerk-und-apis"><a class="header" href="#netzwerk-und-apis">Netzwerk und APIs</a></h1>
+<p>HTTP-Requests sind das Rückgrat moderner Web-APIs. Dieses Kapitel behandelt synchrone Requests mit <code>requests</code> und asynchrone Requests mit <code>aiohttp</code> sowie Best Practices für API-Kommunikation.</p>
+<h2 id="1-die-requests-bibliothek"><a class="header" href="#1-die-requests-bibliothek">1 Die <code>requests</code>-Bibliothek</a></h2>
+<p><code>requests</code> ist die Standard-Bibliothek für HTTP-Requests in Python – einfach, elegant und mächtig.</p>
+<h3 id="11-installation"><a class="header" href="#11-installation">1.1 Installation</a></h3>
+<pre><code class="language-bash">pip install requests
 </code></pre>
-<h3 id="12----beispiel-closure-mit-zustand"><a class="header" href="#12----beispiel-closure-mit-zustand">1.2    Beispiel: Closure mit Zustand</a></h3>
-<pre><code class="language-python">def counter():
-    count = 0
-    def increment():
-        # Zugriff auf äußere Variable mit nonlocal
-        nonlocal count
-        count += 1
-        return count
-    return increment
+<h3 id="12-grundlegende-get-requests"><a class="header" href="#12-grundlegende-get-requests">1.2 Grundlegende GET-Requests</a></h3>
+<pre><code class="language-python">import requests
 
-c = counter()
-print(c())  # 1
-print(c())  # 2
+# Einfacher GET-Request
+response = requests.get('https://api.github.com')
+
+# Response-Attribute
+print(response.status_code)      # 200
+print(response.text)              # Response-Body als String
+print(response.content)           # Response-Body als Bytes
+print(response.json())            # JSON automatisch parsen
+print(response.headers)           # Response-Headers
+print(response.url)               # Finale URL (nach Redirects)
+print(response.encoding)          # Encoding (z.B. 'utf-8')
 </code></pre>
-<h2 id="2----lambda-funktionen"><a class="header" href="#2----lambda-funktionen">2    Lambda-Funktionen</a></h2>
-<p>Lambda-Funktionen sind anonyme Funktionen, meist in einer Zeile geschrieben. Sie sind besonders praktisch in Kombination mit <a href="11%20Fortgeschrittene%20Funktionstechniken.html#4-map,-filter,-reduce">map, filter</a> und anderen <a href="11%20Fortgeschrittene%20Funktionstechniken.html#3-higher-order-functions">höherwertigen Funktionen</a>.</p>
-<p><strong>Syntax:</strong></p>
-<pre><code class="language-python">lambda arguments: expression
+<h3 id="13-status-code-prüfen"><a class="header" href="#13-status-code-prüfen">1.3 Status-Code prüfen</a></h3>
+<pre><code class="language-python">response = requests.get('https://api.github.com/user')
+
+# Manuell prüfen
+if response.status_code == 200:
+    print('Success!')
+elif response.status_code == 404:
+    print('Not Found')
+
+# Automatisch Exception werfen bei Fehler (empfohlen)
+response.raise_for_status()  # Wirft HTTPError bei 4xx/5xx
+
+# Mit try-except
+try:
+    response = requests.get('https://api.example.com/data')
+    response.raise_for_status()
+    data = response.json()
+except requests.exceptions.HTTPError as e:
+    print(f'HTTP Error: {e}')
+except requests.exceptions.RequestException as e:
+    print(f'Request failed: {e}')
 </code></pre>
-<p><strong>Beispiel:</strong></p>
-<pre><code class="language-python">add = lambda x, y: x + y
-print(add(3, 5))  # 8
+<h2 id="2-http-methoden"><a class="header" href="#2-http-methoden">2 HTTP-Methoden</a></h2>
+<h3 id="21-get--daten-abrufen"><a class="header" href="#21-get--daten-abrufen">2.1 GET – Daten abrufen</a></h3>
+<pre><code class="language-python"># Mit Query-Parametern
+params = {'q': 'python', 'sort': 'stars'}
+response = requests.get('https://api.github.com/search/repositories', 
+                        params=params)
+# URL: https://api.github.com/search/repositories?q=python&amp;sort=stars
+
+print(response.json()['total_count'])
 </code></pre>
-<h2 id="3----higher-order-functions"><a class="header" href="#3----higher-order-functions">3    Higher-Order Functions</a></h2>
-<p>Eine Higher-Order Function ist eine Funktion, die andere Funktionen entgegennimmt oder zurückgibt.</p>
-<pre><code class="language-python">def apply_twice(func, value):
-    return func(func(value))
+<h3 id="22-post--daten-senden"><a class="header" href="#22-post--daten-senden">2.2 POST – Daten senden</a></h3>
+<pre><code class="language-python"># JSON-Daten senden
+data = {'title': 'foo', 'body': 'bar', 'userId': 1}
+response = requests.post('https://jsonplaceholder.typicode.com/posts', 
+                         json=data)
 
-print(apply_twice(lambda x: x + 1, 3))  # 5
+print(response.status_code)  # 201 Created
+print(response.json())
+
+# Formulardaten senden (application/x-www-form-urlencoded)
+form_data = {'username': 'john', 'password': 'secret'}
+response = requests.post('https://example.com/login', data=form_data)
 </code></pre>
-<h2 id="4----map-filter-reduce"><a class="header" href="#4----map-filter-reduce">4    <code>map</code>, <code>filter</code>, <code>reduce</code></a></h2>
-<ul>
-<li><code>map(func, iterable)</code>: Wendet <code>func</code> auf jedes Element an.</li>
-<li><code>filter(func, iterable)</code>: Filtert Elemente basierend auf Wahrheitswert von <code>func</code>.</li>
-<li><code>reduce(func, iterable, initial)</code>: Akkumuliert alle Elemente zu einem einzigen Wert.</li>
-</ul>
-<pre><code class="language-python">numbers = [1, 2, 3, 4, 5]
-
-# map: Transformation
-squared = list(map(lambda x: x**2, numbers))  # [1, 4, 9, 16, 25]
-
-# filter: Bedingung
-even = list(filter(lambda x: x % 2 == 0, numbers))  # [2, 4]
-
-# reduce: Akkumulation
-from functools import reduce
-summed = reduce(lambda acc, x: acc + x, numbers, 0)  # 15
+<h3 id="23-put--daten-aktualisieren"><a class="header" href="#23-put--daten-aktualisieren">2.3 PUT – Daten aktualisieren</a></h3>
+<pre><code class="language-python"># Gesamtes Objekt ersetzen
+data = {'title': 'Updated Title', 'body': 'Updated Body', 'userId': 1}
+response = requests.put('https://jsonplaceholder.typicode.com/posts/1', 
+                        json=data)
 </code></pre>
-<h2 id="5----partial-functions"><a class="header" href="#5----partial-functions">5    Partial Functions</a></h2>
-<p>Vorkonfigurierte Funktionen mit <code>functools.partial</code> erlauben das Vorbelegen von Argumenten einer Funktion. Das ist nützlich, wenn man spezialisierte Varianten einer Funktion benötigt.</p>
-<pre><code class="language-python">from functools import partial
-
-def power(base, exponent):
-    return base ** exponent
-
-square = partial(power, exponent=2)
-cube = partial(power, exponent=3)
-
-print(square(5))  # 25
-print(cube(2))    # 8
+<h3 id="24-patch--teilaktualisierung"><a class="header" href="#24-patch--teilaktualisierung">2.4 PATCH – Teilaktualisierung</a></h3>
+<pre><code class="language-python"># Nur einzelne Felder aktualisieren
+data = {'title': 'New Title'}
+response = requests.patch('https://jsonplaceholder.typicode.com/posts/1', 
+                          json=data)
 </code></pre>
-<ul>
-<li><code>partial</code> erstellt eine neue Funktion mit fixierten Parametern.</li>
-<li>Hilfreich z. B. beim Konfigurieren von Callbacks oder API-Funktionen.</li>
-</ul>
-<h2 id="6----function-factories-funktions-fabriken"><a class="header" href="#6----function-factories-funktions-fabriken">6    Function Factories (Funktions-Fabriken)</a></h2>
-<p>Funktionen, die andere Funktionen erzeugen – meist Closures. Ideal, wenn man eine Reihe verwandter Funktionen mit leicht unterschiedlichem Verhalten benötigt.</p>
-<pre><code class="language-python">def make_multiplier(factor):
-    def multiply(x):
-        return x * factor
-    return multiply
-
-double = make_multiplier(2)
-print(double(10))  # 20
+<h3 id="25-delete--ressource-löschen"><a class="header" href="#25-delete--ressource-löschen">2.5 DELETE – Ressource löschen</a></h3>
+<pre><code class="language-python">response = requests.delete('https://jsonplaceholder.typicode.com/posts/1')
+print(response.status_code)  # 200 oder 204 No Content
 </code></pre>
-<ul>
-<li><code>factor</code> bleibt in jeder zurückgegebenen Funktion erhalten.</li>
-<li>Praktisch bei mathematischen Operationen, Filtern, usw.</li>
-</ul>
-<h2 id="7----decorators"><a class="header" href="#7----decorators">7    Decorators</a></h2>
-<p>Ein Decorator erweitert das Verhalten einer Funktion, ohne ihren Code zu verändern. Er basiert auf Closures und Higher-Order Functions.</p>
-<h3 id="71----einfacher-decorator"><a class="header" href="#71----einfacher-decorator">7.1    Einfacher Decorator</a></h3>
-<pre><code class="language-python">def my_decorator(func):
-    def wrapper():
-        print('Before the function runs.')
-        func()
-        print('After the function runs.')
-    return wrapper
+<h2 id="3-headers-und-authentication"><a class="header" href="#3-headers-und-authentication">3 Headers und Authentication</a></h2>
+<h3 id="31-custom-headers"><a class="header" href="#31-custom-headers">3.1 Custom Headers</a></h3>
+<pre><code class="language-python">headers = {
+    'User-Agent': 'MyApp/1.0',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+}
 
-@my_decorator
-def say_hello():
-    print('Hello!')
-
-say_hello()
+response = requests.get('https://api.example.com/data', headers=headers)
 </code></pre>
-<ul>
-<li><code>@my_decorator</code> ersetzt <code>say_hello</code> durch <code>wrapper</code>.</li>
-<li>Ideal für Logging, Fehlerbehandlung, Zeitmessung etc.</li>
-</ul>
-<h3 id="72----decorators-mit-argumenten"><a class="header" href="#72----decorators-mit-argumenten">7.2    Decorators mit Argumenten</a></h3>
-<p>Decorator-Funktionen können Argumente übernehmen, wenn sie flexibel konfiguriert werden sollen. Dazu ist eine zusätzliche Verschachtelung notwendig.</p>
-<pre><code class="language-python">def logger(func):
-    def wrapper(*args, **kwargs):
-        print(f'Arguments: {args}, {kwargs}')
-        return func(*args, **kwargs)
-    return wrapper
+<h3 id="32-basic-authentication"><a class="header" href="#32-basic-authentication">3.2 Basic Authentication</a></h3>
+<pre><code class="language-python">from requests.auth import HTTPBasicAuth
 
-@logger
-def add(x, y):
-    return x + y
+# Variante 1: Mit auth-Parameter
+response = requests.get('https://api.example.com/user', 
+                        auth=('username', 'password'))
 
-add(3, 5)
+# Variante 2: Explizit mit HTTPBasicAuth
+auth = HTTPBasicAuth('username', 'password')
+response = requests.get('https://api.example.com/user', auth=auth)
 </code></pre>
-<ul>
-<li><code>*args</code> und <code>**kwargs</code> fangen alle Argumente ab.</li>
-<li>So bleiben Decorators universell einsetzbar.</li>
-</ul>
-<h3 id="73----decorators-mit-parametern"><a class="header" href="#73----decorators-mit-parametern">7.3    Decorators mit Parametern</a></h3>
-<pre><code class="language-python">def speaker(volume):
-    def decorator(func):
-        def wrapper():
-            print(f'[{volume.upper()}]')
-            func()
-        return wrapper
-    return decorator
+<h3 id="33-bearer-token-api-keys"><a class="header" href="#33-bearer-token-api-keys">3.3 Bearer Token (API Keys)</a></h3>
+<pre><code class="language-python"># Typisch für moderne APIs (OAuth, JWT)
+token = 'your_api_token_here'
+headers = {'Authorization': f'Bearer {token}'}
 
-@speaker('quiet')
-def whisper():
-    print('psst...')
+response = requests.get('https://api.github.com/user', headers=headers)
+</code></pre>
+<h3 id="34-api-key-in-query-parameter"><a class="header" href="#34-api-key-in-query-parameter">3.4 API Key in Query-Parameter</a></h3>
+<pre><code class="language-python"># Manche APIs nutzen Query-Parameter für Keys
+params = {'api_key': 'your_api_key'}
+response = requests.get('https://api.example.com/data', params=params)
+</code></pre>
+<h2 id="4-sessions--persistente-verbindungen"><a class="header" href="#4-sessions--persistente-verbindungen">4 Sessions – Persistente Verbindungen</a></h2>
+<p>Sessions ermöglichen wiederverwendbare Konfiguration und Connection-Pooling.</p>
+<h3 id="41-session-grundlagen"><a class="header" href="#41-session-grundlagen">4.1 Session-Grundlagen</a></h3>
+<pre><code class="language-python"># Ohne Session (neue Verbindung pro Request)
+response1 = requests.get('https://api.example.com/data')
+response2 = requests.get('https://api.example.com/data')
 
-whisper()
+# Mit Session (wiederverwendete Verbindung)
+with requests.Session() as session:
+    # Headers gelten für alle Requests in der Session
+    session.headers.update({'Authorization': 'Bearer token123'})
+    
+    response1 = session.get('https://api.example.com/data')
+    response2 = session.get('https://api.example.com/users')
+    # Beide Requests nutzen denselben Header
 </code></pre>
-<ul>
-<li><code>speaker("quiet")</code> gibt den eigentlichen Decorator zurück.</li>
-<li>Mehr Flexibilität durch parametrisierte Dekoration.</li>
-</ul>
-<h3 id="74----eingebaute-decorators"><a class="header" href="#74----eingebaute-decorators">7.4    Eingebaute Decorators</a></h3>
-<ul>
-<li><code>@staticmethod</code>: Definiert eine Methode ohne <code>self</code></li>
-<li><code>@classmethod</code>: Zugriff auf Klasse statt Instanz</li>
-<li><code>@property</code>: Erlaubt methodenartigen Zugriff auf Attribute</li>
-</ul>
-<pre><code class="language-python">class Circle:
-    def __init__(self, radius):
-        self._radius = radius
+<h3 id="42-session-mit-cookies"><a class="header" href="#42-session-mit-cookies">4.2 Session mit Cookies</a></h3>
+<pre><code class="language-python">session = requests.Session()
 
-    @property
-    def area(self):
-        return 3.14 * self._radius ** 2
-</code></pre>
-<h3 id="75----mehrere-decorators-kombinieren"><a class="header" href="#75----mehrere-decorators-kombinieren">7.5    Mehrere Decorators kombinieren</a></h3>
-<pre><code class="language-python">@decorator_one
-@decorator_two
-def some_function():
-    pass
-</code></pre>
-<ul>
-<li><code>decorator_two</code> wird zuerst angewendet, dann <code>decorator_one</code>.</li>
-<li>Reihenfolge beachten, wenn Decorators interagieren.</li>
-</ul>
-<h3 id="76----memoization-mit-lru_cache"><a class="header" href="#76----memoization-mit-lru_cache">7.6    Memoization mit <code>lru_cache</code></a></h3>
-<pre><code class="language-python">from functools import lru_cache
+# Login (setzt Cookies)
+login_data = {'username': 'user', 'password': 'pass'}
+session.post('https://example.com/login', data=login_data)
 
-@lru_cache
-def fibonacci(n):
-    if n in (0, 1):
-        return n
-    return fibonacci(n - 1) + fibonacci(n - 2)
+# Weitere Requests nutzen automatisch die Cookies
+response = session.get('https://example.com/dashboard')
+
+# Cookies manuell setzen
+session.cookies.set('session_id', 'abc123', domain='example.com')
 </code></pre>
-<ul>
-<li><code>lru_cache</code> speichert bereits berechnete Ergebnisse im Cache.</li>
-<li>Ideal für rekursive oder teure Berechnungen.</li>
-</ul>
-<h2 id="8----zusammenfassung"><a class="header" href="#8----zusammenfassung">8    Zusammenfassung</a></h2>
+<h3 id="43-session-konfiguration"><a class="header" href="#43-session-konfiguration">4.3 Session-Konfiguration</a></h3>
+<pre><code class="language-python">session = requests.Session()
+
+# Default-Parameter für alle Requests
+session.headers.update({'User-Agent': 'MyApp/1.0'})
+session.params = {'api_key': 'key123'}  # Query-Parameter
+session.verify = True  # SSL-Zertifikate prüfen (Standard)
+session.timeout = 10   # Timeout in Sekunden
+
+# Alle Requests in Session nutzen diese Einstellungen
+response = session.get('https://api.example.com/data')
+</code></pre>
+<h2 id="5-timeouts-und-retries"><a class="header" href="#5-timeouts-und-retries">5 Timeouts und Retries</a></h2>
+<h3 id="51-timeouts"><a class="header" href="#51-timeouts">5.1 Timeouts</a></h3>
+<pre><code class="language-python"># Timeout in Sekunden
+try:
+    response = requests.get('https://api.example.com/slow', timeout=5)
+except requests.exceptions.Timeout:
+    print('Request timed out')
+
+# Verschiedene Timeouts für Connect und Read
+response = requests.get('https://api.example.com/data', 
+                        timeout=(3.05, 10))  # (connect, read)
+
+# Kein Timeout (nicht empfohlen!)
+response = requests.get('https://api.example.com/data', timeout=None)
+</code></pre>
+<h3 id="52-automatische-retries"><a class="header" href="#52-automatische-retries">5.2 Automatische Retries</a></h3>
+<pre><code class="language-python">from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+# Retry-Strategie konfigurieren
+retry_strategy = Retry(
+    total=3,                          # Maximale Anzahl Retries
+    backoff_factor=1,                 # Wartezeit: 1s, 2s, 4s, ...
+    status_forcelist=[429, 500, 502, 503, 504],  # Bei diesen Status-Codes
+    allowed_methods=["GET", "POST"]   # Nur für diese Methoden
+)
+
+adapter = HTTPAdapter(max_retries=retry_strategy)
+
+session = requests.Session()
+session.mount("http://", adapter)
+session.mount("https://", adapter)
+
+# Request mit automatischen Retries
+response = session.get('https://api.example.com/data')
+</code></pre>
+<h2 id="6-datei-uploads-und-downloads"><a class="header" href="#6-datei-uploads-und-downloads">6 Datei-Uploads und Downloads</a></h2>
+<h3 id="61-datei-hochladen"><a class="header" href="#61-datei-hochladen">6.1 Datei hochladen</a></h3>
+<pre><code class="language-python"># Einfacher Upload
+with open('document.pdf', 'rb') as f:
+    files = {'file': f}
+    response = requests.post('https://api.example.com/upload', files=files)
+
+# Mit Dateinamen und MIME-Type
+with open('image.jpg', 'rb') as f:
+    files = {
+        'file': ('custom_name.jpg', f, 'image/jpeg')
+    }
+    response = requests.post('https://api.example.com/upload', files=files)
+
+# Mehrere Dateien
+files = {
+    'file1': open('doc1.pdf', 'rb'),
+    'file2': open('doc2.pdf', 'rb')
+}
+response = requests.post('https://api.example.com/upload', files=files)
+</code></pre>
+<h3 id="62-datei-herunterladen"><a class="header" href="#62-datei-herunterladen">6.2 Datei herunterladen</a></h3>
+<pre><code class="language-python"># Kleine Dateien (komplette Response im RAM)
+response = requests.get('https://example.com/image.jpg')
+with open('downloaded_image.jpg', 'wb') as f:
+    f.write(response.content)
+
+# Große Dateien (streaming)
+response = requests.get('https://example.com/largefile.zip', stream=True)
+with open('largefile.zip', 'wb') as f:
+    for chunk in response.iter_content(chunk_size=8192):
+        f.write(chunk)
+
+# Mit Progress Bar (benötigt tqdm)
+from tqdm import tqdm
+
+response = requests.get('https://example.com/largefile.zip', stream=True)
+total_size = int(response.headers.get('content-length', 0))
+
+with open('largefile.zip', 'wb') as f, tqdm(
+    total=total_size, unit='B', unit_scale=True
+) as pbar:
+    for chunk in response.iter_content(chunk_size=8192):
+        f.write(chunk)
+        pbar.update(len(chunk))
+</code></pre>
+<h2 id="7-json-handling"><a class="header" href="#7-json-handling">7 JSON-Handling</a></h2>
+<h3 id="71-json-empfangen"><a class="header" href="#71-json-empfangen">7.1 JSON empfangen</a></h3>
+<pre><code class="language-python">response = requests.get('https://api.github.com/users/torvalds')
+
+# JSON automatisch parsen
+data = response.json()
+print(data['name'])        # Linus Torvalds
+print(data['location'])    # Portland
+
+# Fehlerbehandlung
+try:
+    data = response.json()
+except requests.exceptions.JSONDecodeError:
+    print('Response is not valid JSON')
+</code></pre>
+<h3 id="72-json-senden"><a class="header" href="#72-json-senden">7.2 JSON senden</a></h3>
+<pre><code class="language-python"># json-Parameter setzt automatisch Content-Type: application/json
+payload = {
+    'name': 'John Doe',
+    'email': 'john@example.com',
+    'age': 30
+}
+
+response = requests.post('https://api.example.com/users', json=payload)
+
+# Äquivalent zu:
+import json
+headers = {'Content-Type': 'application/json'}
+response = requests.post('https://api.example.com/users', 
+                         data=json.dumps(payload),
+                         headers=headers)
+</code></pre>
+<h2 id="8-error-handling"><a class="header" href="#8-error-handling">8 Error Handling</a></h2>
+<h3 id="81-exception-hierarchie"><a class="header" href="#81-exception-hierarchie">8.1 Exception-Hierarchie</a></h3>
+<pre><code class="language-python">from requests.exceptions import (
+    RequestException,      # Basis-Exception
+    ConnectionError,       # Verbindungsfehler
+    Timeout,              # Timeout
+    HTTPError,            # 4xx/5xx Status-Codes
+    TooManyRedirects,     # Zu viele Redirects
+    URLRequired,          # URL fehlt
+)
+
+def safe_request(url):
+    try:
+        response = requests.get(url, timeout=5)
+        response.raise_for_status()
+        return response.json()
+    
+    except Timeout:
+        print('Request timed out')
+    except ConnectionError:
+        print('Failed to connect')
+    except HTTPError as e:
+        print(f'HTTP Error: {e.response.status_code}')
+    except RequestException as e:
+        print(f'Request failed: {e}')
+    
+    return None
+</code></pre>
+<h3 id="82-status-code-handling"><a class="header" href="#82-status-code-handling">8.2 Status-Code Handling</a></h3>
+<pre><code class="language-python">response = requests.get('https://api.example.com/data')
+
+# Kategorien prüfen
+if response.ok:                    # 200-299
+    print('Success')
+elif 400 &lt;= response.status_code &lt; 500:
+    print('Client error')
+elif 500 &lt;= response.status_code &lt; 600:
+    print('Server error')
+
+# Spezifische Codes
+status_handlers = {
+    200: lambda: print('OK'),
+    201: lambda: print('Created'),
+    400: lambda: print('Bad Request'),
+    401: lambda: print('Unauthorized'),
+    404: lambda: print('Not Found'),
+    500: lambda: print('Server Error')
+}
+
+handler = status_handlers.get(response.status_code)
+if handler:
+    handler()
+</code></pre>
+<h2 id="9-asynchrone-requests-mit-aiohttp"><a class="header" href="#9-asynchrone-requests-mit-aiohttp">9 Asynchrone Requests mit <code>aiohttp</code></a></h2>
+<p>Für viele parallele Requests ist <code>aiohttp</code> deutlich schneller als <code>requests</code>.</p>
+<h3 id="91-installation"><a class="header" href="#91-installation">9.1 Installation</a></h3>
+<pre><code class="language-bash">pip install aiohttp
+</code></pre>
+<h3 id="92-einfacher-get-request"><a class="header" href="#92-einfacher-get-request">9.2 Einfacher GET-Request</a></h3>
+<pre><code class="language-python">import aiohttp
+import asyncio
+
+async def fetch_data(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            print(f'Status: {response.status}')
+            data = await response.json()
+            return data
+
+# Ausführen
+asyncio.run(fetch_data('https://api.github.com'))
+</code></pre>
+<h3 id="93-mehrere-parallele-requests"><a class="header" href="#93-mehrere-parallele-requests">9.3 Mehrere parallele Requests</a></h3>
+<pre><code class="language-python">import aiohttp
+import asyncio
+
+async def fetch_url(session, url):
+    async with session.get(url) as response:
+        return await response.json()
+
+async def fetch_all(urls):
+    async with aiohttp.ClientSession() as session:
+        tasks = [fetch_url(session, url) for url in urls]
+        results = await asyncio.gather(*tasks)
+        return results
+
+# Ausführen
+urls = [
+    'https://api.github.com/users/torvalds',
+    'https://api.github.com/users/gvanrossum',
+    'https://api.github.com/users/kennethreitz',
+]
+
+results = asyncio.run(fetch_all(urls))
+for result in results:
+    print(result['name'])
+</code></pre>
+<h3 id="94-post-mit-aiohttp"><a class="header" href="#94-post-mit-aiohttp">9.4 POST mit aiohttp</a></h3>
+<pre><code class="language-python">async def post_data(url, payload):
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, json=payload) as response:
+            return await response.json()
+
+payload = {'title': 'Test', 'body': 'Content'}
+result = asyncio.run(post_data('https://jsonplaceholder.typicode.com/posts', 
+                                payload))
+</code></pre>
+<h3 id="95-headers-und-authentication"><a class="header" href="#95-headers-und-authentication">9.5 Headers und Authentication</a></h3>
+<pre><code class="language-python">async def fetch_with_auth(url, token):
+    headers = {'Authorization': f'Bearer {token}'}
+    
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.get(url) as response:
+            return await response.json()
+
+# Timeout
+timeout = aiohttp.ClientTimeout(total=10)
+async with aiohttp.ClientSession(timeout=timeout) as session:
+    async with session.get(url) as response:
+        data = await response.json()
+</code></pre>
+<h3 id="96-session-wiederverwenden"><a class="header" href="#96-session-wiederverwenden">9.6 Session wiederverwenden</a></h3>
+<pre><code class="language-python">async def fetch_multiple(urls):
+    # Session nur einmal erstellen (effizienter)
+    async with aiohttp.ClientSession() as session:
+        tasks = []
+        for url in urls:
+            task = asyncio.create_task(fetch_url(session, url))
+            tasks.append(task)
+        
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        return results
+
+async def fetch_url(session, url):
+    try:
+        async with session.get(url) as response:
+            return await response.json()
+    except Exception as e:
+        return {'error': str(e)}
+</code></pre>
+<h3 id="97-rate-limiting-mit-semaphore"><a class="header" href="#97-rate-limiting-mit-semaphore">9.7 Rate Limiting mit Semaphore</a></h3>
+<pre><code class="language-python">import asyncio
+import aiohttp
+
+async def fetch_with_limit(session, url, semaphore):
+    async with semaphore:  # Maximale parallele Requests begrenzen
+        async with session.get(url) as response:
+            return await response.json()
+
+async def fetch_all_limited(urls, max_concurrent=5):
+    semaphore = asyncio.Semaphore(max_concurrent)
+    
+    async with aiohttp.ClientSession() as session:
+        tasks = [fetch_with_limit(session, url, semaphore) for url in urls]
+        results = await asyncio.gather(*tasks)
+        return results
+
+# Maximal 5 parallele Requests
+urls = [f'https://api.example.com/item/{i}' for i in range(100)]
+results = asyncio.run(fetch_all_limited(urls, max_concurrent=5))
+</code></pre>
+<h2 id="10-best-practices"><a class="header" href="#10-best-practices">10 Best Practices</a></h2>
+<h3 id="101-immer-timeouts-setzen"><a class="header" href="#101-immer-timeouts-setzen">10.1 Immer Timeouts setzen</a></h3>
+<pre><code class="language-python"># ❌ Schlecht: Kein Timeout (kann ewig hängen)
+response = requests.get('https://api.example.com/data')
+
+# ✅ Gut: Timeout definieren
+response = requests.get('https://api.example.com/data', timeout=10)
+
+# ✅ Besser: Verschiedene Timeouts
+response = requests.get('https://api.example.com/data', 
+                        timeout=(3, 10))  # connect, read
+</code></pre>
+<h3 id="102-sessions-für-mehrere-requests"><a class="header" href="#102-sessions-für-mehrere-requests">10.2 Sessions für mehrere Requests</a></h3>
+<pre><code class="language-python"># ❌ Schlecht: Neue Verbindung pro Request
+for i in range(100):
+    response = requests.get(f'https://api.example.com/item/{i}')
+
+# ✅ Gut: Session wiederverwendet Verbindung
+with requests.Session() as session:
+    for i in range(100):
+        response = session.get(f'https://api.example.com/item/{i}')
+</code></pre>
+<h3 id="103-error-handling-nicht-vergessen"><a class="header" href="#103-error-handling-nicht-vergessen">10.3 Error Handling nicht vergessen</a></h3>
+<pre><code class="language-python"># ✅ Immer raise_for_status() verwenden
+try:
+    response = requests.get('https://api.example.com/data')
+    response.raise_for_status()  # Exception bei 4xx/5xx
+    data = response.json()
+except requests.exceptions.RequestException as e:
+    logger.error(f'API request failed: {e}')
+</code></pre>
+<h3 id="104-user-agent-setzen"><a class="header" href="#104-user-agent-setzen">10.4 User-Agent setzen</a></h3>
+<pre><code class="language-python"># Viele APIs blockieren Requests ohne User-Agent
+headers = {'User-Agent': 'MyApp/1.0 (contact@example.com)'}
+response = requests.get('https://api.example.com/data', headers=headers)
+</code></pre>
+<h3 id="105-secrets-nicht-im-code"><a class="header" href="#105-secrets-nicht-im-code">10.5 Secrets nicht im Code</a></h3>
+<pre><code class="language-python"># ❌ Schlecht: API-Key im Code
+API_KEY = 'sk_live_abc123xyz'
+
+# ✅ Gut: Aus Umgebungsvariablen
+import os
+API_KEY = os.getenv('API_KEY')
+
+# ✅ Oder aus .env-Datei (mit python-dotenv)
+from dotenv import load_dotenv
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
+</code></pre>
+<h3 id="106-rate-limiting-respektieren"><a class="header" href="#106-rate-limiting-respektieren">10.6 Rate Limiting respektieren</a></h3>
+<pre><code class="language-python">import time
+from datetime import datetime, timedelta
+
+class RateLimiter:
+    def __init__(self, max_calls, period):
+        self.max_calls = max_calls
+        self.period = period  # in seconds
+        self.calls = []
+    
+    def wait_if_needed(self):
+        now = datetime.now()
+        # Alte Calls entfernen
+        self.calls = [call for call in self.calls 
+                      if now - call &lt; timedelta(seconds=self.period)]
+        
+        if len(self.calls) &gt;= self.max_calls:
+            sleep_time = (self.calls[0] + timedelta(seconds=self.period) - now).total_seconds()
+            time.sleep(sleep_time)
+            self.calls = []
+        
+        self.calls.append(now)
+
+# Verwendung: Max 10 Requests pro Minute
+limiter = RateLimiter(max_calls=10, period=60)
+
+for i in range(100):
+    limiter.wait_if_needed()
+    response = requests.get(f'https://api.example.com/item/{i}')
+</code></pre>
+<h2 id="11-praxisbeispiele"><a class="header" href="#11-praxisbeispiele">11 Praxisbeispiele</a></h2>
+<h3 id="111-github-api-wrapper"><a class="header" href="#111-github-api-wrapper">11.1 GitHub API Wrapper</a></h3>
+<pre><code class="language-python">class GitHubAPI:
+    BASE_URL = 'https://api.github.com'
+    
+    def __init__(self, token=None):
+        self.session = requests.Session()
+        if token:
+            self.session.headers.update({
+                'Authorization': f'Bearer {token}',
+                'Accept': 'application/vnd.github.v3+json'
+            })
+        self.session.headers.update({'User-Agent': 'MyGitHubApp/1.0'})
+    
+    def get_user(self, username):
+        response = self.session.get(f'{self.BASE_URL}/users/{username}')
+        response.raise_for_status()
+        return response.json()
+    
+    def get_repos(self, username):
+        response = self.session.get(f'{self.BASE_URL}/users/{username}/repos')
+        response.raise_for_status()
+        return response.json()
+    
+    def close(self):
+        self.session.close()
+
+# Verwendung
+api = GitHubAPI(token='ghp_xxxxx')
+user = api.get_user('torvalds')
+repos = api.get_repos('torvalds')
+api.close()
+</code></pre>
+<h3 id="112-rest-api-mit-pagination"><a class="header" href="#112-rest-api-mit-pagination">11.2 REST API mit Pagination</a></h3>
+<pre><code class="language-python">def fetch_all_pages(base_url, params=None):
+    """Holt alle Seiten einer paginierten API"""
+    all_data = []
+    page = 1
+    
+    with requests.Session() as session:
+        while True:
+            params_with_page = {**(params or {}), 'page': page}
+            response = session.get(base_url, params=params_with_page)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            if not data:  # Keine weiteren Daten
+                break
+            
+            all_data.extend(data)
+            page += 1
+    
+    return all_data
+
+# Verwendung
+all_users = fetch_all_pages('https://api.example.com/users')
+</code></pre>
+<h3 id="113-async-batch-processing"><a class="header" href="#113-async-batch-processing">11.3 Async Batch Processing</a></h3>
+<pre><code class="language-python">import aiohttp
+import asyncio
+from typing import List, Dict, Any
+
+async def process_batch(items: List[str], 
+                       batch_size: int = 10) -&gt; List[Dict[Any, Any]]:
+    """Verarbeitet Items in Batches asynchron"""
+    results = []
+    
+    async with aiohttp.ClientSession() as session:
+        for i in range(0, len(items), batch_size):
+            batch = items[i:i + batch_size]
+            tasks = [fetch_item(session, item) for item in batch]
+            batch_results = await asyncio.gather(*tasks, return_exceptions=True)
+            results.extend(batch_results)
+    
+    return results
+
+async def fetch_item(session, item_id):
+    url = f'https://api.example.com/items/{item_id}'
+    try:
+        async with session.get(url, timeout=5) as response:
+            return await response.json()
+    except Exception as e:
+        return {'error': str(e), 'item_id': item_id}
+
+# Verwendung
+item_ids = list(range(1, 101))
+results = asyncio.run(process_batch(item_ids, batch_size=10))
+</code></pre>
+<h3 id="114-retry-mit-exponential-backoff"><a class="header" href="#114-retry-mit-exponential-backoff">11.4 Retry mit exponential backoff</a></h3>
+<pre><code class="language-python">import time
+import random
+
+def retry_with_backoff(func, max_retries=3, base_delay=1):
+    """Führt Funktion mit exponential backoff retry aus"""
+    for attempt in range(max_retries):
+        try:
+            return func()
+        except requests.exceptions.RequestException as e:
+            if attempt == max_retries - 1:  # Letzter Versuch
+                raise
+            
+            # Exponential backoff mit Jitter
+            delay = base_delay * (2 ** attempt) + random.uniform(0, 1)
+            print(f'Retry {attempt + 1}/{max_retries} after {delay:.2f}s')
+            time.sleep(delay)
+
+# Verwendung
+def make_request():
+    response = requests.get('https://api.example.com/data', timeout=5)
+    response.raise_for_status()
+    return response.json()
+
+data = retry_with_backoff(make_request, max_retries=3)
+</code></pre>
+<h2 id="12-vergleich-requests-vs-aiohttp"><a class="header" href="#12-vergleich-requests-vs-aiohttp">12 Vergleich: requests vs. aiohttp</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Konzept</th><th>Nutzen</th></tr>
+<tr><th>Kriterium</th><th><code>requests</code></th><th><code>aiohttp</code></th></tr>
 </thead>
 <tbody>
-<tr><td>Closures</td><td>Zustand bewahren, Daten kapseln</td></tr>
-<tr><td>Lambda</td><td>Kürzere anonyme Funktionen</td></tr>
-<tr><td>Higher-Order Funcs</td><td>Flexible Funktionskomposition</td></tr>
-<tr><td>map/filter/reduce</td><td>Funktionale Verarbeitung von Listen</td></tr>
-<tr><td>Partial Functions</td><td>Vorbelegte Funktionen</td></tr>
-<tr><td>Decorators</td><td>Funktion erweitern ohne Quellcode zu ändern</td></tr>
+<tr><td>Synchron/Async</td><td>Synchron (blocking)</td><td>Asynchron (non-blocking)</td></tr>
+<tr><td>Performance (single)</td><td>✅ Ausreichend</td><td>⚠️ Etwas Overhead</td></tr>
+<tr><td>Performance (parallel)</td><td>❌ Langsam (sequenziell)</td><td>✅ Sehr schnell</td></tr>
+<tr><td>Einfachheit</td><td>✅ Sehr einfach</td><td>⚠️ Async-Kenntnisse nötig</td></tr>
+<tr><td>Use Cases</td><td>Normale Scripts, CLI-Tools</td><td>Web Scraping, viele APIs</td></tr>
+<tr><td>HTTP/2 Support</td><td>❌</td><td>✅ (mit aioh2)</td></tr>
+<tr><td>Ecosystem</td><td>✅ Riesig</td><td>✅ Wachsend</td></tr>
 </tbody>
 </table>
 </div>
+<p><strong>Faustregel:</strong></p>
+<ul>
+<li><strong><code>requests</code></strong>: Für normale Scripts, wenige (&lt;10) Requests, Einfachheit</li>
+<li><strong><code>aiohttp</code></strong>: Für viele parallele Requests (&gt;50), Web Scraping, Performance-kritisch</li>
+</ul>
+<h2 id="13-zusammenfassung"><a class="header" href="#13-zusammenfassung">13 Zusammenfassung</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Thema</th><th>Verwendung</th></tr>
+</thead>
+<tbody>
+<tr><td><code>requests.get()</code></td><td>Daten von API abrufen</td></tr>
+<tr><td><code>requests.post()</code></td><td>Daten an API senden</td></tr>
+<tr><td><code>response.json()</code></td><td>JSON automatisch parsen</td></tr>
+<tr><td><code>response.raise_for_status()</code></td><td>Exception bei Fehler-Status werfen</td></tr>
+<tr><td><code>Session()</code></td><td>Verbindungen wiederverwenden</td></tr>
+<tr><td><code>timeout</code></td><td>Maximale Wartezeit definieren</td></tr>
+<tr><td><code>headers</code></td><td>Custom Headers, Authentication</td></tr>
+<tr><td><code>aiohttp</code></td><td>Asynchrone Requests für hohe Parallelität</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Kernprinzipien:</strong></p>
+<ul>
+<li>Immer Timeouts setzen</li>
+<li>Sessions für mehrere Requests nutzen</li>
+<li>Error Handling nicht vergessen (<code>raise_for_status()</code>)</li>
+<li>Rate Limits respektieren</li>
+<li>API-Keys aus Umgebungsvariablen laden</li>
+<li>Für viele parallele Requests <code>aiohttp</code> verwenden</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="10 Fortgeschrittene Objektorientierung.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="22 Entwicklungs-Tooling und Packaging.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="12 Typannotationen.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="24 Datenbanken.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -637,11 +1110,11 @@ def fibonacci(n):
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="10 Fortgeschrittene Objektorientierung.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="22 Entwicklungs-Tooling und Packaging.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="12 Typannotationen.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="24 Datenbanken.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

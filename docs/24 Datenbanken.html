@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Fortgeschrittene Funktionstechniken - Python-Referenz</title>
+        <title>Datenbanken - Python-Referenz</title>
 
 
         <!-- Custom HTML head -->
@@ -416,220 +416,775 @@
   --color-pink: #d53984;
 }
 </style>
-<p>Closures, Decorators und verwandte Konzepte sind Kernelemente der funktionalen Programmierung in Python. Sie ermöglichen sauberen, wiederverwendbaren und eleganten Code.</p>
-<h2 id="1----closures"><a class="header" href="#1----closures">1    Closures</a></h2>
-<p>Ein Closure ist eine verschachtelte Funktion, die auf Variablen der äußeren Funktion auch nach deren Ausführung noch zugreifen kann. Dadurch entsteht ein erhaltener Zustand ohne Verwendung von Klassen.</p>
-<h3 id="11----beispiel-einfaches-closure"><a class="header" href="#11----beispiel-einfaches-closure">1.1    Beispiel: Einfaches Closure</a></h3>
-<pre><code class="language-python">def greeting(name):
-    # innere Funktion greift auf 'name' zu
-    def say_hello():
-        print(f'Hallo {name}!')
-    return say_hello
+<p>Datenbanken sind zentral für die meisten Anwendungen. Dieses Kapitel behandelt SQLite für einfache Datenbankoperationen und SQLAlchemy als mächtiges ORM (Object-Relational Mapping) für komplexere Szenarien.</p>
+<h2 id="1-sqlite--eingebaute-datenbank"><a class="header" href="#1-sqlite--eingebaute-datenbank">1 SQLite – Eingebaute Datenbank</a></h2>
+<p>SQLite ist eine leichtgewichtige, dateibasierte Datenbank, die Teil der Python-Standardbibliothek ist.</p>
+<h3 id="11-verbindung-herstellen"><a class="header" href="#11-verbindung-herstellen">1.1 Verbindung herstellen</a></h3>
+<pre><code class="language-python">import sqlite3
 
-greet = greeting('Stefan')
-greet()  # Ausgabe: Hallo Stefan!
-</code></pre>
-<h3 id="12----beispiel-closure-mit-zustand"><a class="header" href="#12----beispiel-closure-mit-zustand">1.2    Beispiel: Closure mit Zustand</a></h3>
-<pre><code class="language-python">def counter():
-    count = 0
-    def increment():
-        # Zugriff auf äußere Variable mit nonlocal
-        nonlocal count
-        count += 1
-        return count
-    return increment
+# Datenbank erstellen/öffnen (Datei wird automatisch erstellt)
+conn = sqlite3.connect('mydatabase.db')
 
-c = counter()
-print(c())  # 1
-print(c())  # 2
-</code></pre>
-<h2 id="2----lambda-funktionen"><a class="header" href="#2----lambda-funktionen">2    Lambda-Funktionen</a></h2>
-<p>Lambda-Funktionen sind anonyme Funktionen, meist in einer Zeile geschrieben. Sie sind besonders praktisch in Kombination mit <a href="11%20Fortgeschrittene%20Funktionstechniken.html#4-map,-filter,-reduce">map, filter</a> und anderen <a href="11%20Fortgeschrittene%20Funktionstechniken.html#3-higher-order-functions">höherwertigen Funktionen</a>.</p>
-<p><strong>Syntax:</strong></p>
-<pre><code class="language-python">lambda arguments: expression
-</code></pre>
-<p><strong>Beispiel:</strong></p>
-<pre><code class="language-python">add = lambda x, y: x + y
-print(add(3, 5))  # 8
-</code></pre>
-<h2 id="3----higher-order-functions"><a class="header" href="#3----higher-order-functions">3    Higher-Order Functions</a></h2>
-<p>Eine Higher-Order Function ist eine Funktion, die andere Funktionen entgegennimmt oder zurückgibt.</p>
-<pre><code class="language-python">def apply_twice(func, value):
-    return func(func(value))
+# In-Memory-Datenbank (nur im RAM, für Tests)
+conn = sqlite3.connect(':memory:')
 
-print(apply_twice(lambda x: x + 1, 3))  # 5
+# Cursor erstellen (führt SQL-Befehle aus)
+cursor = conn.cursor()
+
+# Verbindung schließen
+conn.close()
 </code></pre>
-<h2 id="4----map-filter-reduce"><a class="header" href="#4----map-filter-reduce">4    <code>map</code>, <code>filter</code>, <code>reduce</code></a></h2>
+<h3 id="12-mit-context-manager-empfohlen"><a class="header" href="#12-mit-context-manager-empfohlen">1.2 Mit Context Manager (empfohlen)</a></h3>
+<pre><code class="language-python"># Automatisches Commit und Close
+with sqlite3.connect('mydatabase.db') as conn:
+    cursor = conn.cursor()
+    # Datenbankoperationen
+    cursor.execute('SELECT * FROM users')
+# conn.close() wird automatisch aufgerufen
+</code></pre>
+<h3 id="13-tabelle-erstellen"><a class="header" href="#13-tabelle-erstellen">1.3 Tabelle erstellen</a></h3>
+<pre><code class="language-python">import sqlite3
+
+conn = sqlite3.connect('mydatabase.db')
+cursor = conn.cursor()
+
+# Tabelle erstellen
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        age INTEGER,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+''')
+
+conn.commit()
+conn.close()
+</code></pre>
+<h3 id="14-daten-einfügen"><a class="header" href="#14-daten-einfügen">1.4 Daten einfügen</a></h3>
+<pre><code class="language-python"># Einzelner Datensatz
+cursor.execute(
+    'INSERT INTO users (name, email, age) VALUES (?, ?, ?)',
+    ('Alice', 'alice@example.com', 30)
+)
+
+# Mehrere Datensätze
+users_data = [
+    ('Bob', 'bob@example.com', 25),
+    ('Charlie', 'charlie@example.com', 35),
+    ('Diana', 'diana@example.com', 28)
+]
+cursor.executemany(
+    'INSERT INTO users (name, email, age) VALUES (?, ?, ?)',
+    users_data
+)
+
+conn.commit()
+</code></pre>
+<p><strong>Wichtig:</strong> Verwende immer <code>?</code> Platzhalter (nie String-Formatierung) um SQL-Injection zu vermeiden!</p>
+<pre><code class="language-python"># ❌ NIEMALS SO (SQL-Injection-Risiko!)
+name = "Alice'; DROP TABLE users; --"
+cursor.execute(f"INSERT INTO users (name) VALUES ('{name}')")
+
+# ✅ Immer Platzhalter verwenden
+cursor.execute('INSERT INTO users (name) VALUES (?)', (name,))
+</code></pre>
+<h3 id="15-daten-abfragen"><a class="header" href="#15-daten-abfragen">1.5 Daten abfragen</a></h3>
+<pre><code class="language-python"># Alle Zeilen
+cursor.execute('SELECT * FROM users')
+all_users = cursor.fetchall()
+for user in all_users:
+    print(user)  # Tuple: (id, name, email, age, created_at)
+
+# Einzelne Zeile
+cursor.execute('SELECT * FROM users WHERE id = ?', (1,))
+user = cursor.fetchone()
+print(user)
+
+# Bestimmte Anzahl
+cursor.execute('SELECT * FROM users')
+first_five = cursor.fetchmany(5)
+
+# Mit WHERE-Bedingung
+cursor.execute('SELECT name, email FROM users WHERE age &gt; ?', (25,))
+results = cursor.fetchall()
+</code></pre>
+<h3 id="16-row-factory--zugriff-als-dictionary"><a class="header" href="#16-row-factory--zugriff-als-dictionary">1.6 Row Factory – Zugriff als Dictionary</a></h3>
+<pre><code class="language-python">import sqlite3
+
+conn = sqlite3.connect('mydatabase.db')
+# Row Factory aktivieren
+conn.row_factory = sqlite3.Row
+
+cursor = conn.cursor()
+cursor.execute('SELECT * FROM users WHERE id = ?', (1,))
+user = cursor.fetchone()
+
+# Zugriff per Spaltenname (wie Dictionary)
+print(user['name'])
+print(user['email'])
+
+# Oder als Dictionary konvertieren
+user_dict = dict(user)
+print(user_dict)
+</code></pre>
+<h3 id="17-daten-aktualisieren"><a class="header" href="#17-daten-aktualisieren">1.7 Daten aktualisieren</a></h3>
+<pre><code class="language-python"># UPDATE
+cursor.execute(
+    'UPDATE users SET age = ? WHERE name = ?',
+    (31, 'Alice')
+)
+
+# Anzahl betroffener Zeilen
+print(f'Updated {cursor.rowcount} rows')
+
+conn.commit()
+</code></pre>
+<h3 id="18-daten-löschen"><a class="header" href="#18-daten-löschen">1.8 Daten löschen</a></h3>
+<pre><code class="language-python"># DELETE
+cursor.execute('DELETE FROM users WHERE age &lt; ?', (25,))
+print(f'Deleted {cursor.rowcount} rows')
+
+conn.commit()
+
+# Alle Daten löschen
+cursor.execute('DELETE FROM users')
+conn.commit()
+
+# Tabelle löschen
+cursor.execute('DROP TABLE IF EXISTS users')
+conn.commit()
+</code></pre>
+<h3 id="19-transaktionen"><a class="header" href="#19-transaktionen">1.9 Transaktionen</a></h3>
+<pre><code class="language-python">conn = sqlite3.connect('mydatabase.db')
+cursor = conn.cursor()
+
+try:
+    # Mehrere Operationen als Transaktion
+    cursor.execute('INSERT INTO users (name, email) VALUES (?, ?)', 
+                   ('Eve', 'eve@example.com'))
+    cursor.execute('UPDATE users SET age = ? WHERE name = ?', 
+                   (40, 'Alice'))
+    
+    # Alles erfolgreich → Commit
+    conn.commit()
+except sqlite3.Error as e:
+    # Fehler → Rollback
+    conn.rollback()
+    print(f'Transaction failed: {e}')
+finally:
+    conn.close()
+</code></pre>
+<h2 id="2-sqlite-mit-context-manager-pattern"><a class="header" href="#2-sqlite-mit-context-manager-pattern">2 SQLite mit Context Manager Pattern</a></h2>
+<pre><code class="language-python">import sqlite3
+from contextlib import contextmanager
+
+@contextmanager
+def get_db_connection(db_path):
+    """Context Manager für Datenbankverbindungen"""
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    try:
+        yield conn
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        conn.close()
+
+# Verwendung
+with get_db_connection('mydatabase.db') as conn:
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM users')
+    users = cursor.fetchall()
+# Automatisches Commit/Rollback/Close
+</code></pre>
+<h2 id="3-sqlalchemy--orm-und-mehr"><a class="header" href="#3-sqlalchemy--orm-und-mehr">3 SQLAlchemy – ORM und mehr</a></h2>
+<p>SQLAlchemy ist das mächtigste Datenbank-Toolkit für Python mit zwei Hauptkomponenten:</p>
 <ul>
-<li><code>map(func, iterable)</code>: Wendet <code>func</code> auf jedes Element an.</li>
-<li><code>filter(func, iterable)</code>: Filtert Elemente basierend auf Wahrheitswert von <code>func</code>.</li>
-<li><code>reduce(func, iterable, initial)</code>: Akkumuliert alle Elemente zu einem einzigen Wert.</li>
+<li><strong>Core</strong>: Low-level SQL-Abstraction</li>
+<li><strong>ORM</strong>: High-level Object-Relational Mapping</li>
 </ul>
-<pre><code class="language-python">numbers = [1, 2, 3, 4, 5]
-
-# map: Transformation
-squared = list(map(lambda x: x**2, numbers))  # [1, 4, 9, 16, 25]
-
-# filter: Bedingung
-even = list(filter(lambda x: x % 2 == 0, numbers))  # [2, 4]
-
-# reduce: Akkumulation
-from functools import reduce
-summed = reduce(lambda acc, x: acc + x, numbers, 0)  # 15
+<h3 id="31-installation"><a class="header" href="#31-installation">3.1 Installation</a></h3>
+<pre><code class="language-bash">pip install sqlalchemy
 </code></pre>
-<h2 id="5----partial-functions"><a class="header" href="#5----partial-functions">5    Partial Functions</a></h2>
-<p>Vorkonfigurierte Funktionen mit <code>functools.partial</code> erlauben das Vorbelegen von Argumenten einer Funktion. Das ist nützlich, wenn man spezialisierte Varianten einer Funktion benötigt.</p>
-<pre><code class="language-python">from functools import partial
+<h3 id="32-engine-erstellen"><a class="header" href="#32-engine-erstellen">3.2 Engine erstellen</a></h3>
+<pre><code class="language-python">from sqlalchemy import create_engine
 
-def power(base, exponent):
-    return base ** exponent
+# SQLite
+engine = create_engine('sqlite:///mydatabase.db', echo=True)
 
-square = partial(power, exponent=2)
-cube = partial(power, exponent=3)
+# PostgreSQL
+engine = create_engine('postgresql://user:password@localhost/dbname')
 
-print(square(5))  # 25
-print(cube(2))    # 8
+# MySQL
+engine = create_engine('mysql+pymysql://user:password@localhost/dbname')
+
+# In-Memory SQLite
+engine = create_engine('sqlite:///:memory:')
 </code></pre>
-<ul>
-<li><code>partial</code> erstellt eine neue Funktion mit fixierten Parametern.</li>
-<li>Hilfreich z. B. beim Konfigurieren von Callbacks oder API-Funktionen.</li>
-</ul>
-<h2 id="6----function-factories-funktions-fabriken"><a class="header" href="#6----function-factories-funktions-fabriken">6    Function Factories (Funktions-Fabriken)</a></h2>
-<p>Funktionen, die andere Funktionen erzeugen – meist Closures. Ideal, wenn man eine Reihe verwandter Funktionen mit leicht unterschiedlichem Verhalten benötigt.</p>
-<pre><code class="language-python">def make_multiplier(factor):
-    def multiply(x):
-        return x * factor
-    return multiply
+<h3 id="33-deklarative-basis-und-models"><a class="header" href="#33-deklarative-basis-und-models">3.3 Deklarative Basis und Models</a></h3>
+<pre><code class="language-python">from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.orm import declarative_base
+from datetime import datetime
 
-double = make_multiplier(2)
-print(double(10))  # 20
+# Basis-Klasse für alle Models
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    email = Column(String(100), unique=True, nullable=False)
+    age = Column(Integer)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f"&lt;User(name='{self.name}', email='{self.email}')&gt;"
+
+# Tabellen erstellen
+Base.metadata.create_all(engine)
 </code></pre>
-<ul>
-<li><code>factor</code> bleibt in jeder zurückgegebenen Funktion erhalten.</li>
-<li>Praktisch bei mathematischen Operationen, Filtern, usw.</li>
-</ul>
-<h2 id="7----decorators"><a class="header" href="#7----decorators">7    Decorators</a></h2>
-<p>Ein Decorator erweitert das Verhalten einer Funktion, ohne ihren Code zu verändern. Er basiert auf Closures und Higher-Order Functions.</p>
-<h3 id="71----einfacher-decorator"><a class="header" href="#71----einfacher-decorator">7.1    Einfacher Decorator</a></h3>
-<pre><code class="language-python">def my_decorator(func):
-    def wrapper():
-        print('Before the function runs.')
-        func()
-        print('After the function runs.')
-    return wrapper
+<h3 id="34-session-erstellen"><a class="header" href="#34-session-erstellen">3.4 Session erstellen</a></h3>
+<pre><code class="language-python">from sqlalchemy.orm import sessionmaker
 
-@my_decorator
-def say_hello():
-    print('Hello!')
+# Session-Factory erstellen
+Session = sessionmaker(bind=engine)
 
-say_hello()
+# Session-Instanz
+session = Session()
+
+# Mit Context Manager (empfohlen)
+from contextlib import contextmanager
+
+@contextmanager
+def get_session():
+    session = Session()
+    try:
+        yield session
+        session.commit()
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+# Verwendung
+with get_session() as session:
+    user = User(name='Alice', email='alice@example.com', age=30)
+    session.add(user)
+# Automatisches Commit/Rollback/Close
 </code></pre>
-<ul>
-<li><code>@my_decorator</code> ersetzt <code>say_hello</code> durch <code>wrapper</code>.</li>
-<li>Ideal für Logging, Fehlerbehandlung, Zeitmessung etc.</li>
-</ul>
-<h3 id="72----decorators-mit-argumenten"><a class="header" href="#72----decorators-mit-argumenten">7.2    Decorators mit Argumenten</a></h3>
-<p>Decorator-Funktionen können Argumente übernehmen, wenn sie flexibel konfiguriert werden sollen. Dazu ist eine zusätzliche Verschachtelung notwendig.</p>
-<pre><code class="language-python">def logger(func):
-    def wrapper(*args, **kwargs):
-        print(f'Arguments: {args}, {kwargs}')
-        return func(*args, **kwargs)
-    return wrapper
+<h3 id="35-crud-operationen"><a class="header" href="#35-crud-operationen">3.5 CRUD-Operationen</a></h3>
+<h4 id="create-einfügen"><a class="header" href="#create-einfügen">Create (Einfügen)</a></h4>
+<pre><code class="language-python">from sqlalchemy.orm import Session
 
-@logger
-def add(x, y):
-    return x + y
+# Einzelner Datensatz
+with get_session() as session:
+    user = User(name='Bob', email='bob@example.com', age=25)
+    session.add(user)
+    # Commit erfolgt automatisch bei __exit__
 
-add(3, 5)
+# Mehrere Datensätze
+with get_session() as session:
+    users = [
+        User(name='Charlie', email='charlie@example.com', age=35),
+        User(name='Diana', email='diana@example.com', age=28)
+    ]
+    session.add_all(users)
 </code></pre>
-<ul>
-<li><code>*args</code> und <code>**kwargs</code> fangen alle Argumente ab.</li>
-<li>So bleiben Decorators universell einsetzbar.</li>
-</ul>
-<h3 id="73----decorators-mit-parametern"><a class="header" href="#73----decorators-mit-parametern">7.3    Decorators mit Parametern</a></h3>
-<pre><code class="language-python">def speaker(volume):
-    def decorator(func):
-        def wrapper():
-            print(f'[{volume.upper()}]')
-            func()
-        return wrapper
-    return decorator
-
-@speaker('quiet')
-def whisper():
-    print('psst...')
-
-whisper()
+<h4 id="read-abfragen"><a class="header" href="#read-abfragen">Read (Abfragen)</a></h4>
+<pre><code class="language-python">with get_session() as session:
+    # Alle Datensätze
+    all_users = session.query(User).all()
+    
+    # Erster Datensatz
+    first_user = session.query(User).first()
+    
+    # Nach Primary Key
+    user = session.query(User).get(1)  # Deprecated in SQLAlchemy 2.0
+    user = session.get(User, 1)  # Neue Syntax
+    
+    # Mit Filter
+    alice = session.query(User).filter_by(name='Alice').first()
+    
+    # Komplexere Filter
+    from sqlalchemy import and_, or_
+    
+    young_users = session.query(User).filter(User.age &lt; 30).all()
+    
+    results = session.query(User).filter(
+        and_(User.age &gt; 25, User.age &lt; 35)
+    ).all()
+    
+    # ORDER BY
+    users_sorted = session.query(User).order_by(User.age.desc()).all()
+    
+    # LIMIT
+    top_5 = session.query(User).limit(5).all()
+    
+    # COUNT
+    user_count = session.query(User).count()
 </code></pre>
-<ul>
-<li><code>speaker("quiet")</code> gibt den eigentlichen Decorator zurück.</li>
-<li>Mehr Flexibilität durch parametrisierte Dekoration.</li>
-</ul>
-<h3 id="74----eingebaute-decorators"><a class="header" href="#74----eingebaute-decorators">7.4    Eingebaute Decorators</a></h3>
-<ul>
-<li><code>@staticmethod</code>: Definiert eine Methode ohne <code>self</code></li>
-<li><code>@classmethod</code>: Zugriff auf Klasse statt Instanz</li>
-<li><code>@property</code>: Erlaubt methodenartigen Zugriff auf Attribute</li>
-</ul>
-<pre><code class="language-python">class Circle:
-    def __init__(self, radius):
-        self._radius = radius
+<h4 id="update-aktualisieren"><a class="header" href="#update-aktualisieren">Update (Aktualisieren)</a></h4>
+<pre><code class="language-python">with get_session() as session:
+    # Objekt laden und ändern
+    user = session.query(User).filter_by(name='Alice').first()
+    user.age = 31
+    # Änderung wird beim Commit gespeichert
 
-    @property
-    def area(self):
-        return 3.14 * self._radius ** 2
+# Bulk-Update
+with get_session() as session:
+    session.query(User).filter(User.age &lt; 25).update({'age': 25})
 </code></pre>
-<h3 id="75----mehrere-decorators-kombinieren"><a class="header" href="#75----mehrere-decorators-kombinieren">7.5    Mehrere Decorators kombinieren</a></h3>
-<pre><code class="language-python">@decorator_one
-@decorator_two
-def some_function():
+<h4 id="delete-löschen"><a class="header" href="#delete-löschen">Delete (Löschen)</a></h4>
+<pre><code class="language-python">with get_session() as session:
+    # Objekt laden und löschen
+    user = session.query(User).filter_by(name='Bob').first()
+    session.delete(user)
+
+# Bulk-Delete
+with get_session() as session:
+    session.query(User).filter(User.age &lt; 20).delete()
+</code></pre>
+<h2 id="4-relationships-beziehungen"><a class="header" href="#4-relationships-beziehungen">4 Relationships (Beziehungen)</a></h2>
+<h3 id="41-one-to-many-eins-zu-viele"><a class="header" href="#41-one-to-many-eins-zu-viele">4.1 One-to-Many (Eins-zu-Viele)</a></h3>
+<pre><code class="language-python">from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
+
+class User(Base):
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+    
+    # Relationship: Ein User hat viele Posts
+    posts = relationship('Post', back_populates='author', cascade='all, delete-orphan')
+
+class Post(Base):
+    __tablename__ = 'posts'
+    
+    id = Column(Integer, primary_key=True)
+    title = Column(String(200))
+    content = Column(String)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    
+    # Relationship: Ein Post gehört zu einem User
+    author = relationship('User', back_populates='posts')
+
+Base.metadata.create_all(engine)
+
+# Verwendung
+with get_session() as session:
+    user = User(name='Alice')
+    post1 = Post(title='First Post', content='Hello World')
+    post2 = Post(title='Second Post', content='Another one')
+    
+    user.posts.append(post1)
+    user.posts.append(post2)
+    
+    session.add(user)
+    # Posts werden automatisch mit gespeichert
+
+# Abfragen
+with get_session() as session:
+    user = session.query(User).filter_by(name='Alice').first()
+    print(f'{user.name} has {len(user.posts)} posts')
+    
+    for post in user.posts:
+        print(f'  - {post.title}')
+</code></pre>
+<h3 id="42-many-to-many-viele-zu-viele"><a class="header" href="#42-many-to-many-viele-zu-viele">4.2 Many-to-Many (Viele-zu-Viele)</a></h3>
+<pre><code class="language-python">from sqlalchemy import Table
+
+# Zwischentabelle (Association Table)
+user_role_association = Table(
+    'user_roles',
+    Base.metadata,
+    Column('user_id', Integer, ForeignKey('users.id')),
+    Column('role_id', Integer, ForeignKey('roles.id'))
+)
+
+class User(Base):
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+    
+    # Many-to-Many Relationship
+    roles = relationship('Role', secondary=user_role_association, back_populates='users')
+
+class Role(Base):
+    __tablename__ = 'roles'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50))
+    
+    users = relationship('User', secondary=user_role_association, back_populates='roles')
+
+Base.metadata.create_all(engine)
+
+# Verwendung
+with get_session() as session:
+    admin_role = Role(name='admin')
+    user_role = Role(name='user')
+    
+    alice = User(name='Alice')
+    alice.roles.extend([admin_role, user_role])
+    
+    bob = User(name='Bob')
+    bob.roles.append(user_role)
+    
+    session.add_all([alice, bob])
+
+# Abfragen
+with get_session() as session:
+    user = session.query(User).filter_by(name='Alice').first()
+    print(f'{user.name} has roles: {[r.name for r in user.roles]}')
+</code></pre>
+<h3 id="43-one-to-one-eins-zu-eins"><a class="header" href="#43-one-to-one-eins-zu-eins">4.3 One-to-One (Eins-zu-Eins)</a></h3>
+<pre><code class="language-python">class User(Base):
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+    
+    # One-to-One: uselist=False
+    profile = relationship('UserProfile', back_populates='user', uselist=False)
+
+class UserProfile(Base):
+    __tablename__ = 'user_profiles'
+    
+    id = Column(Integer, primary_key=True)
+    bio = Column(String)
+    avatar_url = Column(String)
+    user_id = Column(Integer, ForeignKey('users.id'), unique=True)
+    
+    user = relationship('User', back_populates='profile')
+
+# Verwendung
+with get_session() as session:
+    user = User(name='Alice')
+    profile = UserProfile(bio='Software Developer', avatar_url='/avatars/alice.jpg')
+    user.profile = profile
+    
+    session.add(user)
+</code></pre>
+<h2 id="5-erweiterte-queries"><a class="header" href="#5-erweiterte-queries">5 Erweiterte Queries</a></h2>
+<h3 id="51-joins"><a class="header" href="#51-joins">5.1 Joins</a></h3>
+<pre><code class="language-python">from sqlalchemy import select
+
+with get_session() as session:
+    # Implicit Join
+    results = session.query(User, Post).filter(User.id == Post.user_id).all()
+    
+    # Explicit Join
+    results = session.query(User).join(Post).filter(Post.title.like('%Python%')).all()
+    
+    # Left Outer Join
+    results = session.query(User).outerjoin(Post).all()
+</code></pre>
+<h3 id="52-aggregationen"><a class="header" href="#52-aggregationen">5.2 Aggregationen</a></h3>
+<pre><code class="language-python">from sqlalchemy import func
+
+with get_session() as session:
+    # COUNT
+    user_count = session.query(func.count(User.id)).scalar()
+    
+    # AVG, MIN, MAX, SUM
+    avg_age = session.query(func.avg(User.age)).scalar()
+    min_age = session.query(func.min(User.age)).scalar()
+    max_age = session.query(func.max(User.age)).scalar()
+    
+    # GROUP BY
+    post_counts = session.query(
+        User.name,
+        func.count(Post.id).label('post_count')
+    ).join(Post).group_by(User.name).all()
+    
+    for name, count in post_counts:
+        print(f'{name}: {count} posts')
+</code></pre>
+<h3 id="53-subqueries"><a class="header" href="#53-subqueries">5.3 Subqueries</a></h3>
+<pre><code class="language-python">from sqlalchemy import select
+
+with get_session() as session:
+    # Subquery: Users mit mehr als 5 Posts
+    subquery = (
+        session.query(Post.user_id, func.count(Post.id).label('post_count'))
+        .group_by(Post.user_id)
+        .having(func.count(Post.id) &gt; 5)
+        .subquery()
+    )
+    
+    active_users = session.query(User).join(
+        subquery, User.id == subquery.c.user_id
+    ).all()
+</code></pre>
+<h3 id="54-eager-loading-n1-problem-vermeiden"><a class="header" href="#54-eager-loading-n1-problem-vermeiden">5.4 Eager Loading (N+1 Problem vermeiden)</a></h3>
+<pre><code class="language-python">from sqlalchemy.orm import joinedload, selectinload
+
+with get_session() as session:
+    # ❌ N+1 Problem: Ein Query pro User + Posts
+    users = session.query(User).all()
+    for user in users:
+        print(user.posts)  # Neuer Query für jeden User!
+    
+    # ✅ Joined Load: Ein Query mit JOIN
+    users = session.query(User).options(joinedload(User.posts)).all()
+    for user in users:
+        print(user.posts)  # Keine zusätzlichen Queries
+    
+    # ✅ Select In Load: Zwei Queries (besser bei Many-to-Many)
+    users = session.query(User).options(selectinload(User.roles)).all()
+</code></pre>
+<h2 id="6-datenbank-migrationen-mit-alembic"><a class="header" href="#6-datenbank-migrationen-mit-alembic">6 Datenbank-Migrationen mit Alembic</a></h2>
+<p>Alembic ist das Standard-Migrationstool für SQLAlchemy.</p>
+<h3 id="61-installation-und-setup"><a class="header" href="#61-installation-und-setup">6.1 Installation und Setup</a></h3>
+<pre><code class="language-bash">pip install alembic
+
+# Alembic initialisieren
+alembic init alembic
+</code></pre>
+<h3 id="62-konfiguration"><a class="header" href="#62-konfiguration">6.2 Konfiguration</a></h3>
+<pre><code class="language-python"># alembic/env.py
+from myapp.models import Base  # Deine Models
+from myapp.database import engine  # Deine Engine
+
+target_metadata = Base.metadata
+
+# In alembic.ini: Connection String eintragen
+# sqlalchemy.url = sqlite:///mydatabase.db
+</code></pre>
+<h3 id="63-migration-erstellen"><a class="header" href="#63-migration-erstellen">6.3 Migration erstellen</a></h3>
+<pre><code class="language-bash"># Automatische Migration aus Model-Änderungen
+alembic revision --autogenerate -m "Add user table"
+
+# Manuelle Migration
+alembic revision -m "Manual migration"
+</code></pre>
+<h3 id="64-migration-ausführen"><a class="header" href="#64-migration-ausführen">6.4 Migration ausführen</a></h3>
+<pre><code class="language-bash"># Neueste Migration anwenden
+alembic upgrade head
+
+# Spezifische Version
+alembic upgrade +1  # Eine Version vorwärts
+alembic downgrade -1  # Eine Version zurück
+
+# Migration-History
+alembic history
+alembic current
+</code></pre>
+<h3 id="65-beispiel-migration"><a class="header" href="#65-beispiel-migration">6.5 Beispiel-Migration</a></h3>
+<pre><code class="language-python"># alembic/versions/xxx_add_user_table.py
+"""Add user table
+
+Revision ID: abc123
+"""
+from alembic import op
+import sqlalchemy as sa
+
+def upgrade():
+    op.create_table(
+        'users',
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('name', sa.String(100), nullable=False),
+        sa.Column('email', sa.String(100), unique=True)
+    )
+
+def downgrade():
+    op.drop_table('users')
+</code></pre>
+<h2 id="7-best-practices"><a class="header" href="#7-best-practices">7 Best Practices</a></h2>
+<h3 id="71-session-management"><a class="header" href="#71-session-management">7.1 Session-Management</a></h3>
+<pre><code class="language-python"># ✅ Immer Context Manager verwenden
+with get_session() as session:
+    # Datenbankoperationen
     pass
-</code></pre>
-<ul>
-<li><code>decorator_two</code> wird zuerst angewendet, dann <code>decorator_one</code>.</li>
-<li>Reihenfolge beachten, wenn Decorators interagieren.</li>
-</ul>
-<h3 id="76----memoization-mit-lru_cache"><a class="header" href="#76----memoization-mit-lru_cache">7.6    Memoization mit <code>lru_cache</code></a></h3>
-<pre><code class="language-python">from functools import lru_cache
 
-@lru_cache
-def fibonacci(n):
-    if n in (0, 1):
-        return n
-    return fibonacci(n - 1) + fibonacci(n - 2)
+# ❌ Session nicht manuell schließen vergessen
+session = Session()
+# Operationen
+session.close()  # Leicht zu vergessen!
 </code></pre>
-<ul>
-<li><code>lru_cache</code> speichert bereits berechnete Ergebnisse im Cache.</li>
-<li>Ideal für rekursive oder teure Berechnungen.</li>
-</ul>
-<h2 id="8----zusammenfassung"><a class="header" href="#8----zusammenfassung">8    Zusammenfassung</a></h2>
+<h3 id="72-connection-pooling"><a class="header" href="#72-connection-pooling">7.2 Connection Pooling</a></h3>
+<pre><code class="language-python"># Connection Pool konfigurieren
+from sqlalchemy.pool import QueuePool
+
+engine = create_engine(
+    'postgresql://user:password@localhost/db',
+    poolclass=QueuePool,
+    pool_size=10,          # Anzahl permanenter Verbindungen
+    max_overflow=20,       # Zusätzliche Verbindungen bei Bedarf
+    pool_timeout=30,       # Timeout in Sekunden
+    pool_recycle=3600      # Verbindungen nach 1h recyceln
+)
+</code></pre>
+<h3 id="73-bulk-operationen"><a class="header" href="#73-bulk-operationen">7.3 Bulk-Operationen</a></h3>
+<pre><code class="language-python"># ✅ Effizient: Bulk Insert
+with get_session() as session:
+    users = [User(name=f'User{i}', email=f'user{i}@example.com') 
+             for i in range(1000)]
+    session.bulk_save_objects(users)
+
+# ❌ Ineffizient: Einzeln einfügen
+with get_session() as session:
+    for i in range(1000):
+        user = User(name=f'User{i}', email=f'user{i}@example.com')
+        session.add(user)
+</code></pre>
+<h3 id="74-raw-sql-wenn-nötig"><a class="header" href="#74-raw-sql-wenn-nötig">7.4 Raw SQL wenn nötig</a></h3>
+<pre><code class="language-python"># Manchmal ist Raw SQL performanter
+with get_session() as session:
+    result = session.execute(
+        'SELECT name, COUNT(*) as count FROM users GROUP BY name'
+    )
+    for row in result:
+        print(row.name, row.count)
+</code></pre>
+<h3 id="75-environment-spezifische-konfiguration"><a class="header" href="#75-environment-spezifische-konfiguration">7.5 Environment-spezifische Konfiguration</a></h3>
+<pre><code class="language-python">import os
+from sqlalchemy import create_engine
+
+def get_engine():
+    env = os.getenv('ENVIRONMENT', 'development')
+    
+    if env == 'production':
+        return create_engine(
+            os.getenv('DATABASE_URL'),
+            echo=False,
+            pool_size=20
+        )
+    elif env == 'testing':
+        return create_engine('sqlite:///:memory:', echo=False)
+    else:  # development
+        return create_engine('sqlite:///dev.db', echo=True)
+
+engine = get_engine()
+</code></pre>
+<h2 id="8-praktisches-beispiel-blog-system"><a class="header" href="#8-praktisches-beispiel-blog-system">8 Praktisches Beispiel: Blog-System</a></h2>
+<pre><code class="language-python">from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy.orm import declarative_base, relationship, sessionmaker
+from datetime import datetime
+
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True)
+    username = Column(String(50), unique=True, nullable=False)
+    email = Column(String(100), unique=True, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    posts = relationship('Post', back_populates='author', cascade='all, delete-orphan')
+    comments = relationship('Comment', back_populates='author')
+
+class Post(Base):
+    __tablename__ = 'posts'
+    
+    id = Column(Integer, primary_key=True)
+    title = Column(String(200), nullable=False)
+    content = Column(Text, nullable=False)
+    published = Column(DateTime, default=datetime.utcnow)
+    author_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    
+    author = relationship('User', back_populates='posts')
+    comments = relationship('Comment', back_populates='post', cascade='all, delete-orphan')
+
+class Comment(Base):
+    __tablename__ = 'comments'
+    
+    id = Column(Integer, primary_key=True)
+    content = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    post_id = Column(Integer, ForeignKey('posts.id'), nullable=False)
+    author_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    
+    post = relationship('Post', back_populates='comments')
+    author = relationship('User', back_populates='comments')
+
+# Setup
+engine = create_engine('sqlite:///blog.db')
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+
+# Beispiel-Nutzung
+def create_sample_data():
+    with Session() as session:
+        # User erstellen
+        alice = User(username='alice', email='alice@example.com')
+        
+        # Post erstellen
+        post = Post(
+            title='My First Post',
+            content='This is my first blog post!',
+            author=alice
+        )
+        
+        # Kommentar erstellen
+        comment = Comment(
+            content='Great post!',
+            post=post,
+            author=alice
+        )
+        
+        session.add_all([alice, post, comment])
+        session.commit()
+
+def get_user_posts(username):
+    with Session() as session:
+        user = session.query(User).filter_by(username=username).first()
+        if user:
+            return [(post.title, len(post.comments)) for post in user.posts]
+        return []
+
+# Ausführen
+create_sample_data()
+posts = get_user_posts('alice')
+print(posts)
+</code></pre>
+<h2 id="9-zusammenfassung"><a class="header" href="#9-zusammenfassung">9 Zusammenfassung</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Konzept</th><th>Nutzen</th></tr>
+<tr><th>Tool/Konzept</th><th>Verwendung</th></tr>
 </thead>
 <tbody>
-<tr><td>Closures</td><td>Zustand bewahren, Daten kapseln</td></tr>
-<tr><td>Lambda</td><td>Kürzere anonyme Funktionen</td></tr>
-<tr><td>Higher-Order Funcs</td><td>Flexible Funktionskomposition</td></tr>
-<tr><td>map/filter/reduce</td><td>Funktionale Verarbeitung von Listen</td></tr>
-<tr><td>Partial Functions</td><td>Vorbelegte Funktionen</td></tr>
-<tr><td>Decorators</td><td>Funktion erweitern ohne Quellcode zu ändern</td></tr>
+<tr><td><code>sqlite3</code></td><td>Einfache, dateibasierte Datenbank</td></tr>
+<tr><td><code>cursor.execute()</code></td><td>SQL-Befehle ausführen</td></tr>
+<tr><td><code>conn.commit()</code></td><td>Änderungen speichern</td></tr>
+<tr><td>SQLAlchemy Engine</td><td>Datenbankverbindung</td></tr>
+<tr><td>SQLAlchemy ORM</td><td>Python-Objekte ↔ Datenbank</td></tr>
+<tr><td><code>Base</code></td><td>Basis-Klasse für Models</td></tr>
+<tr><td><code>relationship()</code></td><td>Beziehungen zwischen Tabellen</td></tr>
+<tr><td><code>session.query()</code></td><td>Daten abfragen</td></tr>
+<tr><td><code>joinedload()</code></td><td>Eager Loading (N+1 Problem vermeiden)</td></tr>
+<tr><td>Alembic</td><td>Datenbank-Migrationen</td></tr>
 </tbody>
 </table>
 </div>
+<p><strong>Kernprinzipien:</strong></p>
+<ul>
+<li>Verwende <code>?</code> Platzhalter bei SQLite (SQL-Injection vermeiden)</li>
+<li>Nutze Context Manager für Verbindungen und Sessions</li>
+<li>SQLAlchemy ORM für komplexe Anwendungen, Raw SQL für Performance-kritische Queries</li>
+<li>Eager Loading bei Relationships verwenden</li>
+<li>Migrationen mit Alembic für Schema-Änderungen</li>
+<li>Connection Pooling in Produktion konfigurieren</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="10 Fortgeschrittene Objektorientierung.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="23 Netzwerk&amp;20und APIs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="12 Typannotationen.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -637,13 +1192,10 @@ def fibonacci(n):
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="10 Fortgeschrittene Objektorientierung.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="23 Netzwerk&amp;20und APIs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="12 Typannotationen.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
-                    </a>
             </nav>
 
         </div>

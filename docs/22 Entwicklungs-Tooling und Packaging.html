@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Fortgeschrittene Funktionstechniken - Python-Referenz</title>
+        <title>Entwicklungs-Tooling und Packaging - Python-Referenz</title>
 
 
         <!-- Custom HTML head -->
@@ -416,218 +416,703 @@
   --color-pink: #d53984;
 }
 </style>
-<p>Closures, Decorators und verwandte Konzepte sind Kernelemente der funktionalen Programmierung in Python. Sie ermöglichen sauberen, wiederverwendbaren und eleganten Code.</p>
-<h2 id="1----closures"><a class="header" href="#1----closures">1    Closures</a></h2>
-<p>Ein Closure ist eine verschachtelte Funktion, die auf Variablen der äußeren Funktion auch nach deren Ausführung noch zugreifen kann. Dadurch entsteht ein erhaltener Zustand ohne Verwendung von Klassen.</p>
-<h3 id="11----beispiel-einfaches-closure"><a class="header" href="#11----beispiel-einfaches-closure">1.1    Beispiel: Einfaches Closure</a></h3>
-<pre><code class="language-python">def greeting(name):
-    # innere Funktion greift auf 'name' zu
-    def say_hello():
-        print(f'Hallo {name}!')
-    return say_hello
+<h1 id="entwicklungs-tooling--packaging"><a class="header" href="#entwicklungs-tooling--packaging">Entwicklungs-Tooling &amp; Packaging</a></h1>
+<p>Modernes Python-Dependency-Management und Packaging haben sich in den letzten Jahren stark weiterentwickelt. Dieses Kapitel behandelt Virtual Environments, Dependency-Management-Tools und moderne Packaging-Standards.</p>
+<h2 id="1----virtual-environments"><a class="header" href="#1----virtual-environments">1    Virtual Environments</a></h2>
+<p>Virtual Environments isolieren Python-Projekte voneinander und vermeiden Versionskonflikte zwischen Abhängigkeiten.</p>
+<h3 id="11----venv--standard-virtual-environment"><a class="header" href="#11----venv--standard-virtual-environment">1.1    <code>venv</code> – Standard Virtual Environment</a></h3>
+<pre><code class="language-bash"># Virtual Environment erstellen
+python -m venv myenv
 
-greet = greeting('Stefan')
-greet()  # Ausgabe: Hallo Stefan!
-</code></pre>
-<h3 id="12----beispiel-closure-mit-zustand"><a class="header" href="#12----beispiel-closure-mit-zustand">1.2    Beispiel: Closure mit Zustand</a></h3>
-<pre><code class="language-python">def counter():
-    count = 0
-    def increment():
-        # Zugriff auf äußere Variable mit nonlocal
-        nonlocal count
-        count += 1
-        return count
-    return increment
+# Aktivieren (Linux/macOS)
+source myenv/bin/activate
 
-c = counter()
-print(c())  # 1
-print(c())  # 2
-</code></pre>
-<h2 id="2----lambda-funktionen"><a class="header" href="#2----lambda-funktionen">2    Lambda-Funktionen</a></h2>
-<p>Lambda-Funktionen sind anonyme Funktionen, meist in einer Zeile geschrieben. Sie sind besonders praktisch in Kombination mit <a href="11%20Fortgeschrittene%20Funktionstechniken.html#4-map,-filter,-reduce">map, filter</a> und anderen <a href="11%20Fortgeschrittene%20Funktionstechniken.html#3-higher-order-functions">höherwertigen Funktionen</a>.</p>
-<p><strong>Syntax:</strong></p>
-<pre><code class="language-python">lambda arguments: expression
-</code></pre>
-<p><strong>Beispiel:</strong></p>
-<pre><code class="language-python">add = lambda x, y: x + y
-print(add(3, 5))  # 8
-</code></pre>
-<h2 id="3----higher-order-functions"><a class="header" href="#3----higher-order-functions">3    Higher-Order Functions</a></h2>
-<p>Eine Higher-Order Function ist eine Funktion, die andere Funktionen entgegennimmt oder zurückgibt.</p>
-<pre><code class="language-python">def apply_twice(func, value):
-    return func(func(value))
+# Aktivieren (Windows)
+myenv\Scripts\activate
 
-print(apply_twice(lambda x: x + 1, 3))  # 5
+# Deaktivieren
+deactivate
+
+# Löschen (einfach Ordner entfernen)
+rm -rf myenv
 </code></pre>
-<h2 id="4----map-filter-reduce"><a class="header" href="#4----map-filter-reduce">4    <code>map</code>, <code>filter</code>, <code>reduce</code></a></h2>
+<p><strong>Wichtige Punkte:</strong></p>
 <ul>
-<li><code>map(func, iterable)</code>: Wendet <code>func</code> auf jedes Element an.</li>
-<li><code>filter(func, iterable)</code>: Filtert Elemente basierend auf Wahrheitswert von <code>func</code>.</li>
-<li><code>reduce(func, iterable, initial)</code>: Akkumuliert alle Elemente zu einem einzigen Wert.</li>
+<li><code>venv</code> ist seit Python 3.3 Teil der Standardbibliothek</li>
+<li>Erstellt isolierte Python-Installation mit eigenem <code>site-packages</code></li>
+<li>Sollte <strong>nicht</strong> ins Git-Repository committed werden</li>
 </ul>
-<pre><code class="language-python">numbers = [1, 2, 3, 4, 5]
-
-# map: Transformation
-squared = list(map(lambda x: x**2, numbers))  # [1, 4, 9, 16, 25]
-
-# filter: Bedingung
-even = list(filter(lambda x: x % 2 == 0, numbers))  # [2, 4]
-
-# reduce: Akkumulation
-from functools import reduce
-summed = reduce(lambda acc, x: acc + x, numbers, 0)  # 15
+<h3 id="12----wo-liegt-was"><a class="header" href="#12----wo-liegt-was">1.2    Wo liegt was?</a></h3>
+<pre><code class="language-bash">myenv/
+├── bin/           # Aktivierungsscripts und Python-Interpreter (Linux/macOS)
+├── Scripts/       # Aktivierungsscripts und Python-Interpreter (Windows)
+├── include/       # C-Header-Dateien für Extensions
+├── lib/
+│   └── python3.x/
+│       └── site-packages/  # Installierte Pakete
+└── pyvenv.cfg     # Konfiguration des Virtual Environment
 </code></pre>
-<h2 id="5----partial-functions"><a class="header" href="#5----partial-functions">5    Partial Functions</a></h2>
-<p>Vorkonfigurierte Funktionen mit <code>functools.partial</code> erlauben das Vorbelegen von Argumenten einer Funktion. Das ist nützlich, wenn man spezialisierte Varianten einer Funktion benötigt.</p>
-<pre><code class="language-python">from functools import partial
+<h3 id="13----virtualenv--alternative-zu-venv"><a class="header" href="#13----virtualenv--alternative-zu-venv">1.3    <code>virtualenv</code> – Alternative zu venv</a></h3>
+<pre><code class="language-bash"># Installation
+pip install virtualenv
 
-def power(base, exponent):
-    return base ** exponent
+# Virtual Environment erstellen
+virtualenv myenv
 
-square = partial(power, exponent=2)
-cube = partial(power, exponent=3)
+# Mit spezifischer Python-Version
+virtualenv -p python3.11 myenv
 
-print(square(5))  # 25
-print(cube(2))    # 8
+# Vorteile gegenüber venv:
+# - Schnellere Erstellung
+# - Mehr Konfigurationsoptionen
+# - Kompatibel mit älteren Python-Versionen
 </code></pre>
+<h3 id="14----gitignore-für-virtual-environments"><a class="header" href="#14----gitignore-für-virtual-environments">1.4    <code>.gitignore</code> für Virtual Environments</a></h3>
+<pre><code class="language-gitignore"># Virtual Environments
+venv/
+env/
+ENV/
+myenv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+</code></pre>
+<h2 id="2----klassisches-dependency-management-mit-pip"><a class="header" href="#2----klassisches-dependency-management-mit-pip">2    Klassisches Dependency Management mit <code>pip</code></a></h2>
+<h3 id="21----pakete-installieren"><a class="header" href="#21----pakete-installieren">2.1    Pakete installieren</a></h3>
+<pre><code class="language-bash"># Einzelnes Paket
+pip install requests
+
+# Spezifische Version
+pip install requests==2.31.0
+
+# Mindestversion
+pip install requests&gt;=2.30.0
+
+# Versionsbereiche
+pip install "requests&gt;=2.30.0,&lt;3.0.0"
+
+# Aus requirements.txt
+pip install -r requirements.txt
+
+# Paket aktualisieren
+pip install --upgrade requests
+
+# Paket deinstallieren
+pip uninstall requests
+</code></pre>
+<h3 id="22----requirementstxt"><a class="header" href="#22----requirementstxt">2.2    <code>requirements.txt</code></a></h3>
+<pre><code class="language-txt"># requirements.txt - Produktions-Dependencies
+requests==2.31.0
+pandas&gt;=2.0.0,&lt;3.0.0
+numpy==1.24.3
+python-dotenv==1.0.0
+
+# Optional: Kommentare
+matplotlib==3.7.1  # Für Visualisierungen
+</code></pre>
+<pre><code class="language-bash"># Requirements generieren (nicht empfohlen für Entwicklung)
+pip freeze &gt; requirements.txt
+
+# Installieren
+pip install -r requirements.txt
+</code></pre>
+<h3 id="23----mehrere-requirements-dateien"><a class="header" href="#23----mehrere-requirements-dateien">2.3    Mehrere Requirements-Dateien</a></h3>
+<pre><code class="language-bash"># Projektstruktur
+requirements/
+├── base.txt          # Basis-Dependencies
+├── dev.txt           # Entwicklungs-Tools
+└── production.txt    # Produktions-spezifisch
+</code></pre>
+<pre><code class="language-txt"># requirements/base.txt
+requests==2.31.0
+pandas==2.0.3
+
+# requirements/dev.txt
+-r base.txt  # Basis-Dependencies inkludieren
+pytest==7.4.0
+black==23.7.0
+mypy==1.5.0
+
+# requirements/production.txt
+-r base.txt
+gunicorn==21.2.0
+</code></pre>
+<pre><code class="language-bash"># Entwicklungsumgebung
+pip install -r requirements/dev.txt
+
+# Produktion
+pip install -r requirements/production.txt
+</code></pre>
+<h3 id="24----probleme-mit-pip-freeze"><a class="header" href="#24----probleme-mit-pip-freeze">2.4    Probleme mit <code>pip freeze</code></a></h3>
+<pre><code class="language-bash"># ❌ Problematisch: pip freeze
+pip freeze &gt; requirements.txt
+</code></pre>
+<p><strong>Nachteile:</strong></p>
 <ul>
-<li><code>partial</code> erstellt eine neue Funktion mit fixierten Parametern.</li>
-<li>Hilfreich z. B. beim Konfigurieren von Callbacks oder API-Funktionen.</li>
+<li>Listet <strong>alle</strong> installierten Pakete auf (auch transitive Dependencies)</li>
+<li>Keine Trennung zwischen direkten und indirekten Abhängigkeiten</li>
+<li>Versionsnummern sind exakt → keine Flexibilität bei Updates</li>
+<li>Schwer wartbar bei vielen Paketen</li>
 </ul>
-<h2 id="6----function-factories-funktions-fabriken"><a class="header" href="#6----function-factories-funktions-fabriken">6    Function Factories (Funktions-Fabriken)</a></h2>
-<p>Funktionen, die andere Funktionen erzeugen – meist Closures. Ideal, wenn man eine Reihe verwandter Funktionen mit leicht unterschiedlichem Verhalten benötigt.</p>
-<pre><code class="language-python">def make_multiplier(factor):
-    def multiply(x):
-        return x * factor
-    return multiply
-
-double = make_multiplier(2)
-print(double(10))  # 20
+<h2 id="3----pip-tools--besseres-dependency-management"><a class="header" href="#3----pip-tools--besseres-dependency-management">3    <code>pip-tools</code> – Besseres Dependency Management</a></h2>
+<p><code>pip-tools</code> löst viele Probleme von <code>pip freeze</code> durch Trennung von abstrakten und konkreten Dependencies.</p>
+<h3 id="31----installation"><a class="header" href="#31----installation">3.1    Installation</a></h3>
+<pre><code class="language-bash">pip install pip-tools
 </code></pre>
-<ul>
-<li><code>factor</code> bleibt in jeder zurückgegebenen Funktion erhalten.</li>
-<li>Praktisch bei mathematischen Operationen, Filtern, usw.</li>
-</ul>
-<h2 id="7----decorators"><a class="header" href="#7----decorators">7    Decorators</a></h2>
-<p>Ein Decorator erweitert das Verhalten einer Funktion, ohne ihren Code zu verändern. Er basiert auf Closures und Higher-Order Functions.</p>
-<h3 id="71----einfacher-decorator"><a class="header" href="#71----einfacher-decorator">7.1    Einfacher Decorator</a></h3>
-<pre><code class="language-python">def my_decorator(func):
-    def wrapper():
-        print('Before the function runs.')
-        func()
-        print('After the function runs.')
-    return wrapper
-
-@my_decorator
-def say_hello():
-    print('Hello!')
-
-say_hello()
+<h3 id="32----workflow-mit-pip-compile"><a class="header" href="#32----workflow-mit-pip-compile">3.2    Workflow mit <code>pip-compile</code></a></h3>
+<pre><code class="language-txt"># requirements.in - Was wir WOLLEN (abstrakt)
+requests&gt;=2.30.0
+pandas
+pytest&gt;=7.0
 </code></pre>
-<ul>
-<li><code>@my_decorator</code> ersetzt <code>say_hello</code> durch <code>wrapper</code>.</li>
-<li>Ideal für Logging, Fehlerbehandlung, Zeitmessung etc.</li>
-</ul>
-<h3 id="72----decorators-mit-argumenten"><a class="header" href="#72----decorators-mit-argumenten">7.2    Decorators mit Argumenten</a></h3>
-<p>Decorator-Funktionen können Argumente übernehmen, wenn sie flexibel konfiguriert werden sollen. Dazu ist eine zusätzliche Verschachtelung notwendig.</p>
-<pre><code class="language-python">def logger(func):
-    def wrapper(*args, **kwargs):
-        print(f'Arguments: {args}, {kwargs}')
-        return func(*args, **kwargs)
-    return wrapper
+<pre><code class="language-bash"># Konkrete Versionen generieren
+pip-compile requirements.in
 
-@logger
-def add(x, y):
-    return x + y
-
-add(3, 5)
+# Erzeugt requirements.txt mit allen transitiven Dependencies
 </code></pre>
-<ul>
-<li><code>*args</code> und <code>**kwargs</code> fangen alle Argumente ab.</li>
-<li>So bleiben Decorators universell einsetzbar.</li>
-</ul>
-<h3 id="73----decorators-mit-parametern"><a class="header" href="#73----decorators-mit-parametern">7.3    Decorators mit Parametern</a></h3>
-<pre><code class="language-python">def speaker(volume):
-    def decorator(func):
-        def wrapper():
-            print(f'[{volume.upper()}]')
-            func()
-        return wrapper
-    return decorator
-
-@speaker('quiet')
-def whisper():
-    print('psst...')
-
-whisper()
+<pre><code class="language-txt"># requirements.txt - Was INSTALLIERT wird (konkret)
+# Generated by pip-compile
+requests==2.31.0
+  # via -r requirements.in
+certifi==2023.7.22
+  # via requests
+charset-normalizer==3.2.0
+  # via requests
+idna==3.4
+  # via requests
+urllib3==2.0.4
+  # via requests
+pandas==2.0.3
+  # via -r requirements.in
+numpy==1.24.3
+  # via pandas
+...
 </code></pre>
-<ul>
-<li><code>speaker("quiet")</code> gibt den eigentlichen Decorator zurück.</li>
-<li>Mehr Flexibilität durch parametrisierte Dekoration.</li>
-</ul>
-<h3 id="74----eingebaute-decorators"><a class="header" href="#74----eingebaute-decorators">7.4    Eingebaute Decorators</a></h3>
-<ul>
-<li><code>@staticmethod</code>: Definiert eine Methode ohne <code>self</code></li>
-<li><code>@classmethod</code>: Zugriff auf Klasse statt Instanz</li>
-<li><code>@property</code>: Erlaubt methodenartigen Zugriff auf Attribute</li>
-</ul>
-<pre><code class="language-python">class Circle:
-    def __init__(self, radius):
-        self._radius = radius
+<h3 id="33----pip-sync--exakte-environment-replikation"><a class="header" href="#33----pip-sync--exakte-environment-replikation">3.3    <code>pip-sync</code> – Exakte Environment-Replikation</a></h3>
+<pre><code class="language-bash"># Virtual Environment exakt auf requirements.txt synchronisieren
+pip-sync requirements.txt
 
-    @property
-    def area(self):
-        return 3.14 * self._radius ** 2
+# Entfernt Pakete, die nicht in requirements.txt sind
+# Installiert fehlende Pakete
+# Aktualisiert auf exakte Versionen
 </code></pre>
-<h3 id="75----mehrere-decorators-kombinieren"><a class="header" href="#75----mehrere-decorators-kombinieren">7.5    Mehrere Decorators kombinieren</a></h3>
-<pre><code class="language-python">@decorator_one
-@decorator_two
-def some_function():
-    pass
-</code></pre>
-<ul>
-<li><code>decorator_two</code> wird zuerst angewendet, dann <code>decorator_one</code>.</li>
-<li>Reihenfolge beachten, wenn Decorators interagieren.</li>
-</ul>
-<h3 id="76----memoization-mit-lru_cache"><a class="header" href="#76----memoization-mit-lru_cache">7.6    Memoization mit <code>lru_cache</code></a></h3>
-<pre><code class="language-python">from functools import lru_cache
+<h3 id="34----dependency-updates"><a class="header" href="#34----dependency-updates">3.4    Dependency-Updates</a></h3>
+<pre><code class="language-bash"># Alle Dependencies aktualisieren
+pip-compile --upgrade requirements.in
 
-@lru_cache
-def fibonacci(n):
-    if n in (0, 1):
-        return n
-    return fibonacci(n - 1) + fibonacci(n - 2)
+# Nur ein spezifisches Paket aktualisieren
+pip-compile --upgrade-package requests requirements.in
+
+# Mit Hashes für zusätzliche Sicherheit
+pip-compile --generate-hashes requirements.in
 </code></pre>
-<ul>
-<li><code>lru_cache</code> speichert bereits berechnete Ergebnisse im Cache.</li>
-<li>Ideal für rekursive oder teure Berechnungen.</li>
-</ul>
-<h2 id="8----zusammenfassung"><a class="header" href="#8----zusammenfassung">8    Zusammenfassung</a></h2>
+<h3 id="35----mehrere-environments-mit-pip-tools"><a class="header" href="#35----mehrere-environments-mit-pip-tools">3.5    Mehrere Environments mit pip-tools</a></h3>
+<pre><code class="language-txt"># requirements.in
+requests
+pandas
+
+# requirements-dev.in
+-c requirements.txt  # Constraint-File: nutze dieselben Versionen
+pytest
+black
+mypy
+</code></pre>
+<pre><code class="language-bash"># Workflow
+pip-compile requirements.in
+pip-compile requirements-dev.in
+
+# Installation
+pip-sync requirements-dev.txt  # Installiert dev + base
+</code></pre>
+<h2 id="4----poetry--all-in-one-lösung"><a class="header" href="#4----poetry--all-in-one-lösung">4    Poetry – All-in-One Lösung</a></h2>
+<p>Poetry kombiniert Dependency Management, Packaging und Veröffentlichung in einem Tool.</p>
+<h3 id="41----installation"><a class="header" href="#41----installation">4.1    Installation</a></h3>
+<pre><code class="language-bash"># Empfohlene Installation (Linux/macOS)
+curl -sSL https://install.python-poetry.org | python3 -
+
+# Alternative: pipx (isoliert)
+pipx install poetry
+
+# Nach Installation
+poetry --version
+</code></pre>
+<h3 id="42----neues-projekt-initialisieren"><a class="header" href="#42----neues-projekt-initialisieren">4.2    Neues Projekt initialisieren</a></h3>
+<pre><code class="language-bash"># Interaktive Projekt-Erstellung
+poetry new myproject
+
+# Generierte Struktur:
+myproject/
+├── pyproject.toml
+├── README.md
+├── myproject/
+│   └── __init__.py
+└── tests/
+    └── __init__.py
+</code></pre>
+<pre><code class="language-bash"># In bestehendem Projekt
+poetry init
+</code></pre>
+<h3 id="43----pyprojecttoml--poetry-konfiguration"><a class="header" href="#43----pyprojecttoml--poetry-konfiguration">4.3    <code>pyproject.toml</code> – Poetry-Konfiguration</a></h3>
+<pre><code class="language-toml">[tool.poetry]
+name = "myproject"
+version = "0.1.0"
+description = "A sample Python project"
+authors = ["Your Name &lt;you@example.com&gt;"]
+readme = "README.md"
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+pandas = "^2.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+black = "^23.7.0"
+mypy = "^1.5.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+</code></pre>
+<h3 id="44----dependencies-verwalten"><a class="header" href="#44----dependencies-verwalten">4.4    Dependencies verwalten</a></h3>
+<pre><code class="language-bash"># Paket hinzufügen
+poetry add requests
+
+# Dev-Dependency hinzufügen
+poetry add --group dev pytest
+
+# Mit Version Constraints
+poetry add "requests&gt;=2.30.0,&lt;3.0.0"
+
+# Paket entfernen
+poetry remove requests
+
+# Alle Dependencies installieren
+poetry install
+
+# Ohne dev-dependencies (Produktion)
+poetry install --without dev
+
+# Dependencies aktualisieren
+poetry update
+
+# Nur ein Paket aktualisieren
+poetry update requests
+</code></pre>
+<h3 id="45----virtual-environment-mit-poetry"><a class="header" href="#45----virtual-environment-mit-poetry">4.5    Virtual Environment mit Poetry</a></h3>
+<pre><code class="language-bash"># Poetry erstellt automatisch ein Virtual Environment
+poetry install
+
+# In der Poetry-Shell arbeiten
+poetry shell
+
+# Befehl im Poetry-Environment ausführen (ohne shell)
+poetry run python script.py
+poetry run pytest
+
+# Environment-Info anzeigen
+poetry env info
+
+# Environment-Pfad
+poetry env info --path
+
+# Environment löschen
+poetry env remove python3.10
+</code></pre>
+<h3 id="46----lock-file"><a class="header" href="#46----lock-file">4.6    Lock-File</a></h3>
+<p>Poetry erstellt automatisch <code>poetry.lock</code>:</p>
+<pre><code class="language-bash"># poetry.lock - Exakte Versionen aller Dependencies
+# Wird automatisch bei 'poetry add' / 'poetry update' aktualisiert
+# SOLLTE ins Git committed werden
+
+# Lock-File neu generieren ohne Installation
+poetry lock
+
+# Lock-File prüfen
+poetry check
+</code></pre>
+<h3 id="47----scripts-definieren"><a class="header" href="#47----scripts-definieren">4.7    Scripts definieren</a></h3>
+<pre><code class="language-toml">[tool.poetry.scripts]
+start = "myproject.main:main"
+test = "pytest"
+</code></pre>
+<pre><code class="language-bash"># Scripts ausführen
+poetry run start
+poetry run test
+</code></pre>
+<h3 id="48----packaging-und-veröffentlichung"><a class="header" href="#48----packaging-und-veröffentlichung">4.8    Packaging und Veröffentlichung</a></h3>
+<pre><code class="language-bash"># Paket bauen
+poetry build
+# Erstellt dist/myproject-0.1.0.tar.gz und .whl
+
+# Auf PyPI veröffentlichen
+poetry publish
+
+# Beides zusammen
+poetry publish --build
+
+# Test-PyPI
+poetry config repositories.testpypi https://test.pypi.org/legacy/
+poetry publish -r testpypi
+</code></pre>
+<h2 id="5----pyprojecttoml--pep-621-standard"><a class="header" href="#5----pyprojecttoml--pep-621-standard">5    <code>pyproject.toml</code> – PEP 621 Standard</a></h2>
+<p><code>pyproject.toml</code> ist der moderne Standard für Python-Projektkonfiguration (definiert in PEP 621).</p>
+<h3 id="51----grundstruktur-ohne-poetry"><a class="header" href="#51----grundstruktur-ohne-poetry">5.1    Grundstruktur ohne Poetry</a></h3>
+<pre><code class="language-toml">[build-system]
+requires = ["setuptools&gt;=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mypackage"
+version = "0.1.0"
+description = "A sample Python package"
+readme = "README.md"
+authors = [
+    {name = "Your Name", email = "you@example.com"}
+]
+license = {text = "MIT"}
+requires-python = "&gt;=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+keywords = ["example", "package"]
+
+dependencies = [
+    "requests&gt;=2.30.0",
+    "pandas&gt;=2.0.0,&lt;3.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest&gt;=7.4.0",
+    "black&gt;=23.7.0",
+    "mypy&gt;=1.5.0",
+]
+docs = [
+    "sphinx&gt;=7.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/username/mypackage"
+Documentation = "https://mypackage.readthedocs.io"
+Repository = "https://github.com/username/mypackage"
+</code></pre>
+<h3 id="52----installation-mit-pip"><a class="header" href="#52----installation-mit-pip">5.2    Installation mit pip</a></h3>
+<pre><code class="language-bash"># Paket installieren (im Entwicklungsmodus)
+pip install -e .
+
+# Mit optional dependencies
+pip install -e ".[dev]"
+pip install -e ".[dev,docs]"
+</code></pre>
+<h3 id="53----dynamische-versionen"><a class="header" href="#53----dynamische-versionen">5.3    Dynamische Versionen</a></h3>
+<pre><code class="language-toml">[project]
+name = "mypackage"
+dynamic = ["version"]  # Version aus Code lesen
+
+[tool.setuptools.dynamic]
+version = {attr = "mypackage.__version__"}
+</code></pre>
+<pre><code class="language-python"># mypackage/__init__.py
+__version__ = "0.1.0"
+</code></pre>
+<h3 id="54----entry-points--console-scripts"><a class="header" href="#54----entry-points--console-scripts">5.4    Entry Points / Console Scripts</a></h3>
+<pre><code class="language-toml">[project.scripts]
+myapp = "mypackage.cli:main"
+mytool = "mypackage.tools:run"
+</code></pre>
+<pre><code class="language-python"># mypackage/cli.py
+def main():
+    print("Hello from myapp!")
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+<pre><code class="language-bash"># Nach Installation verfügbar:
+myapp  # Ruft mypackage.cli:main() auf
+</code></pre>
+<h2 id="6----verschiedene-build-backends"><a class="header" href="#6----verschiedene-build-backends">6    Verschiedene Build-Backends</a></h2>
+<h3 id="61----setuptools-standard"><a class="header" href="#61----setuptools-standard">6.1    setuptools (Standard)</a></h3>
+<pre><code class="language-toml">[build-system]
+requires = ["setuptools&gt;=61.0"]
+build-backend = "setuptools.build_meta"
+</code></pre>
+<h3 id="62----poetry"><a class="header" href="#62----poetry">6.2    Poetry</a></h3>
+<pre><code class="language-toml">[build-system]
+requires = ["poetry-core&gt;=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+</code></pre>
+<h3 id="63----flit-minimalistisch"><a class="header" href="#63----flit-minimalistisch">6.3    Flit (minimalistisch)</a></h3>
+<pre><code class="language-toml">[build-system]
+requires = ["flit_core&gt;=3.2"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "mypackage"
+authors = [{name = "Your Name"}]
+dynamic = ["version", "description"]
+</code></pre>
+<h3 id="64----hatch-modern"><a class="header" href="#64----hatch-modern">6.4    Hatch (modern)</a></h3>
+<pre><code class="language-toml">[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+</code></pre>
+<h2 id="7----tool-konfiguration-in-pyprojecttoml"><a class="header" href="#7----tool-konfiguration-in-pyprojecttoml">7    Tool-Konfiguration in <code>pyproject.toml</code></a></h2>
+<h3 id="71----black-formatter"><a class="header" href="#71----black-formatter">7.1    Black (Formatter)</a></h3>
+<pre><code class="language-toml">[tool.black]
+line-length = 88
+target-version = ['py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.venv
+  | build
+  | dist
+)/
+'''
+</code></pre>
+<h3 id="72----mypy-type-checker"><a class="header" href="#72----mypy-type-checker">7.2    MyPy (Type Checker)</a></h3>
+<pre><code class="language-toml">[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.mypy.overrides](tool.mypy.overrides.md)
+module = "pandas.*"
+ignore_missing_imports = true
+</code></pre>
+<h3 id="73----pytest"><a class="header" href="#73----pytest">7.3    Pytest</a></h3>
+<pre><code class="language-toml">[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers"
+testpaths = [
+    "tests",
+]
+markers = [
+    "slow: marks tests as slow",
+    "integration: integration tests",
+]
+</code></pre>
+<h3 id="74----ruff-linter--formatter"><a class="header" href="#74----ruff-linter--formatter">7.4    Ruff (Linter &amp; Formatter)</a></h3>
+<pre><code class="language-toml">[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+</code></pre>
+<h2 id="8----vergleich-der-tools"><a class="header" href="#8----vergleich-der-tools">8    Vergleich der Tools</a></h2>
+<h3 id="81----feature-matrix"><a class="header" href="#81----feature-matrix">8.1    Feature-Matrix</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Konzept</th><th>Nutzen</th></tr>
+<tr><th>Feature</th><th>pip + venv</th><th>pip-tools</th><th>Poetry</th><th>Hatch</th></tr>
 </thead>
 <tbody>
-<tr><td>Closures</td><td>Zustand bewahren, Daten kapseln</td></tr>
-<tr><td>Lambda</td><td>Kürzere anonyme Funktionen</td></tr>
-<tr><td>Higher-Order Funcs</td><td>Flexible Funktionskomposition</td></tr>
-<tr><td>map/filter/reduce</td><td>Funktionale Verarbeitung von Listen</td></tr>
-<tr><td>Partial Functions</td><td>Vorbelegte Funktionen</td></tr>
-<tr><td>Decorators</td><td>Funktion erweitern ohne Quellcode zu ändern</td></tr>
+<tr><td>Dependency Resolution</td><td>✅ Basis</td><td>✅ Gut</td><td>✅ Sehr gut</td><td>✅ Sehr gut</td></tr>
+<tr><td>Lock-Files</td><td>❌</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Virtual Env Management</td><td>⚠️ Manuell</td><td>⚠️ Manuell</td><td>✅ Automatisch</td><td>✅ Automatisch</td></tr>
+<tr><td>Packaging</td><td>⚠️ Separat</td><td>⚠️ Separat</td><td>✅ Integriert</td><td>✅ Integriert</td></tr>
+<tr><td>Publishing</td><td>⚠️ Separat</td><td>⚠️ Separat</td><td>✅ Integriert</td><td>✅ Integriert</td></tr>
+<tr><td>pyproject.toml</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Lernkurve</td><td>✅ Niedrig</td><td>✅ Niedrig</td><td>⚠️ Mittel</td><td>⚠️ Mittel</td></tr>
+<tr><td>Performance</td><td>✅</td><td>✅</td><td>⚠️ Langsamer</td><td>✅</td></tr>
+<tr><td>Ökosystem-Integration</td><td>✅ Maximal</td><td>✅ Gut</td><td>⚠️ Eigenes Ökosystem</td><td>✅ Gut</td></tr>
 </tbody>
 </table>
 </div>
+<h3 id="82----wann-was-verwenden"><a class="header" href="#82----wann-was-verwenden">8.2    Wann was verwenden?</a></h3>
+<p><strong>pip + venv:</strong></p>
+<ul>
+<li>Einfache Projekte ohne komplexe Dependencies</li>
+<li>CI/CD-Pipelines (minimale Abhängigkeiten)</li>
+<li>Lern-/Tutorial-Projekte</li>
+<li>Schnelle Prototypen</li>
+</ul>
+<p><strong>pip-tools:</strong></p>
+<ul>
+<li>Mittlere bis große Projekte</li>
+<li>Wenn exakte Reproduzierbarkeit wichtig ist</li>
+<li>Wenn man bei pip-Ökosystem bleiben will</li>
+<li>CI/CD mit deterministischen Builds</li>
+</ul>
+<p><strong>Poetry:</strong></p>
+<ul>
+<li>Neue Projekte von Grund auf</li>
+<li>Library-Entwicklung mit Veröffentlichung</li>
+<li>Wenn All-in-One-Lösung gewünscht</li>
+<li>Team-Projekte mit standardisiertem Workflow</li>
+<li>Wenn Virtual Env automatisch verwaltet werden soll</li>
+</ul>
+<p><strong>Hatch:</strong></p>
+<ul>
+<li>Moderne Alternative zu Poetry</li>
+<li>Schnellere Builds</li>
+<li>Mehrere Python-Versionen testen</li>
+<li>Wenn man mehr Kontrolle als Poetry will</li>
+</ul>
+<h2 id="9----best-practices"><a class="header" href="#9----best-practices">9    Best Practices</a></h2>
+<h3 id="91----allgemeine-empfehlungen"><a class="header" href="#91----allgemeine-empfehlungen">9.1    Allgemeine Empfehlungen</a></h3>
+<pre><code class="language-bash"># ✅ DO: Virtual Environments nutzen
+python -m venv venv
+source venv/bin/activate
+
+# ✅ DO: pyproject.toml statt setup.py
+# Modern und standardisiert
+
+# ✅ DO: Lock-Files ins Git committen
+# poetry.lock, requirements.txt (von pip-compile)
+
+# ❌ DON'T: Virtual Environment committen
+# Gehört in .gitignore
+
+# ❌ DON'T: pip freeze für Dependency-Management
+# Nutze pip-tools oder Poetry
+
+# ✅ DO: Versions-Constraints spezifizieren
+requests = "^2.31.0"  # Poetry
+requests&gt;=2.31.0,&lt;3.0.0  # pip
+</code></pre>
+<h3 id="92----entwicklungs-workflow-poetry"><a class="header" href="#92----entwicklungs-workflow-poetry">9.2    Entwicklungs-Workflow (Poetry)</a></h3>
+<pre><code class="language-bash"># 1. Projekt initialisieren
+poetry new myproject
+cd myproject
+
+# 2. Dependencies hinzufügen
+poetry add requests pandas
+poetry add --group dev pytest black mypy
+
+# 3. Installation
+poetry install
+
+# 4. Entwicklung
+poetry shell
+# oder
+poetry run python main.py
+poetry run pytest
+
+# 5. Code formatieren/testen
+poetry run black .
+poetry run mypy .
+poetry run pytest
+
+# 6. Vor Commit: Lock-File aktualisieren falls nötig
+poetry lock --no-update
+
+# 7. Packaging
+poetry build
+poetry publish
+</code></pre>
+<h3 id="93----cicd-integration"><a class="header" href="#93----cicd-integration">9.3    CI/CD Integration</a></h3>
+<p><strong>GitHub Actions mit Poetry:</strong></p>
+<pre><code class="language-yaml">name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.6.0
+      
+      - name: Install dependencies
+        run: poetry install
+      
+      - name: Run tests
+        run: poetry run pytest
+</code></pre>
+<p><strong>Mit pip-tools:</strong></p>
+<pre><code class="language-yaml">- name: Install dependencies
+  run: |
+    pip install pip-tools
+    pip-sync requirements.txt
+    
+- name: Run tests
+  run: pytest
+</code></pre>
+<h2 id="10----migration-zwischen-tools"><a class="header" href="#10----migration-zwischen-tools">10    Migration zwischen Tools</a></h2>
+<h3 id="101----von-requirementstxt-zu-poetry"><a class="header" href="#101----von-requirementstxt-zu-poetry">10.1    Von requirements.txt zu Poetry</a></h3>
+<pre><code class="language-bash"># 1. Poetry initialisieren
+poetry init
+
+# 2. Dependencies aus requirements.txt importieren
+# (manuell in pyproject.toml übertragen)
+
+# 3. Oder mit poetry add
+cat requirements.txt | grep -v "#" | xargs poetry add
+
+# 4. Lock-File generieren
+poetry lock
+</code></pre>
+<h3 id="102----von-poetry-zu-pip-tools"><a class="header" href="#102----von-poetry-zu-pip-tools">10.2    Von Poetry zu pip-tools</a></h3>
+<pre><code class="language-bash"># 1. Aus pyproject.toml extrahieren
+poetry export -f requirements.txt --output requirements.txt
+
+# 2. requirements.in erstellen (manuell vereinfachen)
+# Nur direkte Dependencies ohne Versionen/Hashes
+
+# 3. Neu kompilieren
+pip-compile requirements.in
+</code></pre>
+<h2 id="11----zusammenfassung"><a class="header" href="#11----zusammenfassung">11    Zusammenfassung</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Zweck</th><th>Empfohlen für</th></tr>
+</thead>
+<tbody>
+<tr><td><code>venv</code></td><td>Virtual Environments</td><td>Alle Projekte</td></tr>
+<tr><td><code>pip</code></td><td>Paket-Installation</td><td>Basis-Tool</td></tr>
+<tr><td><code>pip-tools</code></td><td>Dependency-Pinning</td><td>Deterministische Builds</td></tr>
+<tr><td>Poetry</td><td>All-in-One Management</td><td>Neue Projekte, Libraries</td></tr>
+<tr><td>Hatch</td><td>Alternative zu Poetry</td><td>Moderne Projekte, Multi-Python</td></tr>
+<tr><td><code>pyproject.toml</code></td><td>Standard-Konfiguration</td><td>Alle modernen Projekte</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Moderne Empfehlung:</strong></p>
+<ul>
+<li><strong>Einfache Projekte</strong>: <code>venv</code> + <code>pip</code> + <code>pyproject.toml</code></li>
+<li><strong>Professionelle Projekte</strong>: <code>pip-tools</code> oder Poetry</li>
+<li><strong>Library-Entwicklung</strong>: Poetry oder Hatch</li>
+<li><strong>Legacy-Migration</strong>: Schrittweise zu <code>pyproject.toml</code> wechseln</li>
+</ul>
+<p><strong>Kernprinzip:</strong> Nutze Lock-Files für reproduzierbare Builds, trenne abstrakte von konkreten Dependencies, und setze auf standardisiertes <code>pyproject.toml</code> statt proprietärer Konfigurationen.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="10 Fortgeschrittene Objektorientierung.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="21 Kontext-Manager.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="12 Typannotationen.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="23 Netzwerk&amp;20und APIs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -637,11 +1122,11 @@ def fibonacci(n):
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="10 Fortgeschrittene Objektorientierung.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="21 Kontext-Manager.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="12 Typannotationen.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="23 Netzwerk&amp;20und APIs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
