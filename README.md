@@ -1,4 +1,4 @@
-# Python Cheat Sheet
+# Deutschsprachige Python-Referenz
 
 > [!TIP]
 > Die Referenz ist hier abrufbar:
