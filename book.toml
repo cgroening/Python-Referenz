@@ -1,0 +1,38 @@
+# Update mdbook with: `cargo install mdbook`
+
+[book]
+title = "Python-Referenz"
+authors = ["Corvin Gröning"]
+language = "de"
+src = "src"
+
+[build]
+build-dir = "docs"
+
+[preprocessor.obsidian-links]
+command = "/Users/cgroening/Documents/Code/Rust/mdbook-obsidian-links/target/release/mdbook-obsidian-links"
+
+[preprocessor.callouts]    # Update with `cargo install mdbook-callouts`
+
+# [preprocessor.katex]     # Update with `cargo install mdbook-katex`
+# after = ["links"]
+# [preprocessor.obsidian]  # Update   with `cargo install mdbook-obsidian`
+
+# [preprocessor.mermaid]
+# command = "mdbook-mermaid"
+#
+# [output.html]
+# additional-js = ["mermaid.min.js", "mermaid-init.js"]
+
+[output.html]
+default-theme = "ayu"
+preferred-dark-theme = "ayu"
+no-section-label = false
+sidebar-header-nav = true
+mathjax-support = true
+git-repository-url = "https://github.com/cgroening/Python-Referenz"
+git-repository-icon = "fab-github"
+
+[output.html.fold]
+enable = true
+level = 1
