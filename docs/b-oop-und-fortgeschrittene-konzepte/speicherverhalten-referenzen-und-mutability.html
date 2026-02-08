@@ -1,0 +1,1304 @@
+<!DOCTYPE HTML>
+<html lang="de" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Speicherverhalten, Referenzen und Mutability - Python-Referenz</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-80432388.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "../searchindex-1ed3f166.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-f6524bb4.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Python-Referenz</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/cgroening/Python-Referenz" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <style>
+.mdbook-callouts {
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  /* border-left: 0.25em solid var(--mdbook-callouts-color); */
+  background: var(--mdbook-callouts-background);
+}
+
+.mdbook-callouts > *:first-child {
+  margin-top: 0;
+}
+
+.mdbook-callouts > *:last-child {
+  margin-bottom: 0;
+}
+
+.mdbook-callouts-title {
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  line-height: 1;
+  color: var(--mdbook-callouts-color);
+  text-transform: capitalize;
+}
+
+.mdbook-callouts-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.2em;
+  background-color: currentColor;
+  -webkit-mask: no-repeat center / 100%;
+  mask: no-repeat center / 100%;
+  -webkit-mask-image: var(--mdbook-callouts-icon);
+  mask-image: var(--mdbook-callouts-icon);
+}
+
+/* icons at: https://lucide.dev/icons/ */
+
+.mdbook-callouts-info {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/info */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWluZm8iPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PHBhdGggZD0iTTEyIDE2di00Ii8+PHBhdGggZD0iTTEyIDhoLjAxIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-note {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/pencil */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBlbmNpbCI+PHBhdGggZD0iTTE3IDNhMi44NSAyLjgzIDAgMSAxIDQgNEw3LjUgMjAuNSAyIDIybDEuNS01LjVaIi8+PHBhdGggZD0ibTE1IDUgNCA0Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-tip,
+.mdbook-callouts-hint {
+  --mdbook-callouts-color: rgb(var(--color-cyan-rgb));
+  --mdbook-callouts-background: rgba(var(--color-cyan-rgb), 0.1);
+  /* https://lucide.dev/icons/flame */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZsYW1lIj48cGF0aCBkPSJNOC41IDE0LjVBMi41IDIuNSAwIDAgMCAxMSAxMmMwLTEuMzgtLjUtMi0xLTMtMS4wNzItMi4xNDMtLjIyNC00LjA1NCAyLTYgLjUgMi41IDIgNC45IDQgNi41IDIgMS42IDMgMy41IDMgNS41YTcgNyAwIDEgMS0xNCAwYzAtMS4xNTMuNDMzLTIuMjk0IDEtM2EyLjUgMi41IDAgMCAwIDIuNSAyLjV6Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-important {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LWNpcmNsZSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48bGluZSB4MT0iMTIiIHgyPSIxMiIgeTE9IjgiIHkyPSIxMiIvPjxsaW5lIHgxPSIxMiIgeDI9IjEyLjAxIiB5MT0iMTYiIHkyPSIxNiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-success,
+.mdbook-callouts-check,
+.mdbook-callouts-done {
+  --mdbook-callouts-color: rgb(var(--color-green-rgb));
+  --mdbook-callouts-background: rgba(var(--color-green-rgb), 0.1);
+  /* https://lucide.dev/icons/check */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZWNrIj48cGF0aCBkPSJNMjAgNiA5IDE3bC01LTUiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-question,
+.mdbook-callouts-help,
+.mdbook-callouts-faq {
+  --mdbook-callouts-color: rgb(var(--color-pink-rgb));
+  --mdbook-callouts-background: rgba(var(--color-pink-rgb), 0.1);
+  /* https://lucide.dev/icons/help-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhlbHAtY2lyY2xlIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxwYXRoIGQ9Ik05LjA5IDlhMyAzIDAgMCAxIDUuODMgMWMwIDItMyAzLTMgMyIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-warning,
+.mdbook-callouts-warn {
+  --mdbook-callouts-color: rgb(var(--color-orange-rgb));
+  --mdbook-callouts-background: rgba(var(--color-orange-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-triangle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LXRyaWFuZ2xlIj48cGF0aCBkPSJtMjEuNzMgMTgtOC0xNGEyIDIgMCAwIDAtMy40OCAwbC04IDE0QTIgMiAwIDAgMCA0IDIxaDE2YTIgMiAwIDAgMCAxLjczLTNaIi8+PHBhdGggZD0iTTEyIDl2NCIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-caution {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/shield-alert */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNoaWVsZC1hbGVydCI+PHBhdGggZD0iTTEyIDIyczgtNCA4LTEwVjVsLTgtMy04IDN2N2MwIDYgOCAxMCA4IDEwIi8+PHBhdGggZD0iTTEyIDh2NCIvPjxwYXRoIGQ9Ik0xMiAxNmguMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-failure,
+.mdbook-callouts-fail,
+.mdbook-callouts-missing {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/x */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXgiPjxwYXRoIGQ9Ik0xOCA2IDYgMTgiLz48cGF0aCBkPSJtNiA2IDEyIDEyIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-error,
+.mdbook-callouts-danger {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/zap */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXphcCI+PHBvbHlnb24gcG9pbnRzPSIxMyAyIDMgMTQgMTIgMTQgMTEgMjIgMjEgMTAgMTIgMTAgMTMgMiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-bug {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/bug */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJ1ZyI+PHBhdGggZD0ibTggMiAxLjg4IDEuODgiLz48cGF0aCBkPSJNMTQuMTIgMy44OCAxNiAyIi8+PHBhdGggZD0iTTkgNy4xM3YtMWEzLjAwMyAzLjAwMyAwIDEgMSA2IDB2MSIvPjxwYXRoIGQ9Ik0xMiAyMGMtMy4zIDAtNi0yLjctNi02di0zYTQgNCAwIDAgMSA0LTRoNGE0IDQgMCAwIDEgNCA0djNjMCAzLjMtMi43IDYtNiA2Ii8+PHBhdGggZD0iTTEyIDIwdi05Ii8+PHBhdGggZD0iTTYuNTMgOUM0LjYgOC44IDMgNy4xIDMgNSIvPjxwYXRoIGQ9Ik02IDEzSDIiLz48cGF0aCBkPSJNMyAyMWMwLTIuMSAxLjctMy45IDMuOC00Ii8+PHBhdGggZD0iTTIwLjk3IDVjMCAyLjEtMS42IDMuOC0zLjUgNCIvPjxwYXRoIGQ9Ik0yMiAxM2gtNCIvPjxwYXRoIGQ9Ik0xNy4yIDE3YzIuMS4xIDMuOCAxLjkgMy44IDQiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-examples,
+.mdbook-callouts-example {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/list */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxpc3QiPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSIxMiIgeTI9IjEyIi8+PGxpbmUgeDE9IjgiIHgyPSIyMSIgeTE9IjE4IiB5Mj0iMTgiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSIzIiB4Mj0iMy4wMSIgeTE9IjEyIiB5Mj0iMTIiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSIxOCIgeTI9IjE4Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-quote {
+  --mdbook-callouts-color: rgb(158, 158, 158);
+  --mdbook-callouts-background: rgba(158, 158, 158, 0.1);
+  /* https://lucide.dev/icons/quote */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXF1b3RlIj48cGF0aCBkPSJNMyAyMWMzIDAgNy0xIDctOFY1YzAtMS4yNS0uNzU2LTIuMDE3LTItMkg0Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDIgMSAwIDEgMCAxIDF2MWMwIDEtMSAyLTIgMnMtMSAuMDA4LTEgMS4wMzFWMjBjMCAxIDAgMSAxIDF6Ii8+PHBhdGggZD0iTTE1IDIxYzMgMCA3LTEgNy04VjVjMC0xLjI1LS43NTctMi4wMTctMi0yaC00Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDJoLjc1YzAgMi4yNS4yNSA0LTIuNzUgNHYzYzAgMSAwIDEgMSAxeiIvPjwvc3ZnPg==');
+}
+
+
+.ayu {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.light {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+
+.coal {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.navy {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.rust {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+</style>
+<h1 id="speicherverhalten-referenzen-und-mutability"><a class="header" href="#speicherverhalten-referenzen-und-mutability">Speicherverhalten, Referenzen und Mutability</a></h1>
+<p>Die folgenden Konzepte sind zentral für das Verständnis von Speicherverhalten und Referenzen. Dieses ist wichtig, um Seiteneffekte und unerwartetes Verhalten zu vermeiden.</p>
+<h2 id="1----speicherverwaltung-und-garbage-collection"><a class="header" href="#1----speicherverwaltung-und-garbage-collection">1    Speicherverwaltung und Garbage Collection</a></h2>
+<h3 id="11----speicherverwaltung"><a class="header" href="#11----speicherverwaltung">1.1    Speicherverwaltung</a></h3>
+<p>Python verwaltet den Speicher auf zwei Ebenen:</p>
+<ol>
+<li>
+<p><strong>Private Heap</strong></p>
+<ul>
+<li>Alles, was in Python anlegt wird (Variablen, Objekte, Listen usw.), wird im sogenannten <em>private heap</em> gespeichert.</li>
+<li>Man hat keinen direkten Zugriff auf diesen Heap, sondern nur über Python-Objekte.</li>
+</ul>
+</li>
+<li>
+<p><strong>Speicherallokatoren (Memory Manager)</strong></p>
+<ul>
+<li>Python hat einen internen Mechanismus, der entscheidet, wann wie viel Speicher angefordert wird.</li>
+<li>Objekte kleiner als 512 Bytes werden z. B. in einem speziellen Arena-basierten System verwaltet (über das Modul <code>pymalloc</code>).</li>
+</ul>
+</li>
+</ol>
+<h3 id="12----garbage-collection"><a class="header" href="#12----garbage-collection">1.2    Garbage Collection</a></h3>
+<p>Garbage Collection bedeutet, dass nicht mehr benötigte Objekte automatisch aus dem Speicher entfernt werden.</p>
+<h4 id="121----referenzzählung"><a class="header" href="#121----referenzzählung">1.2.1    Referenzzählung</a></h4>
+<p>Das ist die primäre Methode der Speicherfreigabe:</p>
+<pre><code class="language-python">import sys
+
+x = []                     # Liste wird erstellt
+print(sys.getrefcount(x))  # 2
+y = x                      # Jetzt gibt es 2 Referenzen
+print(sys.getrefcount(x))  # 3
+del x                      # Eine Referenz weniger
+print(sys.getrefcount(y))  # 2
+</code></pre>
+<h4 id="122----zyklische-garbage-collection"><a class="header" href="#122----zyklische-garbage-collection">1.2.2    Zyklische Garbage Collection</a></h4>
+<p>Referenzzählung reicht nicht aus, wenn zwei Objekte sich gegenseitig referenzieren:</p>
+<pre><code class="language-python">class Node:
+    def __init__(self):
+        self.ref = None
+
+a = Node()
+b = Node()
+a.ref = b
+b.ref = a  # Zyklus
+del a
+del b      # → Referenzzähler wird nicht null
+</code></pre>
+<p>Daher hat Python ein zusätzliches Garbage Collector-Modul, das Zyklen erkennen und auflösen kann:</p>
+<pre><code class="language-python">import gc
+
+gc.collect()  # Startet manuelle Garbage Collection
+</code></pre>
+<h3 id="13----tools--module"><a class="header" href="#13----tools--module">1.3    Tools &amp; Module</a></h3>
+<ul>
+<li><code>gc</code>: Garbage-Collector-Modul</li>
+<li><code>sys.getrefcount(obj)</code>: Anzahl der Referenzen auf ein Objekt</li>
+<li><code>id(obj)</code>: Gibt die Speicheradresse des Objekts zurück</li>
+<li><code>hex(id(obj))</code>: Speicher Adresse als HEX</li>
+</ul>
+<h3 id="14----zusammenfassung"><a class="header" href="#14----zusammenfassung">1.4    Zusammenfassung</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>Beschreibung</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Heap</strong></td><td>Speicherort aller Objekte</td></tr>
+<tr><td><strong>Referenzzählung</strong></td><td>Basis-Mechanismus zur Speicherfreigabe</td></tr>
+<tr><td><strong>Zyklische GC</strong></td><td>Entfernt Objektzyklen, die Referenzzähler nicht abfängt</td></tr>
+<tr><td><strong><code>gc</code>-Modul</strong></td><td>Ermöglicht Kontrolle über die Garbage Collection</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="2----variablen-und-referenzen"><a class="header" href="#2----variablen-und-referenzen">2    Variablen und Referenzen</a></h2>
+<p>In Python sind Variablen keine Container, sondern Namen, die auf Objekte im Speicher verweisen. Das Verständnis von Variablenbindung und Referenzen ist essenziell, um Seiteneffekte und unerwartetes Verhalten zu vermeiden.</p>
+<p><strong>Variablen binden Namen an Objekte:</strong></p>
+<p>Eine Variable in Python ist ein Name, der auf ein Objekt zeigt. Es wird keine Kopie erzeugt, sondern eine Referenz.</p>
+<pre><code class="language-python">a = [1, 2, 3]
+b = a     # b referenziert dasselbe Objekt wie a
+a.append(4)
+print(b)  # [1, 2, 3, 4] -&gt; b wurde mit verändert
+</code></pre>
+<p><strong>Referenzen und <code>id()</code>:</strong></p>
+<p>Jedes Objekt hat eine eindeutige ID (Speicheradresse), die mit <code>id()</code> abgefragt werden kann.</p>
+<pre><code class="language-python">x = 'hello'
+y = x
+print(id(x) == id(y))  # True -&gt; beide zeigen auf dasselbe Objekt
+
+x = x + ' world'  # neues Objekt
+print(id(x) == id(y))  # False -&gt; x zeigt jetzt auf etwas anderes
+</code></pre>
+<p><strong>Zuweisung erzeugt keine Kopie:</strong></p>
+<pre><code class="language-python">data = {'key': 'value'}
+copy = data  # keine Kopie, nur neue Referenz
+copy['key'] = 'new value'
+print(data)  # {'key': 'new value'}
+</code></pre>
+<h3 id="21----referenzen-in-funktionen"><a class="header" href="#21----referenzen-in-funktionen">2.1    Referenzen in Funktionen</a></h3>
+<p>Wird ein Objekt an eine Funktion übergeben, wird nur eine Referenz übergeben – keine Kopie.</p>
+<pre><code class="language-python">def change_list(lst):
+    lst.append(42)
+
+numbers = [1, 2, 3]
+change_list(numbers)
+print(numbers)  # [1, 2, 3, 42]
+</code></pre>
+<p>Bei unveränderlichen Objekten (z. B. int, str) wirkt sich das nicht aus:</p>
+<pre><code class="language-python">def change_value(x):
+    x = x + 1  # neue Referenz innerhalb der Funktion
+
+value = 10
+change_value(value)
+print(value)  # 10
+</code></pre>
+<h3 id="22----is-vs-"><a class="header" href="#22----is-vs-">2.2    <code>is</code> vs. ==</a></h3>
+<ul>
+<li>== prüft Gleichheit des Inhalts</li>
+<li><code>is</code> prüft, ob zwei Variablen auf <strong>dasselbe Objekt</strong> zeigen</li>
+</ul>
+<pre><code class="language-python">a = [1, 2, 3]
+b = a
+c = [1, 2, 3]
+
+print(a == c)  # True -&gt; Inhalt gleich
+print(a is c)  # False -&gt; unterschiedliche Objekte
+print(a is b)  # True -&gt; gleiche Referenz
+</code></pre>
+<h3 id="23----objektidentität-bei-mutability"><a class="header" href="#23----objektidentität-bei-mutability">2.3    Objektidentität bei Mutability</a></h3>
+<p>Mutability beeinflusst das Verhalten bei Referenzen stark:</p>
+<pre><code class="language-python">def reset_list(l):
+    l.clear()  # verändert Originalobjekt
+
+my_list = [9, 8, 7]
+reset_list(my_list)
+print(my_list)  # []
+</code></pre>
+<p>Bei immutable Typen wie <code>int</code> passiert das nicht:</p>
+<pre><code class="language-python">def reset_number(n):
+    n = 0  # neue Referenz, Original bleibt gleich
+
+my_number = 123
+reset_number(my_number)
+print(my_number)  # 123
+</code></pre>
+<h3 id="24----namen-und-gültigkeit-scope"><a class="header" href="#24----namen-und-gültigkeit-scope">2.4    Namen und Gültigkeit (Scope)</a></h3>
+<p>Variablen sind innerhalb des jeweiligen Gültigkeitsbereichs (Scope) sichtbar. Eine Zuweisung innerhalb einer Funktion überschreibt nicht die äußere Variable.</p>
+<pre><code class="language-python">name = 'outer'
+
+def test():
+    name = 'inner'
+    print(name)  # 'inner'
+
+test()
+print(name)  # 'outer'
+</code></pre>
+<h3 id="25----zusammenfassung"><a class="header" href="#25----zusammenfassung">2.5    Zusammenfassung</a></h3>
+<ul>
+<li>Variablen sind Namen, keine Container.</li>
+<li>Zuweisung erzeugt Referenzen, keine Kopien.</li>
+<li>Mutable Objekte können über mehrere Referenzen verändert werden.</li>
+<li>Unveränderliche Objekte bleiben von außen unbeeinflusst.</li>
+<li><code>is</code> prüft Identität, == prüft Gleichheit.</li>
+</ul>
+<h2 id="3----mutability-von-datentypen"><a class="header" href="#3----mutability-von-datentypen">3    Mutability von Datentypen</a></h2>
+<p>In Python unterscheidet man zwischen <strong>veränderlichen (mutable)</strong> und <strong>unveränderlichen (immutable)</strong> Datentypen. Dieses Konzept ist zentral für das Verständnis von Speicherverhalten, Referenzen und Seiteneffekten.</p>
+<div class="mdbook-callouts mdbook-callouts-info">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  mutable vs immutable
+</p>
+
+<p>Ein <strong>mutable</strong> Objekt kann nach seiner Erstellung verändert werden. Änderungen wirken sich auf alle Referenzen auf dieses Objekt aus.</p>
+<p>Ein <strong>immutable</strong> Objekt kann nicht verändert werden. Jede Änderung erzeugt ein neues Objekt.</p>
+</div>
+
+<div class="mdbook-callouts mdbook-callouts-tip">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  mutability prüfen mit `id()`
+</p>
+
+<p>Die <code>id()</code>-Funktion zeigt die Speicheradresse eines Objekts. So erkennt man, ob eine Änderung ein neues Objekt erzeugt hat.</p>
+<pre><code class="language-python">s = 'abc'
+print(id(s))  # 4380616160
+s  += 'd'
+print(id(s))  # 4934619072 (Neue ID)
+</code></pre>
+</div>
+
+<h3 id="31----beispiele-für-immutable-typen"><a class="header" href="#31----beispiele-für-immutable-typen">3.1    Beispiele für immutable Typen</a></h3>
+<ul>
+<li><code>int</code></li>
+<li><code>float</code></li>
+<li><code>str</code></li>
+<li><code>tuple</code></li>
+<li><code>frozenset</code></li>
+<li><code>bool</code></li>
+</ul>
+<pre><code class="language-python">x = 10
+print(id(x))  # 4381074208
+y = x
+print(id(y))  # 4381074208
+x = x + 1     # neues Objekt wird erstellt
+print(id(x))  # 4381074240
+print(x)      # 11
+print(y)      # 10
+</code></pre>
+<pre><code class="language-python">a = 'hello'
+print(id(a))   # 4843587312
+b = a
+print(id(b))   # 4843587312
+a += ' world'  # neuer String, neue Referenz
+print(id(a))   # 4934764784
+print(a)       # 'hello world'
+print(b)       # 'hello'
+</code></pre>
+<h3 id="32----beispiele-für-mutable-typen"><a class="header" href="#32----beispiele-für-mutable-typen">3.2    Beispiele für mutable Typen</a></h3>
+<ul>
+<li><code>list</code></li>
+<li><code>dict</code></li>
+<li><code>set</code></li>
+<li><code>bytearray</code></li>
+<li>user-defined classes (standardmäßig)</li>
+</ul>
+<pre><code class="language-python">items = [1, 2, 3]
+copy = items
+items.append(4)  # verändert das Objekt selbst
+print(items)  # [1, 2, 3, 4]
+print(copy)   # [1, 2, 3, 4] -&gt; auch verändert
+</code></pre>
+<pre><code class="language-python">settings = {'theme': 'dark'}
+ref = settings
+settings['theme'] = 'light'  # Änderung wirkt auf beide Referenzen
+print(ref)  # {'theme': 'light'}
+</code></pre>
+<h3 id="33----typen-in-klassenattributen"><a class="header" href="#33----typen-in-klassenattributen">3.3    Typen in Klassenattributen</a></h3>
+<p>Bei eigenen Klassen ist das Verhalten abhängig vom verwendeten Datentyp:</p>
+<pre><code class="language-python">class User:
+    def __init__(self, name):
+        self.name = name  # str ist immutable
+        self.tags = []    # list ist mutable
+
+u1 = User('Alice')
+u2 = u1
+u1.tags.append('admin')   # wirkt auch auf u2
+print(u2.tags)            # ['admin']
+</code></pre>
+<h3 id="34----auswirkungen-auf-funktionsparameter"><a class="header" href="#34----auswirkungen-auf-funktionsparameter">3.4    Auswirkungen auf Funktionsparameter</a></h3>
+<p>Mutable Objekte können in Funktionen verändert werden, was außerhalb der Funktion sichtbar ist.</p>
+<pre><code class="language-python">def modify_list(lst):
+    lst.append(99)  # verändert die übergebene Liste
+
+nums = [1, 2, 3]
+modify_list(nums)
+print(nums)         # [1, 2, 3, 99]
+</code></pre>
+<p>Bei immutable Objekten passiert das nicht:</p>
+<pre><code class="language-python">def modify_number(n):
+    n += 1  # neues Objekt innerhalb der Funktion
+
+x = 10
+modify_number(x)
+print(x)  # 10
+</code></pre>
+<h3 id="35----zusammenfassung"><a class="header" href="#35----zusammenfassung">3.5    Zusammenfassung</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Datentyp</th><th>Mutable</th></tr>
+</thead>
+<tbody>
+<tr><td><code>int</code></td><td>Nein</td></tr>
+<tr><td><code>str</code></td><td>Nein</td></tr>
+<tr><td><code>bool</code></td><td>Nein</td></tr>
+<tr><td><code>tuple</code></td><td>Nein (aber Inhalt kann mutable sein)</td></tr>
+<tr><td><code>list</code></td><td>Ja</td></tr>
+<tr><td><code>dict</code></td><td>Ja</td></tr>
+<tr><td><code>set</code></td><td>Ja</td></tr>
+<tr><td><code>user class</code></td><td>Abhänigig von den verwendeten Datentypen</td></tr>
+</tbody>
+</table>
+</div>
+<p>Mutability beeinflusst, wie sich Daten in Speicher, Referenzen und Funktionen verhalten. Ein gutes Verständnis hilft, Bugs und unerwartetes Verhalten zu vermeiden.</p>
+<h2 id="4----in-place-operations-und-shallow-bzw-deep-copy"><a class="header" href="#4----in-place-operations-und-shallow-bzw-deep-copy">4    In-Place Operations und Shallow bzw. Deep Copy</a></h2>
+<h3 id="41----in-place-operations"><a class="header" href="#41----in-place-operations">4.1    In-Place Operations</a></h3>
+<p>In-Place Operationen ändern ein Objekt direkt, ohne eine neue Kopie zu erstellen. Das spart Speicher, kann aber zu Seiteneffekten führen, wenn mehrere Referenzen auf das gleiche Objekt existieren.</p>
+<p><strong>Listen verändern:</strong></p>
+<pre><code class="language-python">numbers = [1, 2, 3]
+numbers.append(4)  # verändert das Objekt selbst
+print(numbers)  # [1, 2, 3, 4]
+</code></pre>
+<p><strong><code>+=</code> bei Listen:</strong></p>
+<pre><code class="language-python">data = [1, 2]
+other = data
+data += [3, 4]  # in-place Änderung
+print(data)   # [1, 2, 3, 4]
+print(other)  # [1, 2, 3, 4] -&gt; auch verändert
+</code></pre>
+<div class="mdbook-callouts mdbook-callouts-warning">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  `+=` kann auch eine neue referenz erzeugen (bei immutable typen)
+</p>
+
+<p>Bei immutable Typen wie <code>int</code>, <code>str</code>, <code>tuple</code> wird keine In-Place-Änderung durchgeführt.</p>
+<p>Beispiel:</p>
+<pre><code class="language-python">x = 10
+y = x
+x += 5  # erzeugt neues Objekt
+print(x)  # 15
+print(y)  # 10
+</code></pre>
+</div>
+
+<h3 id="42----shallow-copy-flache-kopie"><a class="header" href="#42----shallow-copy-flache-kopie">4.2    Shallow Copy (flache Kopie)</a></h3>
+<p>Eine flache Kopie kopiert nur die äußere Struktur, nicht die enthaltenen Objekte.</p>
+<p><strong>Beispiel mit <code>copy.copy()</code></strong>:</p>
+<pre><code class="language-python">import copy
+
+original = [[1, 2], [3, 4]]
+shallow = copy.copy(original)
+
+shallow[0][0] = 99  # verändert auch 'original'
+print(original)  # [[99, 2], [3, 4]]
+</code></pre>
+<ul>
+<li><code>shallow</code> und <code>original</code> teilen sich die inneren Listen.</li>
+<li>Nur die erste Ebene wird kopiert.</li>
+</ul>
+<h3 id="43----deep-copy-tiefe-kopie"><a class="header" href="#43----deep-copy-tiefe-kopie">4.3    Deep Copy (tiefe Kopie)</a></h3>
+<p>Eine tiefe Kopie erstellt eine vollständige Kopie aller Ebenen, rekursiv.</p>
+<p><strong>Beispiel mit <code>copy.deepcopy()</code>:</strong></p>
+<pre><code class="language-python">import copy
+
+original = [[1, 2], [3, 4]]
+deep = copy.deepcopy(original)
+
+deep[0][0] = 99
+print(original)  # [[1, 2], [3, 4]]
+</code></pre>
+<ul>
+<li><code>deep</code> ist vollständig unabhängig von <code>original</code>.</li>
+<li>Änderungen wirken sich nicht auf das Original aus.</li>
+</ul>
+<p><strong>Vergleich Shallow vs. Deep Copy:</strong></p>
+<pre><code class="language-python">import copy
+
+data = [{'a': 1}, {'b': 2}]
+shallow = copy.copy(data)
+deep = copy.deepcopy(data)
+
+shallow[0]['a'] = 99
+print(data)       # [{'a': 99}, {'b': 2}]
+print(deep)       # [{'a': 1}, {'b': 2}]
+</code></pre>
+<div class="mdbook-callouts mdbook-callouts-warning">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  kopieren mit slicing oder konstruktor
+</p>
+
+<p>Beim Kopieren durch Slicing oder die Verwendung eines Konstruktors werden nur flache Kopien erzeugt:</p>
+<pre><code class="language-python">original = [1, 2, 3]
+copy1 = original[:]       # flache Kopie
+copy2 = list(original)    # ebenfalls flach
+
+copy1.append(4)
+print(original)           # [1, 2, 3]
+print(copy1)              # [1, 2, 3, 4]
+</code></pre>
+</div>
+
+<h3 id="44----wann-welche-kopie-verwenden"><a class="header" href="#44----wann-welche-kopie-verwenden">4.4    Wann welche Kopie verwenden?</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Situation</th><th>Empfehlung</th></tr>
+</thead>
+<tbody>
+<tr><td>Nur äußere Struktur kopieren</td><td><code>copy.copy()</code></td></tr>
+<tr><td>Vollständig unabhängig kopieren</td><td><code>copy.deepcopy()</code></td></tr>
+<tr><td>Performance wichtig, Inhalt flach</td><td><code>list()</code>, Slicing (<code>[:]</code>)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="45----zusammenfassung"><a class="header" href="#45----zusammenfassung">4.5    Zusammenfassung</a></h3>
+<ul>
+<li>In-Place Operationen ändern das Objekt direkt.</li>
+<li>Shallow Copies duplizieren nur die oberste Ebene.</li>
+<li>Deep Copies duplizieren rekursiv die komplette Struktur.</li>
+<li>Vorsicht bei verschachtelten Strukturen – dort macht <code>deepcopy</code> den Unterschied.</li>
+</ul>
+<h2 id="5----memory-profiling-mit-tracemalloc"><a class="header" href="#5----memory-profiling-mit-tracemalloc">5    Memory Profiling mit <code>tracemalloc</code></a></h2>
+<p><code>tracemalloc</code> ist ein eingebautes Modul zum Überwachen und Analysieren des Speicherverbrauchs von Python-Programmen. Es hilft, Speicherlecks zu finden und den Speicherverbrauch zu optimieren.</p>
+<h3 id="51----grundlegende-verwendung"><a class="header" href="#51----grundlegende-verwendung">5.1    Grundlegende Verwendung</a></h3>
+<pre><code class="language-python">import tracemalloc
+
+# Tracking starten
+tracemalloc.start()
+
+# Code ausführen
+data = [i for i in range(1000000)]
+
+# Aktuellen Speicherverbrauch abrufen
+current, peak = tracemalloc.get_traced_memory()
+print(f"Current memory: {current / 1024 / 1024:.2f} MB")
+print(f"Peak memory: {peak / 1024 / 1024:.2f} MB")
+
+# Tracking stoppen
+tracemalloc.stop()
+</code></pre>
+<h3 id="52----snapshots-und-vergleiche"><a class="header" href="#52----snapshots-und-vergleiche">5.2    Snapshots und Vergleiche</a></h3>
+<p>Snapshots ermöglichen es, den Speicherverbrauch zu verschiedenen Zeitpunkten zu vergleichen.</p>
+<pre><code class="language-python">import tracemalloc
+
+tracemalloc.start()
+
+# Erster Snapshot
+snapshot1 = tracemalloc.take_snapshot()
+
+# Code ausführen
+data = [i * 2 for i in range(1000000)]
+
+# Zweiter Snapshot
+snapshot2 = tracemalloc.take_snapshot()
+
+# Unterschiede anzeigen
+stats = snapshot2.compare_to(snapshot1, 'lineno')
+
+print("Top 10 Speicherzuwächse:")
+for stat in stats[:10]:
+    print(stat)
+</code></pre>
+<h3 id="53----top-statistiken-anzeigen"><a class="header" href="#53----top-statistiken-anzeigen">5.3    Top-Statistiken anzeigen</a></h3>
+<pre><code class="language-python">import tracemalloc
+
+tracemalloc.start()
+
+# Speicherintensiver Code
+large_list = [i for i in range(5000000)]
+large_dict = {i: str(i) for i in range(100000)}
+
+# Snapshot nehmen
+snapshot = tracemalloc.take_snapshot()
+
+# Top 10 nach Speicherverbrauch
+top_stats = snapshot.statistics('lineno')
+
+print("Top 10 Memory Consumers:")
+for index, stat in enumerate(top_stats[:10], 1):
+    print(f"{index}. {stat}")
+
+tracemalloc.stop()
+</code></pre>
+<p><strong>Ausgabe-Beispiel:</strong></p>
+<pre><code>Top 10 Memory Consumers:
+1. memory_example.py:7: size=38.1 MiB, count=1, average=38.1 MiB
+2. memory_example.py:8: size=12.3 MiB, count=100000, average=129 B
+</code></pre>
+<h3 id="54----speicherlecks-finden"><a class="header" href="#54----speicherlecks-finden">5.4    Speicherlecks finden</a></h3>
+<pre><code class="language-python">import tracemalloc
+
+# Simuliertes Speicherleck
+leaked_data = []
+
+def leak_memory():
+    """Funktion, die Speicher nicht freigibt"""
+    data = [i for i in range(100000)]
+    leaked_data.append(data)  # Referenz bleibt bestehen
+
+tracemalloc.start()
+
+snapshot1 = tracemalloc.take_snapshot()
+
+# Mehrfach aufrufen
+for _ in range(10):
+    leak_memory()
+
+snapshot2 = tracemalloc.take_snapshot()
+
+# Differenz analysieren
+top_stats = snapshot2.compare_to(snapshot1, 'lineno')
+
+print("Memory increases:")
+for stat in top_stats[:5]:
+    print(stat)
+
+tracemalloc.stop()
+</code></pre>
+<h3 id="55----filtern-nach-dateienmodulen"><a class="header" href="#55----filtern-nach-dateienmodulen">5.5    Filtern nach Dateien/Modulen</a></h3>
+<pre><code class="language-python">import tracemalloc
+import fnmatch
+
+tracemalloc.start()
+
+# Code ausführen
+data = list(range(1000000))
+
+snapshot = tracemalloc.take_snapshot()
+
+# Nur spezifische Dateien
+filters = [
+    tracemalloc.Filter(True, "*/my_module/*"),  # Include
+    tracemalloc.Filter(False, "&lt;frozen*"),      # Exclude frozen modules
+    tracemalloc.Filter(False, "&lt;unknown&gt;"),     # Exclude unknown
+]
+
+snapshot = snapshot.filter_traces(filters)
+top_stats = snapshot.statistics('filename')
+
+for stat in top_stats[:10]:
+    print(stat)
+
+tracemalloc.stop()
+</code></pre>
+<h3 id="56----context-manager-für-profiling"><a class="header" href="#56----context-manager-für-profiling">5.6    Context Manager für Profiling</a></h3>
+<pre><code class="language-python">from contextlib import contextmanager
+import tracemalloc
+
+@contextmanager
+def memory_profiler(description="Code Block"):
+    """Context Manager für Speicher-Profiling"""
+    tracemalloc.start()
+    snapshot_before = tracemalloc.take_snapshot()
+    
+    try:
+        yield
+    finally:
+        snapshot_after = tracemalloc.take_snapshot()
+        top_stats = snapshot_after.compare_to(snapshot_before, 'lineno')
+        
+        print(f"\n=== Memory Profile: {description} ===")
+        current, peak = tracemalloc.get_traced_memory()
+        print(f"Current: {current / 1024 / 1024:.2f} MB")
+        print(f"Peak: {peak / 1024 / 1024:.2f} MB")
+        
+        print("\nTop 5 allocations:")
+        for stat in top_stats[:5]:
+            print(stat)
+        
+        tracemalloc.stop()
+
+# Verwendung
+with memory_profiler("List Creation"):
+    large_list = [i ** 2 for i in range(1000000)]
+</code></pre>
+<h3 id="57----detaillierte-traceback-information"><a class="header" href="#57----detaillierte-traceback-information">5.7    Detaillierte Traceback-Information</a></h3>
+<pre><code class="language-python">import tracemalloc
+import linecache
+
+def display_top(snapshot, key_type='lineno', limit=10):
+    """Zeigt Top-Speicherverbraucher mit Traceback"""
+    snapshot = snapshot.filter_traces((
+        tracemalloc.Filter(False, "&lt;frozen importlib._bootstrap&gt;"),
+        tracemalloc.Filter(False, "&lt;unknown&gt;"),
+    ))
+    top_stats = snapshot.statistics(key_type)
+
+    print(f"Top {limit} lines")
+    for index, stat in enumerate(top_stats[:limit], 1):
+        frame = stat.traceback[0]
+        filename = frame.filename
+        lineno = frame.lineno
+        
+        print(f"#{index}: {filename}:{lineno}: {stat.size / 1024:.1f} KiB")
+        
+        # Zeile aus Quelldatei
+        line = linecache.getline(filename, lineno).strip()
+        if line:
+            print(f"    {line}")
+
+# Verwendung
+tracemalloc.start()
+
+# Speicherintensive Operationen
+data1 = [i for i in range(500000)]
+data2 = {i: str(i) for i in range(100000)}
+
+snapshot = tracemalloc.take_snapshot()
+display_top(snapshot, limit=5)
+
+tracemalloc.stop()
+</code></pre>
+<h3 id="58----vergleich-verschiedene-implementierungen"><a class="header" href="#58----vergleich-verschiedene-implementierungen">5.8    Vergleich: Verschiedene Implementierungen</a></h3>
+<pre><code class="language-python">import tracemalloc
+import time
+
+def benchmark_memory(func, *args, **kwargs):
+    """Misst Speicher und Zeit für Funktion"""
+    tracemalloc.start()
+    start_time = time.time()
+    
+    result = func(*args, **kwargs)
+    
+    current, peak = tracemalloc.get_traced_memory()
+    elapsed_time = time.time() - start_time
+    tracemalloc.stop()
+    
+    return {
+        'result': result,
+        'current_mb': current / 1024 / 1024,
+        'peak_mb': peak / 1024 / 1024,
+        'time_s': elapsed_time
+    }
+
+# Verschiedene Implementierungen testen
+def create_list_comprehension(n):
+    return [i ** 2 for i in range(n)]
+
+def create_generator(n):
+    return list(i ** 2 for i in range(n))
+
+def create_map(n):
+    return list(map(lambda x: x ** 2, range(n)))
+
+# Vergleichen
+n = 1_000_000
+implementations = [
+    ('List Comprehension', create_list_comprehension),
+    ('Generator Expression', create_generator),
+    ('Map', create_map)
+]
+
+print(f"Creating {n:,} elements\n")
+for name, func in implementations:
+    stats = benchmark_memory(func, n)
+    print(f"{name}:")
+    print(f"  Peak Memory: {stats['peak_mb']:.2f} MB")
+    print(f"  Time: {stats['time_s']:.4f} s\n")
+</code></pre>
+<h3 id="59----speicherlecks-in-klassen-finden"><a class="header" href="#59----speicherlecks-in-klassen-finden">5.9    Speicherlecks in Klassen finden</a></h3>
+<pre><code class="language-python">import tracemalloc
+import weakref
+
+class LeakyClass:
+    instances = []  # Klassenvariable - hält Referenzen
+    
+    def __init__(self, data):
+        self.data = data
+        LeakyClass.instances.append(self)  # Speicherleck!
+
+class CleanClass:
+    instances = []
+    
+    def __init__(self, data):
+        self.data = data
+        # Schwache Referenz verwenden
+        CleanClass.instances.append(weakref.ref(self))
+
+def test_leak():
+    tracemalloc.start()
+    
+    # Leaky Version
+    snapshot1 = tracemalloc.take_snapshot()
+    
+    for _ in range(1000):
+        obj = LeakyClass([i for i in range(1000)])
+        # obj geht aus dem Scope, aber Referenz bleibt in instances
+    
+    snapshot2 = tracemalloc.take_snapshot()
+    
+    # Clean Version
+    for _ in range(1000):
+        obj = CleanClass([i for i in range(1000)])
+    
+    snapshot3 = tracemalloc.take_snapshot()
+    
+    # Vergleich
+    print("=== Leaky Class ===")
+    stats = snapshot2.compare_to(snapshot1, 'lineno')
+    for stat in stats[:3]:
+        print(stat)
+    
+    print("\n=== Clean Class ===")
+    stats = snapshot3.compare_to(snapshot2, 'lineno')
+    for stat in stats[:3]:
+        print(stat)
+    
+    tracemalloc.stop()
+
+test_leak()
+</code></pre>
+<h3 id="510----integration-in-unit-tests"><a class="header" href="#510----integration-in-unit-tests">5.10    Integration in Unit Tests</a></h3>
+<pre><code class="language-python">import tracemalloc
+import unittest
+
+class MemoryTestCase(unittest.TestCase):
+    def setUp(self):
+        tracemalloc.start()
+        self.snapshot_before = tracemalloc.take_snapshot()
+    
+    def tearDown(self):
+        snapshot_after = tracemalloc.take_snapshot()
+        top_stats = snapshot_after.compare_to(
+            self.snapshot_before, 'lineno'
+        )
+        
+        # Warnung bei hohem Speicherverbrauch
+        for stat in top_stats[:5]:
+            if stat.size_diff &gt; 10 * 1024 * 1024:  # &gt; 10 MB
+                print(f"\nWARNING: High memory increase: {stat}")
+        
+        tracemalloc.stop()
+    
+    def test_large_allocation(self):
+        """Test mit Speicherüberwachung"""
+        data = [i for i in range(1000000)]
+        self.assertEqual(len(data), 1000000)
+
+if __name__ == '__main__':
+    unittest.main()
+</code></pre>
+<h3 id="511----best-practices"><a class="header" href="#511----best-practices">5.11    Best Practices</a></h3>
+<p><strong>✅ DO:</strong></p>
+<ul>
+<li><code>tracemalloc</code> für Entwicklung und Debugging verwenden</li>
+<li>Snapshots vor/nach kritischen Operationen</li>
+<li>Filter verwenden um Noise zu reduzieren</li>
+<li>Mit Context Managers arbeiten</li>
+<li>Peak Memory beachten, nicht nur Current</li>
+</ul>
+<p><strong>❌ DON’T:</strong></p>
+<ul>
+<li><code>tracemalloc</code> in Produktion laufen lassen (Performance-Overhead ~2-3x)</li>
+<li>Zu häufig Snapshots nehmen (selbst speicherintensiv)</li>
+<li>Ohne Filter arbeiten bei großen Projekten</li>
+<li><code>start()</code> ohne <code>stop()</code> aufrufen</li>
+</ul>
+<h3 id="512----alternative-tools"><a class="header" href="#512----alternative-tools">5.12    Alternative Tools</a></h3>
+<h4 id="5121----memory_profiler"><a class="header" href="#5121----memory_profiler">5.12.1    <code>memory_profiler</code></a></h4>
+<pre><code class="language-bash">pip install memory_profiler
+</code></pre>
+<pre><code class="language-python">from memory_profiler import profile
+
+@profile
+def my_func():
+    a = [1] * (10 ** 6)
+    b = [2] * (2 * 10 ** 7)
+    del b
+    return a
+
+# Run with: python -m memory_profiler script.py
+</code></pre>
+<h4 id="5122----guppy3--heapy"><a class="header" href="#5122----guppy3--heapy">5.12.2    <code>guppy3</code> / <code>heapy</code></a></h4>
+<pre><code class="language-bash">pip install guppy3
+</code></pre>
+<pre><code class="language-python">from guppy import hpy
+
+h = hpy()
+print(h.heap())
+</code></pre>
+<h4 id="5123----pympler"><a class="header" href="#5123----pympler">5.12.3    <code>pympler</code></a></h4>
+<pre><code class="language-bash">pip install pympler
+</code></pre>
+<pre><code class="language-python">from pympler import asizeof
+
+data = [i for i in range(1000)]
+print(f"Size: {asizeof.asizeof(data)} bytes")
+</code></pre>
+<h3 id="513----praktisches-beispiel-memory-leak-finden"><a class="header" href="#513----praktisches-beispiel-memory-leak-finden">5.13    Praktisches Beispiel: Memory Leak finden</a></h3>
+<pre><code class="language-python">import tracemalloc
+
+class DataProcessor:
+    cache = {}  # Klassenvariable - potenzielles Leak
+    
+    def process(self, data):
+        # Cache wächst unbegrenzt
+        key = str(data)
+        if key not in self.cache:
+            self.cache[key] = [d * 2 for d in data]
+        return self.cache[key]
+
+def find_leak():
+    tracemalloc.start()
+    processor = DataProcessor()
+    
+    snapshots = []
+    
+    # Mehrere Iterationen
+    for i in range(5):
+        # Viele verschiedene Daten verarbeiten
+        for _ in range(100):
+            data = list(range(1000 + i * 100))
+            processor.process(data)
+        
+        snapshot = tracemalloc.take_snapshot()
+        snapshots.append(snapshot)
+        
+        if i &gt; 0:
+            stats = snapshot.compare_to(snapshots[i-1], 'lineno')
+            print(f"\n=== Iteration {i} ===")
+            for stat in stats[:3]:
+                print(stat)
+    
+    # Cache-Größe
+    print(f"\nCache entries: {len(DataProcessor.cache)}")
+    
+    tracemalloc.stop()
+
+find_leak()
+</code></pre>
+<p><strong>Lösung:</strong></p>
+<pre><code class="language-python">from functools import lru_cache
+
+class DataProcessor:
+    @lru_cache(maxsize=100)  # Begrenzter Cache
+    def process(self, data):
+        data_tuple = tuple(data)  # Hashable machen
+        return [d * 2 for d in data_tuple]
+</code></pre>
+<h3 id="514----zusammenfassung"><a class="header" href="#514----zusammenfassung">5.14    Zusammenfassung</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Funktion</th><th>Zweck</th></tr>
+</thead>
+<tbody>
+<tr><td><code>tracemalloc.start()</code></td><td>Tracking starten</td></tr>
+<tr><td><code>tracemalloc.stop()</code></td><td>Tracking stoppen</td></tr>
+<tr><td><code>take_snapshot()</code></td><td>Speicher-Snapshot erstellen</td></tr>
+<tr><td><code>get_traced_memory()</code></td><td>Current/Peak Memory abrufen</td></tr>
+<tr><td><code>snapshot.statistics()</code></td><td>Top-Verbraucher analysieren</td></tr>
+<tr><td><code>snapshot.compare_to()</code></td><td>Zwei Snapshots vergleichen</td></tr>
+<tr><td><code>Filter()</code></td><td>Traces filtern</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Kernprinzip:</strong> <code>tracemalloc</code> hilft, Speicherlecks zu finden und Speicherverbrauch zu optimieren. Es sollte während der Entwicklung verwendet werden, nicht in Produktion. Kombiniere es mit Snapshots und Filtern für präzise Analysen.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../b-oop-und-fortgeschrittene-konzepte/typannotationen.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../b-oop-und-fortgeschrittene-konzepte/kontext-manager-und-contextlib.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../b-oop-und-fortgeschrittene-konzepte/typannotationen.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../b-oop-und-fortgeschrittene-konzepte/kontext-manager-und-contextlib.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

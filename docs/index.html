@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-884ee95f.js";
+            window.path_to_searchindex_js = "searchindex-1ed3f166.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a17d45f6.js"></script>
+        <script src="toc-f6524bb4.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -416,17 +416,41 @@
   --color-pink: #d53984;
 }
 </style>
-<h1 id="einleitung"><a class="header" href="#einleitung">Einleitung</a></h1>
-<p>Diese Referenz zu Python ist im Rahmen meiner eigenen Weiterbildung entstanden. Ich nutze sie als persönliches Nachschlagewerk, um zentrale Sprachkonzepte, Syntaxbesonderheiten und häufige Muster schnell auffrischen zu können.</p>
-<p>Die Referenz richtet sich an Programmierer, die bereits Erfahrung mit einer Sprache haben und sich zügig in eine weitere Sprache einarbeiten möchten, ohne bei Null anfangen zu müssen.</p>
-<p>Der Fokus liegt auf Verständlichkeit und kurzen Beispielen, um einen schnellen Überblick zu bieten – nicht auf Vollständigkeit oder akademischer Tiefe.</p>
+<h1 id="willkommen-zur-python-referenz"><a class="header" href="#willkommen-zur-python-referenz">Willkommen zur Python-Referenz</a></h1>
+<blockquote>
+<p><strong>Eine umfassende, deutschsprachige Referenz für Python-Entwickler aller Erfahrungsstufen</strong></p>
+</blockquote>
+<h2 id="über-diese-referenz"><a class="header" href="#über-diese-referenz">Über diese Referenz</a></h2>
+<p>Diese Referenz ist entstanden aus dem Bedürfnis, <strong>praktisches Python-Wissen</strong> strukturiert und auf Deutsch verfügbar zu machen. Sie ist weder ein klassisches Tutorial noch eine reine API-Dokumentation, sondern etwas dazwischen: <strong>eine Sammlung von Konzepten, Best Practices und Beispielen</strong>, die helfen soll, sich Wissen schnell anzueignen bzw. es wieder aufzufrischen.</p>
+<h2 id="für-wen-ist-diese-referenz"><a class="header" href="#für-wen-ist-diese-referenz">Für wen ist diese Referenz?</a></h2>
+<p><strong>🎓 Anfänger:</strong></p>
+<p>Für Programmierer, die bereits Erfahrungen in einer anderen Sprache haben und mit dem Grundkonzepten der Programmierung vertraut sind, bietet <em>Teil I (Grundlagen)</em> einen schnellen, strukturierten Einstieg in Python-Syntax, Datentypen und Kontrollstrukturen.</p>
+<p><strong>💼 Erfahrene Entwickler:</strong></p>
+<p>Entwickler, die bereits mit Python programmieren, finden in den <em>Teilen  II bis IV</em> fortgeschrittene Themen wie OOP-Design-Patterns, Performance-Optimierung, Testing und moderne Entwicklungs-Workflows.</p>
+<p><em>Teil III-V</em> zeigen, wie man sauberen, getesteten und performanten Code für produktionsreife Anwendungen schreibt und modernen Tools wie Ruff, pytest, Poetry und PyO3 nutzt.</p>
+<p>Einen Schnellstart in Data Science bietet <em>Teil VI</em>, welcher NumPy, Pandas und Matplotlib/Seaborn behandelt.</p>
+<h2 id="philosophie-dieser-referenz"><a class="header" href="#philosophie-dieser-referenz">Philosophie dieser Referenz</a></h2>
+<p><strong>✅ Lernressource und Nachschlagewerk:</strong></p>
+<p>Diese Referenz ist gleichermaßen geeignet, sie sequentiell zum Lernen zu verwenden und sie über die durchdachte Struktur oder die Suchfunktion (Tastenkürzel: <code>s</code>) als Nachschlagewerk zu nutzen.</p>
+<p><strong>Praktisch, nicht theoretisch:</strong></p>
+<p>Jedes Konzept wird mit <strong>funktionierenden Code-Beispielen</strong> erklärt. Kein unnötiger Ballast – nur das, was man wirklich braucht.</p>
+<p><strong>✅ Modern und aktuell:</strong></p>
+<p>Diese Referenz deckt <strong>Python 3.11+</strong> ab und nutzt moderne Tools und Best Practices (Type Hints, Ruff statt Flake8, Poetry statt setup.py, pytest statt unittest).</p>
+<p><strong>✅ Deutsch mit englischem Code:</strong></p>
+<p><strong>Erklärungen auf Deutsch</strong> (weil komplexe Konzepte in der Muttersprache einfacher zu verstehen sind), aber <strong>Code mit englischen Bezeichnern</strong> (wie in der professionellen Praxis üblich).</p>
+<p><strong>✅ Best Practices, statt “es funktioniert”:</strong></p>
+<p>An vielen Stellen wird nicht nur erklärt, <strong>wie</strong> etwas funktioniert, sondern auch <strong>warum</strong> und <strong>wann</strong> man es einsetzen sollte (und wann besser nicht).</p>
+<h2 id="was-diese-referenz-nicht-ist"><a class="header" href="#was-diese-referenz-nicht-ist">Was diese Referenz NICHT ist</a></h2>
+<p>❌ <strong>Kein komplettes Tutorial</strong>: Diese Referenz ersetzt keine praktische Übung. Programmieren lernst du nur durch Programmieren!</p>
+<p>❌ <strong>Keine API-Dokumentation</strong>: Für detaillierte API-Referenzen nutze die <a href="https://docs.python.org/">offizielle Python-Dokumentation</a>.</p>
+<p>❌ <strong>Nicht für absolute Programmier-Anfänger</strong>: Grundlegende Programmierkenntnisse (Variablen, Schleifen, Funktionen) werden vorausgesetzt.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
 
-                            <a rel="next prefetch" href="01 Links.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="a-grundlagen/links.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -437,7 +461,7 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
 
-                    <a rel="next prefetch" href="01 Links.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="a-grundlagen/links.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

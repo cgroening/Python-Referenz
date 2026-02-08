@@ -1,0 +1,1334 @@
+<!DOCTYPE HTML>
+<html lang="de" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Datenstrukturen (Collections) - Python-Referenz</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-80432388.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "../searchindex-1ed3f166.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-f6524bb4.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Python-Referenz</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/cgroening/Python-Referenz" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <style>
+.mdbook-callouts {
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  /* border-left: 0.25em solid var(--mdbook-callouts-color); */
+  background: var(--mdbook-callouts-background);
+}
+
+.mdbook-callouts > *:first-child {
+  margin-top: 0;
+}
+
+.mdbook-callouts > *:last-child {
+  margin-bottom: 0;
+}
+
+.mdbook-callouts-title {
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  line-height: 1;
+  color: var(--mdbook-callouts-color);
+  text-transform: capitalize;
+}
+
+.mdbook-callouts-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.2em;
+  background-color: currentColor;
+  -webkit-mask: no-repeat center / 100%;
+  mask: no-repeat center / 100%;
+  -webkit-mask-image: var(--mdbook-callouts-icon);
+  mask-image: var(--mdbook-callouts-icon);
+}
+
+/* icons at: https://lucide.dev/icons/ */
+
+.mdbook-callouts-info {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/info */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWluZm8iPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PHBhdGggZD0iTTEyIDE2di00Ii8+PHBhdGggZD0iTTEyIDhoLjAxIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-note {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/pencil */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBlbmNpbCI+PHBhdGggZD0iTTE3IDNhMi44NSAyLjgzIDAgMSAxIDQgNEw3LjUgMjAuNSAyIDIybDEuNS01LjVaIi8+PHBhdGggZD0ibTE1IDUgNCA0Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-tip,
+.mdbook-callouts-hint {
+  --mdbook-callouts-color: rgb(var(--color-cyan-rgb));
+  --mdbook-callouts-background: rgba(var(--color-cyan-rgb), 0.1);
+  /* https://lucide.dev/icons/flame */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZsYW1lIj48cGF0aCBkPSJNOC41IDE0LjVBMi41IDIuNSAwIDAgMCAxMSAxMmMwLTEuMzgtLjUtMi0xLTMtMS4wNzItMi4xNDMtLjIyNC00LjA1NCAyLTYgLjUgMi41IDIgNC45IDQgNi41IDIgMS42IDMgMy41IDMgNS41YTcgNyAwIDEgMS0xNCAwYzAtMS4xNTMuNDMzLTIuMjk0IDEtM2EyLjUgMi41IDAgMCAwIDIuNSAyLjV6Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-important {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LWNpcmNsZSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48bGluZSB4MT0iMTIiIHgyPSIxMiIgeTE9IjgiIHkyPSIxMiIvPjxsaW5lIHgxPSIxMiIgeDI9IjEyLjAxIiB5MT0iMTYiIHkyPSIxNiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-success,
+.mdbook-callouts-check,
+.mdbook-callouts-done {
+  --mdbook-callouts-color: rgb(var(--color-green-rgb));
+  --mdbook-callouts-background: rgba(var(--color-green-rgb), 0.1);
+  /* https://lucide.dev/icons/check */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZWNrIj48cGF0aCBkPSJNMjAgNiA5IDE3bC01LTUiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-question,
+.mdbook-callouts-help,
+.mdbook-callouts-faq {
+  --mdbook-callouts-color: rgb(var(--color-pink-rgb));
+  --mdbook-callouts-background: rgba(var(--color-pink-rgb), 0.1);
+  /* https://lucide.dev/icons/help-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhlbHAtY2lyY2xlIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxwYXRoIGQ9Ik05LjA5IDlhMyAzIDAgMCAxIDUuODMgMWMwIDItMyAzLTMgMyIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-warning,
+.mdbook-callouts-warn {
+  --mdbook-callouts-color: rgb(var(--color-orange-rgb));
+  --mdbook-callouts-background: rgba(var(--color-orange-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-triangle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LXRyaWFuZ2xlIj48cGF0aCBkPSJtMjEuNzMgMTgtOC0xNGEyIDIgMCAwIDAtMy40OCAwbC04IDE0QTIgMiAwIDAgMCA0IDIxaDE2YTIgMiAwIDAgMCAxLjczLTNaIi8+PHBhdGggZD0iTTEyIDl2NCIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-caution {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/shield-alert */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNoaWVsZC1hbGVydCI+PHBhdGggZD0iTTEyIDIyczgtNCA4LTEwVjVsLTgtMy04IDN2N2MwIDYgOCAxMCA4IDEwIi8+PHBhdGggZD0iTTEyIDh2NCIvPjxwYXRoIGQ9Ik0xMiAxNmguMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-failure,
+.mdbook-callouts-fail,
+.mdbook-callouts-missing {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/x */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXgiPjxwYXRoIGQ9Ik0xOCA2IDYgMTgiLz48cGF0aCBkPSJtNiA2IDEyIDEyIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-error,
+.mdbook-callouts-danger {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/zap */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXphcCI+PHBvbHlnb24gcG9pbnRzPSIxMyAyIDMgMTQgMTIgMTQgMTEgMjIgMjEgMTAgMTIgMTAgMTMgMiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-bug {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/bug */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJ1ZyI+PHBhdGggZD0ibTggMiAxLjg4IDEuODgiLz48cGF0aCBkPSJNMTQuMTIgMy44OCAxNiAyIi8+PHBhdGggZD0iTTkgNy4xM3YtMWEzLjAwMyAzLjAwMyAwIDEgMSA2IDB2MSIvPjxwYXRoIGQ9Ik0xMiAyMGMtMy4zIDAtNi0yLjctNi02di0zYTQgNCAwIDAgMSA0LTRoNGE0IDQgMCAwIDEgNCA0djNjMCAzLjMtMi43IDYtNiA2Ii8+PHBhdGggZD0iTTEyIDIwdi05Ii8+PHBhdGggZD0iTTYuNTMgOUM0LjYgOC44IDMgNy4xIDMgNSIvPjxwYXRoIGQ9Ik02IDEzSDIiLz48cGF0aCBkPSJNMyAyMWMwLTIuMSAxLjctMy45IDMuOC00Ii8+PHBhdGggZD0iTTIwLjk3IDVjMCAyLjEtMS42IDMuOC0zLjUgNCIvPjxwYXRoIGQ9Ik0yMiAxM2gtNCIvPjxwYXRoIGQ9Ik0xNy4yIDE3YzIuMS4xIDMuOCAxLjkgMy44IDQiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-examples,
+.mdbook-callouts-example {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/list */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxpc3QiPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSIxMiIgeTI9IjEyIi8+PGxpbmUgeDE9IjgiIHgyPSIyMSIgeTE9IjE4IiB5Mj0iMTgiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSIzIiB4Mj0iMy4wMSIgeTE9IjEyIiB5Mj0iMTIiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSIxOCIgeTI9IjE4Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-quote {
+  --mdbook-callouts-color: rgb(158, 158, 158);
+  --mdbook-callouts-background: rgba(158, 158, 158, 0.1);
+  /* https://lucide.dev/icons/quote */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXF1b3RlIj48cGF0aCBkPSJNMyAyMWMzIDAgNy0xIDctOFY1YzAtMS4yNS0uNzU2LTIuMDE3LTItMkg0Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDIgMSAwIDEgMCAxIDF2MWMwIDEtMSAyLTIgMnMtMSAuMDA4LTEgMS4wMzFWMjBjMCAxIDAgMSAxIDF6Ii8+PHBhdGggZD0iTTE1IDIxYzMgMCA3LTEgNy04VjVjMC0xLjI1LS43NTctMi4wMTctMi0yaC00Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDJoLjc1YzAgMi4yNS4yNSA0LTIuNzUgNHYzYzAgMSAwIDEgMSAxeiIvPjwvc3ZnPg==');
+}
+
+
+.ayu {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.light {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+
+.coal {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.navy {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.rust {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+</style>
+<h1 id="datenstrukturen-collections"><a class="header" href="#datenstrukturen-collections">Datenstrukturen (Collections)</a></h1>
+<h2 id="1----listen"><a class="header" href="#1----listen">1    Listen</a></h2>
+<h3 id="11----zugriff-auf-elemente-teillisten"><a class="header" href="#11----zugriff-auf-elemente-teillisten">1.1    Zugriff auf Elemente, Teillisten</a></h3>
+<pre><code class="language-python">L = ['Null', 'Eins', 'Zwei', 'Drei']
+
+# Anzahl der Elemente
+print(len(L))  # 4
+
+# Element 1
+print(L[1])    # Eins
+
+# Element 0-2
+print(L[0:2])  # ['Null', 'Eins']
+
+# Die letzten beiden Elemente
+print(L[-2:])  # ['Zwei', 'Drei']
+</code></pre>
+<h3 id="12----elemente-hinzufügen-und-löschen"><a class="header" href="#12----elemente-hinzufügen-und-löschen">1.2    Elemente hinzufügen und löschen</a></h3>
+<pre><code class="language-python">L = [2, 4, 6, 8]
+L.append(10)  # Der Wert 10 wird hinzugefügt
+print(L)      # [2, 4, 6, 8, 10]
+
+L.remove(4)   # Der Wert 4 wird entfernt (NICHT Element 4)
+print(L)      # [2, 6, 8, 10]
+
+del L[0:2]    # Element 0-1 werden gelöscht, kein Rückgabewert
+print(L)      # [8, 10]
+
+del L[1]      # Element 1 wird gelöscht, kein Rückgabewert
+print(L)      # [8]
+
+# Element 0 wird entfernt und zurückgegeben
+print(L.pop(0))  # 8
+</code></pre>
+<h3 id="13----listen-kombinieren"><a class="header" href="#13----listen-kombinieren">1.3    Listen kombinieren</a></h3>
+<pre><code class="language-python">L1 = [1, 2, 3]
+L2 = [4, 5, 6]
+
+# Möglichkeit 1
+print(L1 + L2)  # [1, 2, 3, 4, 5, 6]
+
+L1.extend(L2)
+
+# Möglichkeit 2
+print(L1)       # [1, 2, 3, 4, 5, 6]
+</code></pre>
+<p>Prüfen, ob Wert in Liste ist:</p>
+<pre><code class="language-python">L = ["A", "B", "C"]
+x = "B"
+print(x in L)  # True
+</code></pre>
+<h3 id="14----list-comprehensions-kompakte-erstellung-von-listen"><a class="header" href="#14----list-comprehensions-kompakte-erstellung-von-listen">1.4    List comprehensions (kompakte Erstellung von Listen)</a></h3>
+<p><strong>Beispiel 1:</strong></p>
+<pre><code class="language-python">numbers = []
+for i in range(5):
+    numbers.append(i**2)
+print(numbers)  # [0, 1, 4, 9, 16]
+
+# List comprehension:
+numbers = [i**2 for i in range(5)]
+print(numbers)  # [0, 1, 4, 9, 16]
+</code></pre>
+<p><strong>Beispiel 2:</strong></p>
+<pre><code class="language-python">L2 = []
+for i in range(0, len(L)):
+    if L[i] &gt; 1:
+        L2.append(L[i]*2)
+print(L2)                         # [4, 6]
+
+# List comprehension:
+L = [1, 2, 3]
+print([x*2 for x in L if x &gt; 1])  # [4, 6]
+</code></pre>
+<p>List comprehension sind in einigen Fällen besser lesbar, können jedoch auch schnell unübersichtlich werden. Sie sind auch mit <code>if</code>-Bedingungen möglich.</p>
+<p><strong>Beispiel 1:</strong></p>
+<pre><code class="language-python">numbers = [i*-1 if i&lt;3 else -1 for i in range(5)]
+print(numbers)  # [0, -1, -2, -1, -1]
+</code></pre>
+<p><strong>Beispiel 2:</strong></p>
+<pre><code class="language-python">numbers = [i+1 for i in range(5) if i != 3]
+print(numbers)  # [1, 2, 3, 5]
+</code></pre>
+<p>Beim ersten Beispiel steht die if-Bedingung am Anfang, dadurch wird festgelegt, was abgespeichert wird. Beim zweiten Beispiel, bei der die <code>if</code>-Bedingung am Ende steht, wird festgelegt, ob überhaupt etwas abgespeichert werden soll.</p>
+<h3 id="15----kopieren-von-listen"><a class="header" href="#15----kopieren-von-listen">1.5    Kopieren von Listen</a></h3>
+<div class="mdbook-callouts mdbook-callouts-danger">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  danger
+</p>
+
+<p>Das Kopieren einer Liste über Variablenzuweisen (z. B. <code>l2 = l1</code>) führt häufig zu einem nicht gewollten Verhalten, da das Ändern von <code>l2</code> auch die Änderung von <code>l1</code> mit sich bringt.</p>
+</div>
+
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">l1 = [1, 2]
+l2 = l1
+l2[0] = 3
+print(l1)  # [3, 2]
+print(l2)  # [3, 2]
+</code></pre>
+<p>Dies liegt daran, dass auf diese Weite l1 und l2 auf die selbe Speicheradresse verweisen:</p>
+<pre><code class="language-python">l1 = [1, 2]
+l2 = l1
+print(id(l1))  # 1957190476864
+print(id(l2))  # 1957190476864
+</code></pre>
+<p>Um das zu umgehen, kopiert man Listen wie folgt:</p>
+<pre><code class="language-python">l1 = [1, 2]
+l2 = l1.copy()
+l2[0] = 3
+print(l1)  # [1, 2]
+print(l2)  # [3, 2]
+</code></pre>
+<div class="mdbook-callouts mdbook-callouts-warning">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  warning
+</p>
+
+<p>Dies ist eine sog. <em>shallow-copy</em>. Bei mehrdimensionalen Listen funktioniert dies jedoch nicht! Es muss eine sog. <em>deep-copy</em> erstellt werden.</p>
+</div>
+
+<p><strong>Beispiel für shallow-copy:</strong></p>
+<pre><code class="language-python">import copy
+
+l1 = [[1, 2], [3, 4]]
+l2 = l1.copy()  # oder l2 = copy.copy(l1)
+l2[0][0] = 5
+print(l1)  # [[5, 2], [3, 4]]
+print(l2)  # [[5, 2], [3, 4]]
+print(id(l1))        # 1957176932224
+print(id(l2))        # 1957176994368
+print(id(l1[0][0]))  # 1956557750640
+print(id(l2[0][0]))  # 1956557750640
+</code></pre>
+<p><strong>Beispiel für deep-copy:</strong></p>
+<pre><code class="language-python">import copy
+
+l1 = [[1, 2], [3, 4]]
+l2 = copy.deepcopy(l1)
+l2[0][0] = 5
+print(l1)            # [[1, 2], [3, 4]]
+print(l2)            # [[5, 2], [3, 4]]
+print(id(l1))        # 1957190472320
+print(id(l2))        # 1957190477184
+print(id(l1[0][0]))  # 1956557750512
+print(id(l2[0][0]))  # 1956557750640
+</code></pre>
+<p>Mehr zu Listen unter:
+https://www.programiz.com/python-programming/methods/list</p>
+<h2 id="2----arrays"><a class="header" href="#2----arrays">2    Arrays</a></h2>
+<p>Arrays sind ähnlich wie Listen, jedoch effizienter bei numerischen Operationen, insbesondere für große Datenmengen. In Python können Arrays mit dem <code>array</code>-Modul oder über <code>NumPy</code> verwendet werden.</p>
+<pre><code class="language-python">import array
+
+# Ein Array mit ganzen Zahlen (Typcode 'i' für Integer)
+arr = array.array('i', [1, 2, 3, 4, 5])
+print(arr)  # array('i', [1, 2, 3, 4, 5])
+
+# Elementzugriff
+print(arr[1])  # 2
+
+# Element hinzufügen
+arr.append(6)
+print(arr)  # array('i', [1, 2, 3, 4, 5, 6])
+
+# Element entfernen
+arr.remove(3)
+print(arr)  # array('i', [1, 2, 4, 5, 6])
+</code></pre>
+<h2 id="3----tupel"><a class="header" href="#3----tupel">3    Tupel</a></h2>
+<p>Tupel sind wie Listen, jedoch mit dem Unterschied, dass der Inhalt des Tupels nicht veränderbar ist.</p>
+<pre><code class="language-python">t = 1, 2, 3
+t = (1, 2, 3)
+print(t[0])  # 1
+</code></pre>
+<h3 id="31----tuple-unpacking"><a class="header" href="#31----tuple-unpacking">3.1    Tuple unpacking</a></h3>
+<pre><code class="language-python">t = (1, 2, 3)
+
+val1, val2, val3 = t
+print(val1, val2, val3)  # 1 2 3
+
+val1, _, val3 = t
+print(val1, val3)        # 1 3
+
+val1, *t2 = t
+print(val1, t2)          # 1 [2, 3]
+</code></pre>
+<h2 id="4----dictionaries"><a class="header" href="#4----dictionaries">4    Dictionaries</a></h2>
+<p>Dictionaries werden benutzt, um Daten in <code>key</code>-<code>value</code>-Paaren zu speichern.</p>
+<p><strong>Erstellung von Dictionaries:</strong></p>
+<pre><code class="language-python"># Möglichkeit 1:
+baujahr = {'Ford': 2019, 'Honda': 2013}
+print(baujahr)  # {'Ford': 2019, 'Honda': 2013}
+
+# Möglichkeit 2:
+baujahr = dict(Ford = 2019, Honda = 2013)
+print(baujahr)  # {'Ford': 2019, 'Honda': 2013}
+
+# Möglichkeit 3: Schlüssel werden als Tupel übergeben)
+baujahr = dict.fromkeys( ('Ford', 'Honda') )
+baujahr['Ford'] = 2019
+baujahr['Honda'] = 2013
+print(baujahr)  # {'Ford': 2019, 'Honda': 2013}
+</code></pre>
+<p><strong>Zugriff auf die Schlüssel und Werte von Dictionaries in Schleifen:</strong></p>
+<pre><code class="language-python">D = {'Ford': 2019, 'Honda': 2013}
+
+print('Schlüssel des Dictionaries:')
+for key in D:
+    print(key)
+    # Ford
+    # Honda
+
+print('\nWerte des Dictionaries:')
+for value in D.values():
+    print(value)
+    # 2019
+    # 2013
+
+print('\nSchlüssel und Werte des Dictionaries:')
+for key, value in D.items():
+    print(f'{key}: {value}')
+    # Ford: 2019
+    # Honda: 2013
+</code></pre>
+<h2 id="5----sets-bzw-mengen"><a class="header" href="#5----sets-bzw-mengen">5    Sets bzw. Mengen</a></h2>
+<p>Siehe auch <a href="operatoren.html">operatoren</a>.</p>
+<p><strong>Operationen:</strong></p>
+<pre><code class="language-python">S1 = {'Banane', 'Paprika', 'Zitrone'}
+S2 = {'Apfel', 'Banane', 'Birne', 'Gurke', 'Paprika'}
+
+# Vereinigung
+print(S1 | S2)  # {'Zitrone', 'Gurke', 'Birne', 'Paprika', 'Apfel', 'Banane'}
+
+# Schnittmenge
+print(S1 &amp; S2)  # {'Paprika', 'Banane'}
+
+# Differenz (S1 ohne S2)
+print(S1 - S2)  # {'Zitrone'}
+
+# Symmetrische Differenz (= Vereinigung ohne Schnittmenge)
+print(S1 ^ S2)  # {'Apfel', 'Zitrone', 'Gurke', 'Birne'}
+
+print('\nAlternativen:')
+
+# Vereinigung
+print(S1.union(S2)) # {'Zitrone', 'Gurke', 'Birne', 'Paprika', 'Apfel', 'Banane'}
+
+# Schnittmenge
+print(S1.intersection(S2))  # {'Paprika', 'Banane'}
+
+# Differenz (S1 ohne S2)
+print(S1.difference(S2))    # {'Zitrone'}
+
+# Symmetrische Differenz (= Vereinigung ohne Schnittmenge)
+print(S1.symmetric_difference(S2))  # {'Apfel', 'Zitrone', 'Gurke', 'Birne'}
+</code></pre>
+<p>Mehr zu Datentypen:
+https://docs.python.org/3/library/stdtypes.html</p>
+<h2 id="6----das-collections-modul"><a class="header" href="#6----das-collections-modul">6    Das <code>collections</code>-Modul</a></h2>
+<p>Das <code>collections</code>-Modul bietet spezialisierte Container-Datentypen, die über die eingebauten Listen, Tupel, Dictionaries und Sets hinausgehen.</p>
+<h3 id="61----counter--zählen-von-elementen"><a class="header" href="#61----counter--zählen-von-elementen">6.1    <code>Counter</code> – Zählen von Elementen</a></h3>
+<p><code>Counter</code> ist ein Dictionary-Subtyp zum Zählen von hashbaren Objekten.</p>
+<h4 id="611----grundlegende-verwendung"><a class="header" href="#611----grundlegende-verwendung">6.1.1    Grundlegende Verwendung</a></h4>
+<pre><code class="language-python">from collections import Counter
+
+# Aus Liste erstellen
+words = ['apple', 'banana', 'apple', 'cherry', 'banana', 'apple']
+counter = Counter(words)
+print(counter)  # Counter({'apple': 3, 'banana': 2, 'cherry': 1})
+
+# Aus String erstellen (zählt Zeichen)
+text = "mississippi"
+counter = Counter(text)
+print(counter)  # Counter({'i': 4, 's': 4, 'p': 2, 'm': 1})
+
+# Direkte Initialisierung
+counter = Counter(a=3, b=2, c=1)
+print(counter)  # Counter({'a': 3, 'b': 2, 'c': 1})
+</code></pre>
+<h4 id="612----häufigste-elemente"><a class="header" href="#612----häufigste-elemente">6.1.2    Häufigste Elemente</a></h4>
+<pre><code class="language-python">from collections import Counter
+
+votes = ['Alice', 'Bob', 'Alice', 'Charlie', 'Bob', 'Alice']
+counter = Counter(votes)
+
+# Häufigste n Elemente
+print(counter.most_common(2))  # [('Alice', 3), ('Bob', 2)]
+
+# Alle Elemente nach Häufigkeit
+print(counter.most_common())   # [('Alice', 3), ('Bob', 2), ('Charlie', 1)]
+</code></pre>
+<h4 id="613----counter-operationen"><a class="header" href="#613----counter-operationen">6.1.3    Counter-Operationen</a></h4>
+<pre><code class="language-python">from collections import Counter
+
+c1 = Counter(a=3, b=1)
+c2 = Counter(a=1, b=2)
+
+# Addition
+print(c1 + c2)  # Counter({'a': 4, 'b': 3})
+
+# Subtraktion (negative Werte werden entfernt)
+print(c1 - c2)  # Counter({'a': 2})
+
+# Vereinigung (Maximum)
+print(c1 | c2)  # Counter({'a': 3, 'b': 2})
+
+# Schnittmenge (Minimum)
+print(c1 &amp; c2)  # Counter({'a': 1, 'b': 1})
+</code></pre>
+<h4 id="614----praktische-beispiele"><a class="header" href="#614----praktische-beispiele">6.1.4    Praktische Beispiele</a></h4>
+<p><strong>Wortfrequenz-Analyse:</strong></p>
+<pre><code class="language-python">from collections import Counter
+
+text = """Python ist eine wunderbare Programmiersprache. 
+Python macht Spaß und Python ist mächtig."""
+
+words = text.lower().split()
+word_count = Counter(words)
+
+print(word_count.most_common(3))
+# [('python', 3), ('ist', 2), ('eine', 1)]
+</code></pre>
+<p><strong>Duplikate finden:</strong></p>
+<pre><code class="language-python">from collections import Counter
+
+data = [1, 2, 3, 2, 4, 5, 3, 6, 7, 3]
+counter = Counter(data)
+
+# Elemente, die mehr als einmal vorkommen
+duplicates = [item for item, count in counter.items() if count &gt; 1]
+print(duplicates)  # [2, 3]
+</code></pre>
+<h3 id="62----defaultdict--dictionary-mit-standardwerten"><a class="header" href="#62----defaultdict--dictionary-mit-standardwerten">6.2    <code>defaultdict</code> – Dictionary mit Standardwerten</a></h3>
+<p><code>defaultdict</code> erstellt automatisch Standardwerte für fehlende Schlüssel.</p>
+<h4 id="621----grundkonzept"><a class="header" href="#621----grundkonzept">6.2.1    Grundkonzept</a></h4>
+<pre><code class="language-python">from collections import defaultdict
+
+# Mit list als Factory
+d = defaultdict(list)
+d['fruits'].append('apple')
+d['fruits'].append('banana')
+d['vegetables'].append('carrot')
+
+print(d)  # defaultdict(&lt;class 'list'&gt;, {'fruits': ['apple', 'banana'], 'vegetables': ['carrot']})
+
+# Mit int als Factory (Standardwert 0)
+counter = defaultdict(int)
+for word in ['a', 'b', 'a', 'c', 'b', 'a']:
+    counter[word] += 1
+
+print(counter)  # defaultdict(&lt;class 'int'&gt;, {'a': 3, 'b': 2, 'c': 1})
+</code></pre>
+<h4 id="622----verschiedene-factory-funktionen"><a class="header" href="#622----verschiedene-factory-funktionen">6.2.2    Verschiedene Factory-Funktionen</a></h4>
+<pre><code class="language-python">from collections import defaultdict
+
+# list - leere Liste
+d1 = defaultdict(list)
+print(d1['key'])  # []
+
+# int - 0
+d2 = defaultdict(int)
+print(d2['key'])  # 0
+
+# str - leerer String
+d3 = defaultdict(str)
+print(d3['key'])  # ''
+
+# set - leeres Set
+d4 = defaultdict(set)
+print(d4['key'])  # set()
+
+# Lambda für custom Defaults
+d5 = defaultdict(lambda: 'N/A')
+print(d5['key'])  # 'N/A'
+</code></pre>
+<h4 id="623----vergleich-dict-vs-defaultdict"><a class="header" href="#623----vergleich-dict-vs-defaultdict">6.2.3    Vergleich: dict vs. defaultdict</a></h4>
+<pre><code class="language-python"># Normales dict
+d = {}
+# d['key'].append('value')  # KeyError!
+
+# Mit setdefault (umständlich)
+d.setdefault('key', []).append('value')
+
+# Mit defaultdict (elegant)
+from collections import defaultdict
+d = defaultdict(list)
+d['key'].append('value')  # Funktioniert!
+</code></pre>
+<h4 id="624----praktische-beispiele"><a class="header" href="#624----praktische-beispiele">6.2.4    Praktische Beispiele</a></h4>
+<p><strong>Gruppieren nach Schlüssel:</strong></p>
+<pre><code class="language-python">from collections import defaultdict
+
+students = [
+    ('Alice', 'Math'),
+    ('Bob', 'Physics'),
+    ('Charlie', 'Math'),
+    ('Diana', 'Physics'),
+    ('Eve', 'Math')
+]
+
+by_subject = defaultdict(list)
+for name, subject in students:
+    by_subject[subject].append(name)
+
+print(dict(by_subject))
+# {'Math': ['Alice', 'Charlie', 'Eve'], 'Physics': ['Bob', 'Diana']}
+</code></pre>
+<p><strong>Verschachtelte defaultdict:</strong></p>
+<pre><code class="language-python">from collections import defaultdict
+
+# Zweistufiges defaultdict
+tree = lambda: defaultdict(tree)
+users = tree()
+
+users['john']['age'] = 30
+users['john']['city'] = 'New York'
+users['alice']['age'] = 25
+
+print(dict(users))
+# {'john': {'age': 30, 'city': 'New York'}, 'alice': {'age': 25}}
+</code></pre>
+<h3 id="63----deque--double-ended-queue"><a class="header" href="#63----deque--double-ended-queue">6.3    <code>deque</code> – Double-Ended Queue</a></h3>
+<p><code>deque</code> (ausgesprochen “deck”) ist eine Liste, die für schnelle Zugriffe an beiden Enden optimiert ist.</p>
+<h4 id="631----grundoperationen"><a class="header" href="#631----grundoperationen">6.3.1    Grundoperationen</a></h4>
+<pre><code class="language-python">from collections import deque
+
+# Erstellen
+d = deque([1, 2, 3])
+print(d)  # deque([1, 2, 3])
+
+# Am Ende hinzufügen/entfernen (wie Liste)
+d.append(4)
+print(d)  # deque([1, 2, 3, 4])
+
+last = d.pop()
+print(last, d)  # 4 deque([1, 2, 3])
+
+# Am Anfang hinzufügen/entfernen (O(1) statt O(n))
+d.appendleft(0)
+print(d)  # deque([0, 1, 2, 3])
+
+first = d.popleft()
+print(first, d)  # 0 deque([1, 2, 3])
+</code></pre>
+<h4 id="632----rotation-und-erweiterung"><a class="header" href="#632----rotation-und-erweiterung">6.3.2    Rotation und Erweiterung</a></h4>
+<pre><code class="language-python">from collections import deque
+
+d = deque([1, 2, 3, 4, 5])
+
+# Rotation nach rechts
+d.rotate(2)
+print(d)  # deque([4, 5, 1, 2, 3])
+
+# Rotation nach links
+d.rotate(-2)
+print(d)  # deque([1, 2, 3, 4, 5])
+
+# Mehrere Elemente hinzufügen
+d.extend([6, 7])
+print(d)  # deque([1, 2, 3, 4, 5, 6, 7])
+
+d.extendleft([0, -1])
+print(d)  # deque([-1, 0, 1, 2, 3, 4, 5, 6, 7])
+</code></pre>
+<h4 id="633----maximale-länge-ringbuffer"><a class="header" href="#633----maximale-länge-ringbuffer">6.3.3    Maximale Länge (Ringbuffer)</a></h4>
+<pre><code class="language-python">from collections import deque
+
+# Deque mit maximaler Länge
+d = deque(maxlen=3)
+
+d.append(1)
+d.append(2)
+d.append(3)
+print(d)  # deque([1, 2, 3], maxlen=3)
+
+d.append(4)  # Ältestes Element (1) wird automatisch entfernt
+print(d)  # deque([2, 3, 4], maxlen=3)
+</code></pre>
+<h4 id="634----performance-vergleich-list-vs-deque"><a class="header" href="#634----performance-vergleich-list-vs-deque">6.3.4    Performance-Vergleich: list vs. deque</a></h4>
+<pre><code class="language-python">from collections import deque
+import time
+
+# Liste
+data_list = []
+start = time.time()
+for i in range(100000):
+    data_list.insert(0, i)  # O(n) - langsam!
+print(f"List insert(0): {time.time() - start:.3f}s")
+
+# Deque
+data_deque = deque()
+start = time.time()
+for i in range(100000):
+    data_deque.appendleft(i)  # O(1) - schnell!
+print(f"Deque appendleft: {time.time() - start:.3f}s")
+</code></pre>
+<p><strong>Typisches Ergebnis:</strong></p>
+<ul>
+<li>List insert(0): ~3.5s</li>
+<li>Deque appendleft: ~0.01s</li>
+</ul>
+<h4 id="635----praktische-beispiele"><a class="header" href="#635----praktische-beispiele">6.3.5    Praktische Beispiele</a></h4>
+<p><strong>FIFO-Queue (First In, First Out):</strong></p>
+<pre><code class="language-python">from collections import deque
+
+queue = deque()
+
+# Elemente hinzufügen
+queue.append('Task 1')
+queue.append('Task 2')
+queue.append('Task 3')
+
+# Elemente verarbeiten (FIFO)
+while queue:
+    task = queue.popleft()
+    print(f"Processing: {task}")
+</code></pre>
+<p><strong>Sliding Window:</strong></p>
+<pre><code class="language-python">from collections import deque
+
+def moving_average(values, window_size):
+    """Berechnet gleitenden Durchschnitt"""
+    window = deque(maxlen=window_size)
+    averages = []
+    
+    for value in values:
+        window.append(value)
+        averages.append(sum(window) / len(window))
+    
+    return averages
+
+data = [10, 20, 30, 40, 50, 60]
+result = moving_average(data, window_size=3)
+print(result)  # [10.0, 15.0, 20.0, 30.0, 40.0, 50.0]
+</code></pre>
+<p><strong>Browser History (Back/Forward):</strong></p>
+<pre><code class="language-python">from collections import deque
+
+class BrowserHistory:
+    def __init__(self):
+        self.back_stack = deque()
+        self.forward_stack = deque()
+        self.current = None
+    
+    def visit(self, url):
+        if self.current:
+            self.back_stack.append(self.current)
+        self.current = url
+        self.forward_stack.clear()
+    
+    def back(self):
+        if self.back_stack:
+            self.forward_stack.append(self.current)
+            self.current = self.back_stack.pop()
+        return self.current
+    
+    def forward(self):
+        if self.forward_stack:
+            self.back_stack.append(self.current)
+            self.current = self.forward_stack.pop()
+        return self.current
+
+# Verwendung
+browser = BrowserHistory()
+browser.visit('google.com')
+browser.visit('python.org')
+browser.visit('github.com')
+print(browser.back())     # python.org
+print(browser.back())     # google.com
+print(browser.forward())  # python.org
+</code></pre>
+<h3 id="64----chainmap--mehrere-dictionaries-verketten"><a class="header" href="#64----chainmap--mehrere-dictionaries-verketten">6.4    <code>ChainMap</code> – Mehrere Dictionaries verketten</a></h3>
+<p><code>ChainMap</code> gruppiert mehrere Dictionaries zu einem einzigen View.</p>
+<h4 id="641----grundkonzept"><a class="header" href="#641----grundkonzept">6.4.1    Grundkonzept</a></h4>
+<pre><code class="language-python">from collections import ChainMap
+
+dict1 = {'a': 1, 'b': 2}
+dict2 = {'b': 3, 'c': 4}
+dict3 = {'c': 5, 'd': 6}
+
+# ChainMap erstellen
+chain = ChainMap(dict1, dict2, dict3)
+
+print(chain['a'])  # 1 (aus dict1)
+print(chain['b'])  # 2 (aus dict1, nicht dict2!)
+print(chain['c'])  # 4 (aus dict2, nicht dict3!)
+print(chain['d'])  # 6 (aus dict3)
+</code></pre>
+<p><strong>Wichtig:</strong> Bei Lookup wird das <strong>erste</strong> Dictionary mit dem Schlüssel verwendet.</p>
+<h4 id="642----modifikationen"><a class="header" href="#642----modifikationen">6.4.2    Modifikationen</a></h4>
+<pre><code class="language-python">from collections import ChainMap
+
+user_config = {'theme': 'dark', 'font_size': 12}
+default_config = {'theme': 'light', 'font_size': 14, 'auto_save': True}
+
+config = ChainMap(user_config, default_config)
+
+print(config['theme'])      # 'dark' (aus user_config)
+print(config['auto_save'])  # True (aus default_config)
+
+# Änderungen gehen ins ERSTE Dictionary
+config['theme'] = 'blue'
+print(user_config)  # {'theme': 'blue', 'font_size': 12}
+print(default_config)  # Unverändert
+
+# Neuer Schlüssel wird auch ins ERSTE Dictionary eingefügt
+config['new_key'] = 'value'
+print(user_config)  # {'theme': 'blue', 'font_size': 12, 'new_key': 'value'}
+</code></pre>
+<h4 id="643----methoden"><a class="header" href="#643----methoden">6.4.3    Methoden</a></h4>
+<pre><code class="language-python">from collections import ChainMap
+
+dict1 = {'a': 1}
+dict2 = {'b': 2}
+
+chain = ChainMap(dict1, dict2)
+
+# Neues Dictionary vorne hinzufügen
+chain = chain.new_child({'c': 3})
+print(chain)  # ChainMap({'c': 3}, {'a': 1}, {'b': 2})
+
+# Erstes Dictionary entfernen
+chain = chain.parents
+print(chain)  # ChainMap({'a': 1}, {'b': 2})
+
+# Alle Maps anzeigen
+print(chain.maps)  # [{'a': 1}, {'b': 2}]
+</code></pre>
+<h4 id="644----praktische-beispiele"><a class="header" href="#644----praktische-beispiele">6.4.4    Praktische Beispiele</a></h4>
+<p><strong>Konfiguration mit Fallbacks:</strong></p>
+<pre><code class="language-python">from collections import ChainMap
+import os
+
+# Priorität: CLI-Args &gt; Env-Vars &gt; Config-File &gt; Defaults
+defaults = {
+    'host': 'localhost',
+    'port': 8000,
+    'debug': False
+}
+
+config_file = {
+    'host': '0.0.0.0',
+    'port': 3000
+}
+
+env_vars = {
+    k.lower().replace('app_', ''): v 
+    for k, v in os.environ.items() 
+    if k.startswith('APP_')
+}
+
+cli_args = {
+    'debug': True
+}
+
+config = ChainMap(cli_args, env_vars, config_file, defaults)
+
+print(config['host'])   # '0.0.0.0' (aus config_file)
+print(config['debug'])  # True (aus cli_args)
+print(config['port'])   # 3000 (aus config_file)
+</code></pre>
+<p><strong>Scope-Management (z.B. für Interpreter):</strong></p>
+<pre><code class="language-python">from collections import ChainMap
+
+class Scope:
+    def __init__(self):
+        self.scopes = ChainMap({})
+    
+    def push_scope(self):
+        """Neuer Scope (z.B. neue Funktion)"""
+        self.scopes = self.scopes.new_child()
+    
+    def pop_scope(self):
+        """Scope verlassen"""
+        self.scopes = self.scopes.parents
+    
+    def set(self, name, value):
+        """Variable im aktuellen Scope setzen"""
+        self.scopes[name] = value
+    
+    def get(self, name):
+        """Variable nachschlagen (mit Fallback zu äußeren Scopes)"""
+        return self.scopes.get(name)
+
+# Verwendung
+scope = Scope()
+scope.set('x', 10)          # Global: x=10
+
+scope.push_scope()          # Neue Funktion
+scope.set('x', 20)          # Lokal: x=20
+print(scope.get('x'))       # 20
+
+scope.pop_scope()           # Funktion verlassen
+print(scope.get('x'))       # 10 (global wieder sichtbar)
+</code></pre>
+<h3 id="65----namedtuple--tupel-mit-benannten-feldern"><a class="header" href="#65----namedtuple--tupel-mit-benannten-feldern">6.5    <code>namedtuple</code> – Tupel mit benannten Feldern</a></h3>
+<p><code>namedtuple</code> erstellt Tuple-Subklassen mit benannten Feldern.</p>
+<h4 id="651----grundlegende-verwendung"><a class="header" href="#651----grundlegende-verwendung">6.5.1    Grundlegende Verwendung</a></h4>
+<pre><code class="language-python">from collections import namedtuple
+
+# namedtuple-Klasse definieren
+Point = namedtuple('Point', ['x', 'y'])
+
+# Instanzen erstellen
+p1 = Point(10, 20)
+p2 = Point(x=30, y=40)
+
+# Zugriff per Name oder Index
+print(p1.x)     # 10
+print(p1[0])    # 10
+print(p1.y)     # 20
+
+# Tuple unpacking funktioniert
+x, y = p1
+print(x, y)     # 10 20
+</code></pre>
+<h4 id="652----verschiedene-erstellungsmethoden"><a class="header" href="#652----verschiedene-erstellungsmethoden">6.5.2    Verschiedene Erstellungsmethoden</a></h4>
+<pre><code class="language-python">from collections import namedtuple
+
+# Methode 1: Liste von Strings
+Point = namedtuple('Point', ['x', 'y'])
+
+# Methode 2: String mit Leerzeichen
+Point = namedtuple('Point', 'x y')
+
+# Methode 3: String mit Kommas
+Point = namedtuple('Point', 'x, y')
+</code></pre>
+<h4 id="653----methoden-von-namedtuple"><a class="header" href="#653----methoden-von-namedtuple">6.5.3    Methoden von namedtuple</a></h4>
+<pre><code class="language-python">from collections import namedtuple
+
+Point = namedtuple('Point', 'x y')
+p = Point(10, 20)
+
+# Als Dictionary
+print(p._asdict())  # {'x': 10, 'y': 20}
+
+# Felder anzeigen
+print(p._fields)    # ('x', 'y')
+
+# Neues Objekt mit geänderten Werten
+p2 = p._replace(x=30)
+print(p2)           # Point(x=30, y=20)
+
+# Aus iterable erstellen
+Point._make([40, 50])  # Point(x=40, y=50)
+</code></pre>
+<h4 id="654----default-werte"><a class="header" href="#654----default-werte">6.5.4    Default-Werte</a></h4>
+<pre><code class="language-python">from collections import namedtuple
+
+# Mit defaults (Python 3.7+)
+Point = namedtuple('Point', ['x', 'y', 'z'], defaults=[0, 0, 0])
+
+p1 = Point()
+print(p1)  # Point(x=0, y=0, z=0)
+
+p2 = Point(10)
+print(p2)  # Point(x=10, y=0, z=0)
+
+p3 = Point(10, 20)
+print(p3)  # Point(x=10, y=20, z=0)
+</code></pre>
+<h4 id="655----vergleich-namedtuple-vs-dict-vs-class"><a class="header" href="#655----vergleich-namedtuple-vs-dict-vs-class">6.5.5    Vergleich: namedtuple vs. dict vs. class</a></h4>
+<pre><code class="language-python">from collections import namedtuple
+
+# namedtuple
+Person = namedtuple('Person', 'name age')
+p1 = Person('Alice', 30)
+
+# Dictionary
+p2 = {'name': 'Alice', 'age': 30}
+
+# Klasse
+class PersonClass:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+p3 = PersonClass('Alice', 30)
+
+# Speicherverbrauch
+import sys
+print(f"namedtuple: {sys.getsizeof(p1)} bytes")  # ~56
+print(f"dict: {sys.getsizeof(p2)} bytes")        # ~232
+print(f"class: {sys.getsizeof(p3)} bytes")       # ~48 + __dict__
+</code></pre>
+<h4 id="656----praktische-beispiele"><a class="header" href="#656----praktische-beispiele">6.5.6    Praktische Beispiele</a></h4>
+<p><strong>CSV-Daten verarbeiten:</strong></p>
+<pre><code class="language-python">from collections import namedtuple
+import csv
+
+# CSV-Daten
+csv_data = """name,age,city
+Alice,30,New York
+Bob,25,London
+Charlie,35,Paris"""
+
+# namedtuple aus CSV-Header
+lines = csv_data.strip().split('\n')
+header = lines[0].split(',')
+Person = namedtuple('Person', header)
+
+# Daten parsen
+people = []
+for line in lines[1:]:
+    values = line.split(',')
+    person = Person(*values)
+    people.append(person)
+
+for p in people:
+    print(f"{p.name} is {p.age} years old from {p.city}")
+</code></pre>
+<p><strong>Koordinaten-System:</strong></p>
+<pre><code class="language-python">from collections import namedtuple
+import math
+
+Point = namedtuple('Point', 'x y')
+
+def distance(p1, p2):
+    """Euklidische Distanz zwischen zwei Punkten"""
+    return math.sqrt((p2.x - p1.x)**2 + (p2.y - p1.y)**2)
+
+p1 = Point(0, 0)
+p2 = Point(3, 4)
+
+print(f"Distance: {distance(p1, p2)}")  # 5.0
+</code></pre>
+<p><strong>RGB-Farben:</strong></p>
+<pre><code class="language-python">from collections import namedtuple
+
+Color = namedtuple('Color', 'red green blue')
+
+# Vordefinierte Farben
+BLACK = Color(0, 0, 0)
+WHITE = Color(255, 255, 255)
+RED = Color(255, 0, 0)
+
+def to_hex(color):
+    return f'#{color.red:02x}{color.green:02x}{color.blue:02x}'
+
+print(to_hex(RED))  # #ff0000
+</code></pre>
+<h3 id="66----zusammenfassung"><a class="header" href="#66----zusammenfassung">6.6    Zusammenfassung</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Collection</th><th>Verwendung</th><th>Vorteil</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Counter</code></td><td>Elemente zählen</td><td>Einfache Häufigkeitsanalyse</td></tr>
+<tr><td><code>defaultdict</code></td><td>Dictionary mit Auto-Initialisierung</td><td>Kein KeyError, weniger Code</td></tr>
+<tr><td><code>deque</code></td><td>Queue/Stack mit Zugriff an beiden Enden</td><td>O(1) append/pop an beiden Enden</td></tr>
+<tr><td><code>ChainMap</code></td><td>Mehrere Dictionaries verketten</td><td>Konfiguration mit Fallbacks</td></tr>
+<tr><td><code>namedtuple</code></td><td>Tupel mit benannten Feldern</td><td>Lesbar, leichtgewichtig</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Kernprinzip:</strong> Das <code>collections</code>-Modul bietet spezialisierte Datenstrukturen für häufige Anwendungsfälle, die effizienter und lesbarer sind als selbstgebaute Lösungen.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../a-grundlagen/datentypen.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../a-grundlagen/operatoren.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../a-grundlagen/datentypen.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../a-grundlagen/operatoren.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

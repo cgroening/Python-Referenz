@@ -1,0 +1,1759 @@
+<!DOCTYPE HTML>
+<html lang="de" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Entwicklungs-Tooling und Packaging - Python-Referenz</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-80432388.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "../searchindex-1ed3f166.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-f6524bb4.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Python-Referenz</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/cgroening/Python-Referenz" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <style>
+.mdbook-callouts {
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  /* border-left: 0.25em solid var(--mdbook-callouts-color); */
+  background: var(--mdbook-callouts-background);
+}
+
+.mdbook-callouts > *:first-child {
+  margin-top: 0;
+}
+
+.mdbook-callouts > *:last-child {
+  margin-bottom: 0;
+}
+
+.mdbook-callouts-title {
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  line-height: 1;
+  color: var(--mdbook-callouts-color);
+  text-transform: capitalize;
+}
+
+.mdbook-callouts-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.2em;
+  background-color: currentColor;
+  -webkit-mask: no-repeat center / 100%;
+  mask: no-repeat center / 100%;
+  -webkit-mask-image: var(--mdbook-callouts-icon);
+  mask-image: var(--mdbook-callouts-icon);
+}
+
+/* icons at: https://lucide.dev/icons/ */
+
+.mdbook-callouts-info {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/info */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWluZm8iPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PHBhdGggZD0iTTEyIDE2di00Ii8+PHBhdGggZD0iTTEyIDhoLjAxIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-note {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/pencil */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBlbmNpbCI+PHBhdGggZD0iTTE3IDNhMi44NSAyLjgzIDAgMSAxIDQgNEw3LjUgMjAuNSAyIDIybDEuNS01LjVaIi8+PHBhdGggZD0ibTE1IDUgNCA0Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-tip,
+.mdbook-callouts-hint {
+  --mdbook-callouts-color: rgb(var(--color-cyan-rgb));
+  --mdbook-callouts-background: rgba(var(--color-cyan-rgb), 0.1);
+  /* https://lucide.dev/icons/flame */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZsYW1lIj48cGF0aCBkPSJNOC41IDE0LjVBMi41IDIuNSAwIDAgMCAxMSAxMmMwLTEuMzgtLjUtMi0xLTMtMS4wNzItMi4xNDMtLjIyNC00LjA1NCAyLTYgLjUgMi41IDIgNC45IDQgNi41IDIgMS42IDMgMy41IDMgNS41YTcgNyAwIDEgMS0xNCAwYzAtMS4xNTMuNDMzLTIuMjk0IDEtM2EyLjUgMi41IDAgMCAwIDIuNSAyLjV6Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-important {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LWNpcmNsZSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48bGluZSB4MT0iMTIiIHgyPSIxMiIgeTE9IjgiIHkyPSIxMiIvPjxsaW5lIHgxPSIxMiIgeDI9IjEyLjAxIiB5MT0iMTYiIHkyPSIxNiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-success,
+.mdbook-callouts-check,
+.mdbook-callouts-done {
+  --mdbook-callouts-color: rgb(var(--color-green-rgb));
+  --mdbook-callouts-background: rgba(var(--color-green-rgb), 0.1);
+  /* https://lucide.dev/icons/check */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZWNrIj48cGF0aCBkPSJNMjAgNiA5IDE3bC01LTUiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-question,
+.mdbook-callouts-help,
+.mdbook-callouts-faq {
+  --mdbook-callouts-color: rgb(var(--color-pink-rgb));
+  --mdbook-callouts-background: rgba(var(--color-pink-rgb), 0.1);
+  /* https://lucide.dev/icons/help-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhlbHAtY2lyY2xlIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxwYXRoIGQ9Ik05LjA5IDlhMyAzIDAgMCAxIDUuODMgMWMwIDItMyAzLTMgMyIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-warning,
+.mdbook-callouts-warn {
+  --mdbook-callouts-color: rgb(var(--color-orange-rgb));
+  --mdbook-callouts-background: rgba(var(--color-orange-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-triangle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LXRyaWFuZ2xlIj48cGF0aCBkPSJtMjEuNzMgMTgtOC0xNGEyIDIgMCAwIDAtMy40OCAwbC04IDE0QTIgMiAwIDAgMCA0IDIxaDE2YTIgMiAwIDAgMCAxLjczLTNaIi8+PHBhdGggZD0iTTEyIDl2NCIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-caution {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/shield-alert */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNoaWVsZC1hbGVydCI+PHBhdGggZD0iTTEyIDIyczgtNCA4LTEwVjVsLTgtMy04IDN2N2MwIDYgOCAxMCA4IDEwIi8+PHBhdGggZD0iTTEyIDh2NCIvPjxwYXRoIGQ9Ik0xMiAxNmguMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-failure,
+.mdbook-callouts-fail,
+.mdbook-callouts-missing {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/x */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXgiPjxwYXRoIGQ9Ik0xOCA2IDYgMTgiLz48cGF0aCBkPSJtNiA2IDEyIDEyIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-error,
+.mdbook-callouts-danger {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/zap */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXphcCI+PHBvbHlnb24gcG9pbnRzPSIxMyAyIDMgMTQgMTIgMTQgMTEgMjIgMjEgMTAgMTIgMTAgMTMgMiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-bug {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/bug */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJ1ZyI+PHBhdGggZD0ibTggMiAxLjg4IDEuODgiLz48cGF0aCBkPSJNMTQuMTIgMy44OCAxNiAyIi8+PHBhdGggZD0iTTkgNy4xM3YtMWEzLjAwMyAzLjAwMyAwIDEgMSA2IDB2MSIvPjxwYXRoIGQ9Ik0xMiAyMGMtMy4zIDAtNi0yLjctNi02di0zYTQgNCAwIDAgMSA0LTRoNGE0IDQgMCAwIDEgNCA0djNjMCAzLjMtMi43IDYtNiA2Ii8+PHBhdGggZD0iTTEyIDIwdi05Ii8+PHBhdGggZD0iTTYuNTMgOUM0LjYgOC44IDMgNy4xIDMgNSIvPjxwYXRoIGQ9Ik02IDEzSDIiLz48cGF0aCBkPSJNMyAyMWMwLTIuMSAxLjctMy45IDMuOC00Ii8+PHBhdGggZD0iTTIwLjk3IDVjMCAyLjEtMS42IDMuOC0zLjUgNCIvPjxwYXRoIGQ9Ik0yMiAxM2gtNCIvPjxwYXRoIGQ9Ik0xNy4yIDE3YzIuMS4xIDMuOCAxLjkgMy44IDQiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-examples,
+.mdbook-callouts-example {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/list */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxpc3QiPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSIxMiIgeTI9IjEyIi8+PGxpbmUgeDE9IjgiIHgyPSIyMSIgeTE9IjE4IiB5Mj0iMTgiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSIzIiB4Mj0iMy4wMSIgeTE9IjEyIiB5Mj0iMTIiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSIxOCIgeTI9IjE4Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-quote {
+  --mdbook-callouts-color: rgb(158, 158, 158);
+  --mdbook-callouts-background: rgba(158, 158, 158, 0.1);
+  /* https://lucide.dev/icons/quote */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXF1b3RlIj48cGF0aCBkPSJNMyAyMWMzIDAgNy0xIDctOFY1YzAtMS4yNS0uNzU2LTIuMDE3LTItMkg0Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDIgMSAwIDEgMCAxIDF2MWMwIDEtMSAyLTIgMnMtMSAuMDA4LTEgMS4wMzFWMjBjMCAxIDAgMSAxIDF6Ii8+PHBhdGggZD0iTTE1IDIxYzMgMCA3LTEgNy04VjVjMC0xLjI1LS43NTctMi4wMTctMi0yaC00Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDJoLjc1YzAgMi4yNS4yNSA0LTIuNzUgNHYzYzAgMSAwIDEgMSAxeiIvPjwvc3ZnPg==');
+}
+
+
+.ayu {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.light {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+
+.coal {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.navy {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.rust {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+</style>
+<h1 id="entwicklungs-tooling--packaging"><a class="header" href="#entwicklungs-tooling--packaging">Entwicklungs-Tooling &amp; Packaging</a></h1>
+<p>Modernes Python-Dependency-Management und Packaging haben sich in den letzten Jahren stark weiterentwickelt. Dieses Kapitel behandelt Virtual Environments, Dependency-Management-Tools und moderne Packaging-Standards.</p>
+<h2 id="1----virtual-environments"><a class="header" href="#1----virtual-environments">1    Virtual Environments</a></h2>
+<p>Virtual Environments isolieren Python-Projekte voneinander und vermeiden Versionskonflikte zwischen Abhängigkeiten.</p>
+<h3 id="11----venv--standard-virtual-environment"><a class="header" href="#11----venv--standard-virtual-environment">1.1    <code>venv</code> – Standard Virtual Environment</a></h3>
+<pre><code class="language-bash"># Virtual Environment erstellen
+python -m venv myenv
+
+# Aktivieren (Linux/macOS)
+source myenv/bin/activate
+
+# Aktivieren (Windows)
+myenv\Scripts\activate
+
+# Deaktivieren
+deactivate
+
+# Löschen (einfach Ordner entfernen)
+rm -rf myenv
+</code></pre>
+<p><strong>Wichtige Punkte:</strong></p>
+<ul>
+<li><code>venv</code> ist seit Python 3.3 Teil der Standardbibliothek</li>
+<li>Erstellt isolierte Python-Installation mit eigenem <code>site-packages</code></li>
+<li>Sollte <strong>nicht</strong> ins Git-Repository committed werden</li>
+</ul>
+<h3 id="12----wo-liegt-was"><a class="header" href="#12----wo-liegt-was">1.2    Wo liegt was?</a></h3>
+<pre><code class="language-bash">myenv/
+├── bin/           # Aktivierungsscripts und Python-Interpreter (Linux/macOS)
+├── Scripts/       # Aktivierungsscripts und Python-Interpreter (Windows)
+├── include/       # C-Header-Dateien für Extensions
+├── lib/
+│   └── python3.x/
+│       └── site-packages/  # Installierte Pakete
+└── pyvenv.cfg     # Konfiguration des Virtual Environment
+</code></pre>
+<h3 id="13----virtualenv--alternative-zu-venv"><a class="header" href="#13----virtualenv--alternative-zu-venv">1.3    <code>virtualenv</code> – Alternative zu venv</a></h3>
+<pre><code class="language-bash"># Installation
+pip install virtualenv
+
+# Virtual Environment erstellen
+virtualenv myenv
+
+# Mit spezifischer Python-Version
+virtualenv -p python3.11 myenv
+
+# Vorteile gegenüber venv:
+# - Schnellere Erstellung
+# - Mehr Konfigurationsoptionen
+# - Kompatibel mit älteren Python-Versionen
+</code></pre>
+<h3 id="14----gitignore-für-virtual-environments"><a class="header" href="#14----gitignore-für-virtual-environments">1.4    <code>.gitignore</code> für Virtual Environments</a></h3>
+<pre><code class="language-gitignore"># Virtual Environments
+venv/
+env/
+ENV/
+myenv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+</code></pre>
+<h2 id="2----code-quality-tools-linting--type-checking"><a class="header" href="#2----code-quality-tools-linting--type-checking">2    Code Quality Tools (Linting &amp; Type Checking)</a></h2>
+<p>Code Quality Tools wie Linter und Typer Checker analysieren den Quellcode. Sie weisen auf potenzielle Fehler, Stilprobleme oder Verstöße gegen Coding-Richtlinien hin – ohne den Code auszuführen. Linter und Typer Checker helfen dabei, fehlerfreien, konsistenten und wartbaren Code zu schreiben.</p>
+<h3 id="21----was-sind-linter-und-type-checker"><a class="header" href="#21----was-sind-linter-und-type-checker">2.1    Was sind Linter und Type Checker?</a></h3>
+<p><strong>Linter:</strong></p>
+<ul>
+<li>Analysieren Code auf Fehler und Stil-Probleme</li>
+<li>Erzwingen Coding-Standards (PEP 8)</li>
+<li>Finden potenzielle Bugs</li>
+</ul>
+<p><strong>Type Checker:</strong></p>
+<ul>
+<li>Überprüfen Typannotationen</li>
+<li>Finden Typ-Inkonsistenzen</li>
+<li>Verbessern Code-Dokumentation</li>
+</ul>
+<h3 id="22----linter"><a class="header" href="#22----linter">2.2    Linter</a></h3>
+<h4 id="221----pylint-obsolet"><a class="header" href="#221----pylint-obsolet">2.2.1    Pylint (obsolet)</a></h4>
+<ul>
+<li>Ein sehr strenger Linter, der Code-Qualität überprüft.</li>
+<li>Findet Fehler, schlechte Praktiken und Verstöße gegen Coding-Standards.</li>
+<li>Sehr langsam im Vergleich zu anderen Lintern, da in Python geschrieben.</li>
+</ul>
+<h4 id="222----flake8-obsolet"><a class="header" href="#222----flake8-obsolet">2.2.2    Flake8 (obsolet)</a></h4>
+<ul>
+<li>Ein leichtgewichtiger Linter für PEP8-konforme Code-Qualität.</li>
+<li>Unterstützt Plugins für zusätzliche Checks.</li>
+<li>Weniger strikt als Pylint.</li>
+</ul>
+<h3 id="23----ruff--moderner-all-in-one-linter"><a class="header" href="#23----ruff--moderner-all-in-one-linter">2.3    Ruff – Moderner All-in-One Linter</a></h3>
+<p><strong>Installation:</strong></p>
+<pre><code class="language-zsh">pip install ruff
+</code></pre>
+<p><strong>Grundlegende Verwendung:</strong></p>
+<pre><code class="language-bash"># Code prüfen
+ruff check .
+
+# Auto-Fix
+ruff check --fix .
+
+# Formatieren (ersetzt black)
+ruff format .
+
+# In CI/CD
+ruff check --output-format=github .
+</code></pre>
+<p><strong>Konfiguration (pyproject.toml):</strong></p>
+<pre><code class="language-toml">[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+]
+ignore = ["E501"]  # line too long
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+</code></pre>
+<ul>
+<li>Extrem schneller Linter (da in Rust programmiert!) mit Unterstützung für PEP8, Typing, Imports, usw.</li>
+<li>Enthält bereits die Funktionen von Flake8 + viele Plugins.</li>
+<li>Kann Pylint-Regeln emulieren.</li>
+<li>Sehr viel schneller als Flake8 oder Pylint.</li>
+<li>Experimenteller mypy-Support, aber ist nicht so mächtig wie mypy selbst</li>
+</ul>
+<p><strong>Ersetzt folgende Tools:</strong></p>
+<ul>
+<li>✅ Flake8 (Linting)</li>
+<li>✅ isort (Import-Sortierung)</li>
+<li>✅ black (Formatierung)</li>
+<li>✅ pyupgrade (Syntax-Modernisierung)</li>
+<li>⚠️ Pylint (teilweise, weniger strikt)</li>
+</ul>
+<div class="mdbook-callouts mdbook-callouts-tip">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  veraltete tools
+</p>
+
+<p>Flake8, Pylint, isort (Sortierung von Importen) und black sind nicht mehr erforderlich, da Ruff deren Funktionen (und mehr) bereits integriert hat.</p>
+</div>
+
+<p>Ruff gibt auf ihrer Homepage an, dass es deutlich schneller als vergleichbare Tools ist, siehe <a href="https://docs.astral.sh/ruff/">docs.astral.sh/ruff/</a>.</p>
+<h4 id="231----links"><a class="header" href="#231----links">2.3.1    Links</a></h4>
+<ul>
+<li>https://docs.astral.sh/ruff/</li>
+<li>https://docs.astral.sh/ruff/rules/</li>
+</ul>
+<h3 id="24----type-checker"><a class="header" href="#24----type-checker">2.4    Type Checker</a></h3>
+<h4 id="241----mypy--strenger-type-checker"><a class="header" href="#241----mypy--strenger-type-checker">2.4.1    Mypy – Strenger Type Checker</a></h4>
+<ul>
+<li>Überprüft, ob Typannotationen korrekt sind</li>
+<li>Umfassender als Pylance, besonders für große Projekte</li>
+</ul>
+<p><strong>Installation:</strong></p>
+<pre><code class="language-bash">pip install mypy
+</code></pre>
+<p><strong>Verwendung:</strong></p>
+<pre><code class="language-bash"># Einzelne Datei
+mypy script.py
+
+# Ganzes Projekt
+mypy src/
+
+# Mit strikten Regeln
+mypy --strict src/
+</code></pre>
+<p><strong>Konfiguration (pyproject.toml):</strong></p>
+<pre><code class="language-toml">[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+# Per-Modul Konfiguration
+[tool.mypy.overrides](tool.mypy.overrides.md)
+module = "tests.*"
+disallow_untyped_defs = false
+</code></pre>
+<p><strong>Häufige Mypy-Patterns:</strong></p>
+<pre><code class="language-python">from typing import Optional, List, Dict
+
+def process(data: List[str]) -&gt; Optional[Dict[str, int]]:
+    if not data:
+        return None
+    return {item: len(item) for item in data}
+
+# Type Ignores (sparsam verwenden!)
+result = legacy_function()  # type: ignore
+</code></pre>
+<h4 id="242----pyrightpylance--alternative-zu-mypy"><a class="header" href="#242----pyrightpylance--alternative-zu-mypy">2.4.2    Pyright/Pylance – Alternative zu Mypy</a></h4>
+<h5 id="pyright"><a class="header" href="#pyright">Pyright</a></h5>
+<p><strong>Merkmale:</strong></p>
+<ul>
+<li>In TypeScript geschrieben (schneller als Mypy)</li>
+<li>Basis für Pylance</li>
+<li>Strikte Type Checks</li>
+</ul>
+<pre><code class="language-bash"># Installation
+npm install -g pyright
+
+# Verwendung
+pyright src/
+</code></pre>
+<h5 id="pylance"><a class="header" href="#pylance">Pylance</a></h5>
+<ul>
+<li>Basiert auf Microsofts Pyright.</li>
+<li>Verbessert Autovervollständigung, Typinferenz und Fehleranalyse.</li>
+</ul>
+<p><strong>VS Code Einstellungen:</strong></p>
+<pre><code class="language-json">{
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.autoImportCompletions": true
+}
+</code></pre>
+<h4 id="243----ty-astral-beta--schnellster-type-checker"><a class="header" href="#243----ty-astral-beta--schnellster-type-checker">2.4.3    ty (Astral, Beta) – Schnellster Type Checker</a></h4>
+<p>ty ist ein extrem schneller Python Type Checker und Language Server von Astral (den Machern von Ruff und uv), geschrieben in Rust. ty ist als Alternative zu mypy, Pyright und Pylance konzipiert.</p>
+<p><strong>Status:</strong> Beta (seit Dezember 2025), Stable Release für 2026 geplant.</p>
+<p><strong>Stärken:</strong></p>
+<ul>
+<li>10–60× schneller als mypy/Pyright (ohne Cache)</li>
+<li>Inkrementelle Updates in ~5ms (80× schneller als Pyright, 500× schneller als Pyrefly)</li>
+<li>Eingebauter Language Server (LSP) für VS Code, Neovim, PyCharm u.a.</li>
+<li>First-class Intersection Types und fortgeschrittenes Type Narrowing</li>
+<li>Diagnostik-System inspiriert vom Rust-Compiler (Kontext aus mehreren Dateien)</li>
+<li>Geplante Integration mit Ruff (type-aware Linting, Dead Code Elimination)</li>
+</ul>
+<p><strong>Schwächen (Stand Februar 2026):</strong></p>
+<ul>
+<li>Conformance mit der Python Typing Specification bei ~15% (Pyrefly ~70%, Pyright deutlich höher)</li>
+<li>Noch viele False Positives bei komplexen Codebasen</li>
+<li>Kein Plugin-System für Django/SQLAlchemy/Pydantic (noch)</li>
+</ul>
+<p><strong>Installation und Verwendung:</strong></p>
+<pre><code class="language-bash"># Installation via uv
+uv tool install ty@latest
+
+# Einzelne Datei oder Projekt prüfen
+ty check src/
+
+# Watch-Modus (inkrementell)
+ty check --watch
+</code></pre>
+<p><strong>Konfiguration (pyproject.toml):</strong></p>
+<pre><code class="language-toml">[tool.ty.rules]
+# Regeln können individuell konfiguriert werden
+# Siehe: https://docs.astral.sh/ty/reference/rules/
+</code></pre>
+<p><strong>Empfehlung:</strong> Für experimentierfreudige Entwickler jetzt schon als schnelles Editor-Feedback nutzbar. Für CI/CD weiterhin Pyright oder mypy parallel einsetzen, bis die Genauigkeit steigt. Astrals Track Record mit Ruff und uv spricht dafür, dass ty mittelfristig zum Standard wird.</p>
+<ul>
+<li>https://docs.astral.sh/ty/</li>
+<li>https://github.com/astral-sh/ty</li>
+</ul>
+<h4 id="244----pyrefly-meta-beta--nachfolger-von-pyre"><a class="header" href="#244----pyrefly-meta-beta--nachfolger-von-pyre">2.4.4    Pyrefly (Meta, Beta) – Nachfolger von Pyre</a></h4>
+<p>Pyrefly ist Metas neuer Type Checker und Language Server, in Rust geschrieben. Er ersetzt den älteren, OCaml-basierten Pyre Type Checker, der u.a. für Instagrams Codebase entwickelt wurde.</p>
+<p><strong>Status:</strong> Beta (seit November 2025).</p>
+<p><strong>Stärken:</strong></p>
+<ul>
+<li>Sehr hohe Performance (1,85 Mio. Zeilen/Sekunde, PyTorch in 2,4s vs. Pyright 35,2s vs. mypy 48,1s)</li>
+<li>70% Conformance mit Python Typing Specification (von 39% bei Alpha-Launch)</li>
+<li>Automatische Type Inference für Rückgabewerte und lokale Variablen</li>
+<li>Automatische Type Stubs für populäre Third-Party-Libraries</li>
+<li>IDE-Extensions für VS Code, Neovim, Zed, Emacs, Helix</li>
+<li>Vorläufiger Support für Django, Pydantic und Jupyter Notebooks</li>
+<li>MIT-Lizenz, aktive Community (Discord, GitHub)</li>
+</ul>
+<p><strong>Schwächen:</strong></p>
+<ul>
+<li>Inkrementelle Updates deutlich langsamer als ty (~2,4s vs. 4,7ms bei PyTorch)</li>
+<li>Framework-Support (Django, SQLAlchemy) noch in Entwicklung</li>
+<li>Weniger verbreitet als Pyright oder mypy</li>
+</ul>
+<p><strong>Installation und Verwendung:</strong></p>
+<pre><code class="language-bash"># Installation
+pip install pyrefly
+
+# Projekt initialisieren
+pyrefly init
+
+# Type Check
+pyrefly check
+
+# Mit Fehler-Zusammenfassung
+pyrefly check --summarize-errors
+</code></pre>
+<p><strong>Empfehlung:</strong> Für Projekte, die von Pyre migrieren oder einen schnellen Type Checker mit guter Conformance suchen. Für die meisten Anwender ist Pyright aktuell noch die sicherere Wahl.</p>
+<ul>
+<li>https://pyrefly.org/</li>
+<li>https://github.com/facebook/pyrefly</li>
+</ul>
+<h3 id="25----vergleich"><a class="header" href="#25----vergleich">2.5    Vergleich</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Typ</th><th>Sprache</th><th>Geschwindigkeit</th><th>Conformance</th><th>LSP/IDE</th><th>Status</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Ruff</strong></td><td>Linter</td><td>Rust</td><td>✅✅ Extrem schnell</td><td>Hoch</td><td>⚠️ Kein Type LSP</td><td>✅ Stabil</td></tr>
+<tr><td><del>Flake8</del></td><td>Linter</td><td>Python</td><td>❌ Langsam</td><td>Mittel</td><td>❌ Nein</td><td>⛔ Obsolet</td></tr>
+<tr><td><del>Pylint</del></td><td>Linter</td><td>Python</td><td>❌ Sehr langsam</td><td>Sehr hoch</td><td>❌ Nein</td><td>⛔ Obsolet</td></tr>
+<tr><td><strong>Pyright</strong></td><td>Type Checker</td><td>TypeScript</td><td>✅ Schnell</td><td>✅✅ Sehr hoch</td><td>✅ Pylance (VS Code)</td><td>✅ Stabil</td></tr>
+<tr><td><strong>mypy</strong></td><td>Type Checker</td><td>Python</td><td>⚠️ Mittel</td><td>✅ Hoch</td><td>❌ Nein</td><td>✅ Stabil</td></tr>
+<tr><td><strong>ty</strong></td><td>Type Checker</td><td>Rust</td><td>✅✅ Extrem schnell</td><td>❌ ~15%</td><td>✅ Eingebaut</td><td>⚠️ Beta</td></tr>
+<tr><td><strong>Pyrefly</strong></td><td>Type Checker</td><td>Rust</td><td>✅ Sehr schnell</td><td>⚠️ ~70%</td><td>✅ Eingebaut</td><td>⚠️ Beta</td></tr>
+<tr><td>Zuban</td><td>Type Checker</td><td>Rust</td><td>✅ Schnell</td><td>✅ ~69%</td><td>✅ Eingebaut</td><td>⚠️ Beta</td></tr>
+<tr><td><del>Pyre</del></td><td>Type Checker</td><td>OCaml</td><td>⚠️ Mittel</td><td>⚠️ Mittel</td><td>❌ Nein</td><td>⛔ Obsolet</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="26----zusammenfassung"><a class="header" href="#26----zusammenfassung">2.6    Zusammenfassung</a></h3>
+<p><strong>Modern Stack (2024+):</strong></p>
+<ul>
+<li><strong>Ruff</strong>: Linting + Formatting (Standard)</li>
+<li><strong>Mypy</strong>: Type Checking</li>
+<li><strong>Pyright/Pylance</strong>: Type Checking (zuverlässigste Option)</li>
+</ul>
+<p><strong>Aufstrebend (Beta, 2025/2026):</strong> -</p>
+<ul>
+<li><strong>ty</strong> (Astral) – extrem schnell, noch geringe Conformance</li>
+<li><strong>Pyrefly</strong> (Meta) – schnell, bessere Conformance als ty</li>
+<li><strong>Zuban</strong> – mypy-kompatibel, höchste Conformance der neuen Tools</li>
+</ul>
+<p><strong>Legacy Stack (nicht mehr empfohlen):</strong></p>
+<ul>
+<li><del>Flake8</del> → Ruff</li>
+<li><del>black</del> → Ruff format</li>
+<li><del>isort</del> → Ruff</li>
+<li><del>Pylint</del> → Ruff (oder zusätzlich)</li>
+<li><del>Pyre</del> → Pyrefly</li>
+</ul>
+<h4 id="261----veralteteabgelöste-tools"><a class="header" href="#261----veralteteabgelöste-tools">2.6.1    Veraltete/Abgelöste Tools</a></h4>
+<p>Die folgenden Tools sind funktional ersetzt und sollten bei neuen Projekten nicht mehr eingesetzt werden, weil Ruff (in Rust geschrieben) deren Funktionen in einem einzigen Tool mit 10–100× höherer Geschwindigkeit vereint, bessere Wartbarkeit und einfacherere Konfiguration über eine einzige <code>pyproject.toml</code> bietet:</p>
+<ul>
+<li><strong>Flake8</strong> – komplett durch Ruff ersetzt. Ruff implementiert alle relevanten Flake8-Regeln plus die meisten populären Plugins (isort, pyupgrade, eradicate, yesqa, …) und ist dabei 10–100× schneller.</li>
+<li><strong>Black</strong> – Ruff enthält einen eigenen Formatter (<code>ruff format</code>), der Black-kompatibel ist. Ein separates Tool ist nicht mehr nötig.</li>
+<li><strong>isort</strong> – ebenfalls in Ruff integriert (<code>ruff check --select I</code>).</li>
+<li><strong>Pylint</strong> – wird zwar noch gepflegt, aber immer weniger genutzt. Ruff deckt den Großteil der relevanten Regeln ab und ist drastisch schneller. Für manche sehr spezifischen Pylint-Checks gibt es noch keinen Ruff-Ersatz, aber für die meisten Projekte reicht Ruff.</li>
+<li><strong>Pyre</strong> (Meta) – wird durch <strong>Pyrefly</strong> abgelöst, Metas neuen Rust-basierten Type Checker.</li>
+</ul>
+<h4 id="262----moderne-linter-und-type-checker"><a class="header" href="#262----moderne-linter-und-type-checker">2.6.2    Moderne Linter und Type Checker</a></h4>
+<h5 id="linting--formatting-ruff"><a class="header" href="#linting--formatting-ruff">Linting &amp; Formatting: <strong>Ruff</strong></a></h5>
+<p>Ruff ersetzt Flake8, Black, isort, pyupgrade und viele weitere Tools in einem einzigen, extrem schnellen Rust-basierten Tool. Es ist mittlerweile der De-facto-Standard mit über 100.000 GitHub Stars und wird von den meisten großen Open-Source-Projekten genutzt. Konfiguration läuft über <code>ruff.toml</code> oder <code>pyproject.toml</code>.</p>
+<h5 id="type-checking-drei-optionen"><a class="header" href="#type-checking-drei-optionen">Type Checking: Drei Optionen</a></h5>
+<p><strong>1. Pyright</strong> – aktuell der zuverlässigste Type Checker. Microsofts TypeScript-basiertes Tool, das auch Pylance in VS Code antreibt. Pyright implementiert neue Typing-Features oft vor anderen Tools und bietet starke IDE-Integration (<a href="https://sinon.github.io/future-python-type-checkers/">Rob’s Blog</a>). Für Produktionsprojekte Stand heute die sicherste Wahl.</p>
+<p><strong>2. mypy</strong> – der Klassiker, weiterhin weit verbreitet und stabil. Für bestehende Projekte absolut brauchbar, aber langsamer als die Alternativen und bei neuen Typing-Features manchmal hinterher.</p>
+<p><strong>3. ty (Astral, Beta)</strong> – das spannendste neue Tool. ty ist ein extrem schneller Python Type Checker und Language Server, in Rust geschrieben, entwickelt als Alternative zu mypy, Pyright und Pylance. <a href="https://astral.sh/blog/ty">Astral</a> Performance liegt bei 10–60× schneller als mypy/Pyright, mit inkrementellen Updates in 4,7ms statt Sekunden (<a href="https://byteiota.com/astral-ty-python-type-checker-60x-faster-than-mypy/">byteiota</a>). Allerdings ist die Genauigkeit noch nicht auf dem Niveau von Pyright – ty besteht aktuell etwa 15% der Conformance-Tests, während Pyright und andere deutlich weiter sind (<a href="https://byteiota.com/astral-ty-python-type-checker-60x-faster-than-mypy/">byteiota</a>). Für “motivated users” empfohlen, Stable Release ist für 2026 geplant. Für Neovim-Nutzer ist der eingebaute LSP besonders interessant sein.</p>
+<p>Weitere Newcomer: <strong>Pyrefly</strong> (Meta, Rust-basiert) und <strong>Zuban</strong> (mypy-kompatibel, Rust-basiert) sind ebenfalls 2025 erschienen, aber weniger ausgereift als ty.</p>
+<div class="mdbook-callouts mdbook-callouts-tip">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  tip
+</p>
+
+<p>Für ein umfassende Absicherung der Code-Qualität reichen Ruff (Linting und Formatting) und Pyright/Pylance (Type Checking) aus. Zukünftig könnte ty Pyright/Mypy ablösen.</p>
+<p>In der <code>pyproject.toml</code> sieht ein modernes Setup dann minimal so aus:</p>
+<pre><code class="language-toml">[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pyright]
+pythonVersion = "3.12"
+typeCheckingMode = "standard"
+</code></pre>
+</div>
+
+<h2 id="3----klassisches-dependency-management-mit-pip"><a class="header" href="#3----klassisches-dependency-management-mit-pip">3    Klassisches Dependency Management mit <code>pip</code></a></h2>
+<h3 id="31----pakete-installieren"><a class="header" href="#31----pakete-installieren">3.1    Pakete installieren</a></h3>
+<pre><code class="language-bash"># Einzelnes Paket
+pip install requests
+
+# Spezifische Version
+pip install requests==2.31.0
+
+# Mindestversion
+pip install requests&gt;=2.30.0
+
+# Versionsbereiche
+pip install "requests&gt;=2.30.0,&lt;3.0.0"
+
+# Aus requirements.txt
+pip install -r requirements.txt
+
+# Paket aktualisieren
+pip install --upgrade requests
+
+# Paket deinstallieren
+pip uninstall requests
+</code></pre>
+<h3 id="32----requirementstxt"><a class="header" href="#32----requirementstxt">3.2    <code>requirements.txt</code></a></h3>
+<pre><code class="language-txt"># requirements.txt - Produktions-Dependencies
+requests==2.31.0
+pandas&gt;=2.0.0,&lt;3.0.0
+numpy==1.24.3
+python-dotenv==1.0.0
+
+# Optional: Kommentare
+matplotlib==3.7.1  # Für Visualisierungen
+</code></pre>
+<pre><code class="language-bash"># Requirements generieren (nicht empfohlen für Entwicklung)
+pip freeze &gt; requirements.txt
+
+# Installieren
+pip install -r requirements.txt
+</code></pre>
+<h3 id="33----mehrere-requirements-dateien"><a class="header" href="#33----mehrere-requirements-dateien">3.3    Mehrere Requirements-Dateien</a></h3>
+<pre><code class="language-bash"># Projektstruktur
+requirements/
+├── base.txt          # Basis-Dependencies
+├── dev.txt           # Entwicklungs-Tools
+└── production.txt    # Produktions-spezifisch
+</code></pre>
+<pre><code class="language-txt"># requirements/base.txt
+requests==2.31.0
+pandas==2.0.3
+
+# requirements/dev.txt
+-r base.txt  # Basis-Dependencies inkludieren
+pytest==7.4.0
+black==23.7.0
+mypy==1.5.0
+
+# requirements/production.txt
+-r base.txt
+gunicorn==21.2.0
+</code></pre>
+<pre><code class="language-bash"># Entwicklungsumgebung
+pip install -r requirements/dev.txt
+
+# Produktion
+pip install -r requirements/production.txt
+</code></pre>
+<h3 id="34----probleme-mit-pip-freeze"><a class="header" href="#34----probleme-mit-pip-freeze">3.4    Probleme mit <code>pip freeze</code></a></h3>
+<pre><code class="language-bash"># ❌ Problematisch: pip freeze
+pip freeze &gt; requirements.txt
+</code></pre>
+<p><strong>Nachteile:</strong></p>
+<ul>
+<li>Listet <strong>alle</strong> installierten Pakete auf (auch transitive Dependencies)</li>
+<li>Keine Trennung zwischen direkten und indirekten Abhängigkeiten</li>
+<li>Versionsnummern sind exakt → keine Flexibilität bei Updates</li>
+<li>Schwer wartbar bei vielen Paketen</li>
+</ul>
+<h2 id="4----paketinstallation-aus-eigenem-ordner-mit-python-dateien"><a class="header" href="#4----paketinstallation-aus-eigenem-ordner-mit-python-dateien">4    Paketinstallation aus eigenem Ordner mit Python-Dateien</a></h2>
+<p>Im Folgenden wird erklärt, wie man einen Ordner mit <code>.py</code>-Dateien zu einem Paket macht und ihn in einer Umgebung lokal installiert.</p>
+<h3 id="41----erstinstallation"><a class="header" href="#41----erstinstallation">4.1    Erstinstallation</a></h3>
+<h4 id="411----ordnerstruktur-vorbereiten"><a class="header" href="#411----ordnerstruktur-vorbereiten">4.1.1    Ordnerstruktur vorbereiten</a></h4>
+<pre><code>mein_paket/
+├── mein_paket/
+│   ├── __init__.py
+│   ├── modul1.py
+│   ├── modul2.py
+│   └── ...
+└── setup.py
+</code></pre>
+<p>Die Datei <code>__init__.py</code> muss existieren, da es den Ordner zu einem Python-Paket macht - sie kann auch leer sein, s. [[#4 Initialisierungs-Datei]].</p>
+<div class="mdbook-callouts mdbook-callouts-warning">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  setup-datei
+</p>
+
+<p>Es muss eine <code>pyproject.toml</code> (empfohlen bei neuen Projekten) oder <code>setup.py</code> im Hauptverzeichnis exisieren!</p>
+</div>
+
+<p><strong><code>setup.py</code>:</strong></p>
+<pre><code class="language-python">from setuptools import setup, find_packages
+
+setup(
+    name='pylightlib',
+    version='0.1.0',
+    packages=find_packages(include=['io', 'qt', 'tk', 'msc', 'math', 'mech']),
+    install_requires=[],
+)
+</code></pre>
+<h4 id="412----installation"><a class="header" href="#412----installation">4.1.2    Installation</a></h4>
+<ol>
+<li>Im Terminal zum Ordner des Pakets wechseln (<code>cd ...</code>)</li>
+<li>Richtige Umgebung auswählen (<code>conda activate ...</code>)</li>
+<li>Paket installieren mit</li>
+</ol>
+<pre><code class="language-zsh">pip install .
+</code></pre>
+<p><strong>Alternative (Entwicklungsmodus/editable mode: Änderungen werden ohne Neuinstallation wirksam):</strong></p>
+<pre><code class="language-zsh">pip install -e .
+</code></pre>
+<p>Installation prüfen mit:</p>
+<pre><code class="language-python">python -c "from setuptools import find_packages; print(find_packages())"
+</code></pre>
+<p>Folgendes der <code>.vscode/settings.json</code> (im Root-Ordner des Projekts, welches das Modul einbinden soll) oder der <code>settings.json</code> des Benutzers hinzufügen:</p>
+<pre><code class="language-json">{
+	"python.analysis.extraPaths": [
+		"/Users/cgroening/Documents/Code/Python/libs/pylightlib"
+	]
+}
+</code></pre>
+<div class="mdbook-callouts mdbook-callouts-warning">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  warning
+</p>
+
+<p>Wenn der Pfad eines Pakets geändert wird, muss es wie folgt neuinstalliert werden:</p>
+<ol>
+<li>Paket deinstallieren:</li>
+</ol>
+<pre><code class="language-zsh">pip uninstall &lt;paketname&gt; -y
+</code></pre>
+<ol start="2">
+<li><code>.egg</code>-Datei löschen !!</li>
+</ol>
+<p>Diese Datei löschen:</p>
+<pre><code>/opt/anaconda3/envs/&lt;envname&gt;/lib/python&lt;version&gt;/site-packages/&lt;paketname&gt;.egg-link
+</code></pre>
+<ol start="3">
+<li>Neuinstallation mit</li>
+</ol>
+<pre><code class="language-python">pip install -e .
+</code></pre>
+</div>
+
+<h4 id="413----nutzung-des-pakets"><a class="header" href="#413----nutzung-des-pakets">4.1.3    Nutzung des Pakets</a></h4>
+<pre><code class="language-python">from mein_paket import modul1
+</code></pre>
+<h3 id="42----alternative"><a class="header" href="#42----alternative">4.2    Alternative</a></h3>
+<p>Statt das Paket in eine Umgebung zu installieren, kann man stattdessen nur den Pfad lokal verfügbar machen, in dem man ihn zum <code>PYTHONPATH</code> hinzufügt oder dies direkt im Code macht:</p>
+<pre><code class="language-python">import sys
+sys.path.append('/pfad/zum/ordner')
+import modul1
+</code></pre>
+<p>Dies ist jedoch eher ein Workaround, keine saubere Installation.</p>
+<h3 id="43----aktualisierung"><a class="header" href="#43----aktualisierung">4.3    Aktualisierung</a></h3>
+<p>Wenn normal installiert wurde, muss nach jeder Änderung der Installationsbefehl erneut ausgeführt werden, damit diese übernommen werden:</p>
+<pre><code class="language-zsh">pip install .
+</code></pre>
+<p>Wenn im Entwicklungsmodus installiert wurde (<code>pip install -e .</code>), ist das Paket verlinkt, d. h. Änderungen am Code wirken sofort - ohne Neuinstallation.</p>
+<h3 id="44----initialisierungs-datei"><a class="header" href="#44----initialisierungs-datei">4.4    Initialisierungs-Datei</a></h3>
+<div class="mdbook-callouts mdbook-callouts-info">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  inhalt von `__init__.py`
+</p>
+
+<p>Was man in die Initialisierungs-Datei schreibt, entscheidet, wie “sauber” oder bequem das Paket von außen nutzbar ist. Man kann die Datei auch leer lassen, was besonders bei kleinen Paketen häufig geschieht.</p>
+</div>
+
+<h4 id="441----importverkürzung"><a class="header" href="#441----importverkürzung">4.4.1    Importverkürzung</a></h4>
+<p>Beispiel: Die folgende Struktur liegt vor:</p>
+<pre><code>mein_paket/
+├── __init__.py
+└── tools.py  # enthält eine Funktion namens "berechne_xyz"
+</code></pre>
+<p>In <code>__init__.py</code>:</p>
+<pre><code class="language-python">from .tools import berechne_xyz
+</code></pre>
+<p>So kann man in seinem Projekt den folgenden Import vornehmen:</p>
+<pre><code class="language-python">from mein_paket import berechne_xyz
+</code></pre>
+<p>Anstatt:</p>
+<pre><code class="language-python">from mein_paket.tools import berechne_xyz
+</code></pre>
+<h4 id="442----globale-variablen"><a class="header" href="#442----globale-variablen">4.4.2    Globale Variablen</a></h4>
+<p>Ein weiterer Verwendungszweck für die <code>__init__.py</code> ist das Speichern von globalen Variablen:</p>
+<pre><code class="language-python">__version__ = "0.1.0"
+</code></pre>
+<h4 id="443----initialisierungscode"><a class="header" href="#443----initialisierungscode">4.4.3    Initialisierungscode</a></h4>
+<p>Wenn beim Import deines Pakets direkt etwas passieren soll (z. B. Logging einrichten oder ein globaler Status):</p>
+<pre><code class="language-python">import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.info("mein_paket wurde importiert.")
+</code></pre>
+<h2 id="5----pip-tools--besseres-dependency-management"><a class="header" href="#5----pip-tools--besseres-dependency-management">5    <code>pip-tools</code> – Besseres Dependency Management</a></h2>
+<p><code>pip-tools</code> löst viele Probleme von <code>pip freeze</code> durch Trennung von abstrakten und konkreten Dependencies.</p>
+<h3 id="51----installation"><a class="header" href="#51----installation">5.1    Installation</a></h3>
+<pre><code class="language-bash">pip install pip-tools
+</code></pre>
+<h3 id="52----workflow-mit-pip-compile"><a class="header" href="#52----workflow-mit-pip-compile">5.2    Workflow mit <code>pip-compile</code></a></h3>
+<pre><code class="language-txt"># requirements.in - Was wir WOLLEN (abstrakt)
+requests&gt;=2.30.0
+pandas
+pytest&gt;=7.0
+</code></pre>
+<pre><code class="language-bash"># Konkrete Versionen generieren
+pip-compile requirements.in
+
+# Erzeugt requirements.txt mit allen transitiven Dependencies
+</code></pre>
+<pre><code class="language-txt"># requirements.txt - Was INSTALLIERT wird (konkret)
+# Generated by pip-compile
+requests==2.31.0
+  # via -r requirements.in
+certifi==2023.7.22
+  # via requests
+charset-normalizer==3.2.0
+  # via requests
+idna==3.4
+  # via requests
+urllib3==2.0.4
+  # via requests
+pandas==2.0.3
+  # via -r requirements.in
+numpy==1.24.3
+  # via pandas
+...
+</code></pre>
+<h3 id="53----pip-sync--exakte-environment-replikation"><a class="header" href="#53----pip-sync--exakte-environment-replikation">5.3    <code>pip-sync</code> – Exakte Environment-Replikation</a></h3>
+<pre><code class="language-bash"># Virtual Environment exakt auf requirements.txt synchronisieren
+pip-sync requirements.txt
+
+# Entfernt Pakete, die nicht in requirements.txt sind
+# Installiert fehlende Pakete
+# Aktualisiert auf exakte Versionen
+</code></pre>
+<h3 id="54----dependency-updates"><a class="header" href="#54----dependency-updates">5.4    Dependency-Updates</a></h3>
+<pre><code class="language-bash"># Alle Dependencies aktualisieren
+pip-compile --upgrade requirements.in
+
+# Nur ein spezifisches Paket aktualisieren
+pip-compile --upgrade-package requests requirements.in
+
+# Mit Hashes für zusätzliche Sicherheit
+pip-compile --generate-hashes requirements.in
+</code></pre>
+<h3 id="55----mehrere-environments-mit-pip-tools"><a class="header" href="#55----mehrere-environments-mit-pip-tools">5.5    Mehrere Environments mit pip-tools</a></h3>
+<pre><code class="language-txt"># requirements.in
+requests
+pandas
+
+# requirements-dev.in
+-c requirements.txt  # Constraint-File: nutze dieselben Versionen
+pytest
+black
+mypy
+</code></pre>
+<pre><code class="language-bash"># Workflow
+pip-compile requirements.in
+pip-compile requirements-dev.in
+
+# Installation
+pip-sync requirements-dev.txt  # Installiert dev + base
+</code></pre>
+<h2 id="6----poetry--all-in-one-lösung"><a class="header" href="#6----poetry--all-in-one-lösung">6    Poetry – All-in-One Lösung</a></h2>
+<p>Poetry kombiniert Dependency Management, Packaging und Veröffentlichung in einem Tool.</p>
+<h3 id="61----installation"><a class="header" href="#61----installation">6.1    Installation</a></h3>
+<pre><code class="language-bash"># Empfohlene Installation (Linux/macOS)
+curl -sSL https://install.python-poetry.org | python3 -
+
+# Alternative: pipx (isoliert)
+pipx install poetry
+
+# Nach Installation
+poetry --version
+</code></pre>
+<h3 id="62----neues-projekt-initialisieren"><a class="header" href="#62----neues-projekt-initialisieren">6.2    Neues Projekt initialisieren</a></h3>
+<pre><code class="language-bash"># Interaktive Projekt-Erstellung
+poetry new myproject
+
+# Generierte Struktur:
+myproject/
+├── pyproject.toml
+├── README.md
+├── myproject/
+│   └── __init__.py
+└── tests/
+    └── __init__.py
+</code></pre>
+<pre><code class="language-bash"># In bestehendem Projekt
+poetry init
+</code></pre>
+<h3 id="63----pyprojecttoml--poetry-konfiguration"><a class="header" href="#63----pyprojecttoml--poetry-konfiguration">6.3    <code>pyproject.toml</code> – Poetry-Konfiguration</a></h3>
+<pre><code class="language-toml">[tool.poetry]
+name = "myproject"
+version = "0.1.0"
+description = "A sample Python project"
+authors = ["Your Name &lt;you@example.com&gt;"]
+readme = "README.md"
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+pandas = "^2.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+black = "^23.7.0"
+mypy = "^1.5.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+</code></pre>
+<h3 id="64----dependencies-verwalten"><a class="header" href="#64----dependencies-verwalten">6.4    Dependencies verwalten</a></h3>
+<pre><code class="language-bash"># Paket hinzufügen
+poetry add requests
+
+# Dev-Dependency hinzufügen
+poetry add --group dev pytest
+
+# Mit Version Constraints
+poetry add "requests&gt;=2.30.0,&lt;3.0.0"
+
+# Paket entfernen
+poetry remove requests
+
+# Alle Dependencies installieren
+poetry install
+
+# Ohne dev-dependencies (Produktion)
+poetry install --without dev
+
+# Dependencies aktualisieren
+poetry update
+
+# Nur ein Paket aktualisieren
+poetry update requests
+</code></pre>
+<h3 id="65----virtual-environment-mit-poetry"><a class="header" href="#65----virtual-environment-mit-poetry">6.5    Virtual Environment mit Poetry</a></h3>
+<pre><code class="language-bash"># Poetry erstellt automatisch ein Virtual Environment
+poetry install
+
+# In der Poetry-Shell arbeiten
+poetry shell
+
+# Befehl im Poetry-Environment ausführen (ohne shell)
+poetry run python script.py
+poetry run pytest
+
+# Environment-Info anzeigen
+poetry env info
+
+# Environment-Pfad
+poetry env info --path
+
+# Environment löschen
+poetry env remove python3.10
+</code></pre>
+<h3 id="66----lock-file"><a class="header" href="#66----lock-file">6.6    Lock-File</a></h3>
+<p>Poetry erstellt automatisch <code>poetry.lock</code>:</p>
+<pre><code class="language-bash"># poetry.lock - Exakte Versionen aller Dependencies
+# Wird automatisch bei 'poetry add' / 'poetry update' aktualisiert
+# SOLLTE ins Git committed werden
+
+# Lock-File neu generieren ohne Installation
+poetry lock
+
+# Lock-File prüfen
+poetry check
+</code></pre>
+<h3 id="67----scripts-definieren"><a class="header" href="#67----scripts-definieren">6.7    Scripts definieren</a></h3>
+<pre><code class="language-toml">[tool.poetry.scripts]
+start = "myproject.main:main"
+test = "pytest"
+</code></pre>
+<pre><code class="language-bash"># Scripts ausführen
+poetry run start
+poetry run test
+</code></pre>
+<h3 id="68----packaging-und-veröffentlichung"><a class="header" href="#68----packaging-und-veröffentlichung">6.8    Packaging und Veröffentlichung</a></h3>
+<pre><code class="language-bash"># Paket bauen
+poetry build
+# Erstellt dist/myproject-0.1.0.tar.gz und .whl
+
+# Auf PyPI veröffentlichen
+poetry publish
+
+# Beides zusammen
+poetry publish --build
+
+# Test-PyPI
+poetry config repositories.testpypi https://test.pypi.org/legacy/
+poetry publish -r testpypi
+</code></pre>
+<h2 id="7----pyprojecttoml--pep-621-standard"><a class="header" href="#7----pyprojecttoml--pep-621-standard">7    <code>pyproject.toml</code> – PEP 621 Standard</a></h2>
+<p><code>pyproject.toml</code> ist der moderne Standard für Python-Projektkonfiguration (definiert in PEP 621).</p>
+<h3 id="71----grundstruktur-ohne-poetry"><a class="header" href="#71----grundstruktur-ohne-poetry">7.1    Grundstruktur ohne Poetry</a></h3>
+<pre><code class="language-toml">[build-system]
+requires = ["setuptools&gt;=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mypackage"
+version = "0.1.0"
+description = "A sample Python package"
+readme = "README.md"
+authors = [
+    {name = "Your Name", email = "you@example.com"}
+]
+license = {text = "MIT"}
+requires-python = "&gt;=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+keywords = ["example", "package"]
+
+dependencies = [
+    "requests&gt;=2.30.0",
+    "pandas&gt;=2.0.0,&lt;3.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest&gt;=7.4.0",
+    "black&gt;=23.7.0",
+    "mypy&gt;=1.5.0",
+]
+docs = [
+    "sphinx&gt;=7.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/username/mypackage"
+Documentation = "https://mypackage.readthedocs.io"
+Repository = "https://github.com/username/mypackage"
+</code></pre>
+<h3 id="72----installation-mit-pip"><a class="header" href="#72----installation-mit-pip">7.2    Installation mit pip</a></h3>
+<pre><code class="language-bash"># Paket installieren (im Entwicklungsmodus)
+pip install -e .
+
+# Mit optional dependencies
+pip install -e ".[dev]"
+pip install -e ".[dev,docs]"
+</code></pre>
+<h3 id="73----dynamische-versionen"><a class="header" href="#73----dynamische-versionen">7.3    Dynamische Versionen</a></h3>
+<pre><code class="language-toml">[project]
+name = "mypackage"
+dynamic = ["version"]  # Version aus Code lesen
+
+[tool.setuptools.dynamic]
+version = {attr = "mypackage.__version__"}
+</code></pre>
+<pre><code class="language-python"># mypackage/__init__.py
+__version__ = "0.1.0"
+</code></pre>
+<h3 id="74----entry-points--console-scripts"><a class="header" href="#74----entry-points--console-scripts">7.4    Entry Points / Console Scripts</a></h3>
+<pre><code class="language-toml">[project.scripts]
+myapp = "mypackage.cli:main"
+mytool = "mypackage.tools:run"
+</code></pre>
+<pre><code class="language-python"># mypackage/cli.py
+def main():
+    print("Hello from myapp!")
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+<pre><code class="language-bash"># Nach Installation verfügbar:
+myapp  # Ruft mypackage.cli:main() auf
+</code></pre>
+<h2 id="8----verschiedene-build-backends"><a class="header" href="#8----verschiedene-build-backends">8    Verschiedene Build-Backends</a></h2>
+<h3 id="81----setuptools-standard"><a class="header" href="#81----setuptools-standard">8.1    setuptools (Standard)</a></h3>
+<pre><code class="language-toml">[build-system]
+requires = ["setuptools&gt;=61.0"]
+build-backend = "setuptools.build_meta"
+</code></pre>
+<h3 id="82----poetry"><a class="header" href="#82----poetry">8.2    Poetry</a></h3>
+<pre><code class="language-toml">[build-system]
+requires = ["poetry-core&gt;=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+</code></pre>
+<h3 id="83----flit-minimalistisch"><a class="header" href="#83----flit-minimalistisch">8.3    Flit (minimalistisch)</a></h3>
+<pre><code class="language-toml">[build-system]
+requires = ["flit_core&gt;=3.2"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "mypackage"
+authors = [{name = "Your Name"}]
+dynamic = ["version", "description"]
+</code></pre>
+<h3 id="84----hatch-modern"><a class="header" href="#84----hatch-modern">8.4    Hatch (modern)</a></h3>
+<pre><code class="language-toml">[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+</code></pre>
+<h2 id="9----tool-konfiguration-in-pyprojecttoml"><a class="header" href="#9----tool-konfiguration-in-pyprojecttoml">9    Tool-Konfiguration in <code>pyproject.toml</code></a></h2>
+<h3 id="91----black-formatter"><a class="header" href="#91----black-formatter">9.1    Black (Formatter)</a></h3>
+<pre><code class="language-toml">[tool.black]
+line-length = 88
+target-version = ['py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.venv
+  | build
+  | dist
+)/
+'''
+</code></pre>
+<h3 id="92----mypy-type-checker"><a class="header" href="#92----mypy-type-checker">9.2    MyPy (Type Checker)</a></h3>
+<pre><code class="language-toml">[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.mypy.overrides](tool.mypy.overrides.md)
+module = "pandas.*"
+ignore_missing_imports = true
+</code></pre>
+<h3 id="93----pytest"><a class="header" href="#93----pytest">9.3    Pytest</a></h3>
+<pre><code class="language-toml">[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers"
+testpaths = [
+    "tests",
+]
+markers = [
+    "slow: marks tests as slow",
+    "integration: integration tests",
+]
+</code></pre>
+<h3 id="94----ruff-linter--formatter"><a class="header" href="#94----ruff-linter--formatter">9.4    Ruff (Linter &amp; Formatter)</a></h3>
+<pre><code class="language-toml">[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+</code></pre>
+<h2 id="10----vergleich-der-tools"><a class="header" href="#10----vergleich-der-tools">10    Vergleich der Tools</a></h2>
+<h3 id="101----feature-matrix"><a class="header" href="#101----feature-matrix">10.1    Feature-Matrix</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>pip + venv</th><th>pip-tools</th><th>Poetry</th><th>Hatch</th></tr>
+</thead>
+<tbody>
+<tr><td>Dependency Resolution</td><td>✅ Basis</td><td>✅ Gut</td><td>✅ Sehr gut</td><td>✅ Sehr gut</td></tr>
+<tr><td>Lock-Files</td><td>❌</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Virtual Env Management</td><td>⚠️ Manuell</td><td>⚠️ Manuell</td><td>✅ Automatisch</td><td>✅ Automatisch</td></tr>
+<tr><td>Packaging</td><td>⚠️ Separat</td><td>⚠️ Separat</td><td>✅ Integriert</td><td>✅ Integriert</td></tr>
+<tr><td>Publishing</td><td>⚠️ Separat</td><td>⚠️ Separat</td><td>✅ Integriert</td><td>✅ Integriert</td></tr>
+<tr><td>pyproject.toml</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Lernkurve</td><td>✅ Niedrig</td><td>✅ Niedrig</td><td>⚠️ Mittel</td><td>⚠️ Mittel</td></tr>
+<tr><td>Performance</td><td>✅</td><td>✅</td><td>⚠️ Langsamer</td><td>✅</td></tr>
+<tr><td>Ökosystem-Integration</td><td>✅ Maximal</td><td>✅ Gut</td><td>⚠️ Eigenes Ökosystem</td><td>✅ Gut</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="102----wann-was-verwenden"><a class="header" href="#102----wann-was-verwenden">10.2    Wann was verwenden?</a></h3>
+<p><strong>pip + venv:</strong></p>
+<ul>
+<li>Einfache Projekte ohne komplexe Dependencies</li>
+<li>CI/CD-Pipelines (minimale Abhängigkeiten)</li>
+<li>Lern-/Tutorial-Projekte</li>
+<li>Schnelle Prototypen</li>
+</ul>
+<p><strong>pip-tools:</strong></p>
+<ul>
+<li>Mittlere bis große Projekte</li>
+<li>Wenn exakte Reproduzierbarkeit wichtig ist</li>
+<li>Wenn man bei pip-Ökosystem bleiben will</li>
+<li>CI/CD mit deterministischen Builds</li>
+</ul>
+<p><strong>Poetry:</strong></p>
+<ul>
+<li>Neue Projekte von Grund auf</li>
+<li>Library-Entwicklung mit Veröffentlichung</li>
+<li>Wenn All-in-One-Lösung gewünscht</li>
+<li>Team-Projekte mit standardisiertem Workflow</li>
+<li>Wenn Virtual Env automatisch verwaltet werden soll</li>
+</ul>
+<p><strong>Hatch:</strong></p>
+<ul>
+<li>Moderne Alternative zu Poetry</li>
+<li>Schnellere Builds</li>
+<li>Mehrere Python-Versionen testen</li>
+<li>Wenn man mehr Kontrolle als Poetry will</li>
+</ul>
+<h2 id="11----best-practices"><a class="header" href="#11----best-practices">11    Best Practices</a></h2>
+<h3 id="111----allgemeine-empfehlungen"><a class="header" href="#111----allgemeine-empfehlungen">11.1    Allgemeine Empfehlungen</a></h3>
+<pre><code class="language-bash"># ✅ DO: Virtual Environments nutzen
+python -m venv venv
+source venv/bin/activate
+
+# ✅ DO: pyproject.toml statt setup.py
+# Modern und standardisiert
+
+# ✅ DO: Lock-Files ins Git committen
+# poetry.lock, requirements.txt (von pip-compile)
+
+# ❌ DON'T: Virtual Environment committen
+# Gehört in .gitignore
+
+# ❌ DON'T: pip freeze für Dependency-Management
+# Nutze pip-tools oder Poetry
+
+# ✅ DO: Versions-Constraints spezifizieren
+requests = "^2.31.0"  # Poetry
+requests&gt;=2.31.0,&lt;3.0.0  # pip
+</code></pre>
+<h3 id="112----entwicklungs-workflow-poetry"><a class="header" href="#112----entwicklungs-workflow-poetry">11.2    Entwicklungs-Workflow (Poetry)</a></h3>
+<pre><code class="language-bash"># 1. Projekt initialisieren
+poetry new myproject
+cd myproject
+
+# 2. Dependencies hinzufügen
+poetry add requests pandas
+poetry add --group dev pytest black mypy
+
+# 3. Installation
+poetry install
+
+# 4. Entwicklung
+poetry shell
+# oder
+poetry run python main.py
+poetry run pytest
+
+# 5. Code formatieren/testen
+poetry run black .
+poetry run mypy .
+poetry run pytest
+
+# 6. Vor Commit: Lock-File aktualisieren falls nötig
+poetry lock --no-update
+
+# 7. Packaging
+poetry build
+poetry publish
+</code></pre>
+<h3 id="113----cicd-integration"><a class="header" href="#113----cicd-integration">11.3    CI/CD Integration</a></h3>
+<p><strong>GitHub Actions mit Poetry:</strong></p>
+<pre><code class="language-yaml">name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.6.0
+      
+      - name: Install dependencies
+        run: poetry install
+      
+      - name: Run tests
+        run: poetry run pytest
+</code></pre>
+<p><strong>Mit pip-tools:</strong></p>
+<pre><code class="language-yaml">- name: Install dependencies
+  run: |
+    pip install pip-tools
+    pip-sync requirements.txt
+    
+- name: Run tests
+  run: pytest
+</code></pre>
+<h2 id="12----migration-zwischen-tools"><a class="header" href="#12----migration-zwischen-tools">12    Migration zwischen Tools</a></h2>
+<h3 id="121----von-requirementstxt-zu-poetry"><a class="header" href="#121----von-requirementstxt-zu-poetry">12.1    Von requirements.txt zu Poetry</a></h3>
+<pre><code class="language-bash"># 1. Poetry initialisieren
+poetry init
+
+# 2. Dependencies aus requirements.txt importieren
+# (manuell in pyproject.toml übertragen)
+
+# 3. Oder mit poetry add
+cat requirements.txt | grep -v "#" | xargs poetry add
+
+# 4. Lock-File generieren
+poetry lock
+</code></pre>
+<h3 id="122----von-poetry-zu-pip-tools"><a class="header" href="#122----von-poetry-zu-pip-tools">12.2    Von Poetry zu pip-tools</a></h3>
+<pre><code class="language-bash"># 1. Aus pyproject.toml extrahieren
+poetry export -f requirements.txt --output requirements.txt
+
+# 2. requirements.in erstellen (manuell vereinfachen)
+# Nur direkte Dependencies ohne Versionen/Hashes
+
+# 3. Neu kompilieren
+pip-compile requirements.in
+</code></pre>
+<h2 id="13----pyinstaller-standalone-executables--erstellung-einer-ausführbaren-datei"><a class="header" href="#13----pyinstaller-standalone-executables--erstellung-einer-ausführbaren-datei">13    PyInstaller: Standalone Executables – Erstellung einer ausführbaren Datei</a></h2>
+<p>Python-Anwendungen als ausführbare Dateien (<code>.exe</code>, <code>.app</code>) verteilen – ohne Python-Installation beim Endnutzer.</p>
+<h3 id="131----konzept"><a class="header" href="#131----konzept">13.1    Konzept</a></h3>
+<p>PyInstaller bündelt Python-Code + Interpreter + Dependencies in eine ausführbare Datei.</p>
+<p><strong>Vorteile:</strong></p>
+<ul>
+<li>✅ Keine Python-Installation nötig</li>
+<li>✅ Einfache Distribution</li>
+<li>✅ Verschleierung des Source-Codes (minimal)</li>
+</ul>
+<p><strong>Nachteile:</strong></p>
+<ul>
+<li>❌ Große Dateigröße (50-200 MB)</li>
+<li>❌ Langsamer Start</li>
+<li>❌ Plattform-spezifisch (.exe muss unter Windows erstellt werden)</li>
+</ul>
+<h3 id="132----windows-auto-py-to-exe"><a class="header" href="#132----windows-auto-py-to-exe">13.2    Windows: auto-py-to-exe</a></h3>
+<p>Es wird <code>auto-py-to-exe</code> verwendet. Es handelt sich um eine GUI für <code>PyInstaller</code> und ein paar Extras (siehe <a href="https://stackoverflow.com/questions/76873518/whats-the-difference-between-pyinstaller-and-auto-py-to-exe">stackoverflow.com</a>). Weitere Infos zum Paket unter <a href="https://pypi.org/project/auto-py-to-exe/">pypi.org</a></p>
+<ol>
+<li>Installation</li>
+</ol>
+<pre><code class="language-zsh">pip install auto-py-to-exe
+</code></pre>
+<ol start="2">
+<li>Ausführen:</li>
+</ol>
+<pre><code class="language-zsh">auto-py-to-exe
+</code></pre>
+<ol start="3">
+<li>Konfigurationsdatei <code>auto-py-to-exe_settings.json</code> aus Projekt laden</li>
+<li>Konvertieren beginnen</li>
+</ol>
+<div class="mdbook-callouts mdbook-callouts-warning">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  warning
+</p>
+
+<p>Zum Schluss muss der Ordner <code>data</code>, der sich im Ordner <code>_internal</code> befindet, eine Ebene höher geschoben werden, sodass er sich im gleichen Ordner wie die <code>.exe</code> befindet.</p>
+</div>
+
+<h3 id="133----macos-pyinstaller-cli"><a class="header" href="#133----macos-pyinstaller-cli">13.3    macOS: PyInstaller CLI</a></h3>
+<ol>
+<li>Installation</li>
+</ol>
+<pre><code class="language-zsh">pip install pyinstaller
+</code></pre>
+<ol start="2">
+<li>App-Bundle erstellen</li>
+</ol>
+<pre><code class="language-zsh">pyinstaller --workpath /Users/cgroening/temp/PyInstaller/build \
+            --distpath /Users/cgroening/temp/PyInstaller/dist DoneZilla.spec
+</code></pre>
+<p>Zum Debuggen App über Terminal ausführen (um Fehlermeldungen sehen zu können):</p>
+<pre><code class="language-zsh">open '/Users/cgroening/temp/PyInstaller/dist/DoneZilla.app'
+</code></pre>
+<ol start="3">
+<li>Richtiges Verhalten prüfen: In der <code>DoneZilla.spec</code> ist eingestellt, dass die Qt-Dateien NICHT im App-Bundle enthalten sind. Für LGPL-Konformität werden die Qt-Dateien aus dem Ordner <code>external_libs</code> geladen. Das heißt, sollte der Ordner nicht existieren oder anders heißen, darf die App nicht starten.</li>
+<li>Ordner <code>external_libs</code> mit den Unterordnern <code>PySide6</code> und <code>shiboken6</code> in den gleichen Ordner wie das App-Bundle platzieren</li>
+<li>Ordner <code>external_libs</code> aufräumen, sodass er nur benötigte Dateien enthält, um die Größe zu reduzieren</li>
+</ol>
+<h3 id="134----spec-datei-konfiguration"><a class="header" href="#134----spec-datei-konfiguration">13.4    .spec-Datei Konfiguration</a></h3>
+<pre><code class="language-python"># myapp.spec
+a = Analysis(
+    ['main.py'],
+    pathex=[],
+    binaries=[],
+    datas=[('config.json', '.'), ('images/', 'images')],
+    hiddenimports=['pkg_resources'],
+    hookspath=[],
+    runtime_hooks=[],
+    excludes=['tkinter'],
+)
+
+pyz = PYZ(a.pure, a.zipped_data)
+
+exe = EXE(
+    pyz,
+    a.scripts,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    name='MyApp',
+    debug=False,
+    bootloader_ignore_signals=False,
+    strip=False,
+    upx=True,
+    console=False,  # Für GUI-Apps
+    icon='app.ico'
+)
+</code></pre>
+<h3 id="135----datendateien-inkludieren"><a class="header" href="#135----datendateien-inkludieren">13.5    Datendateien inkludieren</a></h3>
+<pre><code class="language-bash"># Einzelne Datei
+pyinstaller --add-data "config.json:." script.py
+
+# Ordner (Linux/Mac)
+pyinstaller --add-data "images:images" script.py
+
+# Ordner (Windows)
+pyinstaller --add-data "images;images" script.py
+</code></pre>
+<h3 id="136----häufige-probleme"><a class="header" href="#136----häufige-probleme">13.6    Häufige Probleme</a></h3>
+<p><strong>Problem: “ModuleNotFoundError” nach Build</strong></p>
+<pre><code class="language-bash"># Hidden Imports manuell angeben
+pyinstaller --hidden-import=pkg_resources script.py
+</code></pre>
+<p><strong>Problem: Zu große .exe</strong></p>
+<pre><code class="language-bash"># UPX Kompression (optional)
+pyinstaller --upx-dir=/path/to/upx script.py
+
+# Module ausschließen
+pyinstaller --exclude-module tkinter script.py
+</code></pre>
+<p><strong>Problem: Antivirus False Positive</strong></p>
+<ul>
+<li>Signiere die .exe digital (Windows)</li>
+<li>Reiche bei Antivirus-Herstellern als False Positive ein</li>
+</ul>
+<h3 id="137----alternativen"><a class="header" href="#137----alternativen">13.7    Alternativen</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Platform</th><th>Besonderheit</th></tr>
+</thead>
+<tbody>
+<tr><td>PyInstaller</td><td>All</td><td>Standard, feature-reich</td></tr>
+<tr><td>auto-py-to-exe</td><td>Windows</td><td>GUI für PyInstaller</td></tr>
+<tr><td>cx_Freeze</td><td>All</td><td>Alternative zu PyInstaller</td></tr>
+<tr><td>py2app</td><td>macOS</td><td>macOS-spezifisch</td></tr>
+<tr><td>py2exe</td><td>Windows</td><td>Windows-only, veraltet</td></tr>
+<tr><td>Nuitka</td><td>All</td><td>Kompiliert zu C (schneller)</td></tr>
+<tr><td>PyOxidizer</td><td>All</td><td>Rust-basiert, modern</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="138----best-practices"><a class="header" href="#138----best-practices">13.8    Best Practices</a></h3>
+<p><strong>✅ DO:</strong></p>
+<ul>
+<li>Teste die .exe auf sauberem System</li>
+<li>Verwende .spec-Datei für komplexe Builds</li>
+<li>Versioniere die .spec-Datei</li>
+<li>Erstelle auf Target-Platform (Windows .exe auf Windows)</li>
+<li>Verwende Virtual Environment für saubere Dependencies</li>
+</ul>
+<p><strong>❌ DON’T:</strong></p>
+<ul>
+<li>Cross-compile nicht (Windows → Linux funktioniert nicht)</li>
+<li>Zu viele Dependencies (Dateigröße)</li>
+<li>Sensitive Daten im Binary (leicht extrahierbar)</li>
+</ul>
+<h2 id="14----zusammenfassung"><a class="header" href="#14----zusammenfassung">14    Zusammenfassung</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Zweck</th><th>Empfohlen für</th></tr>
+</thead>
+<tbody>
+<tr><td><code>venv</code></td><td>Virtual Environments</td><td>Alle Projekte</td></tr>
+<tr><td><code>pip</code></td><td>Paket-Installation</td><td>Basis-Tool</td></tr>
+<tr><td><code>pip-tools</code></td><td>Dependency-Pinning</td><td>Deterministische Builds</td></tr>
+<tr><td>Poetry</td><td>All-in-One Management</td><td>Neue Projekte, Libraries</td></tr>
+<tr><td>Hatch</td><td>Alternative zu Poetry</td><td>Moderne Projekte, Multi-Python</td></tr>
+<tr><td><code>pyproject.toml</code></td><td>Standard-Konfiguration</td><td>Alle modernen Projekte</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Moderne Empfehlung:</strong></p>
+<ul>
+<li><strong>Einfache Projekte</strong>: <code>venv</code> + <code>pip</code> + <code>pyproject.toml</code></li>
+<li><strong>Professionelle Projekte</strong>: <code>pip-tools</code> oder Poetry</li>
+<li><strong>Library-Entwicklung</strong>: Poetry oder Hatch</li>
+<li><strong>Legacy-Migration</strong>: Schrittweise zu <code>pyproject.toml</code> wechseln</li>
+</ul>
+<p><strong>Kernprinzip:</strong> Nutze Lock-Files für reproduzierbare Builds, trenne abstrakte von konkreten Dependencies, und setze auf standardisiertes <code>pyproject.toml</code> statt proprietärer Konfigurationen.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../d-tooling-und-workflow/module-und-pakete.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../d-tooling-und-workflow/disassembler-syntax-tree-und-flow-graph.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../d-tooling-und-workflow/module-und-pakete.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../d-tooling-und-workflow/disassembler-syntax-tree-und-flow-graph.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

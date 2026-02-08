@@ -1,0 +1,1065 @@
+<!DOCTYPE HTML>
+<html lang="de" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>NumPy - Python-Referenz</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-80432388.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "../searchindex-1ed3f166.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-f6524bb4.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Python-Referenz</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/cgroening/Python-Referenz" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <style>
+.mdbook-callouts {
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  /* border-left: 0.25em solid var(--mdbook-callouts-color); */
+  background: var(--mdbook-callouts-background);
+}
+
+.mdbook-callouts > *:first-child {
+  margin-top: 0;
+}
+
+.mdbook-callouts > *:last-child {
+  margin-bottom: 0;
+}
+
+.mdbook-callouts-title {
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  line-height: 1;
+  color: var(--mdbook-callouts-color);
+  text-transform: capitalize;
+}
+
+.mdbook-callouts-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.2em;
+  background-color: currentColor;
+  -webkit-mask: no-repeat center / 100%;
+  mask: no-repeat center / 100%;
+  -webkit-mask-image: var(--mdbook-callouts-icon);
+  mask-image: var(--mdbook-callouts-icon);
+}
+
+/* icons at: https://lucide.dev/icons/ */
+
+.mdbook-callouts-info {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/info */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWluZm8iPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PHBhdGggZD0iTTEyIDE2di00Ii8+PHBhdGggZD0iTTEyIDhoLjAxIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-note {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/pencil */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBlbmNpbCI+PHBhdGggZD0iTTE3IDNhMi44NSAyLjgzIDAgMSAxIDQgNEw3LjUgMjAuNSAyIDIybDEuNS01LjVaIi8+PHBhdGggZD0ibTE1IDUgNCA0Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-tip,
+.mdbook-callouts-hint {
+  --mdbook-callouts-color: rgb(var(--color-cyan-rgb));
+  --mdbook-callouts-background: rgba(var(--color-cyan-rgb), 0.1);
+  /* https://lucide.dev/icons/flame */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZsYW1lIj48cGF0aCBkPSJNOC41IDE0LjVBMi41IDIuNSAwIDAgMCAxMSAxMmMwLTEuMzgtLjUtMi0xLTMtMS4wNzItMi4xNDMtLjIyNC00LjA1NCAyLTYgLjUgMi41IDIgNC45IDQgNi41IDIgMS42IDMgMy41IDMgNS41YTcgNyAwIDEgMS0xNCAwYzAtMS4xNTMuNDMzLTIuMjk0IDEtM2EyLjUgMi41IDAgMCAwIDIuNSAyLjV6Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-important {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LWNpcmNsZSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48bGluZSB4MT0iMTIiIHgyPSIxMiIgeTE9IjgiIHkyPSIxMiIvPjxsaW5lIHgxPSIxMiIgeDI9IjEyLjAxIiB5MT0iMTYiIHkyPSIxNiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-success,
+.mdbook-callouts-check,
+.mdbook-callouts-done {
+  --mdbook-callouts-color: rgb(var(--color-green-rgb));
+  --mdbook-callouts-background: rgba(var(--color-green-rgb), 0.1);
+  /* https://lucide.dev/icons/check */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZWNrIj48cGF0aCBkPSJNMjAgNiA5IDE3bC01LTUiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-question,
+.mdbook-callouts-help,
+.mdbook-callouts-faq {
+  --mdbook-callouts-color: rgb(var(--color-pink-rgb));
+  --mdbook-callouts-background: rgba(var(--color-pink-rgb), 0.1);
+  /* https://lucide.dev/icons/help-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhlbHAtY2lyY2xlIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxwYXRoIGQ9Ik05LjA5IDlhMyAzIDAgMCAxIDUuODMgMWMwIDItMyAzLTMgMyIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-warning,
+.mdbook-callouts-warn {
+  --mdbook-callouts-color: rgb(var(--color-orange-rgb));
+  --mdbook-callouts-background: rgba(var(--color-orange-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-triangle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LXRyaWFuZ2xlIj48cGF0aCBkPSJtMjEuNzMgMTgtOC0xNGEyIDIgMCAwIDAtMy40OCAwbC04IDE0QTIgMiAwIDAgMCA0IDIxaDE2YTIgMiAwIDAgMCAxLjczLTNaIi8+PHBhdGggZD0iTTEyIDl2NCIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-caution {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/shield-alert */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNoaWVsZC1hbGVydCI+PHBhdGggZD0iTTEyIDIyczgtNCA4LTEwVjVsLTgtMy04IDN2N2MwIDYgOCAxMCA4IDEwIi8+PHBhdGggZD0iTTEyIDh2NCIvPjxwYXRoIGQ9Ik0xMiAxNmguMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-failure,
+.mdbook-callouts-fail,
+.mdbook-callouts-missing {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/x */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXgiPjxwYXRoIGQ9Ik0xOCA2IDYgMTgiLz48cGF0aCBkPSJtNiA2IDEyIDEyIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-error,
+.mdbook-callouts-danger {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/zap */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXphcCI+PHBvbHlnb24gcG9pbnRzPSIxMyAyIDMgMTQgMTIgMTQgMTEgMjIgMjEgMTAgMTIgMTAgMTMgMiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-bug {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/bug */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJ1ZyI+PHBhdGggZD0ibTggMiAxLjg4IDEuODgiLz48cGF0aCBkPSJNMTQuMTIgMy44OCAxNiAyIi8+PHBhdGggZD0iTTkgNy4xM3YtMWEzLjAwMyAzLjAwMyAwIDEgMSA2IDB2MSIvPjxwYXRoIGQ9Ik0xMiAyMGMtMy4zIDAtNi0yLjctNi02di0zYTQgNCAwIDAgMSA0LTRoNGE0IDQgMCAwIDEgNCA0djNjMCAzLjMtMi43IDYtNiA2Ii8+PHBhdGggZD0iTTEyIDIwdi05Ii8+PHBhdGggZD0iTTYuNTMgOUM0LjYgOC44IDMgNy4xIDMgNSIvPjxwYXRoIGQ9Ik02IDEzSDIiLz48cGF0aCBkPSJNMyAyMWMwLTIuMSAxLjctMy45IDMuOC00Ii8+PHBhdGggZD0iTTIwLjk3IDVjMCAyLjEtMS42IDMuOC0zLjUgNCIvPjxwYXRoIGQ9Ik0yMiAxM2gtNCIvPjxwYXRoIGQ9Ik0xNy4yIDE3YzIuMS4xIDMuOCAxLjkgMy44IDQiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-examples,
+.mdbook-callouts-example {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/list */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxpc3QiPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSIxMiIgeTI9IjEyIi8+PGxpbmUgeDE9IjgiIHgyPSIyMSIgeTE9IjE4IiB5Mj0iMTgiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSIzIiB4Mj0iMy4wMSIgeTE9IjEyIiB5Mj0iMTIiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSIxOCIgeTI9IjE4Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-quote {
+  --mdbook-callouts-color: rgb(158, 158, 158);
+  --mdbook-callouts-background: rgba(158, 158, 158, 0.1);
+  /* https://lucide.dev/icons/quote */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXF1b3RlIj48cGF0aCBkPSJNMyAyMWMzIDAgNy0xIDctOFY1YzAtMS4yNS0uNzU2LTIuMDE3LTItMkg0Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDIgMSAwIDEgMCAxIDF2MWMwIDEtMSAyLTIgMnMtMSAuMDA4LTEgMS4wMzFWMjBjMCAxIDAgMSAxIDF6Ii8+PHBhdGggZD0iTTE1IDIxYzMgMCA3LTEgNy04VjVjMC0xLjI1LS43NTctMi4wMTctMi0yaC00Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDJoLjc1YzAgMi4yNS4yNSA0LTIuNzUgNHYzYzAgMSAwIDEgMSAxeiIvPjwvc3ZnPg==');
+}
+
+
+.ayu {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.light {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+
+.coal {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.navy {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.rust {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+</style>
+<h1 id="numpy"><a class="header" href="#numpy">NumPy</a></h1>
+<p><a href="https://numpy.org/doc/2.2/user/index.html">NumPy user guide</a></p>
+<h2 id="1---einleitung"><a class="header" href="#1---einleitung">1   Einleitung</a></h2>
+<p>NumPy ist DIE Standardbibliothek für wissenschaftliche Berechnungen. Sie stellt ein mehrdimensionales Array-Objekt, verschiedene abgeleitete Objekte und eine Vielzahl von Funktionen für schnelle Operationen auf Arrays bereit.</p>
+<h3 id="11---beispiel-für-die-leistungssteigerung-durch-numpy"><a class="header" href="#11---beispiel-für-die-leistungssteigerung-durch-numpy">1.1   Beispiel für die Leistungssteigerung durch Numpy</a></h3>
+<p>Durch die Verwendung von <code>numpy</code> anstatt von Listen hat man nicht nur besser lesbaren Code, sondern häufig auch eine deutliche Reduzierung der Ausführungszeit:</p>
+<pre><code class="language-python">import time
+import numpy as np
+
+start = time.perf_counter()
+
+x = list(range(10000000))
+y = list(range(10000000))
+sum = [a + b for a, b in zip(x, y)]
+
+end = time.perf_counter()
+print(end - start)  # 0.49263983300625114
+
+# Schneller mit numpy:
+start = time.perf_counter()
+
+x = np.arange(10000000)
+y = np.arange(10000000)
+sum = x + y
+
+end = time.perf_counter()
+print(end - start)  # 0.22649779099447187
+</code></pre>
+<p><code>x + y</code> macht das gleiche, wie <code>[a + b for a, b in zip(x, y)]</code> ist jedoch deutlich schneller zu schreiben und einfacher zu lesen.</p>
+<h2 id="2---funktionsweise"><a class="header" href="#2---funktionsweise">2   Funktionsweise</a></h2>
+<p>Das Herzstück des NumPy-Pakets ist das <code>ndarray</code>-Objekt. Dieses kapselt <code>n</code>-dimensionale Arrays homogener Datentypen, wobei viele Operationen in kompiliertem C-Code ausgeführt werden, was zu einer deutlich höheren Leistung im Vergleich zu Listen führt. Des Weiteren ist die Schreibweise kürzer und besser lesbar.</p>
+<p><strong>Eigenschaften eines <code>ndarray</code>:</strong></p>
+<ul>
+<li>Es beschreibt eine Sammlung von “Elementen” des <strong>gleichen</strong> Typs.</li>
+<li>Die Elemente können beispielsweise mit <code>n</code> ganzen Zahlen indexiert werden.</li>
+<li>Alle <code>ndarrays</code> sind homogen: Jedes Element belegt einen gleich großen Speicherblock.</li>
+<li>Ein Element aus dem Array wird durch ein <code>PyObject</code> repräsentiert, das zu den eingebauten skalaren NumPy-Typen gehört.</li>
+</ul>
+<h2 id="3---import"><a class="header" href="#3---import">3   Import</a></h2>
+<pre><code class="language-python">import numpy as np
+</code></pre>
+<p>Der Name <code>np</code> ist zwar frei wählbar, wird in den meisten Fällen jedoch nicht anders benannt.</p>
+<h2 id="4---datentypen"><a class="header" href="#4---datentypen">4   Datentypen</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>NumPy-Typ</strong></th><th><strong>C-Typ</strong></th><th><strong>Beschreibung</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong><code>bool_</code></strong></td><td><code>bool</code></td><td>Boolean (True oder False)</td></tr>
+<tr><td><strong><code>int8</code></strong></td><td><code>signed char</code></td><td>Ganze Zahl, 8 Bit, Bereich: -128 bis 127</td></tr>
+<tr><td><strong><code>uint8</code></strong></td><td><code>unsigned char</code></td><td>Ganze Zahl, 8 Bit, Bereich: 0 bis 255</td></tr>
+<tr><td><strong><code>int16</code></strong></td><td><code>short</code></td><td>Ganze Zahl, 16 Bit, Bereich: -32k bis 32k</td></tr>
+<tr><td><strong><code>uint16</code></strong></td><td><code>unsigned short</code></td><td>Ganze Zahl, 16 Bit, positiv</td></tr>
+<tr><td><strong><code>int32</code></strong></td><td><code>int</code></td><td>Ganze Zahl, 32 Bit</td></tr>
+<tr><td><strong><code>uint32</code></strong></td><td><code>unsigned int</code></td><td>Ganze Zahl, 32 Bit, positiv</td></tr>
+<tr><td><strong><code>int64</code></strong></td><td><code>long</code> / <code>int64_t</code></td><td>Ganze Zahl, 64 Bit</td></tr>
+<tr><td><strong><code>uint64</code></strong></td><td><code>unsigned long</code></td><td>Ganze Zahl, 64 Bit, positiv</td></tr>
+<tr><td><strong><code>float16</code></strong></td><td><code>half</code></td><td>Fließkommazahl, 16 Bit (geringere Genauigkeit)</td></tr>
+<tr><td><strong><code>float32</code></strong></td><td><code>float</code></td><td>Fließkommazahl, 32 Bit</td></tr>
+<tr><td><strong><code>float64</code></strong></td><td><code>double</code></td><td>Fließkommazahl, 64 Bit (Standard)</td></tr>
+<tr><td><strong><code>complex64</code></strong></td><td><code>float complex</code></td><td>Komplexe Zahl (2×32 Bit floats)</td></tr>
+<tr><td><strong><code>complex128</code></strong></td><td><code>double complex</code></td><td>Komplexe Zahl (2×64 Bit floats)</td></tr>
+<tr><td><strong><code>object_</code></strong></td><td><code>PyObject*</code></td><td>Beliebiges Python-Objekt</td></tr>
+<tr><td><strong><code>string_</code></strong></td><td><code>char[]</code></td><td>Fester Byte-String (ASCII)</td></tr>
+<tr><td><strong><code>unicode_</code></strong></td><td><code>Py_UNICODE[]</code></td><td>Unicode-String</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="41---definition-eines-datentyps"><a class="header" href="#41---definition-eines-datentyps">4.1   Definition eines Datentyps</a></h3>
+<pre><code class="language-python">arr = np.array([1, 2, 3], dtype=np.int32)
+print(arr.dtype)
+</code></pre>
+<h3 id="42---casten-typenumwandlung"><a class="header" href="#42---casten-typenumwandlung">4.2   Casten (Typenumwandlung)</a></h3>
+<pre><code class="language-python">arr_float = arr.astype(np.float64)
+arr_bool = arr.astype(bool)
+arr_str = arr.astype(str)
+</code></pre>
+<h2 id="5---arrays-erstellen"><a class="header" href="#5---arrays-erstellen">5   Arrays erstellen</a></h2>
+<pre><code class="language-python"># Erstellen eines 1D-Arrays
+arr = np.array([1, 2, 3, 4, 5])
+
+# Erstellen eines 2D-Arrays
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+
+# Null-Array erstellen
+zeros = np.zeros(shape=(3, 3))
+
+# Einsen-Array erstellen
+ones = np.ones((2, 2))
+
+# Einheitsmatrix
+identity = np.eye(3)
+
+# Leeres Array erstellen
+empty_array = np.empty((2, 3))
+
+# Array mit einem Wertebereich
+range_array = np.arange(0, 10, 2)
+
+# Gleichmäßig verteilte Werte
+linspace_array = np.linspace(0, 1, 5)
+</code></pre>
+<h2 id="6---eigenschaften-von-arrays"><a class="header" href="#6---eigenschaften-von-arrays">6   Eigenschaften von Arrays</a></h2>
+<pre><code class="language-python">def print_array_info(array: np.ndarray) -&gt; None:
+    print(f'ndim: {array.ndim}')    # Anzahl der Dimensionen
+    print(f'shape: {array.shape}')  # Form des Arrays
+    print(f'size: {array.size}')    # Anzahl der Elemente
+    print(f'dtype: {array.dtype}')  # Datentyp des Arrays
+    print(f'values:\n{array}\n')    # Werte
+</code></pre>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python"># Erstellen eines 2D-Arrays (3 Zeilen, 4 Spalten)
+arr2D = np.array([[1, 2, 3, 4],
+                  [5, 6, 7, 8],
+                  [9, 10, 11, 12]])
+
+# Eigenschaften des Arrays
+ndim = arr2D.ndim
+shape = arr2D.shape
+size = arr2D.size
+dtype = arr2D.dtype
+
+print("Anzahl der Dimensionen:", ndim)  # 2
+print("Form des Arrays:", shape)        # (3, 4)
+print("Anzahl der Elemente:", size)     # 12
+print("Datentyp der Elemente:", dtype)  # int64
+</code></pre>
+<h2 id="7---grundlegende-operationen"><a class="header" href="#7---grundlegende-operationen">7   Grundlegende Operationen</a></h2>
+<pre><code class="language-python"># Arithmetische Operationen
+sum_array = arr + 2
+sum_array = arr - 2
+mul_array = arr * 2
+div_array = arr / 2
+
+# Möglich sind auch die kombinierten Zuweisungsoperatoren
+arr += 2
+arr -= 2
+# ...
+
+# Elementweise Operationen
+exp_array = np.exp(arr)
+sqrt_array = np.sqrt(arr)
+log_array = np.log(arr)
+</code></pre>
+<h2 id="8---indizierung-und-slicing"><a class="header" href="#8---indizierung-und-slicing">8   Indizierung und Slicing</a></h2>
+<p>Die Array-Indexierung bezieht sich auf jede Verwendung von eckigen Klammern (<code>[]</code>), um auf Array-Werte zuzugreifen. Es gibt mehrere Möglichkeiten zur Indexierung, was die NumPy-Indexierung besonders leistungsfähig macht.</p>
+<div class="mdbook-callouts mdbook-callouts-info">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  info
+</p>
+
+<p>Slices von Arrays kopieren die internen Array-Daten nicht, sondern erzeugen lediglich neue Ansichten der Daten.</p>
+</div>
+
+<pre><code class="language-python"># Zugriff auf ein Element
+val = arr[2]           # Drittes Element
+
+# Slicing
+sub_array = arr[1:4]   # Elemente von Index 1 bis 3
+
+# Zugriff auf Zeilen und Spalten
+row = arr[1, :]        # Zweite Zeile
+two_cols = arr[:, :2]  # Erste zwei Spalten
+inner = array[1:-1, 1:-1]  # Array ohne die äußere Zeilen und Spalten
+</code></pre>
+<p><strong>Allgemeine Syntax:</strong></p>
+<pre><code class="language-python">[start:stop:step]
+</code></pre>
+<p>Standardwerte (wenn nichts angegeben wird):</p>
+<ul>
+<li>Start: <code>0</code></li>
+<li>Stop: Bis zum Ende</li>
+<li>Step: <code>2</code> (jeder 2. Wert)</li>
+</ul>
+<p><a href="https://numpy.org/doc/2.2/user/basics.indexing.html">NumPy user guide: Slicing and striding</a></p>
+<h2 id="9---aggregationsfunktionen"><a class="header" href="#9---aggregationsfunktionen">9   Aggregationsfunktionen</a></h2>
+<pre><code class="language-python">sum_value = np.sum(arr)
+mean_value = np.mean(arr)
+min_value = np.min(arr)
+max_value = np.max(arr)
+std_dev = np.std(arr)
+
+# Anzahl der Zahlen &lt; 0
+count_negative = np.count_nonzero(arr)
+count_negative = np.sum(arr &lt; 0)  # Alternative
+</code></pre>
+<h2 id="10---mathematische-operationen"><a class="header" href="#10---mathematische-operationen">10   Mathematische Operationen</a></h2>
+<pre><code class="language-python"># Matrixmultiplikation
+matmul_result = np.dot(arr, arr.T)
+
+# Alternative Matrixmultiplikation
+matmul_alt = arr @ arr.T
+</code></pre>
+<h2 id="11---array-manipulation"><a class="header" href="#11---array-manipulation">11   Array-Manipulation</a></h2>
+<pre><code class="language-python"># Reshape (Umformen)
+reshaped = arr1.reshape(3, 2)
+
+# Transponieren
+transposed = arr.T
+
+# Stapeln von Arrays
+vstacked = np.vstack([arr1, arr2])  # Vertikales Stapeln
+hstacked = np.hstack([arr1, arr2])  # Horizontales Stapeln
+
+# Alternative zum Stapeln
+vstacked = np.concatenate([arr1, arr2], axis=0)  # Vertikales Stapeln
+hstacked = np.concatenate([arr1, arr2], axis=1)  # Horizontales Stapeln
+
+# Arrays zusammenfügen mit concatenate
+concatenated = np.concatenate([arr1, arr2])             # 1D Arrays
+concat_2D_axis0 = np.concatenate([arr1, arr2], axis=0)  # Zeilen anhängen
+concat_2D_axis1 = np.concatenate([arr1, arr2], axis=1)  # Spalten anhängen
+
+# In 1D umwandeln
+flat1 = arr.flatten()  # Gibt eine Kopie zurück
+flat2 = arr.ravel()    # Gibt eine Ansicht zurück (wenn möglich)
+</code></pre>
+<p>Erweiterung der Dimension eines Arrays mit <code>np.newaxis</code>:</p>
+<pre><code class="language-python">arr1D = np.array([1, 2, 3, 4])
+
+# Umwandlung in Spalten-Vektor (4 Zeilen, 1 Spalte)
+col_vector = arr1D[:, np.newaxis]
+
+# Umwandlung in Zeilen-Vektor (1 Zeile, 4 Spalten)
+row_vector = arr1D[np.newaxis, :]
+
+print("Original:", arr1D.shape)             # Original: (4,)
+print("Spalten-Vektor:", col_vector.shape)  # Spalten-Vektor: (4, 1)
+print("Zeilen-Vektor:", row_vector.shape)   # Zeilen-Vektor: (1, 4)
+</code></pre>
+<h2 id="12---zufallszahlen"><a class="header" href="#12---zufallszahlen">12   Zufallszahlen</a></h2>
+<p>Matrix der Größe 5x5 mit $M_{i,j}\in[-10, 10]$:</p>
+<pre><code class="language-python">M = np.random.randint(low=-10, high=11, size=(5, 5))
+# Der untere Wert ist inklusive, der obere nicht!
+</code></pre>
+<p>Als <code>float</code>:</p>
+<pre><code class="language-python">N = np.random.uniform(-10, 10, size=(5, 5))
+</code></pre>
+<p>Weitere Funktionen:</p>
+<pre><code class="language-python">rand_num = np.random.rand(3, 3)  # Zufallszahlen zwischen 0 und 1
+rand_ints = np.random.randint(0, 10, (2, 3))  # Zufällige Ganzzahlen
+normal_dist = np.random.randn(3, 3)  # Normalverteilte Zufallszahlen
+</code></pre>
+<h2 id="13---bedingte-auswahl"><a class="header" href="#13---bedingte-auswahl">13   Bedingte Auswahl</a></h2>
+<pre><code class="language-python"># Bedingte Auswahl mit Masken
+mask = arr &gt; 2
+filtered = arr[mask]  # Enthält nur Werte &gt; 2
+</code></pre>
+<h2 id="14---speichern-und-laden"><a class="header" href="#14---speichern-und-laden">14   Speichern und Laden</a></h2>
+<pre><code class="language-python">np.save("array.npy", arr)           # Speichern
+loaded_array = np.load("array.npy")  # Laden
+</code></pre>
+<h2 id="15---ufuncs-universal-functions"><a class="header" href="#15---ufuncs-universal-functions">15   Ufuncs (Universal Functions)</a></h2>
+<p>Eine Universal Function ist eine Funktion, welche auf ein <code>ndarray</code> elementweise angewendet wird. Es handelt sich um einen “vektorbasierten” Wrapper für eine Funktion, die eine feste Anzahl spezifischer Eingaben nimmt und eine feste Anzahl spezifischer Ausgaben erzeugt.</p>
+<p>Ufuncs sind teilweise 1000-2000 x schneller, als eine Lösung über Python-Code (ohne Numpy).</p>
+<h2 id="16---häufig-verwendete-funktionen"><a class="header" href="#16---häufig-verwendete-funktionen">16   Häufig verwendete Funktionen</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Funktion</strong></th><th><strong>Beschreibung</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><code>np.add(x, y)</code></td><td>Elementweise Addition</td></tr>
+<tr><td><code>np.subtract(x, y)</code></td><td>Elementweise Subtraktion</td></tr>
+<tr><td><code>np.multiply(x, y)</code></td><td>Elementweise Multiplikation</td></tr>
+<tr><td><code>np.divide(x, y)</code></td><td>Elementweise Division</td></tr>
+<tr><td><code>np.power(x, y)</code></td><td>Potenzieren: <code>x**y</code> für jedes Element</td></tr>
+<tr><td><code>np.mod(x, y)</code></td><td>Rest der Division: <code>x % y</code></td></tr>
+<tr><td><code>np.floor(x)</code></td><td>Abrunden auf nächste ganze Zahl (nach unten)</td></tr>
+<tr><td><code>np.ceil(x)</code></td><td>Aufrunden auf nächste ganze Zahl (nach oben)</td></tr>
+<tr><td><code>np.round(x)</code></td><td>Runden auf nächste ganze Zahl</td></tr>
+<tr><td><code>np.sqrt(x)</code></td><td>Quadratwurzel jedes Elements</td></tr>
+<tr><td><code>np.exp(x)</code></td><td>Exponentialfunktion: <code>e^x</code> für jedes Element</td></tr>
+<tr><td><code>np.log(x)</code></td><td>Natürlicher Logarithmus</td></tr>
+<tr><td><code>np.log10(x)</code></td><td>Zehner-Logarithmus</td></tr>
+<tr><td><code>np.sin(x)</code></td><td>Sinus jedes Elements (x in Radiant)</td></tr>
+<tr><td><code>np.cos(x)</code></td><td>Kosinus jedes Elements</td></tr>
+<tr><td><code>np.tan(x)</code></td><td>Tangens jedes Elements</td></tr>
+<tr><td><code>np.abs(x)</code></td><td>Absoluter Betrag jedes Elements</td></tr>
+<tr><td><code>np.maximum(x, y)</code></td><td>Größter Wert zwischen <code>x</code> und <code>y</code> (elementweise)</td></tr>
+<tr><td><code>np.minimum(x, y)</code></td><td>Kleinster Wert zwischen <code>x</code> und <code>y</code> (elementweise)</td></tr>
+<tr><td><a href="https://numpy.org/doc/2.2/reference/ufuncs.html#ufuncs">NumPy user guide: Universal functions</a></td><td></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">import numpy as np
+
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+
+result = np.add(a, b)  # [5, 7, 9]
+</code></pre>
+<h2 id="17---aggregates-aggregat-funktionen"><a class="header" href="#17---aggregates-aggregat-funktionen">17   Aggregates (Aggregat-Funktionen)</a></h2>
+<p>Aggregatfunktionen (engl. aggregate functions) sind Funktionen, die aus einer großen Menge von Werten einen einzigen zusammengefassten Wert berechnen.</p>
+<p>Sie werden oft verwendet, um statistische Kennzahlen aus Arrays zu ermitteln, z. B. Summe, Mittelwert oder Maximum.</p>
+<h3 id="171---typische-funktionen"><a class="header" href="#171---typische-funktionen">17.1   Typische Funktionen</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Funktion</strong></th><th><strong>Beschreibung</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><code>np.sum()</code></td><td>Summe aller Elemente im Array</td></tr>
+<tr><td><code>np.mean()</code></td><td>Arithmetischer Mittelwert</td></tr>
+<tr><td><code>np.min()</code>/<code>np.max()</code></td><td>Kleinster / größter Wert im Array</td></tr>
+<tr><td><code>np.std()</code></td><td>Standardabweichung</td></tr>
+<tr><td><code>np.var()</code></td><td>Varianz</td></tr>
+<tr><td><code>np.median()</code></td><td>Median (Zentralwert)</td></tr>
+<tr><td><code>np.prod()</code></td><td>Produkt aller Elemente im Array</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">import numpy as np
+
+arr = np.array([1, 2, 3, 4, 5])
+
+print(np.sum(arr))    # 15
+print(np.mean(arr))   # 3.0
+print(np.std(arr))    # 1.414...
+</code></pre>
+<p>Mit <code>axis=</code> kann man die Funktion entlang einer bestimmten Achse anwenden.</p>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">import numpy as np
+
+# 2D-Array mit 3 Zeilen und 4 Spalten
+arr2D = np.array([[1, 2, 3, 4],
+                  [5, 6, 7, 8],
+                  [9, 10, 11, 12]])
+
+# Summe pro Spalte (↓)
+sum_cols = np.sum(arr2D, axis=0)
+
+# Summe pro Zeile (→)
+sum_rows = np.sum(arr2D, axis=1)
+
+print("Summe pro Spalte:", sum_cols)  # [15 18 21 24]
+print("Summe pro Zeile:", sum_rows)   # [10 26 42]
+</code></pre>
+<ul>
+<li><code>axis=0</code> ➝ Berechnung erfolgt <strong>über Zeilen hinweg</strong> → ergibt Spalten-Ergebnisse</li>
+<li><code>axis=1</code> ➝ Berechnung erfolgt <strong>über Spalten hinweg</strong> → ergibt Zeilen-Ergebnisse</li>
+</ul>
+<h2 id="18---broadcasting"><a class="header" href="#18---broadcasting">18   Broadcasting</a></h2>
+<p>Broadcasting beschreibt die Fähigkeit von NumPy, Arrays unterschiedlicher Form automatisch so zu erweitern, dass sie elementweise Operationen miteinander durchführen können.</p>
+<p>👉 Wenn man z. B. ein Array mit einem Skalar oder mit einem kleineren Array kombiniert, passt NumPy intern die Formen an, ohne dass man explizit etwas tun muss.</p>
+<p>Vorteile:</p>
+<ul>
+<li>Spart Schleifen</li>
+<li>Spart Speicher</li>
+<li>Sehr schnell dank NumPy-Optimierung</li>
+</ul>
+<p><strong>Beispiel 1: Array + Skalar</strong></p>
+<pre><code class="language-python">a = np.array([1, 2, 3])
+b = 10
+
+result = a + b  # [11, 12, 13]
+</code></pre>
+<p><strong>Beispiel 2: 2D + 1D</strong></p>
+<pre><code class="language-python">A = np.array([[1, 2, 3],
+              [4, 5, 6]])
+B = np.array([10, 20, 30])
+
+result = A + B
+</code></pre>
+<p>Intern:</p>
+<pre><code>[[ 1,  2,  3]     [[10, 20, 30]     [[11, 22, 33]
+ [ 4,  5,  6]]  +  [10, 20, 30]]  =  [14, 25, 36]]
+</code></pre>
+<h3 id="181---broadcasting-regeln"><a class="header" href="#181---broadcasting-regeln">18.1   Broadcasting-Regeln</a></h3>
+<h3 id="182---von-hinten-vergleichen"><a class="header" href="#182---von-hinten-vergleichen">18.2   Von hinten vergleichen:</a></h3>
+<p>NumPy vergleicht die Dimensionen von rechts nach links.</p>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">A.shape = (3, 4)
+B.shape = (4,)  # entspricht intern (1, 4)
+</code></pre>
+<p><strong>Vergleich:</strong></p>
+<pre><code>A: (3, 4)
+B:    (4)    → automatisch zu (1, 4)
+</code></pre>
+<p>✅ passt! → Broadcasting funktioniert → B wird auf jede der 3 Zeilen “kopiert”</p>
+<h3 id="183---dimensionen-müssen-gleich-sein-oder-eine-von-beiden-muss-1-sein"><a class="header" href="#183---dimensionen-müssen-gleich-sein-oder-eine-von-beiden-muss-1-sein">18.3   Dimensionen müssen gleich sein oder eine von beiden muss 1 sein</a></h3>
+<p><strong>Beispiel 1:</strong></p>
+<pre><code class="language-python">A = np.ones((5, 1))
+B = np.ones((1, 4))
+
+# Ergebnisform: (5, 4)
+</code></pre>
+<p>Vergleich:</p>
+<pre><code>A: (5, 1)
+B: (1, 4)
+</code></pre>
+<p>✅ 1 kann zu 4 gebroadcastet werden → ergibt (5, 4)</p>
+<p><strong>Beispiel 2:</strong></p>
+<pre><code class="language-python">A = np.ones((3, 2))
+B = np.ones((3,))
+</code></pre>
+<p>Vergleich:</p>
+<pre><code>A: (3, 2)
+B:     (3)
+</code></pre>
+<p>❌ 2 vs. 3 → nicht kompatibel, weil 2 ≠ 3 und keine davon ist 1</p>
+<h3 id="184---fehlende-dimensionen-werden-als-1-ergänzt-vorne"><a class="header" href="#184---fehlende-dimensionen-werden-als-1-ergänzt-vorne">18.4   Fehlende Dimensionen werden als 1 ergänzt (vorne)</a></h3>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">A = np.ones((4,))          # (4,)
+B = np.ones((3, 4))        # (3, 4)
+</code></pre>
+<p><strong>Vergleich:</strong></p>
+<pre><code>A:     (1, 4)
+B: (3, 4)
+</code></pre>
+<ul>
+<li><code>1</code> funktioniert wie ein Platzhalter → es wird “in diese Richtung” kopiert</li>
+<li>Fehlende Dimension? → einfach eine <code>1</code> davor denken!</li>
+</ul>
+<h2 id="19---masken-und-vergleichsoperatoren"><a class="header" href="#19---masken-und-vergleichsoperatoren">19   Masken und Vergleichsoperatoren</a></h2>
+<pre><code class="language-python">arr = np.array([1, 2, 3, 4, 5])
+
+# Vergleichsoperationen erzeugen boolesche Masken
+mask_gt = arr &gt; 3     # [False False False  True  True]
+mask_eq = arr == 2    # [False  True False False False]
+mask_le = arr &lt;= 4    # [ True  True  True  True False]
+
+# Masken zur Auswahl verwenden
+filtered = arr[mask_gt]  # [4 5]
+
+# Direkt als Bedingung
+filtered_direct = arr[arr % 2 == 0]  # [2 4] → alle geraden Zahlen
+</code></pre>
+<p>Indizes der Werte, die größer gleich Null sind:</p>
+<pre><code class="language-python">idxs = np.where(arr &gt;= 0)
+</code></pre>
+<p><strong>Vergleichsoperatoren:</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Ausdruck</strong></th><th><strong>Bedeutung</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>==</td><td>gleich</td></tr>
+<tr><td>!=</td><td>ungleich</td></tr>
+<tr><td><code>&lt;</code></td><td>kleiner als</td></tr>
+<tr><td><code>&lt;=</code></td><td>kleiner oder gleich</td></tr>
+<tr><td><code>&gt;</code></td><td>größer als</td></tr>
+<tr><td><code>&gt;=</code></td><td>größer oder gleich</td></tr>
+</tbody>
+</table>
+</div>
+<p>Masken können mit logischen Operatoren kombiniert werden:</p>
+<pre><code class="language-python">arr[(arr &gt; 1) &amp; (arr &lt; 5)]  # [2 3 4]
+</code></pre>
+<h2 id="20---zufallsfunktionen-nprandom"><a class="header" href="#20---zufallsfunktionen-nprandom">20   Zufallsfunktionen (<code>np.random</code>)</a></h2>
+<pre><code class="language-python">import numpy as np
+
+# Gleichverteilte Zufallszahlen (0 bis 1)
+uniform = np.random.rand(2, 3)
+
+# Normalverteilte Zufallszahlen (Mittel=0, Std=1)
+normal = np.random.randn(2, 3)
+
+# Zufällige Ganzzahlen
+rand_ints = np.random.randint(0, 10, size=(2, 3))  # von 0 bis 9
+
+# Zufällige Auswahl aus Array
+arr = np.array([10, 20, 30, 40])
+choice = np.random.choice(arr, size=2, replace=False)  # ohne Wiederholung
+
+# Mischen eines Arrays (in-place)
+np.random.shuffle(arr)  # verändert arr direkt
+
+# Setzen des Zufallsseeds für Reproduzierbarkeit
+np.random.seed(42)
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Funktion</strong></th><th><strong>Beschreibung</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><code>np.random.rand(dims...)</code></td><td>Gleichverteilte <code>float</code>-Zufallszahlen (zwischen 0 und 1)</td></tr>
+<tr><td><code>np.random.randn(dims...)</code></td><td>Normalverteilte Zufallszahlen (Mittel=0, Std=1)</td></tr>
+<tr><td><code>np.random.randint(a, b)</code></td><td>Zufällige Ganzzahlen im Bereich [a, b)</td></tr>
+<tr><td><code>np.random.choice()</code></td><td>Zufällige Auswahl aus einem Array</td></tr>
+<tr><td><code>np.random.shuffle()</code></td><td>Mischt ein Array in-place</td></tr>
+<tr><td><code>np.random.seed(n)</code></td><td>Setzt den Seed zur Steuerung der Zufälligkeit</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="21---weitere-wichtige-funktionen"><a class="header" href="#21---weitere-wichtige-funktionen">21   Weitere wichtige Funktionen</a></h2>
+<h3 id="211---achsen-verschieben--transponieren"><a class="header" href="#211---achsen-verschieben--transponieren">21.1   Achsen verschieben &amp; transponieren</a></h3>
+<pre><code class="language-python">import numpy as np
+
+a = np.zeros((2, 3, 4))
+
+# Achsen vertauschen (z. B. für Bildverarbeitung)
+a_moved = np.moveaxis(a, 0, -1)     # Achse 0 nach hinten → shape (3, 4, 2)
+a_transposed = np.transpose(a, (2, 0, 1))  # explizite Neuanordnung der Achsen
+</code></pre>
+<p><strong>Wann moveaxis, wann transpose?</strong></p>
+<ul>
+<li><code>moveaxis</code>: Wenn eine oder mehrere Achsen gezielt verschieben werden sollen.</li>
+<li><code>transpose</code>: Wenn eine vollständige neue Achsenreihenfolge angegeben wird.</li>
+</ul>
+<h3 id="212---rollendes-verschieben"><a class="header" href="#212---rollendes-verschieben">21.2   Rollendes Verschieben</a></h3>
+<pre><code class="language-python">arr = np.array([1, 2, 3, 4, 5])
+rolled = np.roll(arr, shift=2)  # [4 5 1 2 3]
+</code></pre>
+<p>Funktioniert auch mit mehrdimensionalen Arrays → <code>np.roll(arr2D, shift=1, axis=0)</code></p>
+<h3 id="213---indizes--matrix-tools"><a class="header" href="#213---indizes--matrix-tools">21.3   Indizes &amp; Matrix-Tools</a></h3>
+<pre><code class="language-python"># Koordinaten eines Grids
+idx = np.indices((2, 3))  # shape: (2, 2, 3) → für 2D: y- und x-Koordinaten
+
+# Indizes der Diagonale
+d_idx = np.diag_indices(n=3)  # ([0,1,2], [0,1,2])
+
+# Untere Dreiecksmatrix
+tril_idx = np.tril_indices(n=3)
+
+# Obere Dreiecksmatrix
+triu_idx = np.triu_indices(n=3)
+</code></pre>
+<p>Diese sind besonders nützlich zum Indexieren von Diagonalen, Dreiecksbereichen oder Rasterpunkten.</p>
+<h3 id="214---indizes-nach-ordnung--extremwerten"><a class="header" href="#214---indizes-nach-ordnung--extremwerten">21.4   Indizes nach Ordnung / Extremwerten</a></h3>
+<pre><code class="language-python">arr = np.array([10, 20, 5, 30])
+
+# Index der Sortierung
+idx_sorted = np.argsort(arr)   # [2 0 1 3]
+
+# Index des Maximums / Minimums
+idx_max = np.argmax(arr)       # 3
+idx_min = np.argmin(arr)       # 2
+</code></pre>
+<h3 id="215---sonstiges"><a class="header" href="#215---sonstiges">21.5   Sonstiges</a></h3>
+<pre><code class="language-python"># Diagonale mit Werten füllen
+np.fill_diagonal(M, np.pi)
+</code></pre>
+<h2 id="22---daten-speichern--laden-mit-numpy"><a class="header" href="#22---daten-speichern--laden-mit-numpy">22   Daten speichern &amp; laden mit NumPy</a></h2>
+<div class="mdbook-callouts mdbook-callouts-info">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  info
+</p>
+
+<p>Die folgenden Funktionen sind auch mit <a href="pandas.html">Pandas</a> möglich und i. d. R. einfacher zu handhaben.</p>
+</div>
+
+<h3 id="221---binäres-speichern-schnell--effizient"><a class="header" href="#221---binäres-speichern-schnell--effizient">22.1   Binäres Speichern (schnell &amp; effizient)</a></h3>
+<p><strong><code>np.save()</code>: Speichert ein einzelnes Array als <code>.npy</code>-Datei</strong></p>
+<pre><code class="language-python">arr = np.array([1, 2, 3])
+np.save("array.npy", arr)  # speichert binär
+</code></pre>
+<p><strong><code>np.savez()</code>: Speichert mehrere Arrays in einer komprimierten ZIP-Datei</strong></p>
+<pre><code class="language-python">a = np.arange(5)
+b = np.linspace(0, 1, 5)
+
+np.savez("arrays.npz", first=a, second=b)
+
+data = np.load("arrays.npz")
+print(data["first"])   # Zugriff auf gespeicherte Arrays
+</code></pre>
+<p><strong><code>np.load()</code>: Lädt .npy- oder .npz-Dateien</strong></p>
+<pre><code class="language-python">loaded = np.load("array.npy")
+</code></pre>
+<h3 id="222---speichern-im-textformat"><a class="header" href="#222---speichern-im-textformat">22.2   Speichern im Textformat</a></h3>
+<p><strong><code>np.savetxt()</code>: Speichert Array als Klartext (CSV, TSV etc.)</strong></p>
+<pre><code class="language-python">arr = np.array([[1, 2], [3, 4]])
+np.savetxt("array.txt", arr, fmt="%d", delimiter=",")
+</code></pre>
+<p><strong><code>np.loadtxt()</code>: Lädt ein Array aus einer Textdatei</strong></p>
+<pre><code class="language-python">loaded_txt = np.loadtxt("array.txt", delimiter=",")
+</code></pre>
+<p>Nur für einfache, numerische Arrays geeignet. Keine Metadaten oder Struktur.</p>
+<h3 id="223---strukturierte-arrays"><a class="header" href="#223---strukturierte-arrays">22.3   Strukturierte Arrays</a></h3>
+<pre><code class="language-python">data = np.array([
+    (1, 1.5, "A"),
+    (2, 2.5, "B")
+], dtype=[("id", "i4"), ("value", "f4"), ("label", "U1")])
+
+print(data["id"])        # Zugriff auf Spalte
+print(data[0]["label"])  # Zugriff auf Zelle
+</code></pre>
+<ul>
+<li>.npy = kompaktes, schnelles Binärformat für ein Array</li>
+<li>.npz = ZIP-Container für mehrere Arrays</li>
+<li>Textformate sind lesbar, aber langsamer und weniger genau</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../f-data-science/einfuehrung.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../f-data-science/pandas.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../f-data-science/einfuehrung.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../f-data-science/pandas.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

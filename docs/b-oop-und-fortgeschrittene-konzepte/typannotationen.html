@@ -1,0 +1,1060 @@
+<!DOCTYPE HTML>
+<html lang="de" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Typannotationen - Python-Referenz</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-80432388.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "../searchindex-1ed3f166.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-f6524bb4.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Python-Referenz</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/cgroening/Python-Referenz" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <style>
+.mdbook-callouts {
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  /* border-left: 0.25em solid var(--mdbook-callouts-color); */
+  background: var(--mdbook-callouts-background);
+}
+
+.mdbook-callouts > *:first-child {
+  margin-top: 0;
+}
+
+.mdbook-callouts > *:last-child {
+  margin-bottom: 0;
+}
+
+.mdbook-callouts-title {
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  line-height: 1;
+  color: var(--mdbook-callouts-color);
+  text-transform: capitalize;
+}
+
+.mdbook-callouts-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.2em;
+  background-color: currentColor;
+  -webkit-mask: no-repeat center / 100%;
+  mask: no-repeat center / 100%;
+  -webkit-mask-image: var(--mdbook-callouts-icon);
+  mask-image: var(--mdbook-callouts-icon);
+}
+
+/* icons at: https://lucide.dev/icons/ */
+
+.mdbook-callouts-info {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/info */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWluZm8iPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PHBhdGggZD0iTTEyIDE2di00Ii8+PHBhdGggZD0iTTEyIDhoLjAxIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-note {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/pencil */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBlbmNpbCI+PHBhdGggZD0iTTE3IDNhMi44NSAyLjgzIDAgMSAxIDQgNEw3LjUgMjAuNSAyIDIybDEuNS01LjVaIi8+PHBhdGggZD0ibTE1IDUgNCA0Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-tip,
+.mdbook-callouts-hint {
+  --mdbook-callouts-color: rgb(var(--color-cyan-rgb));
+  --mdbook-callouts-background: rgba(var(--color-cyan-rgb), 0.1);
+  /* https://lucide.dev/icons/flame */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZsYW1lIj48cGF0aCBkPSJNOC41IDE0LjVBMi41IDIuNSAwIDAgMCAxMSAxMmMwLTEuMzgtLjUtMi0xLTMtMS4wNzItMi4xNDMtLjIyNC00LjA1NCAyLTYgLjUgMi41IDIgNC45IDQgNi41IDIgMS42IDMgMy41IDMgNS41YTcgNyAwIDEgMS0xNCAwYzAtMS4xNTMuNDMzLTIuMjk0IDEtM2EyLjUgMi41IDAgMCAwIDIuNSAyLjV6Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-important {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LWNpcmNsZSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48bGluZSB4MT0iMTIiIHgyPSIxMiIgeTE9IjgiIHkyPSIxMiIvPjxsaW5lIHgxPSIxMiIgeDI9IjEyLjAxIiB5MT0iMTYiIHkyPSIxNiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-success,
+.mdbook-callouts-check,
+.mdbook-callouts-done {
+  --mdbook-callouts-color: rgb(var(--color-green-rgb));
+  --mdbook-callouts-background: rgba(var(--color-green-rgb), 0.1);
+  /* https://lucide.dev/icons/check */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZWNrIj48cGF0aCBkPSJNMjAgNiA5IDE3bC01LTUiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-question,
+.mdbook-callouts-help,
+.mdbook-callouts-faq {
+  --mdbook-callouts-color: rgb(var(--color-pink-rgb));
+  --mdbook-callouts-background: rgba(var(--color-pink-rgb), 0.1);
+  /* https://lucide.dev/icons/help-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhlbHAtY2lyY2xlIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxwYXRoIGQ9Ik05LjA5IDlhMyAzIDAgMCAxIDUuODMgMWMwIDItMyAzLTMgMyIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-warning,
+.mdbook-callouts-warn {
+  --mdbook-callouts-color: rgb(var(--color-orange-rgb));
+  --mdbook-callouts-background: rgba(var(--color-orange-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-triangle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LXRyaWFuZ2xlIj48cGF0aCBkPSJtMjEuNzMgMTgtOC0xNGEyIDIgMCAwIDAtMy40OCAwbC04IDE0QTIgMiAwIDAgMCA0IDIxaDE2YTIgMiAwIDAgMCAxLjczLTNaIi8+PHBhdGggZD0iTTEyIDl2NCIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-caution {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/shield-alert */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNoaWVsZC1hbGVydCI+PHBhdGggZD0iTTEyIDIyczgtNCA4LTEwVjVsLTgtMy04IDN2N2MwIDYgOCAxMCA4IDEwIi8+PHBhdGggZD0iTTEyIDh2NCIvPjxwYXRoIGQ9Ik0xMiAxNmguMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-failure,
+.mdbook-callouts-fail,
+.mdbook-callouts-missing {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/x */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXgiPjxwYXRoIGQ9Ik0xOCA2IDYgMTgiLz48cGF0aCBkPSJtNiA2IDEyIDEyIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-error,
+.mdbook-callouts-danger {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/zap */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXphcCI+PHBvbHlnb24gcG9pbnRzPSIxMyAyIDMgMTQgMTIgMTQgMTEgMjIgMjEgMTAgMTIgMTAgMTMgMiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-bug {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/bug */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJ1ZyI+PHBhdGggZD0ibTggMiAxLjg4IDEuODgiLz48cGF0aCBkPSJNMTQuMTIgMy44OCAxNiAyIi8+PHBhdGggZD0iTTkgNy4xM3YtMWEzLjAwMyAzLjAwMyAwIDEgMSA2IDB2MSIvPjxwYXRoIGQ9Ik0xMiAyMGMtMy4zIDAtNi0yLjctNi02di0zYTQgNCAwIDAgMSA0LTRoNGE0IDQgMCAwIDEgNCA0djNjMCAzLjMtMi43IDYtNiA2Ii8+PHBhdGggZD0iTTEyIDIwdi05Ii8+PHBhdGggZD0iTTYuNTMgOUM0LjYgOC44IDMgNy4xIDMgNSIvPjxwYXRoIGQ9Ik02IDEzSDIiLz48cGF0aCBkPSJNMyAyMWMwLTIuMSAxLjctMy45IDMuOC00Ii8+PHBhdGggZD0iTTIwLjk3IDVjMCAyLjEtMS42IDMuOC0zLjUgNCIvPjxwYXRoIGQ9Ik0yMiAxM2gtNCIvPjxwYXRoIGQ9Ik0xNy4yIDE3YzIuMS4xIDMuOCAxLjkgMy44IDQiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-examples,
+.mdbook-callouts-example {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/list */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxpc3QiPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSIxMiIgeTI9IjEyIi8+PGxpbmUgeDE9IjgiIHgyPSIyMSIgeTE9IjE4IiB5Mj0iMTgiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSIzIiB4Mj0iMy4wMSIgeTE9IjEyIiB5Mj0iMTIiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSIxOCIgeTI9IjE4Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-quote {
+  --mdbook-callouts-color: rgb(158, 158, 158);
+  --mdbook-callouts-background: rgba(158, 158, 158, 0.1);
+  /* https://lucide.dev/icons/quote */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXF1b3RlIj48cGF0aCBkPSJNMyAyMWMzIDAgNy0xIDctOFY1YzAtMS4yNS0uNzU2LTIuMDE3LTItMkg0Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDIgMSAwIDEgMCAxIDF2MWMwIDEtMSAyLTIgMnMtMSAuMDA4LTEgMS4wMzFWMjBjMCAxIDAgMSAxIDF6Ii8+PHBhdGggZD0iTTE1IDIxYzMgMCA3LTEgNy04VjVjMC0xLjI1LS43NTctMi4wMTctMi0yaC00Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDJoLjc1YzAgMi4yNS4yNSA0LTIuNzUgNHYzYzAgMSAwIDEgMSAxeiIvPjwvc3ZnPg==');
+}
+
+
+.ayu {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.light {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+
+.coal {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.navy {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.rust {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+</style>
+<h1 id="typannotationen"><a class="header" href="#typannotationen">Typannotationen</a></h1>
+<p>Typannotation (Type Annotation) ist eine Möglichkeit in Python, den erwarteten Typ von Variablen, Funktionsparametern und Rückgabewerten anzugeben.</p>
+<div class="mdbook-callouts mdbook-callouts-tip">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  vorteile der typannotation
+</p>
+
+<p>Obwohl Python eine dynamisch typisierte Sprache ist, erlaubt die Typannotation eine bessere Lesbarkeit, Wartbarkeit und eine reduzierte Fehleranfälligkeit im Code.</p>
+</div>
+
+<h2 id="1----grundlagen-der-typannotation"><a class="header" href="#1----grundlagen-der-typannotation">1    Grundlagen der Typannotation</a></h2>
+<p>Typannotation wird mit einem Doppelpunkt <code>:</code> und dem Typnamen gemacht. Der Rückgabetyp einer Funktion wird mit <code>-&gt;</code> angegeben.</p>
+<h3 id="11----beispiel"><a class="header" href="#11----beispiel">1.1    Beispiel:</a></h3>
+<pre><code class="language-python">def addiere(x: int, y: int) -&gt; int:
+    return x + y
+</code></pre>
+<p>In diesem Beispiel wird angegeben, dass sowohl <code>x</code> als auch <code>y</code> vom Typ <code>int</code> sind und die Funktion einen <code>int</code> zurückgibt.</p>
+<h2 id="2----typannotation-bei-variablen"><a class="header" href="#2----typannotation-bei-variablen">2    Typannotation bei Variablen</a></h2>
+<pre><code class="language-python">name: str = "Anna"
+alter: int = 30
+aktiv: bool = True
+</code></pre>
+<h2 id="3----optionaler-typ"><a class="header" href="#3----optionaler-typ">3    Optionaler Typ</a></h2>
+<p>Manchmal kann eine Variable auch <code>None</code> sein. Dafür verwendet man <code>Optional</code>:</p>
+<pre><code class="language-python">from typing import Optional
+
+def finde_benutzer(id: int) -&gt; Optional[str]:
+    if id == 1:
+        return "Anna"
+    return None
+</code></pre>
+<h2 id="4----any"><a class="header" href="#4----any">4    <code>Any</code></a></h2>
+<p>Der Typ <code>Any</code> aus dem <code>typing</code>-Modul signalisiert, dass jede Art von Wert erlaubt ist. Dies ist hilfreich, wenn der genaue Typ nicht bekannt oder variabel ist.</p>
+<pre><code class="language-python">from typing import Any
+
+def drucke_wert(wert: Any) -&gt; None:
+    print(wert)
+</code></pre>
+<h2 id="5----callable"><a class="header" href="#5----callable">5    <code>Callable</code></a></h2>
+<p><code>Callable</code> wird verwendet, um Funktionen als Parameter oder Rückgabewerte zu typisieren.</p>
+<pre><code class="language-python">from typing import Callable
+
+def verarbeite(funktion: Callable[[int, int], int]) -&gt; int:
+    return funktion(2, 3)
+</code></pre>
+<p>In diesem Beispiel ist <code>funktion</code> eine Funktion, die zwei <code>int</code>-Werte nimmt und einen <code>int</code> zurückgibt.</p>
+<h2 id="6----typannotation-in-klassen"><a class="header" href="#6----typannotation-in-klassen">6    Typannotation in Klassen</a></h2>
+<p>Auch in Klassen können Typannotationen verwendet werden:</p>
+<pre><code class="language-python">class Person:
+    name: str
+    alter: int
+
+    def __init__(self, name: str, alter: int) -&gt; None:
+        self.name = name
+        self.alter = alter
+</code></pre>
+<h3 id="61----verweis-auf-eigene-klasse-als-typ"><a class="header" href="#61----verweis-auf-eigene-klasse-als-typ">6.1    Verweis auf eigene Klasse als Typ</a></h3>
+<p>Will man innerhalb einer Klasse auf die eigene Klasse verweisen (z. B. bei einer Methode, die ein Objekt der gleichen Klasse zurückgibt), verwendet man einen String (um zirkuläre Importe zu vermeiden) <strong>oder ab Python 3.11</strong> <code>from __future__ import annotations</code>:</p>
+<pre><code class="language-python">class Knoten:
+    def __init__(self, wert: int, nachfolger: 'Knoten' = None) -&gt; None:
+        self.wert = wert
+        self.nachfolger = nachfolger
+</code></pre>
+<p>Ab Python 3.11:</p>
+<pre><code class="language-python">from __future__ import annotations
+
+class Knoten:
+    def __init__(self, wert: int, nachfolger: Knoten = None) -&gt; None:
+        self.wert = wert
+        self.nachfolger = nachfolger
+</code></pre>
+<h2 id="7----typalias"><a class="header" href="#7----typalias">7    Typalias</a></h2>
+<p>Man kann eigene Typen definieren, um komplexe Strukturen lesbarer zu machen:</p>
+<pre><code class="language-python">from typing import List, Tuple
+
+Koordinaten = Tuple[float, float]
+Pfad = List[Koordinaten]
+</code></pre>
+<h2 id="8----generics"><a class="header" href="#8----generics">8    Generics</a></h2>
+<p>Generics ermöglichen es, die Typsicherheit zu verbessern, indem man Typen nicht fest vorgibt, sondern parametrisierbar macht.</p>
+<p>Sie werden genutzt, um auszudrücken, welche Datentypen eine Funktion oder Klasse erwartet und zurückgibt, ohne auf einen konkreten Typ festgelegt zu sein.</p>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">from typing import TypeVar, List
+
+T = TypeVar('T')  # generischer Typ
+
+def first(items: List[T]) -&gt; T:
+    return items[0]
+
+print(first([1, 2, 3]))        # int
+print(first(['a', 'b', 'c']))  # str
+</code></pre>
+<p> Die Funktion <code>first()</code> kann mit Listen beliebiger Typen arbeiten, der Rückgabewert passt sich dem jeweiligen Typ an.</p>
+<p><strong>Vorteile von Generics?</strong></p>
+<ul>
+<li>Wiederverwendbarer Code mit genauer Typprüfung</li>
+<li>Vermeidet Fehler, die bei gemischten Datentypen auftreten</li>
+<li>Bessere Unterstützung in IDEs &amp; für Autocomplete</li>
+</ul>
+<h3 id="81----generics-in-klassen"><a class="header" href="#81----generics-in-klassen">8.1    Generics in Klassen</a></h3>
+<p>Generics können nicht nur in Funktionen, sondern auch in Klassen verwendet werden, um flexibel mit unterschiedlichen Datentypen zu arbeiten. Dabei wird ein Typparameter definiert, der den Typ von Attributen, Parametern oder Rückgabewerten innerhalb der Klasse repräsentiert. So kann dieselbe Klassendefinition für verschiedene konkrete Typen wiederverwendet werden, ohne die Typprüfung zu verlieren.</p>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">from typing import Generic, TypeVar
+
+T = TypeVar('T')
+
+class Box(Generic[T]):
+    def __init__(self, content: T):
+        self.content = content
+
+    def get(self) -&gt; T:
+        return self.content
+
+b1 = Box(123)      # Box[int]
+b2 = Box('Hallo')  # Box[str]
+</code></pre>
+<p>Die Klasse <code>Box</code> ist generisch und nimmt einen Typparameter <code>T</code> an. Wird ein Objekt der Klasse erzeugt, bestimmt der tatsächliche Typ des Inhalts (<code>int</code>, <code>str</code>, …) automatisch den Typ für <code>T</code>. Dadurch weiß der Type Checker und auch die IDE, welchen konkreten Typ die Methode <code>get()</code> zurückgibt. Das verbessert Autovervollständigung und verhindert Typfehler zur Entwicklungszeit.</p>
+<h3 id="82----typevar-mit-einschränkungen-bound-und-constraints"><a class="header" href="#82----typevar-mit-einschränkungen-bound-und-constraints">8.2    TypeVar mit Einschränkungen (bound und constraints)</a></h3>
+<p>In manchen Situationen soll ein generischer Typ nur bestimmte Typen erlauben. Dafür bietet <code>TypeVar</code> zwei Möglichkeiten: <code>bound</code> und constraints:</p>
+<ul>
+<li>Mit <code>bound</code> wird eine Obergrenze festgelegt (z. B. eine Basisklasse oder ein Typ wie <code>float</code>).</li>
+<li>Mit constraints dagegen wird eine Menge gültiger Typen definiert, aus denen ausgewählt werden darf.</li>
+</ul>
+<h4 id="821----bound"><a class="header" href="#821----bound">8.2.1    Bound</a></h4>
+<p><code>bound</code> schränkt <code>TypeVar</code> so ein, dass nur Instanzen eines bestimmten Typs oder seiner Unterklassen gültig sind. So kann sichergestellt werden, dass alle Operationen, die auf diesem Typ ausgeführt werden, garantiert verfügbar sind. Das ist besonders nützlich, wenn Funktionen mit bestimmten Eigenschaften oder Methoden arbeiten sollen.</p>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">from typing import TypeVar
+
+T = TypeVar('T', bound=float)
+
+def multiply(x: T, factor: float) -&gt; T:
+    return x * factor
+</code></pre>
+<p><code>T</code> darf nur <code>float</code> oder davon abgeleitete Typen sein. Durch <code>bound=float</code> kann <code>T</code> z. B. nicht <code>str</code> oder <code>list</code> sein. Wird ein anderer Typ übergeben, erkennt der Type Checker dies als Fehler.</p>
+<h4 id="822----constraints"><a class="header" href="#822----constraints">8.2.2    Constraints</a></h4>
+<p><code>constraints</code> wird verwendet, um eine Auswahl fest definierter Datentypen zu erlauben. Anders als bei <code>bound</code> liegt hier kein typisches Vererbungs-Beziehungskonzept zugrunde, sondern eine Liste akzeptierter Typen.</p>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">U = TypeVar('U', int, float)
+
+def add(a: U, b: U) -&gt; U:
+    return a + b
+</code></pre>
+<p>Hier darf <code>U</code> nur <code>int</code> oder <code>float</code> sein. Ein Aufruf wie <code>add('a', 'b')</code> wäre ein Typfehler, auch wenn die Operation zur Laufzeit funktionieren würde – somit wird Typunsicherheit vermieden.</p>
+<h3 id="83----mehrere-typparameter-generict-u"><a class="header" href="#83----mehrere-typparameter-generict-u">8.3    Mehrere Typparameter (<code>Generic[T, U]</code>)</a></h3>
+<p>Manchmal benötigen Klassen oder Funktionen mehr als einen generischen Typ. Ein typisches Beispiel ist eine Datenstruktur, die Schlüssel und Werte speichert (analog zu <code>dict</code>). Mit mehreren Typparametern lassen sich Abhängigkeiten zwischen mehreren Typen genau definieren.</p>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">from typing import Generic, TypeVar
+
+T = TypeVar('T')
+U = TypeVar('U')
+
+class Pair(Generic[T, U]):
+    def __init__(self, first: T, second: U):
+        self.first = first
+        self.second = second
+
+    def get_first(self) -&gt; T:
+        return self.first
+
+    def get_second(self) -&gt; U:
+        return self.second
+
+
+p1 = Pair('Anna', 37)  # Pair[str, int]
+p2 = Pair(3.14, True)  # Pair[float, bool]
+</code></pre>
+<ul>
+<li>Pair akzeptiert zwei unterschiedliche generische Typen.</li>
+<li>Beim Erzeugen eines Objekts entscheidet sich, welche konkreten Typen <code>T</code> und <code>U</code> annehmen.</li>
+<li>Methoden kennen jeweils den passenden Rückgabetyp. Das verbessert Autovervollständigung und Typprüfung</li>
+</ul>
+<p><strong>Einsatzbeispiele:</strong></p>
+<ul>
+<li>Schlüssel-Wert-Paare
+z. B. Cache oder Konfiguration</li>
+<li>Vergleichsergebnisse
+z. B. <code>Result</code>, <code>Error</code></li>
+<li>Wrapper für zwei verschiedenartige Daten
+z. B. DB-Record + Metadaten</li>
+</ul>
+<p><strong>Beispiel für generische Mapping-Struktur:</strong></p>
+<pre><code class="language-python">from typing import Generic, TypeVar, Dict
+
+K = TypeVar('K')
+V = TypeVar('V')
+
+class Storage(Generic[K, V]):
+    def __init__(self):
+        self.data: Dict[K, V] = {}
+
+    def add(self, key: K, value: V) -&gt; None:
+        self.data[key] = value
+
+    def get(self, key: K) -&gt; V:
+        return self.data[key]
+
+
+s = Storage[str, int]()
+s.add('Age', 30)
+print(s.get('Age'))
+</code></pre>
+<p><code>TypeVar('K')</code> und <code>TypeVar('V')</code> definieren zwei generische Typparameter für Schlüssel und Werte. Durch <code>class Storage(Generic[K, V])</code> wird die Klasse so parametrisierbar, dass sie mit beliebigen Typkombinationen verwendet werden kann. Das interne <code>Dictionary Dict[K, V]</code> speichert Werte vom Typ <code>V</code> unter Schlüsseln vom Typ <code>K</code>. Die Methoden <code>add()</code> und <code>get()</code> übernehmen und liefern konsistent diese Typen. Beim Erzeugen der Instanz (<code>Storage[str, int]</code>) werden die konkreten Typen festgelegt, wodurch Typsicherheit und bessere IDE-Unterstützung erreicht werden.</p>
+<h3 id="84----generics-bei-dict-list-tuple"><a class="header" href="#84----generics-bei-dict-list-tuple">8.4    Generics bei <code>Dict</code>, <code>List</code>, <code>Tuple</code></a></h3>
+<p>Viele eingebaute Python-Datentypen unterstützen Generics standardmäßig. Es kann festgelegt werden, welche Typen Elemente enthalten sollen. Dadurch erkennt der Type Checker z. B., ob ein falscher Wert in eine Liste geschrieben wird oder ob auf ein Dictionary mit einem falschen Schlüsseltyp zugegriffen wird.</p>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">from typing import Dict, List, Tuple
+
+numbers: List[int] = [1, 2, 3]
+person: Tuple[str, int] = ('Max', 32)
+scores: Dict[str, float] = {'Anna': 1.3, 'Benjamin': 2.0}
+</code></pre>
+<h3 id="85----typeddict-und-protocol-erweiterte-typsystem-funktionen"><a class="header" href="#85----typeddict-und-protocol-erweiterte-typsystem-funktionen">8.5    TypedDict und Protocol (erweiterte Typsystem-Funktionen)</a></h3>
+<p>Neben Generics stellt die <code>typing</code>-Bibliothek weitere Mechanismen zur Verfügung, um komplexere Strukturen und Schnittstellen präzise zu typisieren. Dazu gehören <code>TypedDict</code> für strukturiertes Arbeiten mit Dictionaries sowie <code>Protocol</code> für strukturelle Typprüfung (ähnlich zu Interfaces in anderen Sprachen).</p>
+<h4 id="851----typeddict"><a class="header" href="#851----typeddict">8.5.1    TypedDict</a></h4>
+<p><code>TypedDict</code> ermöglicht das Definieren von Dictionaries mit festen Schlüsselnamen und Wert-typen. Damit lässt sich verhindern, dass Keys fehlen, vertauscht werden oder Werte falscher Typen enthalten.</p>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">from typing import TypedDict
+
+class Person(TypedDict):
+    name: str
+    age: int
+
+p: Person = {'name': 'Tom', 'age': 30}
+</code></pre>
+<p>Die IDE weiß so, welche Felder vorhanden sein müssen und welche Typen zugeordnet sind.</p>
+<h4 id="852----protocol-duck-typing--typprüfung"><a class="header" href="#852----protocol-duck-typing--typprüfung">8.5.2    Protocol (duck typing + Typprüfung)</a></h4>
+<p>Protocol ermöglicht strukturelle Typprüfung, d. h. es muss nicht eine Klasse explizit erben, sondern nur die geforderten Methoden bereitstellen (ähnlich Duck Typing: “wenn es aussieht wie eine Ente…”). Dadurch können generische Funktionen definiert werden, die mit beliebigen Objekten arbeiten, solange sie die erwartete Signatur besitzen.</p>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">from typing import Protocol
+
+class Flyer(Protocol):
+    def fly(self) -&gt; None:
+        ...
+
+class Bird:
+    def fly(self) -&gt; None:
+        print('Flap!')
+
+def start(f: Flyer):
+    f.fly()
+
+start(Bird())
+</code></pre>
+<p>Bird erfüllt das Protocol automatisch, ohne explizite Vererbung.</p>
+<h3 id="86----zusammenfassung"><a class="header" href="#86----zusammenfassung">8.6    Zusammenfassung</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Konzept</th><th>Bedeutung</th></tr>
+</thead>
+<tbody>
+<tr><td><code>TypeVar</code></td><td>generischer Typ</td></tr>
+<tr><td><code>Generic[T]</code></td><td>Klasse/Funktion ist generisch</td></tr>
+<tr><td><code>bound=</code></td><td>Typ auf Obergrenze beschränken</td></tr>
+<tr><td><code>constraints</code></td><td>Liste erlaubter Typen</td></tr>
+<tr><td><code>Protocol</code></td><td>strukturelle Typprüfung</td></tr>
+<tr><td><code>TypedDict</code></td><td>typisierte Dictionaries</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="9----warum-typannotationen-verwenden"><a class="header" href="#9----warum-typannotationen-verwenden">9    Warum Typannotationen verwenden?</a></h2>
+<ul>
+<li><strong>Lesbarkeit</strong>: Andere Entwickler verstehen schneller, was erwartet wird.</li>
+<li><strong>Wartbarkeit</strong>: Änderungen im Code sind leichter nachzuvollziehen.</li>
+<li><strong>Fehlervermeidung</strong>: Tools wie Mypy, Pyright/Pylance oder IDEs können Fehler frühzeitig erkennen.</li>
+<li><strong>Dokumentation</strong>: Typen fungieren als explizite Dokumentation des Codes.</li>
+</ul>
+<div class="mdbook-callouts mdbook-callouts-warning">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  kein zwang zur typisierung
+</p>
+
+<p>Python bleibt trotz Typannotationen dynamisch. Die Typangaben werden zur Laufzeit <strong>nicht</strong> erzwungen. Sie dienen lediglich als Hilfe für Entwickler und Werkzeuge.</p>
+<pre><code class="language-python">def echo(text: str) -&gt; str:
+	return text
+
+# Funktioniert trotzdem, obwohl ein falscher Typ übergeben wird
+print(echo(123))  # Ausgabe: 123
+</code></pre>
+</div>
+
+<h2 id="10----typenvergleich"><a class="header" href="#10----typenvergleich">10    Typenvergleich</a></h2>
+<p>Typen vergleichen kann man mit den Funktionen <code>type()</code> und <code>isinstance()</code>.</p>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">from collections import namedtuple
+
+Point = namedtuple('Punkt', ['x', 'y'])
+p = Point(2, 3)
+
+if type(p) == tuple:
+    print('P ist ein Tupel.')  # Wird nicht ausgegeben!
+
+if isinstance(p, tuple):
+    print('P ist ein Tupel.')
+</code></pre>
+<div class="mdbook-callouts mdbook-callouts-tip">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  tip
+</p>
+
+<p>Es ist in der Regel besser, <code>isinstance()</code> anstelle eines direkten Vergleichs mit <code>type()</code> zu verwenden, weil <code>isinstance()</code> auch Vererbungen berücksichtigt.</p>
+</div>
+
+<ul>
+<li><code>type()</code> gibt die exakte Klasse des Objekts <code>p</code> zurück, nämlich <code>Point</code>. Daher wird in dem Beispiel der Vergleich falsch ausgewertet.</li>
+<li><code>isinstance()</code> überprüft, ob <code>p</code> eine Instanz von <code>tuple</code> <strong>oder einer Unterklasse davon</strong> ist. Da <code>namedtuple</code> eine Unterklasse von <code>tuple</code> ist, gibt i<code>sinstance(p, tuple)</code> <strong><code>True</code></strong> zurück.</li>
+</ul>
+<p>Siehe auch: <a href="b-oop-und-fortgeschrittene-konzepte/fortgeschrittene-objektorientierung.html#1-`type()`,-`isinstance()`,-`issubclass()`">type(), isinstance() und issubclass()</a>.</p>
+<h2 id="11----static-type-checking-tools"><a class="header" href="#11----static-type-checking-tools">11    Static Type Checking Tools</a></h2>
+<p>Typannotationen allein werden von Python zur Laufzeit nicht überprüft. Um Typfehler bereits vor der Ausführung zu finden, nutzt man <strong>Static Type Checker</strong> wie mypy oder Pyright.</p>
+<h3 id="111----mypy--der-standard-type-checker"><a class="header" href="#111----mypy--der-standard-type-checker">11.1    mypy – Der Standard Type Checker</a></h3>
+<p>mypy ist der offizielle und am weitesten verbreitete Type Checker für Python.</p>
+<p><strong>Installation:</strong></p>
+<pre><code class="language-bash">pip install mypy
+</code></pre>
+<p><strong>Grundlegende Verwendung:</strong></p>
+<pre><code class="language-python"># example.py
+def greet(name: str) -&gt; str:
+    return f"Hello, {name}"
+
+result: int = greet("Alice")  # Typfehler!
+</code></pre>
+<pre><code class="language-bash"># Type Checking ausführen
+mypy example.py
+</code></pre>
+<p><strong>Ausgabe:</strong></p>
+<pre><code>example.py:4: error: Incompatible types in assignment (expression has type "str", variable has type "int")
+Found 1 error in 1 file (checked 1 source file)
+</code></pre>
+<h3 id="112----konfiguration-mit-mypyini-oder-pyprojecttoml"><a class="header" href="#112----konfiguration-mit-mypyini-oder-pyprojecttoml">11.2    Konfiguration mit <code>mypy.ini</code> oder <code>pyproject.toml</code></a></h3>
+<p><strong>mypy.ini:</strong></p>
+<pre><code class="language-ini">[mypy]
+python_version = 3.10
+warn_return_any = True
+warn_unused_configs = True
+disallow_untyped_defs = True
+disallow_any_unimported = True
+no_implicit_optional = True
+warn_redundant_casts = True
+warn_unused_ignores = True
+warn_no_return = True
+check_untyped_defs = True
+
+# Pro Modul konfigurieren
+[mypy-pandas.*]
+ignore_missing_imports = True
+
+[mypy-numpy.*]
+ignore_missing_imports = True
+</code></pre>
+<p><strong>pyproject.toml:</strong></p>
+<pre><code class="language-toml">[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.mypy.overrides](tool.mypy.overrides.md)
+module = "pandas.*"
+ignore_missing_imports = true
+</code></pre>
+<h3 id="113----wichtige-mypy-optionen"><a class="header" href="#113----wichtige-mypy-optionen">11.3    Wichtige mypy-Optionen</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Bedeutung</th></tr>
+</thead>
+<tbody>
+<tr><td><code>--strict</code></td><td>Aktiviert alle strengen Checks</td></tr>
+<tr><td><code>--ignore-missing-imports</code></td><td>Ignoriert fehlende Type Stubs von Drittbibliotheken</td></tr>
+<tr><td><code>--disallow-untyped-defs</code></td><td>Verlangt Typen für alle Funktionsdefinitionen</td></tr>
+<tr><td><code>--check-untyped-defs</code></td><td>Prüft auch Funktionen ohne Typannotationen</td></tr>
+<tr><td><code>--warn-return-any</code></td><td>Warnt bei <code>Any</code> als Rückgabetyp</td></tr>
+<tr><td><code>--show-error-codes</code></td><td>Zeigt Error-Codes (z.B. <code>[assignment]</code>)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="114----type-stubs-für-drittbibliotheken"><a class="header" href="#114----type-stubs-für-drittbibliotheken">11.4    Type Stubs für Drittbibliotheken</a></h3>
+<p>Viele Bibliotheken haben keine eingebauten Typannotationen. Dafür gibt es separate Type Stubs.</p>
+<pre><code class="language-bash"># Type Stubs installieren
+pip install types-requests
+pip install types-PyYAML
+pip install pandas-stubs
+</code></pre>
+<p><strong>Typeshed:</strong> Zentrale Sammlung von Type Stubs für die Standardbibliothek und populäre Packages</p>
+<ul>
+<li>Wird automatisch mit mypy installiert</li>
+<li>Repository: https://github.com/python/typeshed</li>
+</ul>
+<h3 id="115----inline-type-ignores"><a class="header" href="#115----inline-type-ignores">11.5    Inline Type Ignores</a></h3>
+<p>Manchmal ist man sich sicher, dass der Code korrekt ist, auch wenn mypy warnt:</p>
+<pre><code class="language-python">from typing import Any
+
+def process_data(data: Any) -&gt; int:
+    # mypy würde hier warnen, aber wir wissen, dass data eine Zahl ist
+    return data + 1  # type: ignore[operator]
+
+# Gesamte Zeile ignorieren
+result = some_complex_function()  # type: ignore
+
+# Nur bestimmte Error-Codes ignorieren
+value = int("123")  # type: ignore[arg-type]
+</code></pre>
+<h3 id="116----pyright--pylance--microsofts-type-checker"><a class="header" href="#116----pyright--pylance--microsofts-type-checker">11.6    Pyright / Pylance – Microsoft’s Type Checker</a></h3>
+<p>Pyright ist ein schneller, moderner Type Checker von Microsoft, integriert in VS Code als Pylance.</p>
+<p><strong>Installation:</strong></p>
+<pre><code class="language-bash">pip install pyright
+
+# Oder als npm-Package (schneller)
+npm install -g pyright
+</code></pre>
+<p><strong>Verwendung:</strong></p>
+<pre><code class="language-bash">pyright src/
+</code></pre>
+<p><strong>Konfiguration (pyrightconfig.json):</strong></p>
+<pre><code class="language-json">{
+  "include": ["src"],
+  "exclude": ["**/node_modules", "**/__pycache__"],
+  "typeCheckingMode": "strict",
+  "pythonVersion": "3.10",
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false
+}
+</code></pre>
+<p><strong>In pyproject.toml:</strong></p>
+<pre><code class="language-toml">[tool.pyright]
+include = ["src"]
+exclude = ["**/node_modules", "**/__pycache__"]
+typeCheckingMode = "strict"
+pythonVersion = "3.10"
+</code></pre>
+<h3 id="117----mypy-vs-pyright"><a class="header" href="#117----mypy-vs-pyright">11.7    mypy vs. Pyright</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Kriterium</th><th>mypy</th><th>Pyright</th></tr>
+</thead>
+<tbody>
+<tr><td>Performance</td><td>⚠️ Langsamer</td><td>✅ Sehr schnell</td></tr>
+<tr><td>Standard-Konformität</td><td>✅ Referenz-Implementation</td><td>✅ Sehr gut</td></tr>
+<tr><td>VS Code Integration</td><td>⚠️ Extension nötig</td><td>✅ Native (Pylance)</td></tr>
+<tr><td>Konfiguration</td><td>✅ Sehr flexibel</td><td>✅ Gut</td></tr>
+<tr><td>Community</td><td>✅ Größer</td><td>✅ Wachsend</td></tr>
+<tr><td>Empfohlen für</td><td>CI/CD, Commandline</td><td>VS Code, IDE-Integration</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="118----integration-in-cicd"><a class="header" href="#118----integration-in-cicd">11.8    Integration in CI/CD</a></h3>
+<p><strong>GitHub Actions:</strong></p>
+<pre><code class="language-yaml">name: Type Check
+
+on: [push, pull_request]
+
+jobs:
+  mypy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install mypy types-requests
+      
+      - name: Run mypy
+        run: mypy src/
+</code></pre>
+<p><strong>Pre-commit Hook:</strong></p>
+<pre><code class="language-yaml"># .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.5.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-requests, types-PyYAML]
+</code></pre>
+<h3 id="119----graduelle-typisierung"><a class="header" href="#119----graduelle-typisierung">11.9    Graduelle Typisierung</a></h3>
+<p>Man muss nicht das gesamte Projekt auf einmal typisieren:</p>
+<pre><code class="language-python"># Schritt 1: Keine Typen (Status Quo)
+def calculate(x, y):
+    return x + y
+
+# Schritt 2: Partielle Typisierung
+def calculate(x: int, y: int):
+    return x + y
+
+# Schritt 3: Vollständige Typisierung
+def calculate(x: int, y: int) -&gt; int:
+    return x + y
+</code></pre>
+<p><strong>Strategie für große Projekte:</strong></p>
+<ol>
+<li>Kritische/neue Module zuerst typisieren</li>
+<li><code># type: ignore</code> für Legacy-Code nutzen</li>
+<li>Schrittweise strengere mypy-Optionen aktivieren</li>
+<li>Test-Code kann weniger streng sein</li>
+</ol>
+<h3 id="1110----häufige-type-checker-fehler"><a class="header" href="#1110----häufige-type-checker-fehler">11.10    Häufige Type Checker Fehler</a></h3>
+<p><strong>Fehler: <code>Incompatible return value type</code></strong></p>
+<pre><code class="language-python">def get_name() -&gt; str:
+    return None  # Fehler!
+
+# Lösung: Optional verwenden
+from typing import Optional
+
+def get_name() -&gt; Optional[str]:
+    return None  # OK
+</code></pre>
+<p><strong>Fehler: <code>Argument has incompatible type</code></strong></p>
+<pre><code class="language-python">def greet(name: str) -&gt; None:
+    print(f"Hello, {name}")
+
+greet(123)  # Fehler!
+
+# Lösung: Richtigen Typ übergeben
+greet("Alice")
+</code></pre>
+<p><strong>Fehler: <code>Missing type parameters</code></strong></p>
+<pre><code class="language-python">from typing import List
+
+def process(items: List):  # Fehler! List[?]
+    pass
+
+# Lösung: Typ-Parameter angeben
+def process(items: List[int]) -&gt; None:
+    pass
+</code></pre>
+<h3 id="1111----best-practices"><a class="header" href="#1111----best-practices">11.11    Best Practices</a></h3>
+<p><strong>✅ DO:</strong></p>
+<ul>
+<li>Type Checker in CI/CD Pipeline integrieren</li>
+<li>Neue Module vollständig typisieren</li>
+<li><code>strict</code> Mode für neue Projekte aktivieren</li>
+<li>Type Stubs für Dependencies installieren</li>
+<li>Pre-commit Hooks verwenden</li>
+</ul>
+<p><strong>❌ DON’T:</strong></p>
+<ul>
+<li>Typen nur hinzufügen, um mypy zufriedenzustellen</li>
+<li>Überall <code>Any</code> verwenden (verliert Typsicherheit)</li>
+<li>Type Checking bei Tests vernachlässigen</li>
+<li><code># type: ignore</code> ohne Grund nutzen</li>
+</ul>
+<h3 id="1112----weitere-tools"><a class="header" href="#1112----weitere-tools">11.12    Weitere Tools</a></h3>
+<p><strong>Pytype (Google):</strong></p>
+<pre><code class="language-bash">pip install pytype
+pytype src/
+</code></pre>
+<ul>
+<li>Inferiert Typen automatisch</li>
+<li>Weniger strikte als mypy</li>
+<li>Gut für Legacy-Code</li>
+</ul>
+<p><strong>Pyre (Meta):</strong></p>
+<pre><code class="language-bash">pip install pyre-check
+pyre check
+</code></pre>
+<ul>
+<li>Fokus auf Performance</li>
+<li>Inkrementelles Type Checking</li>
+<li>Hauptsächlich für große Codebases</li>
+</ul>
+<h3 id="1113----zusammenfassung"><a class="header" href="#1113----zusammenfassung">11.13    Zusammenfassung</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Verwendung</th></tr>
+</thead>
+<tbody>
+<tr><td>mypy</td><td>Standard Type Checker, CLI, CI/CD</td></tr>
+<tr><td>Pyright</td><td>Schneller Checker, VS Code Integration</td></tr>
+<tr><td>Type Stubs</td><td>Typen für Drittbibliotheken</td></tr>
+<tr><td><code># type: ignore</code></td><td>Einzelne Warnungen unterdrücken</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Kernprinzip:</strong> Type Checking ist ein Werkzeug zur Verbesserung der Code-Qualität, kein Selbstzweck. Beginne mit lockeren Einstellungen und erhöhe die Strenge schrittweise.</p>
+<h2 id="12----fazit"><a class="header" href="#12----fazit">12    Fazit</a></h2>
+<p>Typannotationen machen Python-Code robuster, verständlicher und besser wartbar, ohne die Flexibilität der Sprache einzuschränken. Es lohnt sich, sie konsequent zu verwenden, besonders bei größeren Projekten.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../b-oop-und-fortgeschrittene-konzepte/fortgeschrittene-funktionstechniken.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../b-oop-und-fortgeschrittene-konzepte/speicherverhalten-referenzen-und-mutability.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../b-oop-und-fortgeschrittene-konzepte/fortgeschrittene-funktionstechniken.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../b-oop-und-fortgeschrittene-konzepte/speicherverhalten-referenzen-und-mutability.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

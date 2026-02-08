@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Einleitung - Python-Referenz</title>
+        <title>Kontext-Manager - Python-Referenz</title>
 
 
         <!-- Custom HTML head -->
@@ -12,20 +12,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon-de23e50b.svg">
-        <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
-        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-80432388.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-80432388.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -34,13 +34,13 @@
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-1ed3f166.js";
+            window.path_to_searchindex_js = "../searchindex-1ed3f166.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-f6524bb4.js"></script>
+        <script src="../toc-f6524bb4.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -107,7 +107,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -142,7 +142,7 @@
                     <h1 class="menu-title">Python-Referenz</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
                         <a href="https://github.com/cgroening/Python-Referenz" title="Git repository" aria-label="Git repository">
@@ -416,41 +416,476 @@
   --color-pink: #d53984;
 }
 </style>
-<h1 id="willkommen-zur-python-referenz"><a class="header" href="#willkommen-zur-python-referenz">Willkommen zur Python-Referenz</a></h1>
-<blockquote>
-<p><strong>Eine umfassende, deutschsprachige Referenz für Python-Entwickler aller Erfahrungsstufen</strong></p>
-</blockquote>
-<h2 id="über-diese-referenz"><a class="header" href="#über-diese-referenz">Über diese Referenz</a></h2>
-<p>Diese Referenz ist entstanden aus dem Bedürfnis, <strong>praktisches Python-Wissen</strong> strukturiert und auf Deutsch verfügbar zu machen. Sie ist weder ein klassisches Tutorial noch eine reine API-Dokumentation, sondern etwas dazwischen: <strong>eine Sammlung von Konzepten, Best Practices und Beispielen</strong>, die helfen soll, sich Wissen schnell anzueignen bzw. es wieder aufzufrischen.</p>
-<h2 id="für-wen-ist-diese-referenz"><a class="header" href="#für-wen-ist-diese-referenz">Für wen ist diese Referenz?</a></h2>
-<p><strong>🎓 Anfänger:</strong></p>
-<p>Für Programmierer, die bereits Erfahrungen in einer anderen Sprache haben und mit dem Grundkonzepten der Programmierung vertraut sind, bietet <em>Teil I (Grundlagen)</em> einen schnellen, strukturierten Einstieg in Python-Syntax, Datentypen und Kontrollstrukturen.</p>
-<p><strong>💼 Erfahrene Entwickler:</strong></p>
-<p>Entwickler, die bereits mit Python programmieren, finden in den <em>Teilen  II bis IV</em> fortgeschrittene Themen wie OOP-Design-Patterns, Performance-Optimierung, Testing und moderne Entwicklungs-Workflows.</p>
-<p><em>Teil III-V</em> zeigen, wie man sauberen, getesteten und performanten Code für produktionsreife Anwendungen schreibt und modernen Tools wie Ruff, pytest, Poetry und PyO3 nutzt.</p>
-<p>Einen Schnellstart in Data Science bietet <em>Teil VI</em>, welcher NumPy, Pandas und Matplotlib/Seaborn behandelt.</p>
-<h2 id="philosophie-dieser-referenz"><a class="header" href="#philosophie-dieser-referenz">Philosophie dieser Referenz</a></h2>
-<p><strong>✅ Lernressource und Nachschlagewerk:</strong></p>
-<p>Diese Referenz ist gleichermaßen geeignet, sie sequentiell zum Lernen zu verwenden und sie über die durchdachte Struktur oder die Suchfunktion (Tastenkürzel: <code>s</code>) als Nachschlagewerk zu nutzen.</p>
-<p><strong>Praktisch, nicht theoretisch:</strong></p>
-<p>Jedes Konzept wird mit <strong>funktionierenden Code-Beispielen</strong> erklärt. Kein unnötiger Ballast – nur das, was man wirklich braucht.</p>
-<p><strong>✅ Modern und aktuell:</strong></p>
-<p>Diese Referenz deckt <strong>Python 3.11+</strong> ab und nutzt moderne Tools und Best Practices (Type Hints, Ruff statt Flake8, Poetry statt setup.py, pytest statt unittest).</p>
-<p><strong>✅ Deutsch mit englischem Code:</strong></p>
-<p><strong>Erklärungen auf Deutsch</strong> (weil komplexe Konzepte in der Muttersprache einfacher zu verstehen sind), aber <strong>Code mit englischen Bezeichnern</strong> (wie in der professionellen Praxis üblich).</p>
-<p><strong>✅ Best Practices, statt “es funktioniert”:</strong></p>
-<p>An vielen Stellen wird nicht nur erklärt, <strong>wie</strong> etwas funktioniert, sondern auch <strong>warum</strong> und <strong>wann</strong> man es einsetzen sollte (und wann besser nicht).</p>
-<h2 id="was-diese-referenz-nicht-ist"><a class="header" href="#was-diese-referenz-nicht-ist">Was diese Referenz NICHT ist</a></h2>
-<p>❌ <strong>Kein komplettes Tutorial</strong>: Diese Referenz ersetzt keine praktische Übung. Programmieren lernst du nur durch Programmieren!</p>
-<p>❌ <strong>Keine API-Dokumentation</strong>: Für detaillierte API-Referenzen nutze die <a href="https://docs.python.org/">offizielle Python-Dokumentation</a>.</p>
-<p>❌ <strong>Nicht für absolute Programmier-Anfänger</strong>: Grundlegende Programmierkenntnisse (Variablen, Schleifen, Funktionen) werden vorausgesetzt.</p>
+<h1 id="kontext-manager-und-contextlib"><a class="header" href="#kontext-manager-und-contextlib">Kontext-Manager und contextlib</a></h1>
+<p>Kontextmanager gewährleisten eine saubere Ressourcenverwaltung durch automatisches Setup und Cleanup. Sie sind unverzichtbar beim Arbeiten mit Dateien, Datenbankverbindungen, Locks und anderen Ressourcen, die nach Gebrauch freigegeben werden müssen.</p>
+<h2 id="1----das-with-statement"><a class="header" href="#1----das-with-statement">1    Das <code>with</code>-Statement</a></h2>
+<p>Das <code>with</code>-Statement stellt sicher, dass Ressourcen korrekt initialisiert und anschließend freigegeben werden – selbst wenn Fehler auftreten.</p>
+<h3 id="11----dateien-öffnen-ohne-with"><a class="header" href="#11----dateien-öffnen-ohne-with">1.1    Dateien öffnen ohne <code>with</code></a></h3>
+<pre><code class="language-python"># Klassischer Ansatz (fehleranfällig)
+file = open('data.txt', 'r')
+try:
+    content = file.read()
+    print(content)
+finally:
+    file.close()  # Manuelles Cleanup
+</code></pre>
+<h3 id="12----dateien-öffnen-mit-with"><a class="header" href="#12----dateien-öffnen-mit-with">1.2    Dateien öffnen mit <code>with</code></a></h3>
+<pre><code class="language-python"># Moderner Ansatz (empfohlen)
+with open('data.txt', 'r') as file:
+    content = file.read()
+    print(content)
+# Datei wird automatisch geschlossen
+</code></pre>
+<p><strong>Vorteile:</strong></p>
+<ul>
+<li>Automatisches Schließen der Datei, auch bei Exceptions</li>
+<li>Keine <code>finally</code>-Blöcke nötig</li>
+<li>Kompakter und lesbarer Code</li>
+</ul>
+<h2 id="2----eigene-kontextmanager-mit-__enter__-und-__exit__"><a class="header" href="#2----eigene-kontextmanager-mit-__enter__-und-__exit__">2    Eigene Kontextmanager mit <code>__enter__</code> und <code>__exit__</code></a></h2>
+<p>Ein Kontextmanager ist jede Klasse, die die Methoden <code>__enter__()</code> und <code>__exit__()</code> implementiert.</p>
+<h3 id="21----einfacher-kontextmanager"><a class="header" href="#21----einfacher-kontextmanager">2.1    Einfacher Kontextmanager</a></h3>
+<pre><code class="language-python">class DatabaseConnection:
+    def __init__(self, db_name):
+        self.db_name = db_name
+        self.connection = None
+    
+    def __enter__(self):
+        print(f'Opening connection to {self.db_name}')
+        self.connection = f'Connection to {self.db_name}'
+        return self.connection  # Wird an 'as'-Variable übergeben
+    
+    def __exit__(self, exc_type, exc_value, traceback):
+        print(f'Closing connection to {self.db_name}')
+        if exc_type is not None:
+            print(f'Exception occurred: {exc_value}')
+        # False zurückgeben lässt Exception weiterpropagieren
+        # True unterdrückt die Exception
+        return False
+
+# Verwendung
+with DatabaseConnection('mydb') as conn:
+    print(f'Working with {conn}')
+    # raise ValueError('Test error')  # Würde trotzdem cleanup ausführen
+</code></pre>
+<h3 id="22----parameter-von-__exit__"><a class="header" href="#22----parameter-von-__exit__">2.2    Parameter von <code>__exit__</code></a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Beschreibung</th></tr>
+</thead>
+<tbody>
+<tr><td><code>exc_type</code></td><td>Typ der Exception (z.B. <code>ValueError</code>) oder <code>None</code></td></tr>
+<tr><td><code>exc_value</code></td><td>Exception-Objekt oder <code>None</code></td></tr>
+<tr><td><code>traceback</code></td><td>Traceback-Objekt oder <code>None</code></td></tr>
+<tr><td>Rückgabewert</td><td><code>True</code> unterdrückt Exception, <code>False</code> propagiert sie</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="23----timer-kontextmanager"><a class="header" href="#23----timer-kontextmanager">2.3    Timer-Kontextmanager</a></h3>
+<pre><code class="language-python">import time
+
+class Timer:
+    def __enter__(self):
+        self.start = time.time()
+        return self
+    
+    def __exit__(self, *args):
+        self.end = time.time()
+        self.elapsed = self.end - self.start
+        print(f'Elapsed time: {self.elapsed:.4f} seconds')
+        return False
+
+# Verwendung
+with Timer():
+    # Zeitintensiver Code
+    sum(range(1_000_000))
+</code></pre>
+<h2 id="3----das-contextlib-modul"><a class="header" href="#3----das-contextlib-modul">3    Das <code>contextlib</code>-Modul</a></h2>
+<p>Das <code>contextlib</code>-Modul bietet Hilfsfunktionen zum Erstellen und Arbeiten mit Kontextmanagern.</p>
+<h3 id="31----contextmanager-decorator"><a class="header" href="#31----contextmanager-decorator">3.1    <code>@contextmanager</code> Decorator</a></h3>
+<p>Der einfachste Weg, einen Kontextmanager zu erstellen, ist mit dem <code>@contextmanager</code>-Decorator.</p>
+<pre><code class="language-python">from contextlib import contextmanager
+
+@contextmanager
+def file_manager(filename, mode):
+    print(f'Opening {filename}')
+    file = open(filename, mode)
+    try:
+        yield file  # Alles vor yield = __enter__, danach = __exit__
+    finally:
+        print(f'Closing {filename}')
+        file.close()
+
+# Verwendung
+with file_manager('test.txt', 'w') as f:
+    f.write('Hello World')
+</code></pre>
+<p><strong>Wichtig:</strong></p>
+<ul>
+<li>Code vor <code>yield</code> entspricht <code>__enter__</code></li>
+<li><code>yield</code> gibt den Wert zurück (wie <code>return</code> in <code>__enter__</code>)</li>
+<li>Code nach <code>yield</code> entspricht <code>__exit__</code></li>
+<li><code>finally</code>-Block garantiert Cleanup auch bei Exceptions</li>
+</ul>
+<h3 id="32----mehrere-ressourcen-verwalten"><a class="header" href="#32----mehrere-ressourcen-verwalten">3.2    Mehrere Ressourcen verwalten</a></h3>
+<pre><code class="language-python">from contextlib import contextmanager
+
+@contextmanager
+def multi_file_manager(*filenames):
+    files = []
+    try:
+        # Alle Dateien öffnen
+        for filename in filenames:
+            files.append(open(filename, 'r'))
+        yield files
+    finally:
+        # Alle Dateien schließen
+        for f in files:
+            f.close()
+
+# Verwendung
+with multi_file_manager('file1.txt', 'file2.txt') as (f1, f2):
+    content1 = f1.read()
+    content2 = f2.read()
+</code></pre>
+<h2 id="4----mehrere-kontextmanager-kombinieren"><a class="header" href="#4----mehrere-kontextmanager-kombinieren">4    Mehrere Kontextmanager kombinieren</a></h2>
+<h3 id="41----verschachtelt"><a class="header" href="#41----verschachtelt">4.1    Verschachtelt</a></h3>
+<pre><code class="language-python">with open('input.txt', 'r') as infile:
+    with open('output.txt', 'w') as outfile:
+        content = infile.read()
+        outfile.write(content.upper())
+</code></pre>
+<h3 id="42----in-einer-zeile-python-31"><a class="header" href="#42----in-einer-zeile-python-31">4.2    In einer Zeile (Python 3.1+)</a></h3>
+<pre><code class="language-python">with open('input.txt', 'r') as infile, open('output.txt', 'w') as outfile:
+    content = infile.read()
+    outfile.write(content.upper())
+</code></pre>
+<h3 id="43----mit-exitstack-flexibel"><a class="header" href="#43----mit-exitstack-flexibel">4.3    Mit <code>ExitStack</code> (flexibel)</a></h3>
+<pre><code class="language-python">from contextlib import ExitStack
+
+filenames = ['file1.txt', 'file2.txt', 'file3.txt']
+
+with ExitStack() as stack:
+    # Dynamisch Dateien öffnen
+    files = [stack.enter_context(open(fn, 'r')) for fn in filenames]
+    
+    # Mit allen Dateien arbeiten
+    for f in files:
+        print(f.read())
+    # Alle werden automatisch geschlossen
+</code></pre>
+<p><strong>Vorteile von <code>ExitStack</code>:</strong></p>
+<ul>
+<li>Dynamische Anzahl von Kontextmanagern</li>
+<li>Manuelle Registrierung von Callbacks mit <code>stack.callback()</code></li>
+<li>Besonders nützlich bei unbekannter Anzahl von Ressourcen</li>
+</ul>
+<h2 id="5----nützliche-kontextmanager-aus-contextlib"><a class="header" href="#5----nützliche-kontextmanager-aus-contextlib">5    Nützliche Kontextmanager aus <code>contextlib</code></a></h2>
+<h3 id="51----suppress--exceptions-unterdrücken"><a class="header" href="#51----suppress--exceptions-unterdrücken">5.1    <code>suppress</code> – Exceptions unterdrücken</a></h3>
+<pre><code class="language-python">from contextlib import suppress
+
+# Fehler ignorieren statt try-except
+with suppress(FileNotFoundError):
+    os.remove('nonexistent_file.txt')
+# Kein Fehler, wenn Datei nicht existiert
+</code></pre>
+<h3 id="52----redirect_stdout--ausgabe-umleiten"><a class="header" href="#52----redirect_stdout--ausgabe-umleiten">5.2    <code>redirect_stdout</code> – Ausgabe umleiten</a></h3>
+<pre><code class="language-python">from contextlib import redirect_stdout
+import io
+
+# stdout in String-Buffer umleiten
+output = io.StringIO()
+with redirect_stdout(output):
+    print('This goes to the buffer')
+    print('And this too')
+
+captured = output.getvalue()
+print(f'Captured: {captured}')
+</code></pre>
+<h3 id="53----redirect_stderr--fehlerausgabe-umleiten"><a class="header" href="#53----redirect_stderr--fehlerausgabe-umleiten">5.3    <code>redirect_stderr</code> – Fehlerausgabe umleiten</a></h3>
+<pre><code class="language-python">from contextlib import redirect_stderr
+import io
+
+error_buffer = io.StringIO()
+with redirect_stderr(error_buffer):
+    import sys
+    sys.stderr.write('Error message')
+
+errors = error_buffer.getvalue()
+</code></pre>
+<h3 id="54----closing--objekte-mit-close-verwalten"><a class="header" href="#54----closing--objekte-mit-close-verwalten">5.4    <code>closing</code> – Objekte mit <code>close()</code> verwalten</a></h3>
+<pre><code class="language-python">from contextlib import closing
+from urllib.request import urlopen
+
+# Für Objekte, die close() haben, aber kein with-Statement
+with closing(urlopen('http://example.com')) as page:
+    content = page.read()
+# page.close() wird automatisch aufgerufen
+</code></pre>
+<h3 id="55----nullcontext--optionaler-kontextmanager"><a class="header" href="#55----nullcontext--optionaler-kontextmanager">5.5    <code>nullcontext</code> – Optionaler Kontextmanager</a></h3>
+<pre><code class="language-python">from contextlib import nullcontext
+
+def process_file(filename, use_context=True):
+    cm = open(filename, 'r') if use_context else nullcontext()
+    
+    with cm as f:
+        # f ist entweder File-Objekt oder None
+        if f:
+            return f.read()
+    return None
+</code></pre>
+<h2 id="6----kontextmanager-für-threading-und-locks"><a class="header" href="#6----kontextmanager-für-threading-und-locks">6    Kontextmanager für Threading und Locks</a></h2>
+<h3 id="61----thread-lock"><a class="header" href="#61----thread-lock">6.1    Thread-Lock</a></h3>
+<pre><code class="language-python">import threading
+
+lock = threading.Lock()
+
+# Ohne with (manuell)
+lock.acquire()
+try:
+    # Critical section
+    pass
+finally:
+    lock.release()
+
+# Mit with (automatisch)
+with lock:
+    # Critical section
+    pass
+# Lock wird automatisch freigegeben
+</code></pre>
+<h3 id="62----eigener-lock-kontextmanager"><a class="header" href="#62----eigener-lock-kontextmanager">6.2    Eigener Lock-Kontextmanager</a></h3>
+<pre><code class="language-python">@contextmanager
+def acquire_lock(lock, timeout=10):
+    acquired = lock.acquire(timeout=timeout)
+    try:
+        if not acquired:
+            raise TimeoutError('Could not acquire lock')
+        yield acquired
+    finally:
+        if acquired:
+            lock.release()
+
+# Verwendung
+with acquire_lock(lock):
+    print('Lock acquired')
+</code></pre>
+<h2 id="7----asynchrone-kontextmanager"><a class="header" href="#7----asynchrone-kontextmanager">7    Asynchrone Kontextmanager</a></h2>
+<p>Bei asynchronem Code (<code>async</code>/<code>await</code>) gibt es spezielle Kontextmanager mit <code>__aenter__</code> und <code>__aexit__</code>.</p>
+<h3 id="71----async-kontextmanager-definieren"><a class="header" href="#71----async-kontextmanager-definieren">7.1    Async Kontextmanager definieren</a></h3>
+<pre><code class="language-python">import asyncio
+
+class AsyncDatabaseConnection:
+    def __init__(self, db_name):
+        self.db_name = db_name
+    
+    async def __aenter__(self):
+        print(f'Opening async connection to {self.db_name}')
+        await asyncio.sleep(0.1)  # Simuliert async I/O
+        return self
+    
+    async def __aexit__(self, exc_type, exc_value, traceback):
+        print(f'Closing async connection to {self.db_name}')
+        await asyncio.sleep(0.1)
+        return False
+
+# Verwendung
+async def main():
+    async with AsyncDatabaseConnection('asyncdb') as conn:
+        print('Working with async connection')
+
+asyncio.run(main())
+</code></pre>
+<h3 id="72----mit-asynccontextmanager"><a class="header" href="#72----mit-asynccontextmanager">7.2    Mit <code>@asynccontextmanager</code></a></h3>
+<pre><code class="language-python">from contextlib import asynccontextmanager
+import asyncio
+
+@asynccontextmanager
+async def async_file_manager(filename):
+    print(f'Opening {filename} asynchronously')
+    await asyncio.sleep(0.1)
+    file = open(filename, 'r')
+    try:
+        yield file
+    finally:
+        print(f'Closing {filename} asynchronously')
+        file.close()
+        await asyncio.sleep(0.1)
+
+# Verwendung
+async def main():
+    async with async_file_manager('test.txt') as f:
+        content = f.read()
+
+asyncio.run(main())
+</code></pre>
+<h2 id="8----best-practices"><a class="header" href="#8----best-practices">8    Best Practices</a></h2>
+<h3 id="81----wann-eigene-kontextmanager-erstellen"><a class="header" href="#81----wann-eigene-kontextmanager-erstellen">8.1    Wann eigene Kontextmanager erstellen?</a></h3>
+<p><strong>Gute Anwendungsfälle:</strong></p>
+<ul>
+<li>Ressourcen mit Setup/Cleanup (Dateien, Verbindungen, Locks)</li>
+<li>Temporäre Zustandsänderungen (Working Directory, Umgebungsvariablen)</li>
+<li>Zeitmessungen und Profiling</li>
+<li>Transaktionen (Begin/Commit/Rollback)</li>
+<li>Logging-Scopes</li>
+</ul>
+<h3 id="82----contextmanager-vs-klasse"><a class="header" href="#82----contextmanager-vs-klasse">8.2    <code>@contextmanager</code> vs. Klasse?</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Kriterium</th><th><code>@contextmanager</code></th><th>Klasse mit <code>__enter__</code>/<code>__exit__</code></th></tr>
+</thead>
+<tbody>
+<tr><td>Einfache Anwendung</td><td>✅ Bevorzugt</td><td>❌ Mehr Boilerplate</td></tr>
+<tr><td>Wiederverwendbarkeit</td><td>✅ Gut</td><td>✅ Sehr gut</td></tr>
+<tr><td>State-Management</td><td>⚠️ Begrenzt</td><td>✅ Flexibel</td></tr>
+<tr><td>Exception-Handling</td><td>⚠️ Muss explizit sein</td><td>✅ Klare Kontrolle</td></tr>
+<tr><td>Code-Übersichtlichkeit</td><td>✅ Kompakt</td><td>⚠️ Mehr Code</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Faustregel:</strong> Für einfache Fälle <code>@contextmanager</code>, für komplexe Logik oder State-Management eine Klasse.</p>
+<h3 id="83----typische-fehler-vermeiden"><a class="header" href="#83----typische-fehler-vermeiden">8.3    Typische Fehler vermeiden</a></h3>
+<pre><code class="language-python"># ❌ Falsch: yield vergessen
+@contextmanager
+def bad_context():
+    print('Enter')
+    # Fehlt: yield
+    print('Exit')
+
+# ✅ Richtig: yield nicht vergessen
+@contextmanager
+def good_context():
+    print('Enter')
+    yield
+    print('Exit')
+
+# ❌ Falsch: Keine Exception-Behandlung
+@contextmanager
+def unsafe_context():
+    resource = acquire_resource()
+    yield resource
+    release_resource(resource)  # Wird bei Exception nicht ausgeführt!
+
+# ✅ Richtig: finally verwenden
+@contextmanager
+def safe_context():
+    resource = acquire_resource()
+    try:
+        yield resource
+    finally:
+        release_resource(resource)  # Wird immer ausgeführt
+</code></pre>
+<h2 id="9----praxisbeispiele"><a class="header" href="#9----praxisbeispiele">9    Praxisbeispiele</a></h2>
+<h3 id="91----temporäres-arbeitsverzeichnis"><a class="header" href="#91----temporäres-arbeitsverzeichnis">9.1    Temporäres Arbeitsverzeichnis</a></h3>
+<pre><code class="language-python">import os
+from contextlib import contextmanager
+
+@contextmanager
+def temporary_directory(path):
+    original_dir = os.getcwd()
+    try:
+        os.chdir(path)
+        yield path
+    finally:
+        os.chdir(original_dir)
+
+# Verwendung
+with temporary_directory('/tmp'):
+    print(f'Current dir: {os.getcwd()}')  # /tmp
+print(f'Back to: {os.getcwd()}')  # Original directory
+</code></pre>
+<h3 id="92----datenbank-transaktion"><a class="header" href="#92----datenbank-transaktion">9.2    Datenbank-Transaktion</a></h3>
+<pre><code class="language-python">@contextmanager
+def transaction(connection):
+    """Automatisches Commit/Rollback bei Datenbanktransaktionen"""
+    cursor = connection.cursor()
+    try:
+        yield cursor
+        connection.commit()  # Erfolg → Commit
+    except Exception:
+        connection.rollback()  # Fehler → Rollback
+        raise
+    finally:
+        cursor.close()
+
+# Verwendung
+# with transaction(db_connection) as cursor:
+#     cursor.execute('INSERT INTO ...')
+#     cursor.execute('UPDATE ...')
+# Automatisches Commit bei Erfolg, Rollback bei Exception
+</code></pre>
+<h3 id="93----profiling-context"><a class="header" href="#93----profiling-context">9.3    Profiling-Context</a></h3>
+<pre><code class="language-python">import cProfile
+from contextlib import contextmanager
+
+@contextmanager
+def profile_code(sort_by='cumulative'):
+    """Profiliert Code-Block"""
+    profiler = cProfile.Profile()
+    profiler.enable()
+    try:
+        yield profiler
+    finally:
+        profiler.disable()
+        profiler.print_stats(sort=sort_by)
+
+# Verwendung
+with profile_code():
+    # Code der profiliert werden soll
+    result = sum(range(1_000_000))
+</code></pre>
+<h3 id="94----temporäre-environment-variables"><a class="header" href="#94----temporäre-environment-variables">9.4    Temporäre Environment Variables</a></h3>
+<pre><code class="language-python">import os
+from contextlib import contextmanager
+
+@contextmanager
+def env_variable(key, value):
+    """Setzt temporär eine Umgebungsvariable"""
+    old_value = os.environ.get(key)
+    os.environ[key] = value
+    try:
+        yield
+    finally:
+        if old_value is None:
+            del os.environ[key]
+        else:
+            os.environ[key] = old_value
+
+# Verwendung
+with env_variable('DEBUG', 'true'):
+    print(os.environ['DEBUG'])  # 'true'
+print(os.environ.get('DEBUG'))  # None oder alter Wert
+</code></pre>
+<h2 id="10----zusammenfassung"><a class="header" href="#10----zusammenfassung">10    Zusammenfassung</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Konzept</th><th>Verwendung</th></tr>
+</thead>
+<tbody>
+<tr><td><code>with</code>-Statement</td><td>Automatisches Setup/Cleanup von Ressourcen</td></tr>
+<tr><td><code>__enter__</code> / <code>__exit__</code></td><td>Kontextmanager als Klasse implementieren</td></tr>
+<tr><td><code>@contextmanager</code></td><td>Generator-basierter Kontextmanager (einfacher)</td></tr>
+<tr><td><code>contextlib.suppress</code></td><td>Exceptions unterdrücken</td></tr>
+<tr><td><code>contextlib.redirect_stdout</code></td><td>Ausgaben umleiten</td></tr>
+<tr><td><code>contextlib.ExitStack</code></td><td>Dynamische Anzahl von Kontextmanagern</td></tr>
+<tr><td><code>async with</code></td><td>Asynchrone Kontextmanager mit <code>__aenter__</code> / <code>__aexit__</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Kernprinzip:</strong> Kontextmanager garantieren, dass Cleanup-Code ausgeführt wird – egal ob der Code normal endet oder eine Exception auftritt. Sie sind der Standard-Ansatz für Ressourcenverwaltung in Python.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../b-oop-und-fortgeschrittene-konzepte/speicherverhalten-referenzen-und-mutability.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
-                            <a rel="next prefetch" href="a-grundlagen/links.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../c-testing-und-performance/debugging.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -460,8 +895,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../b-oop-und-fortgeschrittene-konzepte/speicherverhalten-referenzen-und-mutability.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
-                    <a rel="next prefetch" href="a-grundlagen/links.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../c-testing-und-performance/debugging.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -481,13 +919,13 @@
         </script>
 
 
-        <script src="elasticlunr-ef4e11c1.min.js"></script>
-        <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
 
-        <script src="clipboard-1626706a.min.js"></script>
-        <script src="highlight-abc7f01d.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
 

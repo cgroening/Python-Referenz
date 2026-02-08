@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Einleitung - Python-Referenz</title>
+        <title>Profiling und Timing - Python-Referenz</title>
 
 
         <!-- Custom HTML head -->
@@ -12,20 +12,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon-de23e50b.svg">
-        <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
-        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-80432388.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-80432388.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -34,13 +34,13 @@
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-1ed3f166.js";
+            window.path_to_searchindex_js = "../searchindex-1ed3f166.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-f6524bb4.js"></script>
+        <script src="../toc-f6524bb4.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -107,7 +107,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -142,7 +142,7 @@
                     <h1 class="menu-title">Python-Referenz</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
                         <a href="https://github.com/cgroening/Python-Referenz" title="Git repository" aria-label="Git repository">
@@ -416,41 +416,287 @@
   --color-pink: #d53984;
 }
 </style>
-<h1 id="willkommen-zur-python-referenz"><a class="header" href="#willkommen-zur-python-referenz">Willkommen zur Python-Referenz</a></h1>
+<h1 id="profiling-und-timing"><a class="header" href="#profiling-und-timing">Profiling und Timing</a></h1>
+<h2 id="1----dauer-der-code-ausführung-messen"><a class="header" href="#1----dauer-der-code-ausführung-messen">1    Dauer der Code-Ausführung messen</a></h2>
+<p>Die Funktion <code>time.time()</code> gibt die aktuelle Zeit als Unix-Timestamp in Sekunden zurück. Sie ist allerdings nicht ideal für präzise Zeitmessungen, weil sie durch folgende Faktoren beeinflusst wird:</p>
+<ol>
+<li>Geringe Präzision auf manchen Systemen
+<ul>
+<li><code>time.time()</code> basiert auf der Systemuhr, die je nach Betriebssystem nicht hochauflösend ist.</li>
+<li>Bei Windows hat <code>time.time()</code> oft nur eine Genauigkeit von etwa 15,6 Millisekunden.</li>
+</ul>
+</li>
+<li>Sprünge durch Systemzeit-Änderungen
+<ul>
+<li>Wenn die Systemuhr manuell geändert oder durch NTP (Network Time Protocol) synchronisiert wird, kann <code>time.time()</code> springen oder rückwärtslaufen.</li>
+</ul>
+</li>
+<li>Nicht speziell für Zeitmessungen gedacht
+<ul>
+<li><code>time.time()</code> ist hauptsächlich für das Abrufen der aktuellen Uhrzeit gedacht, nicht für Hochpräzisionsmessungen.</li>
+</ul>
+</li>
+</ol>
+<div class="mdbook-callouts mdbook-callouts-warum ist `time.perf_counter()` besser?">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  warum ist `time.perf_counter()` besser?
+</p>
+
+<p>Die Funktion <code>time.perf_counter()</code> ist speziell für hochpräzise Zeitmessungen gedacht:</p>
+<ol>
+<li>Hohe Auflösung
+<ul>
+<li>Nutzt die genaueste verfügbare Uhr des Systems.</li>
+<li>Auf modernen Systemen meist Nanosekunden- oder Mikrosekunden-genau.</li>
+</ul>
+</li>
+<li>Monoton steigend
+<ul>
+<li>Kann nicht durch Systemzeitänderungen beeinflusst werden.</li>
+<li>Die Werte steigen immer an, niemals rückwärts.</li>
+</ul>
+</li>
+<li>Optimiert für Laufzeitmessungen
+<ul>
+<li>Ideal für Benchmarking und Laufzeitanalysen.</li>
+</ul>
+</li>
+</ol>
+</div>
+
+<pre><code class="language-python">import time
+
+# Ungenau:
+start = time.time()  # Nur geeignet um aktuelle Zeit zu erhalten
+time.sleep(1)
+end = time.time()
+print(end - start)
+
+# Genau:
+start = time.perf_counter()
+time.sleep(1)
+end = time.perf_counter()
+print(end - start)
+</code></pre>
+<h2 id="2----unit-tests-in-python"><a class="header" href="#2----unit-tests-in-python">2    Unit Tests in Python</a></h2>
+<h3 id="21----grundlagen"><a class="header" href="#21----grundlagen">2.1    Grundlagen</a></h3>
+<ul>
+<li>Python verwendet das <code>unittest</code>-Modul (im Standardpaket enthalten).</li>
+<li>Alternativen: <code>pytest</code>, <code>nose2</code> (externe Pakete).</li>
+</ul>
+<h3 id="22----einfaches-beispiel-mit-unittest"><a class="header" href="#22----einfaches-beispiel-mit-unittest">2.2    Einfaches Beispiel mit <code>unittest</code></a></h3>
+<pre><code class="language-python">import unittest
+
+# Beispiel-Funktion: Addiert zwei Zahlen
+def add_numbers(a, b):
+    return a + b
+
+# Testklasse
+class TestAddNumbers(unittest.TestCase):
+    def test_positive_numbers(self):
+        self.assertEqual(add_numbers(2, 3), 5)
+
+    def test_negative_numbers(self):
+        self.assertEqual(add_numbers(-1, -1), -2)
+
+    def test_zero(self):
+        self.assertEqual(add_numbers(0, 0), 0)
+
+# Hauptprogramm für Unit-Tests
+if __name__ == '__main__':
+    unittest.main()
+</code></pre>
+<h3 id="23----wichtige-methoden-von-unittesttestcase"><a class="header" href="#23----wichtige-methoden-von-unittesttestcase">2.3    Wichtige Methoden von <code>unittest.TestCase</code></a></h3>
+<ul>
+<li><code>assertEqual(a, b)</code></li>
+<li><code>assertNotEqual(a, b)</code></li>
+<li><code>assertTrue(x)</code></li>
+<li><code>assertFalse(x)</code></li>
+<li><code>assertIsNone(x)</code></li>
+<li><code>assertRaises(Exception, func, args...)</code></li>
+</ul>
+<h2 id="3----profiling-in-python"><a class="header" href="#3----profiling-in-python">3    Profiling in Python</a></h2>
+<h3 id="31----ziel"><a class="header" href="#31----ziel">3.1    Ziel</a></h3>
+<p>Performance-Engpässe (Bottlenecks) im Code finden.</p>
+<h3 id="32----tools-im-überblick"><a class="header" href="#32----tools-im-überblick">3.2    Tools im Überblick</a></h3>
+<ul>
+<li><code>cProfile</code> (Standardmodul, robust)</li>
+<li><code>timeit</code> (für kleinere Snippets)</li>
+<li><code>line_profiler</code> (extern, detailliert)</li>
+<li><code>py-spy</code>, <code>snakeviz</code>, <code>yappi</code> (externe Visualisierung)</li>
+</ul>
+<h3 id="33----beispiel-cprofile"><a class="header" href="#33----beispiel-cprofile">3.3    Beispiel: <code>cProfile</code></a></h3>
+<pre><code class="language-python">import cProfile
+
+# Rechenintensive Beispiel-Funktion
+def compute_heavy_task():
+    total = 0
+    for i in range(100000):
+        total += i ** 2
+    return total
+
+# Führe Profiling durch
+cProfile.run('compute_heavy_task()')
+</code></pre>
+<h3 id="34----beispiel-timeit"><a class="header" href="#34----beispiel-timeit">3.4    Beispiel: <code>timeit</code></a></h3>
+<pre><code class="language-python">import timeit
+
+# Zeitmessung für einfachen Ausdruck
+code = "sum([i*i for i in range(1000)])"
+duration = timeit.timeit(stmt=code, number=1000)
+print(f"Durchschnittszeit: {duration:.4f} Sekunden")
+</code></pre>
+<h3 id="35----line_profiler-externe-installation-nötig"><a class="header" href="#35----line_profiler-externe-installation-nötig">3.5    line_profiler (externe Installation nötig)</a></h3>
+<pre><code class="language-zsh">pip install line_profiler
+</code></pre>
+<pre><code class="language-python"># sample.py
+
+# Mit @profile markierte Funktion
+@profile
+def compute():
+    total = 0
+    for i in range(10000):
+        total += i ** 2
+    return total
+</code></pre>
+<pre><code class="language-bash"># Ausführen mit line_profiler
+kernprof -l sample.py
+python -m line_profiler sample.py.lprof
+</code></pre>
+<h2 id="4----tipps"><a class="header" href="#4----tipps">4    Tipps</a></h2>
+<h3 id="41----zuerst-tests-schreiben-dann-den-code-test-driven-development-tdd"><a class="header" href="#41----zuerst-tests-schreiben-dann-den-code-test-driven-development-tdd">4.1    Zuerst Tests schreiben, dann den Code (Test-Driven Development, TDD)</a></h3>
+<p><strong>Was es bedeutet:</strong></p>
+<ul>
+<li><strong>TDD</strong> ist ein Entwicklungsansatz, bei dem man zuerst <strong>Tests schreibt</strong>, bevor man den eigentlichen Code implementiert.</li>
+<li>Das Ziel ist, nur so viel Code zu schreiben, wie nötig ist, um den Test bestehen zu lassen.</li>
+</ul>
+<p><strong>Ablauf:</strong></p>
+<ol>
+<li>Einen Test schreiben, der fehlschlägt (weil es die Funktion noch nicht gibt).</li>
+<li>Den minimalen Code implementieren, der den Test bestehen lässt.</li>
+<li>Refaktorisiere, falls nötig, und sicherstellen, dass der Test weiterhin grün ist.</li>
+<li>Den Zyklus wiederholen für jede neue Funktionalität.</li>
+</ol>
+<p><strong>Vorteile:</strong></p>
+<ul>
+<li>Klar definierte Anforderungen.</li>
+<li>Höhere Code-Qualität.</li>
+<li>Tests sind immer aktuell.</li>
+<li>Bessere Wartbarkeit.</li>
+</ul>
+<h3 id="42----pytest-für-eleganteres-testing-nutzt-assert-statt-methoden"><a class="header" href="#42----pytest-für-eleganteres-testing-nutzt-assert-statt-methoden">4.2    <code>pytest</code> für eleganteres Testing (nutzt <code>assert</code> statt Methoden)</a></h3>
+<p><strong>Was <code>pytest</code> auszeichnet:</strong></p>
+<ul>
+<li>
+<p>Sehr beliebt wegen seiner einfachen Syntax.</p>
+</li>
+<li>
+<p>Statt wie in <code>unittest</code> Methoden wie <code>assertEqual(a, b)</code> zu verwenden, nutzt man einfach:</p>
+<pre><code class="language-python">assert a == b
+</code></pre>
+</li>
+</ul>
+<p><strong>Beispiel mit <code>pytest</code>:</strong></p>
+<pre><code class="language-python"># test_math.py
+
+def add(a, b):
+    return a + b
+
+def test_add():
+    assert add(2, 3) == 5
+    assert add(-1, 1) == 0
+</code></pre>
+<p><strong>Warum es eleganter ist:</strong></p>
+<ul>
+<li>Weniger Boilerplate-Code.</li>
+<li>Fehlermeldungen bei Fehlschlägen sind ausdrucksstärker (zeigt automatisch Werte an).</li>
+<li>Automatische Erkennung von Tests.</li>
+<li>Integration mit Plugins wie <code>pytest-cov</code>, <code>hypothesis</code> uvm.</li>
+</ul>
+<h3 id="43----profiling-immer-bei-realistischen-datenmengen"><a class="header" href="#43----profiling-immer-bei-realistischen-datenmengen">4.3    Profiling immer bei realistischen Datenmengen</a></h3>
+<p><strong>Warum das wichtig ist:</strong></p>
+<ul>
+<li>Kleine Testdaten täuschen oft über die Performance hinweg.</li>
+<li>Code, der bei 100 Einträgen schnell ist, kann bei 1 Million Einträgen ineffizient skalieren.</li>
+<li>Realitätsnahe Tests helfen, echte Engpässe zu erkennen.</li>
+</ul>
+<p><strong>Praxis-Tipp:</strong></p>
+<p>Wenn man z. B. ein Programm für Logfile-Analyse entwickelt:</p>
+<ul>
+<li>Profiling mit 10 Zeilen bringt kaum Erkenntnisse.</li>
+<li>Simuliere echte Logdateien (z. B. 100 MB oder mehr).</li>
+</ul>
+<p>Tools wie <code>cProfile</code>, <code>timeit</code>, <code>line_profiler</code> sollten mit realistischen Inputs verwendet werden, um aussagekräftige Ergebnisse zu liefern.</p>
+<hr>
+<h3 id="44----tests-und-profiling-kombinieren-für-performance-regressionstests"><a class="header" href="#44----tests-und-profiling-kombinieren-für-performance-regressionstests">4.4    Tests und Profiling kombinieren für Performance-Regressionstests</a></h3>
+<p><strong>Was das bedeutet:</strong></p>
+<ul>
+<li>Nicht nur funktionale Richtigkeit testen, sondern auch sicherstellen, dass neue Änderungen den Code nicht verlangsamen.</li>
+</ul>
+<p><strong>Wie man es macht:</strong></p>
+<ul>
+<li>Einen Test schreiben, der nicht nur prüft, ob das Ergebnis korrekt ist, sondern auch, ob die Ausführung innerhalb einer Zeitgrenze bleibt.</li>
+</ul>
+<p><strong>Beispiel mit <code>pytest</code>:</strong></p>
+<pre><code class="language-python">import time
+
+def test_performance():
+    start = time.time()
+    result = sum(i*i for i in range(100000))
+    duration = time.time() - start
+    assert duration &lt; 0.5  # z. B. Maximal 0.5 Sekunden erlaubt
+</code></pre>
+<p><strong>Vorteile:</strong></p>
+<ul>
+<li>Du erkennst Leistungsregressionen sofort, z. B. wenn jemand unabsichtlich einen ineffizienten Algorithmus einbaut.</li>
+<li>Ideal für kritische Funktionen in Web-Backends, Datenverarbeitung, Simulationen etc.</li>
+</ul>
+<h2 id="5----arbeiten-in-vs-code"><a class="header" href="#5----arbeiten-in-vs-code">5    Arbeiten in VS Code</a></h2>
+<h3 id="51----tests-ausführen-mit-unittest-oder-pytest-in-vs-code"><a class="header" href="#51----tests-ausführen-mit-unittest-oder-pytest-in-vs-code">5.1    Tests ausführen mit <code>unittest</code> oder <code>pytest</code> in VS Code</a></h3>
+<ul>
+<li>Sicherstellen, dass der Python-Interpreter ausgewählt wurde (unten links oder <code>Ctrl+Shift+P</code> → “Python: Interpreter auswählen”).</li>
+<li>Kommando-Palette öffnen: <code>Ctrl+Shift+P</code></li>
+<li>Auswählen: <code>Python: Discover Tests</code></li>
+<li><code>unittest</code>, <code>pytest</code> oder <code>nose</code> als Framework auswählen.</li>
+<li>Danach: <code>Python: Run All Tests</code> oder <code>Run Test</code> direkt über dem Test mit dem kleinen „Play“-Icon.</li>
+</ul>
 <blockquote>
-<p><strong>Eine umfassende, deutschsprachige Referenz für Python-Entwickler aller Erfahrungsstufen</strong></p>
+<p>[!INFO]
+VS Code erkennt <code>pytest</code> automatisch, wenn die Datei mit <code>test_*.py</code> beginnt und <code>assert</code>-Statements enthält.</p>
 </blockquote>
-<h2 id="über-diese-referenz"><a class="header" href="#über-diese-referenz">Über diese Referenz</a></h2>
-<p>Diese Referenz ist entstanden aus dem Bedürfnis, <strong>praktisches Python-Wissen</strong> strukturiert und auf Deutsch verfügbar zu machen. Sie ist weder ein klassisches Tutorial noch eine reine API-Dokumentation, sondern etwas dazwischen: <strong>eine Sammlung von Konzepten, Best Practices und Beispielen</strong>, die helfen soll, sich Wissen schnell anzueignen bzw. es wieder aufzufrischen.</p>
-<h2 id="für-wen-ist-diese-referenz"><a class="header" href="#für-wen-ist-diese-referenz">Für wen ist diese Referenz?</a></h2>
-<p><strong>🎓 Anfänger:</strong></p>
-<p>Für Programmierer, die bereits Erfahrungen in einer anderen Sprache haben und mit dem Grundkonzepten der Programmierung vertraut sind, bietet <em>Teil I (Grundlagen)</em> einen schnellen, strukturierten Einstieg in Python-Syntax, Datentypen und Kontrollstrukturen.</p>
-<p><strong>💼 Erfahrene Entwickler:</strong></p>
-<p>Entwickler, die bereits mit Python programmieren, finden in den <em>Teilen  II bis IV</em> fortgeschrittene Themen wie OOP-Design-Patterns, Performance-Optimierung, Testing und moderne Entwicklungs-Workflows.</p>
-<p><em>Teil III-V</em> zeigen, wie man sauberen, getesteten und performanten Code für produktionsreife Anwendungen schreibt und modernen Tools wie Ruff, pytest, Poetry und PyO3 nutzt.</p>
-<p>Einen Schnellstart in Data Science bietet <em>Teil VI</em>, welcher NumPy, Pandas und Matplotlib/Seaborn behandelt.</p>
-<h2 id="philosophie-dieser-referenz"><a class="header" href="#philosophie-dieser-referenz">Philosophie dieser Referenz</a></h2>
-<p><strong>✅ Lernressource und Nachschlagewerk:</strong></p>
-<p>Diese Referenz ist gleichermaßen geeignet, sie sequentiell zum Lernen zu verwenden und sie über die durchdachte Struktur oder die Suchfunktion (Tastenkürzel: <code>s</code>) als Nachschlagewerk zu nutzen.</p>
-<p><strong>Praktisch, nicht theoretisch:</strong></p>
-<p>Jedes Konzept wird mit <strong>funktionierenden Code-Beispielen</strong> erklärt. Kein unnötiger Ballast – nur das, was man wirklich braucht.</p>
-<p><strong>✅ Modern und aktuell:</strong></p>
-<p>Diese Referenz deckt <strong>Python 3.11+</strong> ab und nutzt moderne Tools und Best Practices (Type Hints, Ruff statt Flake8, Poetry statt setup.py, pytest statt unittest).</p>
-<p><strong>✅ Deutsch mit englischem Code:</strong></p>
-<p><strong>Erklärungen auf Deutsch</strong> (weil komplexe Konzepte in der Muttersprache einfacher zu verstehen sind), aber <strong>Code mit englischen Bezeichnern</strong> (wie in der professionellen Praxis üblich).</p>
-<p><strong>✅ Best Practices, statt “es funktioniert”:</strong></p>
-<p>An vielen Stellen wird nicht nur erklärt, <strong>wie</strong> etwas funktioniert, sondern auch <strong>warum</strong> und <strong>wann</strong> man es einsetzen sollte (und wann besser nicht).</p>
-<h2 id="was-diese-referenz-nicht-ist"><a class="header" href="#was-diese-referenz-nicht-ist">Was diese Referenz NICHT ist</a></h2>
-<p>❌ <strong>Kein komplettes Tutorial</strong>: Diese Referenz ersetzt keine praktische Übung. Programmieren lernst du nur durch Programmieren!</p>
-<p>❌ <strong>Keine API-Dokumentation</strong>: Für detaillierte API-Referenzen nutze die <a href="https://docs.python.org/">offizielle Python-Dokumentation</a>.</p>
-<p>❌ <strong>Nicht für absolute Programmier-Anfänger</strong>: Grundlegende Programmierkenntnisse (Variablen, Schleifen, Funktionen) werden vorausgesetzt.</p>
+<h3 id="52----profiling-mit-erweiterung-python-profile"><a class="header" href="#52----profiling-mit-erweiterung-python-profile">5.2    Profiling mit Erweiterung: “Python Profile”</a></h3>
+<ol>
+<li>Optional: Erweiterung “Python Profiler” installieren.</li>
+<li>Datei öffnen</li>
+<li>Einen Breakpoint setzen oder über <code>Run → Start Debugging</code> ausführen.</li>
+<li>Man kann <code>cProfile</code>-Ausgaben direkt im Terminal oder über Plugins visualisieren lassen.</li>
+</ol>
+<h3 id="53----kurzbefehle"><a class="header" href="#53----kurzbefehle">5.3    Kurzbefehle</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Aktion</th><th>Shortcut</th></tr>
+</thead>
+<tbody>
+<tr><td>Testdatei ausführen</td><td><code>Ctrl+F5</code> oder ▶ oben</td></tr>
+<tr><td>Terminal öffnen</td><td>`Ctrl+``</td></tr>
+<tr><td>Befehlspalette öffnen</td><td><code>Ctrl+Shift+P</code></td></tr>
+<tr><td>Tests entdecken</td><td><code>Python: Discover Tests</code></td></tr>
+<tr><td>Nur einen Test ausführen</td><td><code>Rechtsklick &gt; Run Test</code></td></tr>
+</tbody>
+</table>
+</div>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../c-testing-und-performance/unit-tests.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
-                            <a rel="next prefetch" href="a-grundlagen/links.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../c-testing-und-performance/leistungsoptimierung.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -460,8 +706,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../c-testing-und-performance/unit-tests.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
-                    <a rel="next prefetch" href="a-grundlagen/links.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../c-testing-und-performance/leistungsoptimierung.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -481,13 +730,13 @@
         </script>
 
 
-        <script src="elasticlunr-ef4e11c1.min.js"></script>
-        <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
 
-        <script src="clipboard-1626706a.min.js"></script>
-        <script src="highlight-abc7f01d.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
 

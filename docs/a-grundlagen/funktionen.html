@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Einleitung - Python-Referenz</title>
+        <title>Funktionen - Python-Referenz</title>
 
 
         <!-- Custom HTML head -->
@@ -12,20 +12,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon-de23e50b.svg">
-        <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
-        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-80432388.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-80432388.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -34,13 +34,13 @@
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-1ed3f166.js";
+            window.path_to_searchindex_js = "../searchindex-1ed3f166.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-f6524bb4.js"></script>
+        <script src="../toc-f6524bb4.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -107,7 +107,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -142,7 +142,7 @@
                     <h1 class="menu-title">Python-Referenz</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
                         <a href="https://github.com/cgroening/Python-Referenz" title="Git repository" aria-label="Git repository">
@@ -416,41 +416,235 @@
   --color-pink: #d53984;
 }
 </style>
-<h1 id="willkommen-zur-python-referenz"><a class="header" href="#willkommen-zur-python-referenz">Willkommen zur Python-Referenz</a></h1>
-<blockquote>
-<p><strong>Eine umfassende, deutschsprachige Referenz für Python-Entwickler aller Erfahrungsstufen</strong></p>
-</blockquote>
-<h2 id="über-diese-referenz"><a class="header" href="#über-diese-referenz">Über diese Referenz</a></h2>
-<p>Diese Referenz ist entstanden aus dem Bedürfnis, <strong>praktisches Python-Wissen</strong> strukturiert und auf Deutsch verfügbar zu machen. Sie ist weder ein klassisches Tutorial noch eine reine API-Dokumentation, sondern etwas dazwischen: <strong>eine Sammlung von Konzepten, Best Practices und Beispielen</strong>, die helfen soll, sich Wissen schnell anzueignen bzw. es wieder aufzufrischen.</p>
-<h2 id="für-wen-ist-diese-referenz"><a class="header" href="#für-wen-ist-diese-referenz">Für wen ist diese Referenz?</a></h2>
-<p><strong>🎓 Anfänger:</strong></p>
-<p>Für Programmierer, die bereits Erfahrungen in einer anderen Sprache haben und mit dem Grundkonzepten der Programmierung vertraut sind, bietet <em>Teil I (Grundlagen)</em> einen schnellen, strukturierten Einstieg in Python-Syntax, Datentypen und Kontrollstrukturen.</p>
-<p><strong>💼 Erfahrene Entwickler:</strong></p>
-<p>Entwickler, die bereits mit Python programmieren, finden in den <em>Teilen  II bis IV</em> fortgeschrittene Themen wie OOP-Design-Patterns, Performance-Optimierung, Testing und moderne Entwicklungs-Workflows.</p>
-<p><em>Teil III-V</em> zeigen, wie man sauberen, getesteten und performanten Code für produktionsreife Anwendungen schreibt und modernen Tools wie Ruff, pytest, Poetry und PyO3 nutzt.</p>
-<p>Einen Schnellstart in Data Science bietet <em>Teil VI</em>, welcher NumPy, Pandas und Matplotlib/Seaborn behandelt.</p>
-<h2 id="philosophie-dieser-referenz"><a class="header" href="#philosophie-dieser-referenz">Philosophie dieser Referenz</a></h2>
-<p><strong>✅ Lernressource und Nachschlagewerk:</strong></p>
-<p>Diese Referenz ist gleichermaßen geeignet, sie sequentiell zum Lernen zu verwenden und sie über die durchdachte Struktur oder die Suchfunktion (Tastenkürzel: <code>s</code>) als Nachschlagewerk zu nutzen.</p>
-<p><strong>Praktisch, nicht theoretisch:</strong></p>
-<p>Jedes Konzept wird mit <strong>funktionierenden Code-Beispielen</strong> erklärt. Kein unnötiger Ballast – nur das, was man wirklich braucht.</p>
-<p><strong>✅ Modern und aktuell:</strong></p>
-<p>Diese Referenz deckt <strong>Python 3.11+</strong> ab und nutzt moderne Tools und Best Practices (Type Hints, Ruff statt Flake8, Poetry statt setup.py, pytest statt unittest).</p>
-<p><strong>✅ Deutsch mit englischem Code:</strong></p>
-<p><strong>Erklärungen auf Deutsch</strong> (weil komplexe Konzepte in der Muttersprache einfacher zu verstehen sind), aber <strong>Code mit englischen Bezeichnern</strong> (wie in der professionellen Praxis üblich).</p>
-<p><strong>✅ Best Practices, statt “es funktioniert”:</strong></p>
-<p>An vielen Stellen wird nicht nur erklärt, <strong>wie</strong> etwas funktioniert, sondern auch <strong>warum</strong> und <strong>wann</strong> man es einsetzen sollte (und wann besser nicht).</p>
-<h2 id="was-diese-referenz-nicht-ist"><a class="header" href="#was-diese-referenz-nicht-ist">Was diese Referenz NICHT ist</a></h2>
-<p>❌ <strong>Kein komplettes Tutorial</strong>: Diese Referenz ersetzt keine praktische Übung. Programmieren lernst du nur durch Programmieren!</p>
-<p>❌ <strong>Keine API-Dokumentation</strong>: Für detaillierte API-Referenzen nutze die <a href="https://docs.python.org/">offizielle Python-Dokumentation</a>.</p>
-<p>❌ <strong>Nicht für absolute Programmier-Anfänger</strong>: Grundlegende Programmierkenntnisse (Variablen, Schleifen, Funktionen) werden vorausgesetzt.</p>
+<h1 id="funktionen"><a class="header" href="#funktionen">Funktionen</a></h1>
+<h2 id="1----args-und-kwargs"><a class="header" href="#1----args-und-kwargs">1    <code>*args</code> und <code>**kwargs</code></a></h2>
+<p><code>*args</code> und <code>**kwargs</code> sind optionale Paramenter. <code>args</code> (positional arguments) ist eine Liste oder ein Tupel. <code>kwargs</code> (keyword arguments) ist ein Dictionary.</p>
+<div class="mdbook-callouts mdbook-callouts-benennung der positional und keyword rguments)">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  benennung der positional und keyword rguments)
+</p>
+
+<p>Die Namen sind nicht vorgeschrieben, wichtig sind nur die Sternchen vor den Variablennamen. Die Benennung <code>*args</code> und <code>**kwargs</code> ist jedoch üblich.</p>
+</div>
+
+<p><strong>Beispiel zu positional arguments:</strong></p>
+<pre><code class="language-python">def summiere(*zahlen):
+    return sum(zahlen)
+
+ergebnis = summiere(1, 2, 3, 4, 5)  # 15
+</code></pre>
+<p><strong>Beispiel zu keyword arguments:</strong></p>
+<pre><code class="language-python">def details(**info):
+    for schluessel, wert in info.items():
+        print(f"{schluessel}: {wert}")
+        
+details(name="Max", alter=25, beruf="Entwickler")
+</code></pre>
+<p>Ausgabe:</p>
+<pre><code>name: Max
+alter: 25
+beruf: Entwickler
+</code></pre>
+<h2 id="2----lambda-funktion-anonyme-funktion"><a class="header" href="#2----lambda-funktion-anonyme-funktion">2    Lambda-Funktion (anonyme Funktion)</a></h2>
+<pre><code class="language-python">quadrieren = lambda x: x ** 2
+ergebnis = quadrieren(4)  # 16
+</code></pre>
+<h2 id="3----funktion-mit-mehreren-rückgabewerten"><a class="header" href="#3----funktion-mit-mehreren-rückgabewerten">3    Funktion mit mehreren Rückgabewerten</a></h2>
+<pre><code class="language-python">def rechne(a, b):
+    return a + b, a * b
+
+summe, produkt = rechne(3, 4)
+print(summe, produkt)  # 7 12
+</code></pre>
+<h2 id="4----rekursive-funktion"><a class="header" href="#4----rekursive-funktion">4    Rekursive Funktion</a></h2>
+<pre><code class="language-python">def fakultaet(n):
+    if n == 0:
+        return 1
+    return n * fakultaet(n - 1)
+
+ergebnis = fakultaet(5)  # 120
+</code></pre>
+<h2 id="5----scope-gültigkeitsbereich-von-variablen"><a class="header" href="#5----scope-gültigkeitsbereich-von-variablen">5    Scope (Gültigkeitsbereich) von Variablen</a></h2>
+<pre><code class="language-python">x = 10  # Globale Variable
+
+def meine_funktion():
+    x = 5  # Lokale Variable
+    print(x)
+
+meine_funktion()  # 5
+print(x)         # 10
+</code></pre>
+<h2 id="6----benannte-parameter-keyword-parameter"><a class="header" href="#6----benannte-parameter-keyword-parameter">6    Benannte Parameter (keyword parameter)</a></h2>
+<h3 id="61----standardverhalten"><a class="header" href="#61----standardverhalten">6.1    Standardverhalten</a></h3>
+<pre><code class="language-python">def my_function(a):
+    return a * 2
+
+res1 = my_function(2)    # Positionsargument
+res2 = my_function(a=2)  # Keyword-Argument
+</code></pre>
+<p>Beide Varianten (<code>my_function(2)</code> und <code>my_function(a=2)</code>) funktionieren.</p>
+<h3 id="62-------positional-only-parameter-nur-positionsargumente"><a class="header" href="#62-------positional-only-parameter-nur-positionsargumente">6.2    <code>/</code> - Positional-Only Parameter (nur Positionsargumente)</a></h3>
+<pre><code class="language-python">def my_function(a, /):
+    return a * 2
+
+res1 = my_function(2)    # OK: Positionsargument
+res2 = my_function(a=2)  # Fehler: Darf nicht als Keyword-Argument übergeben werden
+</code></pre>
+<p>Der Schrägstrich (<code>/</code>) bedeutet, dass alle Parameter davor NUR als Positionsargumente übergeben werden dürfen.</p>
+<div class="mdbook-callouts mdbook-callouts-warum positional-only?">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  warum positional-only?
+</p>
+
+<ul>
+<li>Wird oft bei eingebauten Funktionen wie <code>len()</code> genutzt (<code>len(obj)</code> statt <code>len(obj=obj))</code></li>
+<li>Macht API-Design klarer</li>
+<li>Verhindert, dass Parameter versehentlich als Schlüsselwort verwendet werden</li>
+</ul>
+</div>
+
+<h3 id="63------keyword-only-parameter-nur-benannte-argumente-erlaubt"><a class="header" href="#63------keyword-only-parameter-nur-benannte-argumente-erlaubt">6.3    <code>*</code> – Keyword-Only Parameter (nur benannte Argumente erlaubt)</a></h3>
+<pre><code class="language-python">def my_function(*, a):
+    return a * 2
+
+res1 = my_function(2)    # Fehler: Darf nicht als Positionsargument übergeben werden
+res2 = my_function(a=2)  # OK: Muss als benanntes Argument übergeben werden
+</code></pre>
+<p>Das Sternchen (<code>*</code>) bedeutet, dass alle Parameter danach NUR als Keyword-Argument übergeben werden dürfen.</p>
+<div class="mdbook-callouts mdbook-callouts-warum keyword-only?">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  warum keyword-only?
+</p>
+
+<p>Erhöht die Lesbarkeit von Funktionen
+Verhindert Verwechslungen bei der Reihenfolge der Argumente</p>
+</div>
+
+<h3 id="64----kombination-aus--und-"><a class="header" href="#64----kombination-aus--und-">6.4    Kombination aus <code>/</code> und <code>*</code></a></h3>
+<pre><code class="language-python">def my_function(a, /, b, *, c):
+    return a + b + c
+
+res1 = my_function(1, 2, c=3)   # OK
+res2 = my_function(1, b=2, c=3) # OK
+res3 = my_function(a=1, 2, c=3)  # Fehler: a darf nicht als Keyword-Argument übergeben werden
+res4 = my_function(1, 2, 3)      # Fehler: c muss als benanntes Argument übergeben werden
+</code></pre>
+<p>Erklärung:</p>
+<ul>
+<li><code>a</code> ist positional-only, weil es vor <code>/</code> steht. $\Rightarrow$ Darf nicht als <code>a=1</code> übergeben werden.
+•	<code>b</code> kann positional oder keyword sein, weil es zwischen <code>/</code> und <code>*</code> steht.
+•	<code>c</code> ist keyword-only, weil es nach <code>*</code> steht.</li>
+</ul>
+<h3 id="65----zusammenfassung--und-"><a class="header" href="#65----zusammenfassung--und-">6.5    Zusammenfassung <code>/</code> und <code>*</code></a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Schreibweise</strong></th><th><strong>Bedeutung</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><code>def f(a)</code></td><td>Standard: Positions- und Keyword-Argumente erlaubt</td></tr>
+<tr><td><code>def f(a, /)</code></td><td><code>a</code> ist positional-only (kein <code>a=</code> erlaubt)</td></tr>
+<tr><td><code>def f(*, a)</code></td><td><code>a</code> ist keyword-only (kein <code>f(2)</code>, nur <code>f(a=2)</code>)</td></tr>
+<tr><td><code>def f(a, /, b, *, c)</code></td><td><code>a</code> $\rightarrow$ nur positional, <code>b</code> $\rightarrow$ beides erlaubt, <code>c</code> $\rightarrow$ nur keyword</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mdbook-callouts mdbook-callouts-best practice:">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  best practice:
+</p>
+
+<ul>
+<li><code>/</code> für klare API-Schnittstellen</li>
+<li><code>*</code> für mehr Lesbarkeit und weniger Fehler</li>
+</ul>
+</div>
+
+<h2 id="7----optionale-listen-mit-standardwert"><a class="header" href="#7----optionale-listen-mit-standardwert">7    Optionale Listen mit Standardwert</a></h2>
+<div class="mdbook-callouts mdbook-callouts-danger">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  danger
+</p>
+
+<p>Verwendet man optionale Listen als Funktionsparameter und gibt diesen einen Standardwert, ist zu beachten, dass dieser bei der Definition der Funktion festgelegt wird, NICHT beim Aufruf der Funktion. <strong>Dies führt häufig zu einem nicht gewolltem Verhalten.</strong></p>
+</div>
+
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">def append(n, l=[]):
+    l.append(n)
+    return l
+
+print(append(0))  # [0]
+print(append(0))  # [0, 0] != [0]
+</code></pre>
+<p>Daher ist es bei den meisten Anwendungsfällen besser, die Liste innerhalb der Funktion zu initialisieren:</p>
+<pre><code class="language-python">def append(n, l=None):
+    if l is None:
+        l = []
+    l.append(n)
+    return l
+
+print(append(0))  # [0]
+print(append(0))  # [0]
+</code></pre>
+<h2 id="8----partial"><a class="header" href="#8----partial">8    <code>partial()</code></a></h2>
+<p>Mit <code>partial()</code> wird eine neue Funktion erstellt, bei der einige Argumente einer bestehenden Funktion bereits vorbelegt sind. Dies ist praktisch, wenn man eine bestimmte Funktion wiederholt aufruft, wobei einige Parameter immer gleich sind.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-python">from functools import partial
+
+neue_funktion = partial(funktion, arg1, arg2, ...)
+</code></pre>
+<p><strong>Beispiel:</strong></p>
+<pre><code class="language-python">from functools import partial
+
+def multiply(x, y):
+    return x * y
+
+# Erstelle eine neue Funktion, die den gegebenen Wert immer mit 2 multipliziert
+double_value = partial(multiply, 2)
+
+print(double_value(5))  # Ausgabe: 10
+print(double_value(10)) # Ausgabe: 20
+</code></pre>
+<p><strong>Alternative mit <code>lambda</code>:</strong></p>
+<pre><code class="language-python"># [...]
+double_value = lambda y: multiply(2, y)
+# [...]
+</code></pre>
+<h2 id="9----rückgabe-mehrerer-werte-mit-yield"><a class="header" href="#9----rückgabe-mehrerer-werte-mit-yield">9    Rückgabe mehrerer Werte mit <code>yield</code></a></h2>
+<p>Neben der Möglichkeit, mehrere Werte über eine Liste oder ein Tupel zurückzugeben, gibt es das Schlüsselwort <code>yield</code>:</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>def my_func():
+  yield 'Hello'
+  yield 'World'
+  yield 123
+  
+return_values = my_func()
+
+for val in return_values:
+  print(val)
+<span class="boring">}</span></code></pre>
+<p>Ausgabe:</p>
+<pre><code>Hello
+World
+123
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../a-grundlagen/kontrollstrukturen.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
-                            <a rel="next prefetch" href="a-grundlagen/links.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../a-grundlagen/eingabe-ausgabe.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -460,8 +654,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../a-grundlagen/kontrollstrukturen.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
-                    <a rel="next prefetch" href="a-grundlagen/links.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../a-grundlagen/eingabe-ausgabe.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -481,13 +678,13 @@
         </script>
 
 
-        <script src="elasticlunr-ef4e11c1.min.js"></script>
-        <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
 
-        <script src="clipboard-1626706a.min.js"></script>
-        <script src="highlight-abc7f01d.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
 

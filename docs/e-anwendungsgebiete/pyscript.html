@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Einleitung - Python-Referenz</title>
+        <title>PyScript - Python im Browser - Python-Referenz</title>
 
 
         <!-- Custom HTML head -->
@@ -12,20 +12,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon-de23e50b.svg">
-        <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
-        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-80432388.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-80432388.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -34,13 +34,13 @@
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-1ed3f166.js";
+            window.path_to_searchindex_js = "../searchindex-1ed3f166.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-f6524bb4.js"></script>
+        <script src="../toc-f6524bb4.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -107,7 +107,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -142,7 +142,7 @@
                     <h1 class="menu-title">Python-Referenz</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
                         <a href="https://github.com/cgroening/Python-Referenz" title="Git repository" aria-label="Git repository">
@@ -416,41 +416,662 @@
   --color-pink: #d53984;
 }
 </style>
-<h1 id="willkommen-zur-python-referenz"><a class="header" href="#willkommen-zur-python-referenz">Willkommen zur Python-Referenz</a></h1>
-<blockquote>
-<p><strong>Eine umfassende, deutschsprachige Referenz für Python-Entwickler aller Erfahrungsstufen</strong></p>
-</blockquote>
-<h2 id="über-diese-referenz"><a class="header" href="#über-diese-referenz">Über diese Referenz</a></h2>
-<p>Diese Referenz ist entstanden aus dem Bedürfnis, <strong>praktisches Python-Wissen</strong> strukturiert und auf Deutsch verfügbar zu machen. Sie ist weder ein klassisches Tutorial noch eine reine API-Dokumentation, sondern etwas dazwischen: <strong>eine Sammlung von Konzepten, Best Practices und Beispielen</strong>, die helfen soll, sich Wissen schnell anzueignen bzw. es wieder aufzufrischen.</p>
-<h2 id="für-wen-ist-diese-referenz"><a class="header" href="#für-wen-ist-diese-referenz">Für wen ist diese Referenz?</a></h2>
-<p><strong>🎓 Anfänger:</strong></p>
-<p>Für Programmierer, die bereits Erfahrungen in einer anderen Sprache haben und mit dem Grundkonzepten der Programmierung vertraut sind, bietet <em>Teil I (Grundlagen)</em> einen schnellen, strukturierten Einstieg in Python-Syntax, Datentypen und Kontrollstrukturen.</p>
-<p><strong>💼 Erfahrene Entwickler:</strong></p>
-<p>Entwickler, die bereits mit Python programmieren, finden in den <em>Teilen  II bis IV</em> fortgeschrittene Themen wie OOP-Design-Patterns, Performance-Optimierung, Testing und moderne Entwicklungs-Workflows.</p>
-<p><em>Teil III-V</em> zeigen, wie man sauberen, getesteten und performanten Code für produktionsreife Anwendungen schreibt und modernen Tools wie Ruff, pytest, Poetry und PyO3 nutzt.</p>
-<p>Einen Schnellstart in Data Science bietet <em>Teil VI</em>, welcher NumPy, Pandas und Matplotlib/Seaborn behandelt.</p>
-<h2 id="philosophie-dieser-referenz"><a class="header" href="#philosophie-dieser-referenz">Philosophie dieser Referenz</a></h2>
-<p><strong>✅ Lernressource und Nachschlagewerk:</strong></p>
-<p>Diese Referenz ist gleichermaßen geeignet, sie sequentiell zum Lernen zu verwenden und sie über die durchdachte Struktur oder die Suchfunktion (Tastenkürzel: <code>s</code>) als Nachschlagewerk zu nutzen.</p>
-<p><strong>Praktisch, nicht theoretisch:</strong></p>
-<p>Jedes Konzept wird mit <strong>funktionierenden Code-Beispielen</strong> erklärt. Kein unnötiger Ballast – nur das, was man wirklich braucht.</p>
-<p><strong>✅ Modern und aktuell:</strong></p>
-<p>Diese Referenz deckt <strong>Python 3.11+</strong> ab und nutzt moderne Tools und Best Practices (Type Hints, Ruff statt Flake8, Poetry statt setup.py, pytest statt unittest).</p>
-<p><strong>✅ Deutsch mit englischem Code:</strong></p>
-<p><strong>Erklärungen auf Deutsch</strong> (weil komplexe Konzepte in der Muttersprache einfacher zu verstehen sind), aber <strong>Code mit englischen Bezeichnern</strong> (wie in der professionellen Praxis üblich).</p>
-<p><strong>✅ Best Practices, statt “es funktioniert”:</strong></p>
-<p>An vielen Stellen wird nicht nur erklärt, <strong>wie</strong> etwas funktioniert, sondern auch <strong>warum</strong> und <strong>wann</strong> man es einsetzen sollte (und wann besser nicht).</p>
-<h2 id="was-diese-referenz-nicht-ist"><a class="header" href="#was-diese-referenz-nicht-ist">Was diese Referenz NICHT ist</a></h2>
-<p>❌ <strong>Kein komplettes Tutorial</strong>: Diese Referenz ersetzt keine praktische Übung. Programmieren lernst du nur durch Programmieren!</p>
-<p>❌ <strong>Keine API-Dokumentation</strong>: Für detaillierte API-Referenzen nutze die <a href="https://docs.python.org/">offizielle Python-Dokumentation</a>.</p>
-<p>❌ <strong>Nicht für absolute Programmier-Anfänger</strong>: Grundlegende Programmierkenntnisse (Variablen, Schleifen, Funktionen) werden vorausgesetzt.</p>
+<h1 id="pyscript--python-im-browser"><a class="header" href="#pyscript--python-im-browser">PyScript / Python im Browser</a></h1>
+<p>PyScript ermöglicht es, Python-Code direkt im Browser auszuführen – ohne Server-Backend. Es basiert auf Pyodide (CPython kompiliert zu WebAssembly).</p>
+<h2 id="1----was-ist-pyscript"><a class="header" href="#1----was-ist-pyscript">1    Was ist PyScript?</a></h2>
+<p>PyScript ist ein Framework von Anaconda, das Python im Browser lauffähig macht:</p>
+<ul>
+<li><strong>Kein Server nötig</strong>: Python läuft komplett client-seitig</li>
+<li><strong>WebAssembly-basiert</strong>: Nutzt Pyodide (CPython → WASM)</li>
+<li><strong>HTML-Integration</strong>: Python-Code direkt in HTML einbetten</li>
+<li><strong>Pakete verfügbar</strong>: NumPy, Pandas, Matplotlib, Scikit-learn, etc.</li>
+</ul>
+<p><strong>Offizielle Website:</strong> https://pyscript.net</p>
+<h2 id="2----erste-schritte"><a class="header" href="#2----erste-schritte">2    Erste Schritte</a></h2>
+<h3 id="21----minimales-beispiel"><a class="header" href="#21----minimales-beispiel">2.1    Minimales Beispiel</a></h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;PyScript Demo&lt;/title&gt;
+
+    &lt;!-- PyScript einbinden --&gt;
+    &lt;link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" /&gt;
+    &lt;script defer src="https://pyscript.net/latest/pyscript.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello from PyScript!&lt;/h1&gt;
+
+    &lt;!-- Python-Code ausführen --&gt;
+    &lt;py-script&gt;
+        print("Hello, World!")
+        print(f"2 + 2 = {2 + 2}")
+    &lt;/py-script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="22----output-anzeigen"><a class="header" href="#22----output-anzeigen">2.2    Output anzeigen</a></h3>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;h1&gt;Calculator&lt;/h1&gt;
+
+    &lt;div id="output"&gt;&lt;/div&gt;
+
+    &lt;py-script&gt;
+        from pyscript import display
+
+        result = 10 * 5
+        display(f"10 × 5 = {result}", target="output")
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="3----python-pakete-verwenden"><a class="header" href="#3----python-pakete-verwenden">3    Python-Pakete verwenden</a></h2>
+<h3 id="31----pakete-deklarieren"><a class="header" href="#31----pakete-deklarieren">3.1    Pakete deklarieren</a></h3>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;script defer src="https://pyscript.net/latest/pyscript.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Pakete konfigurieren --&gt;
+    &lt;py-config&gt;
+        packages = ["numpy", "pandas", "matplotlib"]
+    &lt;/py-config&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;py-script&gt;
+        import numpy as np
+        import pandas as pd
+
+        # NumPy Array
+        arr = np.array([1, 2, 3, 4, 5])
+        print(f"Mean: {np.mean(arr)}")
+
+        # Pandas DataFrame
+        df = pd.DataFrame({
+            'A': [1, 2, 3],
+            'B': [4, 5, 6]
+        })
+        display(df)
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="32----verfügbare-pakete"><a class="header" href="#32----verfügbare-pakete">3.2    Verfügbare Pakete</a></h3>
+<p>PyScript/Pyodide unterstützt viele populäre Pakete:</p>
+<p><strong>Wissenschaftlich:</strong></p>
+<ul>
+<li>NumPy, SciPy, Pandas</li>
+<li>Matplotlib, Plotly</li>
+<li>Scikit-learn</li>
+<li>SymPy</li>
+</ul>
+<p><strong>Web/Utility:</strong></p>
+<ul>
+<li>Requests (pyodide-http)</li>
+<li>BeautifulSoup</li>
+<li>Pillow</li>
+<li>PyYAML</li>
+</ul>
+<p><strong>Vollständige Liste:</strong> https://pyodide.org/en/stable/usage/packages-in-pyodide.html</p>
+<h2 id="4----dom-manipulation"><a class="header" href="#4----dom-manipulation">4    DOM-Manipulation</a></h2>
+<h3 id="41----javascript-interoperabilität"><a class="header" href="#41----javascript-interoperabilität">4.1    JavaScript-Interoperabilität</a></h3>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;button id="myButton"&gt;Click Me!&lt;/button&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+
+    &lt;py-script&gt;
+        from pyscript import document
+
+        def button_click(event):
+            result_div = document.querySelector("#result")
+            result_div.innerText = "Button was clicked!"
+
+        # Event Listener
+        button = document.querySelector("#myButton")
+        button.addEventListener("click", button_click)
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="42----html-elemente-erstellen"><a class="header" href="#42----html-elemente-erstellen">4.2    HTML-Elemente erstellen</a></h3>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;div id="container"&gt;&lt;/div&gt;
+
+    &lt;py-script&gt;
+        from pyscript import document
+
+        container = document.querySelector("#container")
+
+        # Neues Element erstellen
+        new_div = document.createElement("div")
+        new_div.innerText = "Created with Python!"
+        new_div.style.color = "blue"
+
+        container.appendChild(new_div)
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="5----interaktive-anwendungen"><a class="header" href="#5----interaktive-anwendungen">5    Interaktive Anwendungen</a></h2>
+<h3 id="51----eingabefelder-verarbeiten"><a class="header" href="#51----eingabefelder-verarbeiten">5.1    Eingabefelder verarbeiten</a></h3>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;input type="text" id="nameInput" placeholder="Enter your name"&gt;
+    &lt;button id="greetBtn"&gt;Greet&lt;/button&gt;
+    &lt;div id="greeting"&gt;&lt;/div&gt;
+
+    &lt;py-script&gt;
+        from pyscript import document
+
+        def greet(event):
+            name_input = document.querySelector("#nameInput")
+            greeting_div = document.querySelector("#greeting")
+
+            name = name_input.value
+            greeting_div.innerText = f"Hello, {name}!"
+
+        btn = document.querySelector("#greetBtn")
+        btn.addEventListener("click", greet)
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="52----formular-mit-validierung"><a class="header" href="#52----formular-mit-validierung">5.2    Formular mit Validierung</a></h3>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;form id="myForm"&gt;
+        &lt;input type="number" id="num1" placeholder="Number 1"&gt;
+        &lt;input type="number" id="num2" placeholder="Number 2"&gt;
+        &lt;button type="submit"&gt;Calculate&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+
+    &lt;py-script&gt;
+        from pyscript import document
+
+        def calculate(event):
+            event.preventDefault()
+
+            num1 = float(document.querySelector("#num1").value or 0)
+            num2 = float(document.querySelector("#num2").value or 0)
+
+            result = num1 + num2
+
+            result_div = document.querySelector("#result")
+            result_div.innerText = f"{num1} + {num2} = {result}"
+
+        form = document.querySelector("#myForm")
+        form.addEventListener("submit", calculate)
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="6----datenvisualisierung"><a class="header" href="#6----datenvisualisierung">6    Datenvisualisierung</a></h2>
+<h3 id="61----matplotlib-im-browser"><a class="header" href="#61----matplotlib-im-browser">6.1    Matplotlib im Browser</a></h3>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;script defer src="https://pyscript.net/latest/pyscript.js"&gt;&lt;/script&gt;
+    &lt;py-config&gt;
+        packages = ["matplotlib", "numpy"]
+    &lt;/py-config&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;h1&gt;Matplotlib Chart&lt;/h1&gt;
+    &lt;div id="plot"&gt;&lt;/div&gt;
+
+    &lt;py-script&gt;
+        import matplotlib.pyplot as plt
+        import numpy as np
+        from pyscript import display
+
+        # Daten erstellen
+        x = np.linspace(0, 2 * np.pi, 100)
+        y = np.sin(x)
+
+        # Plot erstellen
+        fig, ax = plt.subplots()
+        ax.plot(x, y)
+        ax.set_title("Sine Wave")
+        ax.set_xlabel("x")
+        ax.set_ylabel("sin(x)")
+
+        # Im Browser anzeigen
+        display(fig, target="plot")
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="62----interaktive-plots"><a class="header" href="#62----interaktive-plots">6.2    Interaktive Plots</a></h3>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;h1&gt;Interactive Plot&lt;/h1&gt;
+    &lt;label&gt;Frequency: &lt;input type="range" id="freq" min="1" max="10" value="1"&gt;&lt;/label&gt;
+    &lt;div id="plot"&gt;&lt;/div&gt;
+
+    &lt;py-script&gt;
+        import matplotlib.pyplot as plt
+        import numpy as np
+        from pyscript import document, display
+
+        def update_plot(event):
+            freq = int(document.querySelector("#freq").value)
+
+            x = np.linspace(0, 2 * np.pi, 100)
+            y = np.sin(freq * x)
+
+            plt.clf()
+            plt.plot(x, y)
+            plt.title(f"sin({freq}x)")
+
+            display(plt.gcf(), target="plot", append=False)
+
+        # Initial plot
+        update_plot(None)
+
+        # Event Listener
+        slider = document.querySelector("#freq")
+        slider.addEventListener("input", update_plot)
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="7----dateien-und-storage"><a class="header" href="#7----dateien-und-storage">7    Dateien und Storage</a></h2>
+<h3 id="71----dateien-hochladen"><a class="header" href="#71----dateien-hochladen">7.1    Dateien hochladen</a></h3>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;input type="file" id="fileInput" accept=".csv"&gt;
+    &lt;div id="preview"&gt;&lt;/div&gt;
+
+    &lt;py-script&gt;
+        from pyscript import document, display
+        import pandas as pd
+        from io import StringIO
+
+        async def handle_file(event):
+            file = event.target.files.item(0)
+
+            # Datei lesen
+            text = await file.text()
+
+            # Als Pandas DataFrame
+            df = pd.read_csv(StringIO(text))
+
+            display(df, target="preview")
+
+        file_input = document.querySelector("#fileInput")
+        file_input.addEventListener("change", handle_file)
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="72----localstorage-verwenden"><a class="header" href="#72----localstorage-verwenden">7.2    localStorage verwenden</a></h3>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;input type="text" id="dataInput" placeholder="Enter data"&gt;
+    &lt;button id="saveBtn"&gt;Save&lt;/button&gt;
+    &lt;button id="loadBtn"&gt;Load&lt;/button&gt;
+    &lt;div id="output"&gt;&lt;/div&gt;
+
+    &lt;py-script&gt;
+        from pyscript import document, window
+
+        def save_data(event):
+            data = document.querySelector("#dataInput").value
+            window.localStorage.setItem("myData", data)
+            document.querySelector("#output").innerText = "Saved!"
+
+        def load_data(event):
+            data = window.localStorage.getItem("myData")
+            document.querySelector("#output").innerText = f"Loaded: {data}"
+
+        document.querySelector("#saveBtn").addEventListener("click", save_data)
+        document.querySelector("#loadBtn").addEventListener("click", load_data)
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="8----http-requests"><a class="header" href="#8----http-requests">8    HTTP-Requests</a></h2>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;button id="fetchBtn"&gt;Fetch Data&lt;/button&gt;
+    &lt;div id="data"&gt;&lt;/div&gt;
+
+    &lt;py-script&gt;
+        from pyscript import document
+        import json
+        from pyodide.http import pyfetch
+
+        async def fetch_data(event):
+            response = await pyfetch("https://api.github.com/users/python")
+            data = await response.json()
+
+            output = f"Name: {data['name']}\n"
+            output += f"Followers: {data['followers']}"
+
+            document.querySelector("#data").innerText = output
+
+        btn = document.querySelector("#fetchBtn")
+        btn.addEventListener("click", fetch_data)
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="9----externe-python-dateien"><a class="header" href="#9----externe-python-dateien">9    Externe Python-Dateien</a></h2>
+<h3 id="91----dateien-importieren"><a class="header" href="#91----dateien-importieren">9.1    Dateien importieren</a></h3>
+<pre><code class="language-html">&lt;!-- index.html --&gt;
+&lt;head&gt;
+    &lt;script defer src="https://pyscript.net/latest/pyscript.js"&gt;&lt;/script&gt;
+    &lt;py-config&gt;
+        [fetch](fetch.md)
+        files = ["utils.py"]
+    &lt;/py-config&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;py-script&gt;
+        from utils import greet, calculate
+
+        print(greet("Alice"))
+        print(calculate(10, 5))
+    &lt;/py-script&gt;
+&lt;/body&gt;
+</code></pre>
+<pre><code class="language-python"># utils.py
+def greet(name):
+    return f"Hello, {name}!"
+
+def calculate(a, b):
+    return a + b
+</code></pre>
+<h2 id="10----vor--und-nachteile"><a class="header" href="#10----vor--und-nachteile">10    Vor- und Nachteile</a></h2>
+<h3 id="101----vorteile"><a class="header" href="#101----vorteile">10.1    Vorteile</a></h3>
+<p><strong>✅ Kein Server nötig</strong></p>
+<ul>
+<li>Statisches Hosting (GitHub Pages, Netlify)</li>
+<li>Keine Backend-Infrastruktur</li>
+<li>Kostenlos hostbar</li>
+</ul>
+<p><strong>✅ Python-Ökosystem</strong></p>
+<ul>
+<li>NumPy, Pandas, Matplotlib</li>
+<li>Wissenschaftliche Bibliotheken</li>
+<li>Bekannte Syntax</li>
+</ul>
+<p><strong>✅ Offline-fähig</strong></p>
+<ul>
+<li>Nach initialem Laden</li>
+<li>Progressive Web Apps möglich</li>
+</ul>
+<p><strong>✅ Sicherheit</strong></p>
+<ul>
+<li>Browser-Sandbox</li>
+<li>Kein direkter Dateisystem-Zugriff</li>
+</ul>
+<h3 id="102----nachteile"><a class="header" href="#102----nachteile">10.2    Nachteile</a></h3>
+<p><strong>❌ Ladezeit</strong></p>
+<ul>
+<li>Initial: 5-10 Sekunden (Pyodide + Pakete)</li>
+<li>~6 MB Download</li>
+<li>Langsam auf mobilen Geräten</li>
+</ul>
+<p><strong>❌ Performance</strong></p>
+<ul>
+<li>Langsamer als natives JavaScript</li>
+<li>WebAssembly-Overhead</li>
+<li>Nicht für alle Use Cases geeignet</li>
+</ul>
+<p><strong>❌ Eingeschränkte Pakete</strong></p>
+<ul>
+<li>Nicht alle Python-Pakete verfügbar</li>
+<li>C-Extensions müssen kompiliert sein</li>
+<li>Keine native System-Calls</li>
+</ul>
+<p><strong>❌ Browser-Support</strong></p>
+<ul>
+<li>Moderne Browser nötig</li>
+<li>WebAssembly erforderlich</li>
+<li>IE nicht unterstützt</li>
+</ul>
+<h2 id="11----use-cases"><a class="header" href="#11----use-cases">11    Use Cases</a></h2>
+<p><strong>✅ Gut geeignet für:</strong></p>
+<ul>
+<li>Datenvisualisierung</li>
+<li>Wissenschaftliche Demos</li>
+<li>Interaktive Tutorials</li>
+<li>Prototyping</li>
+<li>Bildungs-Tools</li>
+<li>Data Science Dashboards</li>
+<li>Statische Webseiten mit Python-Logik</li>
+</ul>
+<p><strong>❌ Nicht geeignet für:</strong></p>
+<ul>
+<li>Performance-kritische Apps</li>
+<li>Große Enterprise-Anwendungen</li>
+<li>Real-time Anwendungen</li>
+<li>Mobile-First Apps</li>
+<li>SEO-kritische Seiten (initial render)</li>
+</ul>
+<h2 id="12----alternativen"><a class="header" href="#12----alternativen">12    Alternativen</a></h2>
+<h3 id="121----pyodide-direkt"><a class="header" href="#121----pyodide-direkt">12.1    Pyodide (direkt)</a></h3>
+<p>PyScript basiert auf Pyodide. Kann auch direkt verwendet werden:</p>
+<pre><code class="language-html">&lt;script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript"&gt;
+    async function main() {
+        let pyodide = await loadPyodide();
+
+        await pyodide.loadPackage("numpy");
+
+        pyodide.runPython(`
+            import numpy as np
+            print(np.array([1, 2, 3]))
+        `);
+    }
+    main();
+&lt;/script&gt;
+</code></pre>
+<p><strong>Vorteile:</strong></p>
+<ul>
+<li>Mehr Kontrolle</li>
+<li>Kleinerer Overhead</li>
+<li>Direkter JavaScript-Zugriff</li>
+</ul>
+<p><strong>Nachteile:</strong></p>
+<ul>
+<li>Mehr Boilerplate</li>
+<li>Weniger Python-freundlich</li>
+</ul>
+<h3 id="122----brython"><a class="header" href="#122----brython">12.2    Brython</a></h3>
+<p>Browser-Python-Implementierung (kein WebAssembly):</p>
+<pre><code class="language-html">&lt;script src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js"&gt;&lt;/script&gt;
+
+&lt;body onload="brython()"&gt;
+    &lt;script type="text/python"&gt;
+        from browser import document, alert
+
+        def hello(event):
+            alert("Hello from Brython!")
+
+        document["myButton"].bind("click", hello)
+    &lt;/script&gt;
+
+    &lt;button id="myButton"&gt;Click&lt;/button&gt;
+&lt;/body&gt;
+</code></pre>
+<p><strong>Vorteile:</strong></p>
+<ul>
+<li>Schnellerer Start</li>
+<li>Leichtgewichtiger</li>
+</ul>
+<p><strong>Nachteile:</strong></p>
+<ul>
+<li>Weniger Pakete</li>
+<li>Nicht vollständig Python-kompatibel</li>
+<li>Langsamer bei Berechnungen</li>
+</ul>
+<h3 id="123----skulpt"><a class="header" href="#123----skulpt">12.3    Skulpt</a></h3>
+<p>Weitere Browser-Python-Alternative:</p>
+<pre><code class="language-html">&lt;script src="http://skulpt.org/js/skulpt.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://skulpt.org/js/skulpt-stdlib.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+    function runit() {
+        Sk.configure({output: console.log});
+        Sk.importMainWithBody("&lt;stdin&gt;", false, `
+print("Hello from Skulpt!")
+        `);
+    }
+&lt;/script&gt;
+</code></pre>
+<h2 id="13----vergleich"><a class="header" href="#13----vergleich">13    Vergleich</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Framework</th><th>Basis</th><th>Pakete</th><th>Performance</th><th>Ladezeit</th><th>Python-Version</th></tr>
+</thead>
+<tbody>
+<tr><td>PyScript</td><td>Pyodide/WASM</td><td>✅✅ Viele</td><td>⚠️ Mittel</td><td>⏱️ Lang</td><td>3.11</td></tr>
+<tr><td>Pyodide</td><td>WASM</td><td>✅✅ Viele</td><td>⚠️ Mittel</td><td>⏱️ Lang</td><td>3.11</td></tr>
+<tr><td>Brython</td><td>JS</td><td>⚠️ Wenige</td><td>✅ Schneller</td><td>✅ Kurz</td><td>3.10</td></tr>
+<tr><td>Skulpt</td><td>JS</td><td>❌ Minimal</td><td>✅ Schneller</td><td>✅ Kurz</td><td>2.x</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="14----praktisches-beispiel-todo-app"><a class="header" href="#14----praktisches-beispiel-todo-app">14    Praktisches Beispiel: Todo-App</a></h2>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;script defer src="https://pyscript.net/latest/pyscript.js"&gt;&lt;/script&gt;
+    &lt;style&gt;
+        .todo-item { padding: 10px; margin: 5px; border: 1px solid #ccc; }
+        .done { text-decoration: line-through; opacity: 0.5; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;PyScript Todo App&lt;/h1&gt;
+
+    &lt;input type="text" id="todoInput" placeholder="New todo..."&gt;
+    &lt;button id="addBtn"&gt;Add&lt;/button&gt;
+
+    &lt;div id="todoList"&gt;&lt;/div&gt;
+
+    &lt;py-script&gt;
+        from pyscript import document
+
+        todos = []
+
+        def render_todos():
+            todo_list = document.querySelector("#todoList")
+            todo_list.innerHTML = ""
+
+            for i, todo in enumerate(todos):
+                item = document.createElement("div")
+                item.className = "todo-item"
+                if todo['done']:
+                    item.classList.add("done")
+
+                item.innerText = todo['text']
+                item.addEventListener("click", lambda e, idx=i: toggle_todo(idx))
+
+                todo_list.appendChild(item)
+
+        def add_todo(event):
+            input_elem = document.querySelector("#todoInput")
+            text = input_elem.value.strip()
+
+            if text:
+                todos.append({'text': text, 'done': False})
+                input_elem.value = ""
+                render_todos()
+
+        def toggle_todo(index):
+            todos[index]['done'] = not todos[index]['done']
+            render_todos()
+
+        # Event Listeners
+        add_btn = document.querySelector("#addBtn")
+        add_btn.addEventListener("click", add_todo)
+
+        input_elem = document.querySelector("#todoInput")
+        input_elem.addEventListener("keypress",
+            lambda e: add_todo(e) if e.key == "Enter" else None)
+    &lt;/py-script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="15----deployment"><a class="header" href="#15----deployment">15    Deployment</a></h2>
+<h3 id="151----github-pages"><a class="header" href="#151----github-pages">15.1    GitHub Pages</a></h3>
+<pre><code class="language-bash"># 1. Erstelle Repository
+git init
+git add .
+git commit -m "Initial commit"
+
+# 2. Push zu GitHub
+git remote add origin https://github.com/username/pyscript-app.git
+git push -u origin main
+
+# 3. GitHub Pages aktivieren (Settings → Pages)
+# Source: main branch
+
+# 4. App verfügbar unter:
+# https://username.github.io/pyscript-app/
+</code></pre>
+<h3 id="152----netlify"><a class="header" href="#152----netlify">15.2    Netlify</a></h3>
+<pre><code class="language-bash"># 1. netlify.toml erstellen
+[build]
+  publish = "."
+
+# 2. Deploy
+netlify deploy --prod
+</code></pre>
+<h2 id="16----best-practices"><a class="header" href="#16----best-practices">16    Best Practices</a></h2>
+<p><strong>✅ DO:</strong></p>
+<ul>
+<li>Loading-Indicator während Pyodide lädt</li>
+<li>Pakete nur wenn nötig laden</li>
+<li>Code in externe .py-Dateien auslagern</li>
+<li>Caching nutzen (Service Worker)</li>
+<li>Progressive Enhancement (JS Fallback)</li>
+</ul>
+<p><strong>❌ DON’T:</strong></p>
+<ul>
+<li>Zu viele Pakete auf einmal laden</li>
+<li>Große Berechnungen synchron</li>
+<li>PyScript für SEO-kritische Seiten</li>
+<li>Sensitive Daten client-seitig verarbeiten</li>
+<li>Alte Browser erwarten</li>
+</ul>
+<h2 id="17----zukunft-von-pyscript"><a class="header" href="#17----zukunft-von-pyscript">17    Zukunft von PyScript</a></h2>
+<p><strong>Entwicklungen:</strong></p>
+<ul>
+<li>Performance-Verbesserungen</li>
+<li>Kleinere Bundle-Größen</li>
+<li>Mehr Pakete</li>
+<li>Bessere Tooling</li>
+<li>Framework-Integration (React, Vue)</li>
+</ul>
+<p><strong>Versionen:</strong></p>
+<ul>
+<li>2023: PyScript 1.0 (stabil)</li>
+<li>2024: Verbesserte Performance, kleinere Bundles</li>
+<li>Zukunft: Native WebAssembly-Integration</li>
+</ul>
+<h2 id="18----zusammenfassung"><a class="header" href="#18----zusammenfassung">18    Zusammenfassung</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Aspekt</th><th>Bewertung</th></tr>
+</thead>
+<tbody>
+<tr><td>Einstieg</td><td>✅ Einfach (HTML + Python)</td></tr>
+<tr><td>Performance</td><td>⚠️ Langsamer als JS, aber akzeptabel</td></tr>
+<tr><td>Use Cases</td><td>Visualisierung, Demos, Prototyping</td></tr>
+<tr><td>Produktion</td><td>⚠️ Mit Vorsicht (Ladezeit beachten)</td></tr>
+<tr><td>Zukunft</td><td>✅ Aktive Entwicklung</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Kernprinzip:</strong> PyScript ermöglicht Python im Browser für Visualisierung und interaktive Demos. Ideal für statische Seiten mit wissenschaftlichen Inhalten, aber nicht als vollständiger JavaScript-Ersatz. Beachte Ladezeiten und Browser-Kompatibilität.</p>
+<p><strong>Ressourcen:</strong></p>
+<ul>
+<li>Offizielle Docs: https://docs.pyscript.net/</li>
+<li>Examples: https://pyscript.net/examples/</li>
+<li>Pyodide: https://pyodide.org/</li>
+<li>Dicord: https://discord.gg/pyscript</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../e-anwendungsgebiete/datenbanken.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
-                            <a rel="next prefetch" href="a-grundlagen/links.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../f-data-science/einfuehrung.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -460,8 +1081,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../e-anwendungsgebiete/datenbanken.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
-                    <a rel="next prefetch" href="a-grundlagen/links.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../f-data-science/einfuehrung.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -481,13 +1105,13 @@
         </script>
 
 
-        <script src="elasticlunr-ef4e11c1.min.js"></script>
-        <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
 
-        <script src="clipboard-1626706a.min.js"></script>
-        <script src="highlight-abc7f01d.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
 

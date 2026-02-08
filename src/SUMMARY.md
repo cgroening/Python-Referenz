@@ -2,32 +2,51 @@
 
 [Einleitung](Einleitung.md)
 
-- [Links](01%20Links.md)
-- [Datentypen](02%20Datentypen.md)
-- [Datenstrukturen (Collections)](03%20Datenstrukturen%20(Collections).md)
-- [Kommentare](04%20Kommentare.md)
-- [Ein- und Ausgabe](05%20Ein-%20und%20Ausgabe.md)
-- [Operatoren](06%20Operatoren.md)
-- [Kontrollstrukturen](07%20Kontrollstrukturen.md)
-- [Funktionen](08%20Funktionen.md)
-- [Grundlagen der Objektorientierung](09%20Grundlagen%20der%20Objektorientierung.md)
-- [Fortgeschrittene Objektorientierung](10%20Fortgeschrittene%20Objektorientierung.md)
-- [Fortgeschrittene Funktionstechniken](11%20Fortgeschrittene%20Funktionstechniken.md)
-- [Typannotationen](12%20Typannotationen.md)
-- [Fehlerbehandlung](13%20Fehlerbehandlung.md)
-- [Speicherverhalten, Referenzen und Mutability](14%20Speicherverhalten,%20Referenzen%20und%20Mutability.md)
-- [Multithreading und -processing](15%20Multithreading%20und%20-processing.md)
-- [Leistungsoptimierung](16%20Leistungsoptimierung.md)
-- [Debugging](17%20Debugging.md)
-- [Unit Tests](18%20Unit%20Tests.md)
-- [Profiling und Timing](19%20Profiling%20und%20Timing.md)
-- [Pakete und HTML-Dokumentation](20%20Pakete%20und%20HTML-Dokumentation.md)
-- [Disassembler, Syntax Tree und Flow Graph](21%20Disassembler,%20Syntax%20Tree%20und%20Flow%20Graph.md)
-- [Kontext-Manager und contextlib](22%20Kontext-Manager.md)
-- [Entwicklungs-Tooling und Packaging](23%20Entwicklungs-Tooling%20und%20Packaging.md)
-- [Netzwerk und APIs](24%20Netzwerk&20und%20APIs.md)
-- [Datenbanken](25%20Datenbanken.md)
+# TEIL I: GRUNDLAGEN
 
+1. [Links (Ressourcen)](a-grundlagen/links.md)
+2. [Datentypen](a-grundlagen/datentypen.md)
+3. [Datenstrukturen (Collections)](a-grundlagen/datenstrukturen-collections.md)
+4. [Operatoren](a-grundlagen/operatoren.md)
+5. [Kontrollstrukturen](a-grundlagen/kontrollstrukturen.md)
+6. [Funktionen](a-grundlagen/funktionen.md)
+7. [Ein- und Ausgabe](a-grundlagen/eingabe-ausgabe.md)
+8. [Kommentare](a-grundlagen/kommentare.md)
+9. [Fehlerbehandlung](a-grundlagen/fehlerbehandlung.md)
 
+# TEIL II: OOP & FORTGESCHRITTENE KONZEPTE
 
+1. [Grundlagen der Objektorientierung](b-oop-und-fortgeschrittene-konzepte/grundlagen-der-objektorientierung.md)
+2. [Fortgeschrittene Objektorientierung](b-oop-und-fortgeschrittene-konzepte/fortgeschrittene-objektorientierung.md)
+3. [Fortgeschrittene Funktionstechniken (Closures, Decorators, functools)](b-oop-und-fortgeschrittene-konzepte/fortgeschrittene-funktionstechniken.md)
+4. [Typannotationen](b-oop-und-fortgeschrittene-konzepte/typannotationen.md)
+5. [Speicherverhalten, Referenzen und Mutability](b-oop-und-fortgeschrittene-konzepte/speicherverhalten-referenzen-und-mutability.md)
+6. [Kontext-Manager](b-oop-und-fortgeschrittene-konzepte/kontext-manager-und-contextlib.md)
 
+# TEIL III: TESTING & PERFORMANCE
+
+1. [Debugging](c-testing-und-performance/debugging.md)
+2. [Unit Tests](c-testing-und-performance/unit-tests.md)
+3. [Profiling und Timing](c-testing-und-performance/profiling-und-timing.md)
+4. [Leistungsoptimierung](c-testing-und-performance/leistungsoptimierung.md)
+5. [Multithreading und Multiprocessing](c-testing-und-performance/multithreading-und-multiprocessing.md)
+
+# TEIL IV: TOOLING & WORKFLOW
+
+1. [Module und Pakete](d-tooling-und-workflow/module-und-pakete.md)
+2. [Entwicklungs-Tooling und Packaging](d-tooling-und-workflow/entwicklungs-tooling-und-packaging.md)
+3. [Disassembler, Syntax Tree und Flow Graph](d-tooling-und-workflow/disassembler-syntax-tree-und-flow-graph.md)
+
+# TEIL V: ANWENDUNGSGEBIETE
+
+1. [Netzwerk und APIs](e-anwendungsgebiete/netzwerk-und-apis.md)
+2. [Datenbanken](e-anwendungsgebiete/datenbanken.md)
+3. [PyScript - Python im Browser](e-anwendungsgebiete/pyscript.md)
+
+# TEIL VI: DATA SCIENCE
+
+1. [Einführung](f-data-science/einfuehrung.md)
+2. [NumPy](f-data-science/numpy.md)
+3. [Pandas](f-data-science/pandas.md)
+4. [Matplotlib und Seaborn](f-data-science/matplotlib-und-seaborn.md)
+5. [Scipy, Sklearn und OpenCV](f-data-science/scipy-sklearn-und-opencv.md)

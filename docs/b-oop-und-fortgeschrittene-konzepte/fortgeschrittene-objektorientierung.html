@@ -1,0 +1,1775 @@
+<!DOCTYPE HTML>
+<html lang="de" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Fortgeschrittene Objektorientierung - Python-Referenz</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-80432388.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "../searchindex-1ed3f166.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-f6524bb4.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Python-Referenz</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/cgroening/Python-Referenz" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <style>
+.mdbook-callouts {
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  /* border-left: 0.25em solid var(--mdbook-callouts-color); */
+  background: var(--mdbook-callouts-background);
+}
+
+.mdbook-callouts > *:first-child {
+  margin-top: 0;
+}
+
+.mdbook-callouts > *:last-child {
+  margin-bottom: 0;
+}
+
+.mdbook-callouts-title {
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  line-height: 1;
+  color: var(--mdbook-callouts-color);
+  text-transform: capitalize;
+}
+
+.mdbook-callouts-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.2em;
+  background-color: currentColor;
+  -webkit-mask: no-repeat center / 100%;
+  mask: no-repeat center / 100%;
+  -webkit-mask-image: var(--mdbook-callouts-icon);
+  mask-image: var(--mdbook-callouts-icon);
+}
+
+/* icons at: https://lucide.dev/icons/ */
+
+.mdbook-callouts-info {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/info */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWluZm8iPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PHBhdGggZD0iTTEyIDE2di00Ii8+PHBhdGggZD0iTTEyIDhoLjAxIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-note {
+  --mdbook-callouts-color: rgb(var(--color-blue-rgb));
+  --mdbook-callouts-background: rgba(var(--color-blue-rgb), 0.1);
+  /* https://lucide.dev/icons/pencil */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBlbmNpbCI+PHBhdGggZD0iTTE3IDNhMi44NSAyLjgzIDAgMSAxIDQgNEw3LjUgMjAuNSAyIDIybDEuNS01LjVaIi8+PHBhdGggZD0ibTE1IDUgNCA0Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-tip,
+.mdbook-callouts-hint {
+  --mdbook-callouts-color: rgb(var(--color-cyan-rgb));
+  --mdbook-callouts-background: rgba(var(--color-cyan-rgb), 0.1);
+  /* https://lucide.dev/icons/flame */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZsYW1lIj48cGF0aCBkPSJNOC41IDE0LjVBMi41IDIuNSAwIDAgMCAxMSAxMmMwLTEuMzgtLjUtMi0xLTMtMS4wNzItMi4xNDMtLjIyNC00LjA1NCAyLTYgLjUgMi41IDIgNC45IDQgNi41IDIgMS42IDMgMy41IDMgNS41YTcgNyAwIDEgMS0xNCAwYzAtMS4xNTMuNDMzLTIuMjk0IDEtM2EyLjUgMi41IDAgMCAwIDIuNSAyLjV6Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-important {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LWNpcmNsZSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48bGluZSB4MT0iMTIiIHgyPSIxMiIgeTE9IjgiIHkyPSIxMiIvPjxsaW5lIHgxPSIxMiIgeDI9IjEyLjAxIiB5MT0iMTYiIHkyPSIxNiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-success,
+.mdbook-callouts-check,
+.mdbook-callouts-done {
+  --mdbook-callouts-color: rgb(var(--color-green-rgb));
+  --mdbook-callouts-background: rgba(var(--color-green-rgb), 0.1);
+  /* https://lucide.dev/icons/check */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZWNrIj48cGF0aCBkPSJNMjAgNiA5IDE3bC01LTUiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-question,
+.mdbook-callouts-help,
+.mdbook-callouts-faq {
+  --mdbook-callouts-color: rgb(var(--color-pink-rgb));
+  --mdbook-callouts-background: rgba(var(--color-pink-rgb), 0.1);
+  /* https://lucide.dev/icons/help-circle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhlbHAtY2lyY2xlIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxwYXRoIGQ9Ik05LjA5IDlhMyAzIDAgMCAxIDUuODMgMWMwIDItMyAzLTMgMyIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-warning,
+.mdbook-callouts-warn {
+  --mdbook-callouts-color: rgb(var(--color-orange-rgb));
+  --mdbook-callouts-background: rgba(var(--color-orange-rgb), 0.1);
+  /* https://lucide.dev/icons/alert-triangle */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFsZXJ0LXRyaWFuZ2xlIj48cGF0aCBkPSJtMjEuNzMgMTgtOC0xNGEyIDIgMCAwIDAtMy40OCAwbC04IDE0QTIgMiAwIDAgMCA0IDIxaDE2YTIgMiAwIDAgMCAxLjczLTNaIi8+PHBhdGggZD0iTTEyIDl2NCIvPjxwYXRoIGQ9Ik0xMiAxN2guMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-caution {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/shield-alert */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNoaWVsZC1hbGVydCI+PHBhdGggZD0iTTEyIDIyczgtNCA4LTEwVjVsLTgtMy04IDN2N2MwIDYgOCAxMCA4IDEwIi8+PHBhdGggZD0iTTEyIDh2NCIvPjxwYXRoIGQ9Ik0xMiAxNmguMDEiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-failure,
+.mdbook-callouts-fail,
+.mdbook-callouts-missing {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/x */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXgiPjxwYXRoIGQ9Ik0xOCA2IDYgMTgiLz48cGF0aCBkPSJtNiA2IDEyIDEyIi8+PC9zdmc+');
+}
+
+.mdbook-callouts-error,
+.mdbook-callouts-danger {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/zap */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXphcCI+PHBvbHlnb24gcG9pbnRzPSIxMyAyIDMgMTQgMTIgMTQgMTEgMjIgMjEgMTAgMTIgMTAgMTMgMiIvPjwvc3ZnPg==');
+}
+
+.mdbook-callouts-bug {
+  --mdbook-callouts-color: rgb(var(--color-red-rgb));
+  --mdbook-callouts-background: rgba(var(--color-red-rgb), 0.1);
+  /* https://lucide.dev/icons/bug */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJ1ZyI+PHBhdGggZD0ibTggMiAxLjg4IDEuODgiLz48cGF0aCBkPSJNMTQuMTIgMy44OCAxNiAyIi8+PHBhdGggZD0iTTkgNy4xM3YtMWEzLjAwMyAzLjAwMyAwIDEgMSA2IDB2MSIvPjxwYXRoIGQ9Ik0xMiAyMGMtMy4zIDAtNi0yLjctNi02di0zYTQgNCAwIDAgMSA0LTRoNGE0IDQgMCAwIDEgNCA0djNjMCAzLjMtMi43IDYtNiA2Ii8+PHBhdGggZD0iTTEyIDIwdi05Ii8+PHBhdGggZD0iTTYuNTMgOUM0LjYgOC44IDMgNy4xIDMgNSIvPjxwYXRoIGQ9Ik02IDEzSDIiLz48cGF0aCBkPSJNMyAyMWMwLTIuMSAxLjctMy45IDMuOC00Ii8+PHBhdGggZD0iTTIwLjk3IDVjMCAyLjEtMS42IDMuOC0zLjUgNCIvPjxwYXRoIGQ9Ik0yMiAxM2gtNCIvPjxwYXRoIGQ9Ik0xNy4yIDE3YzIuMS4xIDMuOCAxLjkgMy44IDQiLz48L3N2Zz4=');
+}
+
+.mdbook-callouts-examples,
+.mdbook-callouts-example {
+  --mdbook-callouts-color: rgb(var(--color-purple-rgb));
+  --mdbook-callouts-background: rgba(var(--color-purple-rgb), 0.1);
+  /* https://lucide.dev/icons/list */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxpc3QiPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSI4IiB4Mj0iMjEiIHkxPSIxMiIgeTI9IjEyIi8+PGxpbmUgeDE9IjgiIHgyPSIyMSIgeTE9IjE4IiB5Mj0iMTgiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSI2IiB5Mj0iNiIvPjxsaW5lIHgxPSIzIiB4Mj0iMy4wMSIgeTE9IjEyIiB5Mj0iMTIiLz48bGluZSB4MT0iMyIgeDI9IjMuMDEiIHkxPSIxOCIgeTI9IjE4Ii8+PC9zdmc+');
+}
+
+.mdbook-callouts-quote {
+  --mdbook-callouts-color: rgb(158, 158, 158);
+  --mdbook-callouts-background: rgba(158, 158, 158, 0.1);
+  /* https://lucide.dev/icons/quote */
+  --mdbook-callouts-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXF1b3RlIj48cGF0aCBkPSJNMyAyMWMzIDAgNy0xIDctOFY1YzAtMS4yNS0uNzU2LTIuMDE3LTItMkg0Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDIgMSAwIDEgMCAxIDF2MWMwIDEtMSAyLTIgMnMtMSAuMDA4LTEgMS4wMzFWMjBjMCAxIDAgMSAxIDF6Ii8+PHBhdGggZD0iTTE1IDIxYzMgMCA3LTEgNy04VjVjMC0xLjI1LS43NTctMi4wMTctMi0yaC00Yy0xLjI1IDAtMiAuNzUtMiAxLjk3MlYxMWMwIDEuMjUuNzUgMiAyIDJoLjc1YzAgMi4yNS4yNSA0LTIuNzUgNHYzYzAgMSAwIDEgMSAxeiIvPjwvc3ZnPg==');
+}
+
+
+.ayu {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.light {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+
+.coal {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.navy {
+  --color-red-rgb: 251, 70, 76;
+  --color-red: #fb464c;
+  --color-orange-rgb: 233, 151, 63;
+  --color-orange: #e9973f;
+  --color-yellow-rgb: 224, 222, 113;
+  --color-yellow: #e0de71;
+  --color-green-rgb: 68, 207, 110;
+  --color-green: #44cf6e;
+  --color-cyan-rgb: 83, 223, 221;
+  --color-cyan: #53dfdd;
+  --color-blue-rgb: 2, 122, 255;
+  --color-blue: #027aff;
+  --color-purple-rgb: 168, 130, 255;
+  --color-purple: #a882ff;
+  --color-pink-rgb: 250, 153, 205;
+  --color-pink: #fa99cd;
+}
+
+.rust {
+  --color-red-rgb: 233, 49, 71;
+  --color-red: #e93147;
+  --color-orange-rgb: 236, 117, 0;
+  --color-orange: #ec7500;
+  --color-yellow-rgb: 224, 172, 0;
+  --color-yellow: #e0ac00;
+  --color-green-rgb: 8, 185, 78;
+  --color-green: #08b94e;
+  --color-cyan-rgb: 0, 191, 188;
+  --color-cyan: #00bfbc;
+  --color-blue-rgb: 8, 109, 221;
+  --color-blue: #086ddd;
+  --color-purple-rgb: 120, 82, 238;
+  --color-purple: #7852ee;
+  --color-pink-rgb: 213, 57, 132;
+  --color-pink: #d53984;
+}
+</style>
+<h1 id="fortgeschrittene-objektorientierung"><a class="header" href="#fortgeschrittene-objektorientierung">Fortgeschrittene Objektorientierung</a></h1>
+<h2 id="1----type-isinstance-und-issubclass"><a class="header" href="#1----type-isinstance-und-issubclass">1    <code>type()</code>, <code>isinstance()</code> und <code>issubclass()</code></a></h2>
+<p>Diese eingebauten Funktionen helfen beim Umgang mit Typen und Vererbung.</p>
+<ul>
+<li><code>type(obj)</code> gibt den exakten Typ des Objekts zurück.</li>
+<li><code>isinstance(obj, cls)</code> prüft, ob <code>obj</code> eine Instanz von <code>cls</code> oder einer abgeleiteten Klasse ist.</li>
+<li><code>issubclass(sub, super)</code> prüft, ob <code>sub</code> eine Unterklasse von <code>super</code> ist.</li>
+</ul>
+<pre><code class="language-python">class Animal: pass
+class Dog(Animal): pass
+
+a = Animal()
+d = Dog()
+
+print(type(d))                  # &lt;class '__main__.Dog'&gt;
+print(isinstance(d, Animal))    # True
+print(issubclass(Dog, Animal))  # True
+</code></pre>
+<p>Diese Funktionen sind wichtig für dynamisches Verhalten, Validierung und Typprüfung.</p>
+<h2 id="2----__init__-vs-__new__"><a class="header" href="#2----__init__-vs-__new__">2    <code>__init__</code> vs <code>__new__</code></a></h2>
+<ul>
+<li><code>__new__</code> ist für das <strong>Erzeugen</strong> eines neuen Objekts zuständig.</li>
+<li><code>__init__</code> wird anschließend aufgerufen, um das Objekt zu <strong>initialisieren</strong>.</li>
+</ul>
+<pre><code class="language-python">class Custom:
+    def __new__(cls, *args, **kwargs):
+        print('Creating instance')
+        return super().__new__(cls)
+
+    def __init__(self, value):
+        print('Initializing with', value)
+        self.value = value
+
+obj = Custom(42)
+</code></pre>
+<p><code>__new__</code> wird z. B. bei unveränderlichen Typen wie <code>str</code> oder <code>tuple</code> benötigt, wenn diese beeinflusst werden sollen oder in der Metaprogrammierung (Singleton-Pattern).</p>
+<h2 id="3----methodenarten"><a class="header" href="#3----methodenarten">3    Methodenarten</a></h2>
+<h3 id="31----staticmethods-und-classmethods"><a class="header" href="#31----staticmethods-und-classmethods">3.1    StaticMethods und ClassMethods</a></h3>
+<ul>
+<li><code>@staticmethod</code> definiert eine Methode, die <strong>keinen Zugriff</strong> auf <code>self</code> oder <code>cls</code> benötigt.</li>
+<li><code>@classmethod</code> arbeitet mit <code>cls</code> und kann so auf die Klasse zugreifen.</li>
+</ul>
+<pre><code class="language-python">class Example:
+    @staticmethod
+    def utility():
+        print('Static method called')
+
+    @classmethod
+    def construct(cls):
+        print(f'Creating instance of {cls.__name__}')
+        return cls()
+
+Example.utility()
+obj = Example.construct()
+</code></pre>
+<p><code>classmethod</code> wird häufig für alternative Konstruktoren verwendet.</p>
+<h3 id="32----properties-private-attribute"><a class="header" href="#32----properties-private-attribute">3.2    Properties (Private Attribute)</a></h3>
+<p>Mit <code>@property</code> können Methoden wie Attribute verwendet werden. Das ist nützlich für <strong>gekapselte Attribute</strong>, z. B. mit Validierung oder automatischer Berechnung.</p>
+<pre><code class="language-python">class Person:
+    def __init__(self, name):
+        self._name = name  # Private Konvention
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, new):
+        self._name = new
+
+p = Person('Alice')
+print(p.name)
+p.name = 'Bob'
+print(p.name)
+</code></pre>
+<p>Durch Properties kann die API einfach bleiben, während intern komplexe Logik stattfinden kann.</p>
+<h2 id="4----dunder-methods"><a class="header" href="#4----dunder-methods">4    Dunder Methods</a></h2>
+<p>Dunder (Double Underscore) Methoden ermöglichen benutzerdefiniertes Verhalten für Operatoren und eingebaute Funktionen (<code>__str__</code>, <code>__len__</code>, <code>__getitem__</code> usw.).</p>
+<pre><code class="language-python">class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f'({self.x}, {self.y})'
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+p1 = Point(1, 2)
+p2 = Point(1, 2)
+print(str(p1))  # (1, 2)
+print(p1 == p2)  # True
+</code></pre>
+<p>Diese Methoden machen Objekte “pythonisch”.</p>
+<h2 id="5----abstraktion-und-vererbung"><a class="header" href="#5----abstraktion-und-vererbung">5    Abstraktion und Vererbung</a></h2>
+<h3 id="51----abstract-methods"><a class="header" href="#51----abstract-methods">5.1    Abstract Methods</a></h3>
+<p>Das <code>abc</code>-Modul erlaubt die Definition abstrakter Basisklassen. Methoden mit <code>@abstractmethod</code> müssen in Subklassen implementiert werden.</p>
+<pre><code class="language-python">from abc import ABC, abstractmethod
+
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+class Circle(Shape):
+    def area(self):
+        return 3.14 * 5 * 5
+</code></pre>
+<p>Abstrakte Methoden zwingen Unterklassen zur Implementierung und helfen beim Design stabiler APIs.</p>
+<h3 id="52----method-resolution-order"><a class="header" href="#52----method-resolution-order">5.2    Method Resolution Order</a></h3>
+<p>Python verwendet das <strong>C3 Linearization</strong>-Verfahren, um die Reihenfolge von Vererbungen zu bestimmen. Die <code>mro()</code>-Methode zeigt die Aufrufreihenfolge.</p>
+<pre><code class="language-python">class A: pass
+class B(A): pass
+class C(A): pass
+class D(B, C): pass
+
+print(D.mro())  # [D, B, C, A, object]
+</code></pre>
+<p>Wichtig bei Mehrfachvererbung.</p>
+<h2 id="6----interation-und-indizierung"><a class="header" href="#6----interation-und-indizierung">6    Interation und Indizierung</a></h2>
+<h3 id="61----iterator-klasse-und-generator-funktion"><a class="header" href="#61----iterator-klasse-und-generator-funktion">6.1    Iterator-Klasse und Generator-Funktion</a></h3>
+<p>Ein Iterator benötigt die Methoden <code>__iter__</code> und <code>__next__</code>. Alternativ kann <code>yield</code> verwendet werden.</p>
+<pre><code class="language-python">class Count:
+    def __init__(self, max):
+        self.max = max
+        self.current = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current &gt;= self.max:
+            raise StopIteration
+        self.current += 1
+        return self.current
+</code></pre>
+<p>Generatoren vereinfachen Iteration:</p>
+<pre><code class="language-python">def count_up_to(max):
+    current = 0
+    while current &lt; max:
+        current += 1
+        yield current
+</code></pre>
+<h3 id="62----indexing-klasse"><a class="header" href="#62----indexing-klasse">6.2    Indexing-Klasse</a></h3>
+<p>Mithilfe von <code>__getitem__</code> und <code>__setitem__</code> können Objekte wie Listen verwendet werden.</p>
+<pre><code class="language-python">class CustomList:
+    def __init__(self, data):
+        self.data = data
+
+    def __getitem__(self, index):
+        return self.data[index]
+
+    def __setitem__(self, index, value):
+        self.data[index] = value
+</code></pre>
+<p>Sehr nützlich für eigene Containerklassen.</p>
+<h2 id="7----datenpräsentation-und-speicheroptimierung"><a class="header" href="#7----datenpräsentation-und-speicheroptimierung">7    Datenpräsentation und Speicheroptimierung</a></h2>
+<h3 id="71----dataclass"><a class="header" href="#71----dataclass">7.1    Dataclass</a></h3>
+<p>Dataclasses automatisieren Konstruktor, Vergleich und Darstellung.</p>
+<pre><code class="language-python">from dataclasses import dataclass
+
+@dataclass
+class User:
+    name: str
+    age: int
+</code></pre>
+<h4 id="711----slots"><a class="header" href="#711----slots">7.1.1    Slots</a></h4>
+<p>Mit <code>__slots__</code> wird der Speicherverbrauch reduziert und der Zugriff beschleunigt.</p>
+<pre><code class="language-python">class Slim:
+    __slots__ = ('x', 'y')
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+</code></pre>
+<p>Seit Python 3.10 ist folgendes möglich (gleichwertiger Code):</p>
+<pre><code class="language-python">@dataclass(slots=True)
+class Slim:
+    x: int
+    y: int
+</code></pre>
+<div class="mdbook-callouts mdbook-callouts-info">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  was macht `__slots__` bzw. `slots=true`?
+</p>
+
+<p>Normalerweise speichert Python Objektattribute in einem internen Dictionary namens <code>__dict__.</code> Das ist flexibel, jedoch nicht speichereffizient oder performant.
+Wenn <code>__slots__</code> bzw. <code>slots=True</code> verwendet wird, wird dieses Dictionary durch ein festeres Layout ersetzt, bei dem nur die im Slot definierten Felder erlaubt sind.</p>
+<p><strong>Warum verbessert das die Leistung?</strong></p>
+<ol>
+<li>
+<p>Weniger Speicherverbrauch:
+Jedes Objekt braucht weniger Speicher, weil kein <code>__dict__</code> mehr angelegt wird.</p>
+</li>
+<li>
+<p>Schnellerer Zugriff auf Attribute:
+Statt eines Dictionary-Lookups wird ein schnellerer, indexbasierter Zugriff verwendet.</p>
+</li>
+<li>
+<p>Bessere Caching-Effekte:
+Schlankere Objekte passen besser in den Cache, was zu weiteren Geschwindigkeitsgewinnen führen kann – besonders bei großen Listen von Objekten.</p>
+</li>
+</ol>
+</div>
+
+<pre><code class="language-python"># Ohne __slots__ (Standard)
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+# Mit __slots__
+class PersonSlotted:
+    __slots__ = ('name', 'age')
+    
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+</code></pre>
+<p><strong>Speichervergleich:</strong></p>
+<pre><code class="language-python">import sys
+
+p1 = Person('Alice', 30)
+p2 = PersonSlotted('Alice', 30)
+
+print(sys.getsizeof(p1.__dict__))  # ~232 bytes
+print(sys.getsizeof(p2))            # ~56 bytes
+</code></pre>
+<h5 id="vorteile-von-__slots__"><a class="header" href="#vorteile-von-__slots__">Vorteile von <code>__slots__</code></a></h5>
+<p><strong>1. Reduzierter Speicherverbrauch:</strong></p>
+<ul>
+<li>Kein <code>__dict__</code> pro Instanz</li>
+<li>Besonders wichtig bei vielen Objekten (z.B. 1 Million Instanzen)</li>
+</ul>
+<p><strong>2. Schnellerer Attributzugriff:</strong></p>
+<ul>
+<li>Direkter Array-Zugriff statt Dictionary-Lookup</li>
+<li>~20-30% schneller</li>
+</ul>
+<p><strong>3. Typsicherheit:</strong></p>
+<ul>
+<li>Nur definierte Attribute erlaubt</li>
+<li>Verhindert Tippfehler</li>
+</ul>
+<pre><code class="language-python">class Point:
+    __slots__ = ('x', 'y')
+    
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+p = Point(10, 20)
+p.z = 30  # AttributeError: 'Point' object has no attribute 'z'
+</code></pre>
+<h4 id="712----frozentrue"><a class="header" href="#712----frozentrue">7.1.2    <code>frozen=True</code></a></h4>
+<p>Das <code>frozen=True</code>-Argument macht die Instanz <strong>unveränderlich</strong> (<strong>immutable</strong>):</p>
+<pre><code class="language-python">@dataclass(frozen=True)
+class Point:
+    x: int
+    y: int
+
+p = Point(1, 2)
+print(p.x)  # -&gt; 1
+
+p.x = 10    # -&gt; Fehler: cannot assign to field 'x'
+</code></pre>
+<ul>
+<li>Man kann keine Attribute mehr ändern nach der Erstellung der Instanz.</li>
+<li>Python generiert automatisch einen <code>setattr</code>, der Änderungen verhindert.</li>
+<li>Die Klasse wird hashbar (vorausgesetzt alle Felder sind auch hashbar), was z. B. erlaubt, sie als Schlüssel in einem <code>dict</code> oder als Elemente in einem <code>set</code> zu verwenden.</li>
+<li>Die Verwendung von <code>frozen=True</code> führt zu einer Leistungssteigerung, diese ist jedoch minimal.</li>
+</ul>
+<h3 id="72----namedtuple"><a class="header" href="#72----namedtuple">7.2    Namedtuple</a></h3>
+<p>Ein <code>namedtuple</code> ist ein leichtgewichtiger, unveränderlicher Datenträger mit benannten Feldern.</p>
+<pre><code class="language-python">from collections import namedtuple
+
+Point = namedtuple('Point', ['x', 'y'])
+p = Point(3, 4)
+print(p.x, p.y)
+</code></pre>
+<p>Effizient und leserlich – eine gute Alternative zu kleinen Klassen.</p>
+<h2 id="8----enum"><a class="header" href="#8----enum">8    Enum</a></h2>
+<p><code>Enum</code> erlaubt es, symbolische Konstanten mit Namen zu versehen.</p>
+<pre><code class="language-python">from enum import Enum
+
+class Color(Enum):
+    RED = 1
+    GREEN = 2
+    BLUE = 3
+</code></pre>
+<p>Gleichbedeutend mit dem obigen Beispiel ist:</p>
+<pre><code class="language-python">from enum import Enum
+
+class Color(Enum):
+    RED = auto()
+    GREEN = auto()
+    BLUE = auto()
+</code></pre>
+<p>Enums verbessern die Lesbarkeit und Typsicherheit im Code.</p>
+<h2 id="9----class-decorator"><a class="header" href="#9----class-decorator">9    Class Decorator</a></h2>
+<p>Class Decorators modifizieren Klassen beim Erzeugen. Sie eignen sich für Registrierung, Debugging oder Vererbung.</p>
+<pre><code class="language-python">def debug(cls):
+    original_init = cls.__init__
+    def new_init(self, *args, **kwargs):
+        print(f'Creating {cls.__name__} with {args}, {kwargs}')
+        original_init(self, *args, **kwargs)
+    cls.__init__ = new_init
+    return cls
+
+@debug
+class Product:
+    def __init__(self, name):
+        self.name = name
+
+p = Product('Book')
+</code></pre>
+<p>Class Decorators sind ein mächtiges Meta-Programmierungstool.</p>
+<h2 id="10----metaclasses--klassen-von-klassen"><a class="header" href="#10----metaclasses--klassen-von-klassen">10    Metaclasses – Klassen von Klassen</a></h2>
+<p>Metaclasses sind ein fortgeschrittenes Feature, mit dem man das Verhalten beim Erstellen von Klassen selbst kontrollieren kann. Sie sind die “Klassen von Klassen”.</p>
+<h3 id="101----grundkonzept"><a class="header" href="#101----grundkonzept">10.1    Grundkonzept</a></h3>
+<p>In Python ist alles ein Objekt – auch Klassen. Klassen sind Instanzen von Metaclasses.</p>
+<pre><code class="language-python"># Normale Hierarchie
+class Dog:
+    pass
+
+dog = Dog()
+
+# Was ist was?
+print(type(dog))   # &lt;class '__main__.Dog'&gt; - dog ist Instanz von Dog
+print(type(Dog))   # &lt;class 'type'&gt; - Dog ist Instanz von type
+print(type(type))  # &lt;class 'type'&gt; - type ist seine eigene Metaclass
+
+# isinstance-Checks
+print(isinstance(dog, Dog))     # True
+print(isinstance(Dog, type))    # True
+</code></pre>
+<p><strong>Die Kette:</strong></p>
+<pre><code>dog  →  Instanz von  →  Dog  →  Instanz von  →  type (Metaclass)
+</code></pre>
+<h3 id="102----type-als-metaclass"><a class="header" href="#102----type-als-metaclass">10.2    <code>type()</code> als Metaclass</a></h3>
+<p><code>type</code> kann auf zwei Arten verwendet werden:</p>
+<p><strong>1. Als Funktion (Typ abfragen):</strong></p>
+<pre><code class="language-python">x = 5
+print(type(x))  # &lt;class 'int'&gt;
+</code></pre>
+<p><strong>2. Als Metaclass (Klasse erstellen):</strong></p>
+<pre><code class="language-python"># Normale Klassendefinition
+class Dog:
+    def bark(self):
+        return "Woof!"
+
+# Äquivalent mit type()
+Dog = type('Dog', (), {'bark': lambda self: "Woof!"})
+
+dog = Dog()
+print(dog.bark())  # "Woof!"
+</code></pre>
+<p><strong>Syntax von <code>type()</code> zur Klassenerstellung:</strong></p>
+<pre><code class="language-python">type(name, bases, dict)
+</code></pre>
+<ul>
+<li><code>name</code>: Klassenname (String)</li>
+<li><code>bases</code>: Tuple der Basisklassen</li>
+<li><code>dict</code>: Dictionary mit Attributen und Methoden</li>
+</ul>
+<p><strong>Beispiel mit Vererbung:</strong></p>
+<pre><code class="language-python"># Basisklasse
+class Animal:
+    def breathe(self):
+        return "Breathing..."
+
+# Mit type() erstellen
+Dog = type(
+    'Dog',                          # Name
+    (Animal,),                       # Basisklassen
+    {
+        'species': 'Canis familiaris',
+        'bark': lambda self: "Woof!"
+    }
+)
+
+dog = Dog()
+print(dog.breathe())  # "Breathing..." (geerbt)
+print(dog.bark())     # "Woof!"
+print(dog.species)    # "Canis familiaris"
+</code></pre>
+<h3 id="103----eigene-metaclass-erstellen"><a class="header" href="#103----eigene-metaclass-erstellen">10.3    Eigene Metaclass erstellen</a></h3>
+<p>Eine Metaclass ist eine Klasse, die von <code>type</code> erbt.</p>
+<pre><code class="language-python">class Meta(type):
+    def __new__(mcs, name, bases, attrs):
+        print(f"Creating class {name}")
+        # Klasse erstellen
+        cls = super().__new__(mcs, name, bases, attrs)
+        return cls
+
+class MyClass(metaclass=Meta):
+    pass
+
+# Output beim Import/Ausführung:
+# Creating class MyClass
+</code></pre>
+<p><strong>Parameter von <code>__new__</code>:</strong></p>
+<ul>
+<li><code>mcs</code>: Die Metaclass selbst (wie <code>cls</code> bei <code>@classmethod</code>)</li>
+<li><code>name</code>: Name der zu erstellenden Klasse</li>
+<li><code>bases</code>: Tuple der Basisklassen</li>
+<li><code>attrs</code>: Dictionary der Klassenattribute</li>
+</ul>
+<h3 id="104----__new__-vs-__init__-in-metaclasses"><a class="header" href="#104----__new__-vs-__init__-in-metaclasses">10.4    <code>__new__</code> vs. <code>__init__</code> in Metaclasses</a></h3>
+<pre><code class="language-python">class Meta(type):
+    def __new__(mcs, name, bases, attrs):
+        """Wird WÄHREND der Klassenerstellung aufgerufen"""
+        print(f"__new__: Creating {name}")
+        cls = super().__new__(mcs, name, bases, attrs)
+        return cls
+    
+    def __init__(cls, name, bases, attrs):
+        """Wird NACH der Klassenerstellung aufgerufen"""
+        print(f"__init__: Initializing {name}")
+        super().__init__(name, bases, attrs)
+
+class MyClass(metaclass=Meta):
+    pass
+
+# Output:
+# __new__: Creating MyClass
+# __init__: Initializing MyClass
+</code></pre>
+<p><strong>Wann was verwenden:</strong></p>
+<ul>
+<li><code>__new__</code>: Wenn man die Klasse vor ihrer Erstellung modifizieren will</li>
+<li><code>__init__</code>: Wenn man die Klasse nach ihrer Erstellung modifizieren will</li>
+</ul>
+<h3 id="105----praktische-anwendungsfälle"><a class="header" href="#105----praktische-anwendungsfälle">10.5    Praktische Anwendungsfälle</a></h3>
+<h4 id="1051----attribute-validieren"><a class="header" href="#1051----attribute-validieren">10.5.1    Attribute validieren</a></h4>
+<pre><code class="language-python">class ValidatedMeta(type):
+    def __new__(mcs, name, bases, attrs):
+        # Alle Attribute müssen mit Großbuchstaben beginnen
+        for key in attrs:
+            if not key.startswith('_'):  # Private ignorieren
+                if not key[0].isupper():
+                    raise ValueError(
+                        f"Attribute {key} must start with uppercase letter"
+                    )
+        return super().__new__(mcs, name, bases, attrs)
+
+# ✅ Funktioniert
+class GoodClass(metaclass=ValidatedMeta):
+    Name = "valid"
+    Age = 25
+
+# ❌ Fehler
+# class BadClass(metaclass=ValidatedMeta):
+#     name = "invalid"  # ValueError!
+</code></pre>
+<h4 id="1052----automatische-registrierung"><a class="header" href="#1052----automatische-registrierung">10.5.2    Automatische Registrierung</a></h4>
+<pre><code class="language-python">class RegistryMeta(type):
+    _registry = {}
+    
+    def __new__(mcs, name, bases, attrs):
+        cls = super().__new__(mcs, name, bases, attrs)
+        # Klasse automatisch registrieren
+        mcs._registry[name] = cls
+        return cls
+    
+    @classmethod
+    def get_registry(mcs):
+        return mcs._registry
+
+class Plugin(metaclass=RegistryMeta):
+    pass
+
+class AudioPlugin(Plugin):
+    pass
+
+class VideoPlugin(Plugin):
+    pass
+
+# Alle Plugins automatisch registriert
+print(RegistryMeta.get_registry())
+# {'Plugin': &lt;class '__main__.Plugin'&gt;, 
+#  'AudioPlugin': &lt;class '__main__.AudioPlugin'&gt;,
+#  'VideoPlugin': &lt;class '__main__.VideoPlugin'&gt;}
+</code></pre>
+<h4 id="1053----singleton-pattern"><a class="header" href="#1053----singleton-pattern">10.5.3    Singleton-Pattern</a></h4>
+<pre><code class="language-python">class SingletonMeta(type):
+    _instances = {}
+    
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super().__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+class Database(metaclass=SingletonMeta):
+    def __init__(self):
+        print("Connecting to database...")
+
+# Erste Instanz
+db1 = Database()  # "Connecting to database..."
+
+# Zweite "Instanz" - gibt dieselbe zurück
+db2 = Database()  # (kein Output)
+
+print(db1 is db2)  # True
+</code></pre>
+<h4 id="1054----automatische-__repr__-methode"><a class="header" href="#1054----automatische-__repr__-methode">10.5.4    Automatische <code>__repr__</code> Methode</a></h4>
+<pre><code class="language-python">class AutoReprMeta(type):
+    def __new__(mcs, name, bases, attrs):
+        # Automatisch __repr__ generieren
+        def auto_repr(self):
+            attrs_str = ', '.join(
+                f"{k}={v!r}" 
+                for k, v in self.__dict__.items()
+            )
+            return f"{name}({attrs_str})"
+        
+        # Nur hinzufügen, wenn nicht vorhanden
+        if '__repr__' not in attrs:
+            attrs['__repr__'] = auto_repr
+        
+        return super().__new__(mcs, name, bases, attrs)
+
+class Point(metaclass=AutoReprMeta):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+p = Point(10, 20)
+print(p)  # Point(x=10, y=20) - automatisch generiert!
+</code></pre>
+<h4 id="1055----interfaceabstract-base-class-erzwingen"><a class="header" href="#1055----interfaceabstract-base-class-erzwingen">10.5.5    Interface/Abstract Base Class erzwingen</a></h4>
+<pre><code class="language-python">class InterfaceMeta(type):
+    def __new__(mcs, name, bases, attrs):
+        # Prüfe, ob alle abstrakten Methoden implementiert sind
+        if bases:  # Nicht für die Basisklasse selbst
+            for base in bases:
+                if hasattr(base, '_required_methods'):
+                    for method in base._required_methods:
+                        if method not in attrs:
+                            raise TypeError(
+                                f"{name} must implement {method}()"
+                            )
+        return super().__new__(mcs, name, bases, attrs)
+
+class Shape(metaclass=InterfaceMeta):
+    _required_methods = ['area', 'perimeter']
+
+# ❌ Fehler - area fehlt
+# class Circle(Shape):
+#     def perimeter(self):
+#         return 2 * 3.14 * self.radius
+
+# ✅ Funktioniert
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+    
+    def area(self):
+        return 3.14 * self.radius ** 2
+    
+    def perimeter(self):
+        return 2 * 3.14 * self.radius
+</code></pre>
+<h3 id="106----metaclass-vererbung"><a class="header" href="#106----metaclass-vererbung">10.6    Metaclass-Vererbung</a></h3>
+<pre><code class="language-python">class MetaA(type):
+    def __new__(mcs, name, bases, attrs):
+        print(f"MetaA creating {name}")
+        return super().__new__(mcs, name, bases, attrs)
+
+class MetaB(MetaA):
+    def __new__(mcs, name, bases, attrs):
+        print(f"MetaB creating {name}")
+        return super().__new__(mcs, name, bases, attrs)
+
+class MyClass(metaclass=MetaB):
+    pass
+
+# Output:
+# MetaB creating MyClass
+# MetaA creating MyClass
+</code></pre>
+<h3 id="107----__call__-in-metaclasses"><a class="header" href="#107----__call__-in-metaclasses">10.7    <code>__call__</code> in Metaclasses</a></h3>
+<p><code>__call__</code> wird aufgerufen, wenn eine Instanz der Klasse erstellt wird.</p>
+<pre><code class="language-python">class CounterMeta(type):
+    def __init__(cls, name, bases, attrs):
+        super().__init__(name, bases, attrs)
+        cls._instance_count = 0
+    
+    def __call__(cls, *args, **kwargs):
+        # Wird bei MyClass() aufgerufen
+        instance = super().__call__(*args, **kwargs)
+        cls._instance_count += 1
+        print(f"Created instance #{cls._instance_count}")
+        return instance
+
+class MyClass(metaclass=CounterMeta):
+    pass
+
+obj1 = MyClass()  # Created instance #1
+obj2 = MyClass()  # Created instance #2
+obj3 = MyClass()  # Created instance #3
+
+print(MyClass._instance_count)  # 3
+</code></pre>
+<h3 id="108----__prepare__--dictionary-für-klassenattribute-vorbereiten"><a class="header" href="#108----__prepare__--dictionary-für-klassenattribute-vorbereiten">10.8    <code>__prepare__</code> – Dictionary für Klassenattribute vorbereiten</a></h3>
+<p><code>__prepare__</code> bestimmt, welches Dictionary für die Klassenattribute verwendet wird (normalerweise ein normales <code>dict</code>).</p>
+<pre><code class="language-python">from collections import OrderedDict
+
+class OrderedMeta(type):
+    @classmethod
+    def __prepare__(mcs, name, bases):
+        """Wird VOR __new__ aufgerufen"""
+        print(f"Preparing namespace for {name}")
+        return OrderedDict()
+    
+    def __new__(mcs, name, bases, namespace):
+        print(f"Attributes in order: {list(namespace.keys())}")
+        return super().__new__(mcs, name, bases, dict(namespace))
+
+class MyClass(metaclass=OrderedMeta):
+    z = 3
+    a = 1
+    m = 2
+
+# Output:
+# Preparing namespace for MyClass
+# Attributes in order: ['__module__', '__qualname__', 'z', 'a', 'm']
+</code></pre>
+<h3 id="109----metaclass-konflikte-vermeiden"><a class="header" href="#109----metaclass-konflikte-vermeiden">10.9    Metaclass-Konflikte vermeiden</a></h3>
+<p>Bei Mehrfachvererbung können Metaclass-Konflikte auftreten:</p>
+<pre><code class="language-python">class MetaA(type):
+    pass
+
+class MetaB(type):
+    pass
+
+class A(metaclass=MetaA):
+    pass
+
+class B(metaclass=MetaB):
+    pass
+
+# ❌ Fehler: metaclass conflict
+# class C(A, B):
+#     pass
+
+# ✅ Lösung: Gemeinsame Metaclass
+class MetaC(MetaA, MetaB):
+    pass
+
+class C(A, B, metaclass=MetaC):
+    pass
+</code></pre>
+<h3 id="1010----metaclasses-vs-alternativen"><a class="header" href="#1010----metaclasses-vs-alternativen">10.10    Metaclasses vs. Alternativen</a></h3>
+<p>Metaclasses sind mächtig, aber oft gibt es einfachere Alternativen.</p>
+<h4 id="10101----class-decorators"><a class="header" href="#10101----class-decorators">10.10.1    Class Decorators</a></h4>
+<pre><code class="language-python"># Mit Metaclass
+class AutoStrMeta(type):
+    def __new__(mcs, name, bases, attrs):
+        def __str__(self):
+            return f"{name} instance"
+        attrs['__str__'] = __str__
+        return super().__new__(mcs, name, bases, attrs)
+
+class MyClass(metaclass=AutoStrMeta):
+    pass
+
+# Mit Decorator (einfacher!)
+def auto_str(cls):
+    def __str__(self):
+        return f"{cls.__name__} instance"
+    cls.__str__ = __str__
+    return cls
+
+@auto_str
+class MyClass:
+    pass
+</code></pre>
+<h4 id="10102----__init_subclass__-python-36"><a class="header" href="#10102----__init_subclass__-python-36">10.10.2    <code>__init_subclass__</code> (Python 3.6+)</a></h4>
+<pre><code class="language-python"># Mit Metaclass
+class RegistryMeta(type):
+    _registry = []
+    
+    def __new__(mcs, name, bases, attrs):
+        cls = super().__new__(mcs, name, bases, attrs)
+        mcs._registry.append(cls)
+        return cls
+
+# Mit __init_subclass__ (moderner!)
+class Plugin:
+    _registry = []
+    
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        cls._registry.append(cls)
+
+class AudioPlugin(Plugin):
+    pass
+
+print(Plugin._registry)  # [&lt;class 'AudioPlugin'&gt;]
+</code></pre>
+<h3 id="1011----debugging-von-metaclasses"><a class="header" href="#1011----debugging-von-metaclasses">10.11    Debugging von Metaclasses</a></h3>
+<pre><code class="language-python">class DebugMeta(type):
+    def __new__(mcs, name, bases, attrs):
+        print(f"\n=== Creating class {name} ===")
+        print(f"Metaclass: {mcs}")
+        print(f"Bases: {bases}")
+        print(f"Attributes: {list(attrs.keys())}")
+        
+        cls = super().__new__(mcs, name, bases, attrs)
+        
+        print(f"Class created: {cls}")
+        print(f"MRO: {cls.__mro__}")
+        return cls
+
+class Parent:
+    parent_attr = "parent"
+
+class Child(Parent, metaclass=DebugMeta):
+    child_attr = "child"
+
+# Output zeigt detaillierte Informationen über Klassenerstellung
+</code></pre>
+<h3 id="1012----best-practices"><a class="header" href="#1012----best-practices">10.12    Best Practices</a></h3>
+<p><strong>✅ Wann Metaclasses verwenden:</strong></p>
+<ul>
+<li>Framework-/Library-Entwicklung</li>
+<li>Automatische Registrierung/Plugin-Systeme</li>
+<li>Enforcing von Code-Standards</li>
+<li>DSL (Domain Specific Language) Implementation</li>
+<li>Komplexe ORM-Systeme (wie Django Models)</li>
+</ul>
+<p><strong>❌ Wann NICHT verwenden:</strong></p>
+<ul>
+<li>Für alltägliche Programmierung</li>
+<li>Wenn Class Decorators ausreichen</li>
+<li>Wenn <code>__init_subclass__</code> ausreicht</li>
+<li>Wenn es den Code unleserlich macht</li>
+</ul>
+<p><strong>Alternativen prüfen:</strong></p>
+<ol>
+<li>Class Decorators (meistens ausreichend)</li>
+<li><code>__init_subclass__</code> (Python 3.6+)</li>
+<li>Descriptor Protocol</li>
+<li>Erst dann: Metaclasses</li>
+</ol>
+<p><strong>Zitat von Tim Peters:</strong></p>
+<blockquote>
+<p>“Metaclasses are deeper magic than 99% of users should ever worry about. If you wonder whether you need them, you don’t.”</p>
+</blockquote>
+<h3 id="1013----zusammenfassung"><a class="header" href="#1013----zusammenfassung">10.13    Zusammenfassung</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Konzept</th><th>Beschreibung</th></tr>
+</thead>
+<tbody>
+<tr><td><code>type</code></td><td>Standard-Metaclass aller Klassen</td></tr>
+<tr><td><code>__new__</code></td><td>Klasse während Erstellung modifizieren</td></tr>
+<tr><td><code>__init__</code></td><td>Klasse nach Erstellung initialisieren</td></tr>
+<tr><td><code>__call__</code></td><td>Instanzerstellung kontrollieren</td></tr>
+<tr><td><code>__prepare__</code></td><td>Namespace-Dictionary vorbereiten</td></tr>
+<tr><td><code>metaclass=</code></td><td>Custom Metaclass zuweisen</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Kernprinzip:</strong> Metaclasses kontrollieren die Klassenerstellung selbst. Sie sind ein sehr mächtiges Werkzeug, sollten aber sparsam eingesetzt werden. In den meisten Fällen sind Class Decorators oder <code>__init_subclass__</code> die bessere Wahl.</p>
+<p><strong>Entscheidungsbaum:</strong></p>
+<ol>
+<li>Brauche ich wirklich Metaprogrammierung? → Oft: Nein</li>
+<li>Reicht ein Class Decorator? → Meistens: Ja</li>
+<li>Reicht <code>__init_subclass__</code>? → Oft: Ja</li>
+<li>Brauche ich volle Kontrolle über Klassenerstellung? → Dann: Metaclass</li>
+</ol>
+<h2 id="11----itertools--leistungsstarke-iterator-werkzeuge"><a class="header" href="#11----itertools--leistungsstarke-iterator-werkzeuge">11    Itertools – Leistungsstarke Iterator-Werkzeuge</a></h2>
+<p>Das <code>itertools</code>-Modul bietet spezialisierte Iterator-Funktionen für effiziente Schleifen und funktionale Programmierung. Alle Funktionen sind speichereffizient, da sie Iteratoren statt Listen zurückgeben.</p>
+<h3 id="111----unendliche-iteratoren"><a class="header" href="#111----unendliche-iteratoren">11.1    Unendliche Iteratoren</a></h3>
+<h4 id="1111----count--unendliches-zählen"><a class="header" href="#1111----count--unendliches-zählen">11.1.1    <code>count()</code> – Unendliches Zählen</a></h4>
+<pre><code class="language-python">from itertools import count
+
+# Zählt ab 10 in 2er-Schritten
+counter = count(start=10, step=2)
+for i in counter:
+    if i &gt; 20:
+        break
+    print(i)  # 10, 12, 14, 16, 18, 20
+
+# Mit zip für begrenzte Iteration
+for i, letter in zip(count(1), ['a', 'b', 'c']):
+    print(f"{i}: {letter}")
+# 1: a
+# 2: b
+# 3: c
+</code></pre>
+<h4 id="1112----cycle--elemente-wiederholen"><a class="header" href="#1112----cycle--elemente-wiederholen">11.1.2    <code>cycle()</code> – Elemente wiederholen</a></h4>
+<pre><code class="language-python">from itertools import cycle
+
+# Zyklisch durch Elemente iterieren
+colors = cycle(['red', 'green', 'blue'])
+
+for i, color in enumerate(colors):
+    if i &gt;= 7:
+        break
+    print(color)
+# red, green, blue, red, green, blue, red
+</code></pre>
+<p><strong>Praktisches Beispiel – Zeilen abwechselnd einfärben:</strong></p>
+<pre><code class="language-python">from itertools import cycle
+
+rows = ['Row 1', 'Row 2', 'Row 3', 'Row 4', 'Row 5']
+colors = cycle(['white', 'gray'])
+
+for row, color in zip(rows, colors):
+    print(f"{row} - {color}")
+</code></pre>
+<h4 id="1113----repeat--element-wiederholen"><a class="header" href="#1113----repeat--element-wiederholen">11.1.3    <code>repeat()</code> – Element wiederholen</a></h4>
+<pre><code class="language-python">from itertools import repeat
+
+# Unbegrenzt
+for item in repeat('X'):
+    print(item)  # X, X, X, ... (unendlich)
+    break
+
+# Begrenzt
+for item in repeat('X', 3):
+    print(item)  # X, X, X
+
+# Praktisch mit map
+result = list(map(pow, [2, 3, 4], repeat(3)))
+print(result)  # [8, 27, 64] (2³, 3³, 4³)
+</code></pre>
+<h3 id="112----kombinatorische-iteratoren"><a class="header" href="#112----kombinatorische-iteratoren">11.2    Kombinatorische Iteratoren</a></h3>
+<h4 id="1121----product--kartesisches-produkt"><a class="header" href="#1121----product--kartesisches-produkt">11.2.1    <code>product()</code> – Kartesisches Produkt</a></h4>
+<pre><code class="language-python">from itertools import product
+
+# Alle Kombinationen
+colors = ['red', 'blue']
+sizes = ['S', 'M', 'L']
+
+for color, size in product(colors, sizes):
+    print(f"{color}-{size}")
+# red-S, red-M, red-L, blue-S, blue-M, blue-L
+
+# Äquivalent zu verschachtelten Schleifen
+for color in colors:
+    for size in sizes:
+        print(f"{color}-{size}")
+
+# Mit repeat-Parameter
+for item in product(range(2), repeat=3):
+    print(item)
+# (0,0,0), (0,0,1), (0,1,0), (0,1,1), (1,0,0), (1,0,1), (1,1,0), (1,1,1)
+</code></pre>
+<h4 id="1122----permutations--permutationen"><a class="header" href="#1122----permutations--permutationen">11.2.2    <code>permutations()</code> – Permutationen</a></h4>
+<pre><code class="language-python">from itertools import permutations
+
+# Alle Anordnungen von 3 Elementen
+items = ['A', 'B', 'C']
+for perm in permutations(items):
+    print(perm)
+# ('A','B','C'), ('A','C','B'), ('B','A','C'), ('B','C','A'), ('C','A','B'), ('C','B','A')
+
+# Permutationen mit Länge 2
+for perm in permutations(items, 2):
+    print(perm)
+# ('A','B'), ('A','C'), ('B','A'), ('B','C'), ('C','A'), ('C','B')
+
+# Anzahl: n! / (n-r)! für Länge r
+import math
+n, r = 3, 2
+count = math.factorial(n) // math.factorial(n - r)
+print(count)  # 6
+</code></pre>
+<h4 id="1123----combinations--kombinationen-ohne-wiederholung"><a class="header" href="#1123----combinations--kombinationen-ohne-wiederholung">11.2.3    <code>combinations()</code> – Kombinationen (ohne Wiederholung)</a></h4>
+<pre><code class="language-python">from itertools import combinations
+
+# Alle 2er-Kombinationen
+items = ['A', 'B', 'C', 'D']
+for combo in combinations(items, 2):
+    print(combo)
+# ('A','B'), ('A','C'), ('A','D'), ('B','C'), ('B','D'), ('C','D')
+
+# Anzahl: n! / (r! * (n-r)!)
+import math
+n, r = 4, 2
+count = math.factorial(n) // (math.factorial(r) * math.factorial(n - r))
+print(count)  # 6
+</code></pre>
+<h4 id="1124----combinations_with_replacement--kombinationen-mit-wiederholung"><a class="header" href="#1124----combinations_with_replacement--kombinationen-mit-wiederholung">11.2.4    <code>combinations_with_replacement()</code> – Kombinationen mit Wiederholung</a></h4>
+<pre><code class="language-python">from itertools import combinations_with_replacement
+
+items = ['A', 'B', 'C']
+for combo in combinations_with_replacement(items, 2):
+    print(combo)
+# ('A','A'), ('A','B'), ('A','C'), ('B','B'), ('B','C'), ('C','C')
+</code></pre>
+<h3 id="113----terminierende-iteratoren"><a class="header" href="#113----terminierende-iteratoren">11.3    Terminierende Iteratoren</a></h3>
+<h4 id="1131----chain--iterables-verketten"><a class="header" href="#1131----chain--iterables-verketten">11.3.1    <code>chain()</code> – Iterables verketten</a></h4>
+<pre><code class="language-python">from itertools import chain
+
+# Mehrere Iterables zu einem kombinieren
+list1 = [1, 2, 3]
+list2 = [4, 5, 6]
+list3 = [7, 8, 9]
+
+for item in chain(list1, list2, list3):
+    print(item)  # 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+# Äquivalent zu:
+result = list1 + list2 + list3
+
+# chain.from_iterable für verschachtelte Iterables
+nested = [[1, 2], [3, 4], [5, 6]]
+flattened = list(chain.from_iterable(nested))
+print(flattened)  # [1, 2, 3, 4, 5, 6]
+</code></pre>
+<h4 id="1132----compress--filtern-mit-boolean-mask"><a class="header" href="#1132----compress--filtern-mit-boolean-mask">11.3.2    <code>compress()</code> – Filtern mit Boolean-Mask</a></h4>
+<pre><code class="language-python">from itertools import compress
+
+data = ['A', 'B', 'C', 'D', 'E']
+selectors = [True, False, True, False, True]
+
+result = list(compress(data, selectors))
+print(result)  # ['A', 'C', 'E']
+
+# Praktisches Beispiel
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+is_even = [n % 2 == 0 for n in numbers]
+evens = list(compress(numbers, is_even))
+print(evens)  # [2, 4, 6, 8, 10]
+</code></pre>
+<h4 id="1133----dropwhile-und-takewhile--bedingte-iteration"><a class="header" href="#1133----dropwhile-und-takewhile--bedingte-iteration">11.3.3    <code>dropwhile()</code> und <code>takewhile()</code> – Bedingte Iteration</a></h4>
+<pre><code class="language-python">from itertools import dropwhile, takewhile
+
+data = [1, 4, 6, 4, 1]
+
+# dropwhile: Überspringt bis Bedingung False wird
+result = list(dropwhile(lambda x: x &lt; 5, data))
+print(result)  # [6, 4, 1] (ab erstem x &gt;= 5)
+
+# takewhile: Nimmt bis Bedingung False wird
+result = list(takewhile(lambda x: x &lt; 5, data))
+print(result)  # [1, 4] (bis erstes x &gt;= 5)
+</code></pre>
+<h4 id="1134----filterfalse--umgekehrtes-filter"><a class="header" href="#1134----filterfalse--umgekehrtes-filter">11.3.4    <code>filterfalse()</code> – Umgekehrtes filter()</a></h4>
+<pre><code class="language-python">from itertools import filterfalse
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# filter gibt True-Werte zurück
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(evens)  # [2, 4, 6, 8, 10]
+
+# filterfalse gibt False-Werte zurück
+odds = list(filterfalse(lambda x: x % 2 == 0, numbers))
+print(odds)   # [1, 3, 5, 7, 9]
+</code></pre>
+<h4 id="1135----groupby--gruppieren-nach-schlüssel"><a class="header" href="#1135----groupby--gruppieren-nach-schlüssel">11.3.5    <code>groupby()</code> – Gruppieren nach Schlüssel</a></h4>
+<pre><code class="language-python">from itertools import groupby
+
+# Daten müssen nach Gruppierungsschlüssel SORTIERT sein!
+data = [
+    ('Alice', 'A'),
+    ('Bob', 'B'),
+    ('Charlie', 'C'),
+    ('David', 'A'),
+    ('Eve', 'B')
+]
+
+# Nach zweitem Element gruppieren (NICHT sortiert → falsche Gruppen!)
+for key, group in groupby(data, key=lambda x: x[1]):
+    print(f"{key}: {list(group)}")
+# A: [('Alice', 'A')]
+# B: [('Bob', 'B')]
+# C: [('Charlie', 'C')]
+# A: [('David', 'A')]  ← Neue Gruppe!
+# B: [('Eve', 'B')]    ← Neue Gruppe!
+
+# Richtig: Erst sortieren
+data_sorted = sorted(data, key=lambda x: x[1])
+for key, group in groupby(data_sorted, key=lambda x: x[1]):
+    print(f"{key}: {list(group)}")
+# A: [('Alice', 'A'), ('David', 'A')]
+# B: [('Bob', 'B'), ('Eve', 'B')]
+# C: [('Charlie', 'C')]
+</code></pre>
+<p><strong>Praktisches Beispiel – Nach Länge gruppieren:</strong></p>
+<pre><code class="language-python">from itertools import groupby
+
+words = ['a', 'bb', 'ccc', 'dd', 'e', 'fff']
+words_sorted = sorted(words, key=len)
+
+for length, group in groupby(words_sorted, key=len):
+    print(f"Length {length}: {list(group)}")
+# Length 1: ['a', 'e']
+# Length 2: ['bb', 'dd']
+# Length 3: ['ccc', 'fff']
+</code></pre>
+<h4 id="1136----islice--slice-für-iteratoren"><a class="header" href="#1136----islice--slice-für-iteratoren">11.3.6    <code>islice()</code> – Slice für Iteratoren</a></h4>
+<pre><code class="language-python">from itertools import islice, count
+
+# Wie list-slicing, aber für Iteratoren
+data = range(10)
+
+# islice(iterable, stop)
+result = list(islice(data, 5))
+print(result)  # [0, 1, 2, 3, 4]
+
+# islice(iterable, start, stop)
+result = list(islice(data, 2, 7))
+print(result)  # [2, 3, 4, 5, 6]
+
+# islice(iterable, start, stop, step)
+result = list(islice(data, 0, 10, 2))
+print(result)  # [0, 2, 4, 6, 8]
+
+# Sehr nützlich für unendliche Iteratoren
+result = list(islice(count(10), 5))
+print(result)  # [10, 11, 12, 13, 14]
+</code></pre>
+<h4 id="1137----starmap--map-mit-argument-unpacking"><a class="header" href="#1137----starmap--map-mit-argument-unpacking">11.3.7    <code>starmap()</code> – map mit Argument-Unpacking</a></h4>
+<pre><code class="language-python">from itertools import starmap
+
+# map wendet Funktion auf einzelne Elemente an
+result = list(map(pow, [2, 3, 4], [5, 2, 3]))
+print(result)  # [32, 9, 64]
+
+# starmap entpackt Tupel als Argumente
+data = [(2, 5), (3, 2), (4, 3)]
+result = list(starmap(pow, data))
+print(result)  # [32, 9, 64]
+
+# Praktisches Beispiel
+points = [(1, 2), (3, 4), (5, 6)]
+result = list(starmap(lambda x, y: x + y, points))
+print(result)  # [3, 7, 11]
+</code></pre>
+<h4 id="1138----tee--iterator-duplizieren"><a class="header" href="#1138----tee--iterator-duplizieren">11.3.8    <code>tee()</code> – Iterator duplizieren</a></h4>
+<pre><code class="language-python">from itertools import tee
+
+data = range(5)
+it1, it2 = tee(data, 2)  # 2 unabhängige Kopien
+
+# Beide können unabhängig verwendet werden
+print(list(it1))  # [0, 1, 2, 3, 4]
+print(list(it2))  # [0, 1, 2, 3, 4]
+
+# Warnung: Original-Iterator nicht mehr verwenden!
+</code></pre>
+<h4 id="1139----zip_longest--zip-mit-auffüllung"><a class="header" href="#1139----zip_longest--zip-mit-auffüllung">11.3.9    <code>zip_longest()</code> – Zip mit Auffüllung</a></h4>
+<pre><code class="language-python">from itertools import zip_longest
+
+# Normales zip stoppt bei kürzester Sequenz
+a = [1, 2, 3]
+b = ['a', 'b']
+print(list(zip(a, b)))  # [(1, 'a'), (2, 'b')]
+
+# zip_longest füllt mit None auf
+print(list(zip_longest(a, b)))
+# [(1, 'a'), (2, 'b'), (3, None)]
+
+# Mit custom fillvalue
+print(list(zip_longest(a, b, fillvalue='?')))
+# [(1, 'a'), (2, 'b'), (3, '?')]
+</code></pre>
+<h3 id="114----akkumulatoren"><a class="header" href="#114----akkumulatoren">11.4    Akkumulatoren</a></h3>
+<h4 id="1141----accumulate--kumulative-werte"><a class="header" href="#1141----accumulate--kumulative-werte">11.4.1    <code>accumulate()</code> – Kumulative Werte</a></h4>
+<pre><code class="language-python">from itertools import accumulate
+import operator
+
+# Standardmäßig: Addition
+numbers = [1, 2, 3, 4, 5]
+result = list(accumulate(numbers))
+print(result)  # [1, 3, 6, 10, 15] (laufende Summe)
+
+# Mit custom Operation
+result = list(accumulate(numbers, operator.mul))
+print(result)  # [1, 2, 6, 24, 120] (laufendes Produkt)
+
+# Maximum-Tracking
+numbers = [5, 2, 8, 1, 9, 3]
+result = list(accumulate(numbers, max))
+print(result)  # [5, 5, 8, 8, 9, 9]
+
+# Mit Lambda
+result = list(accumulate(numbers, lambda x, y: x if x &gt; y else y))
+print(result)  # [5, 5, 8, 8, 9, 9]
+</code></pre>
+<h3 id="115----praktische-kombinationen"><a class="header" href="#115----praktische-kombinationen">11.5    Praktische Kombinationen</a></h3>
+<h4 id="1151----paarweise-iteration"><a class="header" href="#1151----paarweise-iteration">11.5.1    Paarweise Iteration</a></h4>
+<pre><code class="language-python">from itertools import tee
+
+def pairwise(iterable):
+    """s -&gt; (s0,s1), (s1,s2), (s2,s3), ..."""
+    a, b = tee(iterable)
+    next(b, None)
+    return zip(a, b)
+
+# Verwendung
+data = [1, 2, 3, 4, 5]
+for pair in pairwise(data):
+    print(pair)
+# (1, 2), (2, 3), (3, 4), (4, 5)
+
+# Ab Python 3.10 eingebaut:
+from itertools import pairwise
+for pair in pairwise(data):
+    print(pair)
+</code></pre>
+<h4 id="1152----fenster-iteration-sliding-window"><a class="header" href="#1152----fenster-iteration-sliding-window">11.5.2    Fenster-Iteration (Sliding Window)</a></h4>
+<pre><code class="language-python">from itertools import islice
+
+def sliding_window(iterable, n):
+    """Gleitet mit Fenster der Größe n über iterable"""
+    iterators = tee(iterable, n)
+    for i, it in enumerate(iterators):
+        for _ in range(i):
+            next(it, None)
+    return zip(*iterators)
+
+# Verwendung
+data = [1, 2, 3, 4, 5, 6]
+for window in sliding_window(data, 3):
+    print(window)
+# (1, 2, 3), (2, 3, 4), (3, 4, 5), (4, 5, 6)
+</code></pre>
+<h4 id="1153----batching-chunks"><a class="header" href="#1153----batching-chunks">11.5.3    Batching (Chunks)</a></h4>
+<pre><code class="language-python">from itertools import islice
+
+def batched(iterable, n):
+    """iterable -&gt; [chunk1, chunk2, ...]"""
+    iterator = iter(iterable)
+    while True:
+        batch = list(islice(iterator, n))
+        if not batch:
+            break
+        yield batch
+
+# Verwendung
+data = range(10)
+for batch in batched(data, 3):
+    print(batch)
+# [0, 1, 2], [3, 4, 5], [6, 7, 8], [9]
+
+# Ab Python 3.12 eingebaut:
+# from itertools import batched
+</code></pre>
+<h4 id="1154----flatten-verschachtelung-auflösen"><a class="header" href="#1154----flatten-verschachtelung-auflösen">11.5.4    Flatten (Verschachtelung auflösen)</a></h4>
+<pre><code class="language-python">from itertools import chain
+
+def flatten(nested_list):
+    """[[1,2], [3,4]] -&gt; [1, 2, 3, 4]"""
+    return chain.from_iterable(nested_list)
+
+nested = [[1, 2], [3, 4], [5, 6]]
+result = list(flatten(nested))
+print(result)  # [1, 2, 3, 4, 5, 6]
+
+# Für beliebige Verschachtelung (rekursiv)
+def deep_flatten(nested):
+    for item in nested:
+        if isinstance(item, (list, tuple)):
+            yield from deep_flatten(item)
+        else:
+            yield item
+
+deeply_nested = [1, [2, [3, [4, 5]]]]
+result = list(deep_flatten(deeply_nested))
+print(result)  # [1, 2, 3, 4, 5]
+</code></pre>
+<h3 id="116----performance-vorteile"><a class="header" href="#116----performance-vorteile">11.6    Performance-Vorteile</a></h3>
+<pre><code class="language-python">import time
+from itertools import islice, count
+
+# ❌ Ineffizient: Liste erstellen
+start = time.time()
+large_list = list(range(10_000_000))
+first_100 = large_list[:100]
+print(f"List: {time.time() - start:.3f}s")
+
+# ✅ Effizient: Iterator verwenden
+start = time.time()
+first_100 = list(islice(count(), 100))
+print(f"Iterator: {time.time() - start:.3f}s")
+
+# Speichervergleich
+import sys
+numbers_list = list(range(1_000_000))
+numbers_iter = range(1_000_000)
+
+print(f"List: {sys.getsizeof(numbers_list)} bytes")     # ~8 MB
+print(f"Iterator: {sys.getsizeof(numbers_iter)} bytes") # ~48 bytes
+</code></pre>
+<h3 id="117----best-practices"><a class="header" href="#117----best-practices">11.7    Best Practices</a></h3>
+<p><strong>✅ DO:</strong></p>
+<ul>
+<li>Nutze Iteratoren für große Datenmengen (speichereffizient)</li>
+<li>Kombiniere itertools-Funktionen für komplexe Operationen</li>
+<li>Sortiere Daten vor <code>groupby()</code></li>
+<li>Verwende <code>chain.from_iterable()</code> statt verschachtelter Loops</li>
+</ul>
+<p><strong>❌ DON’T:</strong></p>
+<ul>
+<li>Konvertiere Iteratoren nicht unnötig zu Listen</li>
+<li>Vergiss nicht, dass Iteratoren nur einmal durchlaufen werden können</li>
+<li>Verwende <code>groupby()</code> nicht ohne vorheriges Sortieren</li>
+<li>Original-Iterator nach <code>tee()</code> nicht weiterverwenden</li>
+</ul>
+<h3 id="118----zusammenfassung"><a class="header" href="#118----zusammenfassung">11.8    Zusammenfassung</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Funktion</th><th>Zweck</th><th>Rückgabe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>count()</code></td><td>Unendliches Zählen</td><td>10, 11, 12, …</td></tr>
+<tr><td><code>cycle()</code></td><td>Elemente zyklisch wiederholen</td><td>A, B, C, A, B, …</td></tr>
+<tr><td><code>repeat()</code></td><td>Element wiederholen</td><td>X, X, X, …</td></tr>
+<tr><td><code>product()</code></td><td>Kartesisches Produkt</td><td>(A,1), (A,2), …</td></tr>
+<tr><td><code>permutations()</code></td><td>Alle Anordnungen</td><td>(A,B), (B,A), …</td></tr>
+<tr><td><code>combinations()</code></td><td>Kombinationen ohne Wiederholung</td><td>(A,B), (A,C), …</td></tr>
+<tr><td><code>chain()</code></td><td>Iterables verketten</td><td>1, 2, 3, 4, …</td></tr>
+<tr><td><code>compress()</code></td><td>Filtern mit Boolean-Mask</td><td>[True], [False], …</td></tr>
+<tr><td><code>groupby()</code></td><td>Gruppieren (nach Sortierung!)</td><td>Gruppen nach Key</td></tr>
+<tr><td><code>islice()</code></td><td>Slice für Iteratoren</td><td>Teilbereich</td></tr>
+<tr><td><code>accumulate()</code></td><td>Kumulative Werte</td><td>1, 3, 6, 10, …</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Kernprinzip:</strong> <code>itertools</code> bietet speichereffiziente, kombinierbare Iterator-Funktionen für funktionale Programmierung und große Datenmengen. Iteratoren sind lazy (verzögerte Auswertung) und können nur einmal durchlaufen werden.</p>
+<h2 id="12----zusammenfassung"><a class="header" href="#12----zusammenfassung">12    Zusammenfassung</a></h2>
+<ol>
+<li>
+<p>Typprüfung und Instanzen</p>
+<ul>
+<li>Mit <code>type()</code>, <code>isinstance()</code> und <code>issubclass()</code> prüft man Objekttypen und Vererbungsbeziehungen.</li>
+</ul>
+</li>
+<li>
+<p>Objekt-Erzeugung</p>
+<ul>
+<li><code>__new__</code> erzeugt das Objekt (besonders bei Immutable-Typen wichtig).</li>
+<li><code>__init__</code> initialisiert das Objekt nach der Erzeugung.</li>
+</ul>
+</li>
+<li>
+<p>Methodenarten</p>
+<ul>
+<li><code>@staticmethod</code>: Kein Zugriff auf Klassen- oder Instanzdaten.</li>
+<li><code>@classmethod</code>: Zugriff auf die Klasse (<code>cls</code>).</li>
+<li><code>@property</code>: Ermöglicht kontrollierten Zugriff auf Attribute wie bei einem Feld.</li>
+</ul>
+</li>
+<li>
+<p>Spezialmethoden (Dunder Methods)</p>
+<ul>
+<li>Methoden wie <code>__str__</code>, <code>__eq__</code>, <code>__getitem__</code> erlauben es, benutzerdefinierte Objekte wie eingebaute Typen zu behandeln.</li>
+</ul>
+</li>
+<li>
+<p>Abstraktion und Vererbung</p>
+<ul>
+<li>Abstrakte Klassen (<code>ABC</code>, <code>@abstractmethod</code>) erzwingen Implementierungen in Unterklassen.</li>
+<li>Die Method Resolution Order (MRO) bestimmt die Aufrufreihenfolge bei Mehrfachvererbung.</li>
+</ul>
+</li>
+<li>
+<p>Iteration und Indexierung</p>
+<ul>
+<li>Iterator-Klassen und Generator-Funktionen ermöglichen eigene Iterationslogik.</li>
+<li>Mit <code>__getitem__</code> und <code>__setitem__</code> lassen sich Objekte wie Listen verwenden.</li>
+</ul>
+</li>
+<li>
+<p>Speicher- und Datenrepräsentation</p>
+<ul>
+<li><code>@dataclass</code> reduziert Boilerplate für Datenobjekte.
+<ul>
+<li><code>__slots__</code> spart Speicher durch festen Attributsatz.</li>
+<li><code>frozen=True</code> macht die Dataclass unveränderbar.</li>
+</ul>
+</li>
+<li><code>namedtuple</code> ist eine kompakte, unveränderliche Datenstruktur mit Feldnamen.</li>
+</ul>
+</li>
+<li>
+<p>Enumerationen</p>
+<ul>
+<li>Mit <code>Enum</code> kann man symbolische Konstanten definieren, die lesbar und typsicher sind.</li>
+</ul>
+</li>
+<li>
+<p>Klassen-Dekoratoren</p>
+<ul>
+<li>Decorators für Klassen können beim Erzeugen einer Klasse deren Verhalten ändern oder erweitern – ideal für Logging, Validierung oder automatische Registrierung.</li>
+</ul>
+</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../b-oop-und-fortgeschrittene-konzepte/grundlagen-der-objektorientierung.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../b-oop-und-fortgeschrittene-konzepte/fortgeschrittene-funktionstechniken.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../b-oop-und-fortgeschrittene-konzepte/grundlagen-der-objektorientierung.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../b-oop-und-fortgeschrittene-konzepte/fortgeschrittene-funktionstechniken.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
