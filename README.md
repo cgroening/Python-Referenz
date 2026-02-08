@@ -75,7 +75,7 @@ Um die Themen aktuell zu halten, wird diese Referenz laufend aktualisiert. Hinwe
 - GUI mit Tkinter
 - GUI mit Qt (PyQt und PySide)
 
-### TEIL VII: WEB-ENTWICKLUNG
+### TEIL VIII: WEB-ENTWICKLUNG
 
 - Django
 - Flask
