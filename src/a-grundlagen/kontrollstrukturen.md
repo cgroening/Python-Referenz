@@ -304,16 +304,16 @@ def handle_response(response):
     match response:
         case {"status": "success", "data": data}:
             return f"Success: {data}"
-        
+
         case {"status": "error", "code": 404}:
             return "Resource not found"
-        
+
         case {"status": "error", "code": code, "message": msg}:
             return f"Error {code}: {msg}"
-        
+
         case {"status": "error"}:
             return "Unknown error"
-        
+
         case _:
             return "Invalid response format"
 
@@ -328,22 +328,22 @@ def execute_command(cmd):
     match cmd.split():
         case ["quit"] | ["exit"]:
             return "Exiting..."
-        
+
         case ["help"]:
             return "Available commands: help, quit, list, add, delete"
-        
+
         case ["list"]:
             return "Listing all items..."
-        
+
         case ["add", item]:
             return f"Adding {item}"
-        
+
         case ["add", *items]:
             return f"Adding multiple items: {items}"
-        
+
         case ["delete", item]:
             return f"Deleting {item}"
-        
+
         case _:
             return "Unknown command"
 
@@ -369,21 +369,21 @@ def evaluate(expr):
     match expr:
         case Constant(value):
             return value
-        
+
         case BinaryOp("+", left, right):
             return evaluate(left) + evaluate(right)
-        
+
         case BinaryOp("-", left, right):
             return evaluate(left) - evaluate(right)
-        
+
         case BinaryOp("*", left, right):
             return evaluate(left) * evaluate(right)
-        
+
         case _:
             raise ValueError(f"Unknown expression: {expr}")
 
 # Test: (2 + 3) * 5
-expr = BinaryOp("*", 
+expr = BinaryOp("*",
     BinaryOp("+", Constant(2), Constant(3)),
     Constant(5)
 )
@@ -397,19 +397,19 @@ def handle_event(event):
     match event:
         case {"type": "click", "x": x, "y": y, "button": "left"}:
             print(f"Left click at ({x}, {y})")
-        
+
         case {"type": "click", "x": x, "y": y, "button": "right"}:
             print(f"Right click at ({x}, {y})")
-        
+
         case {"type": "keypress", "key": "Enter"}:
             print("Enter pressed")
-        
+
         case {"type": "keypress", "key": key, "ctrl": True}:
             print(f"Ctrl+{key} pressed")
-        
+
         case {"type": "scroll", "delta": delta} if delta > 0:
             print("Scrolling up")
-        
+
         case {"type": "scroll", "delta": delta} if delta < 0:
             print("Scrolling down")
 
@@ -572,5 +572,3 @@ while True:
     if i == m: break
     i += 1
 ```
-
-

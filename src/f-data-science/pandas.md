@@ -605,5 +605,3 @@ pd.read_csv('daten.csv', usecols=['Name', 'Alter'])
 ### 13.3   Weitere Möglichkeiten
 
 Weitere Leistungssteigerungen kann man durch die Verwendung von [Cython](https://cython.org) oder [Numba](https://numba.pydata.org) erreichen. Beide generieren C-Code. Da dieser maschinennäher ist, erreicht damit eine geringere Ausführungszeit
-
-

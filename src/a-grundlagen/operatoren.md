@@ -160,6 +160,3 @@ n = 5
 
 - Wenn normale Zuweisung ausreicht
 - Wenn es die Lesbarkeit verschlechtert
-
-
-

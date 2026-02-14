@@ -168,21 +168,21 @@ import os
 def load_plugins(plugin_dir):
     """Lädt alle Python-Dateien aus plugin_dir als Module"""
     plugins = []
-    
+
     for filename in os.listdir(plugin_dir):
         if filename.endswith('.py') and not filename.startswith('_'):
             module_name = filename[:-3]  # .py entfernen
-            
+
             # Dynamisch importieren
             spec = importlib.util.spec_from_file_location(
-                module_name, 
+                module_name,
                 os.path.join(plugin_dir, filename)
             )
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
-            
+
             plugins.append(module)
-    
+
     return plugins
 
 # Verwendung
@@ -341,7 +341,7 @@ import sys
 def find_module(module_name):
     """Zeigt, wo Python nach einem Modul suchen würde"""
     import importlib.util
-    
+
     spec = importlib.util.find_spec(module_name)
     if spec:
         print(f"Found: {spec.origin}")
@@ -518,19 +518,19 @@ Docstrings dokumentieren Module, Klassen und Funktionen direkt im Code.
 ````python
 def calculate_distance(x1: float, y1: float, x2: float, y2: float) -> float:
     """Berechnet die euklidische Distanz zwischen zwei Punkten.
-    
+
     Args:
         x1: X-Koordinate des ersten Punkts
         y1: Y-Koordinate des ersten Punkts
         x2: X-Koordinate des zweiten Punkts
         y2: Y-Koordinate des zweiten Punkts
-    
+
     Returns:
         Die euklidische Distanz als float
-    
+
     Raises:
         ValueError: Wenn Koordinaten nicht numerisch sind
-    
+
     Examples:
         >>> calculate_distance(0, 0, 3, 4)
         5.0
@@ -543,7 +543,7 @@ def calculate_distance(x1: float, y1: float, x2: float, y2: float) -> float:
 def calculate_distance(x1, y1, x2, y2):
     """
     Berechnet die euklidische Distanz zwischen zwei Punkten.
-    
+
     Parameters
     ----------
     x1 : float
@@ -554,12 +554,12 @@ def calculate_distance(x1, y1, x2, y2):
         X-Koordinate des zweiten Punkts
     y2 : float
         Y-Koordinate des zweiten Punkts
-    
+
     Returns
     -------
     float
         Die euklidische Distanz
-    
+
     Examples
     --------
     >>> calculate_distance(0, 0, 3, 4)
@@ -572,7 +572,7 @@ def calculate_distance(x1, y1, x2, y2):
 ````python
 def calculate_distance(x1, y1, x2, y2):
     """Berechnet die euklidische Distanz zwischen zwei Punkten.
-    
+
     :param x1: X-Koordinate des ersten Punkts
     :type x1: float
     :param y1: Y-Koordinate des ersten Punkts
@@ -612,20 +612,20 @@ import math
 ````python
 class Circle:
     """Repräsentiert einen Kreis.
-    
+
     Attributes:
         radius: Radius des Kreises in Metern
         center: Tuple (x, y) für Mittelpunkt
-    
+
     Example:
         >>> circle = Circle(5.0, (0, 0))
         >>> circle.area()
         78.54
     """
-    
+
     def __init__(self, radius: float, center: tuple = (0, 0)):
         """Initialisiert einen Kreis.
-        
+
         Args:
             radius: Radius des Kreises
             center: Mittelpunkt als (x, y) Tuple
@@ -639,10 +639,10 @@ class Circle:
 # ✅ DO
 def process_data(data: list[str]) -> dict:
     """Verarbeitet Eingabedaten zu strukturiertem Dictionary.
-    
+
     Args:
         data: Liste von Rohdaten-Strings
-    
+
     Returns:
         Dictionary mit verarbeiteten Daten
     """
@@ -1013,10 +1013,10 @@ Dieses Modul stellt grundlegende mathematische Operationen bereit.
 
 class Calculator:
     """Einfacher Taschenrechner.
-    
+
     Attributes:
         history: Liste der durchgeführten Operationen
-    
+
     Example:
         >>> calc = Calculator()
         >>> calc.add(2, 3)
@@ -1024,21 +1024,21 @@ class Calculator:
         >>> calc.history
         ['2 + 3 = 5']
     """
-    
+
     def __init__(self):
         """Initialisiert Calculator mit leerer History."""
         self.history = []
-    
+
     def add(self, a: float, b: float) -> float:
         """Addiert zwei Zahlen.
-        
+
         Args:
             a: Erste Zahl
             b: Zweite Zahl
-        
+
         Returns:
             Summe von a und b
-        
+
         Example:
             >>> calc = Calculator()
             >>> calc.add(10, 5)
@@ -1047,20 +1047,20 @@ class Calculator:
         result = a + b
         self.history.append(f"{a} + {b} = {result}")
         return result
-    
+
     def divide(self, a: float, b: float) -> float:
         """Dividiert zwei Zahlen.
-        
+
         Args:
             a: Dividend
             b: Divisor
-        
+
         Returns:
             Quotient von a durch b
-        
+
         Raises:
             ValueError: Wenn b gleich 0 ist
-        
+
         Example:
             >>> calc = Calculator()
             >>> calc.divide(10, 2)
@@ -1089,20 +1089,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Install dependencies
         run: |
           pip install sphinx sphinx-rtd-theme
-      
+
       - name: Build docs
         run: |
           cd docs
           make html
-      
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -1168,4 +1168,3 @@ repos:
 | Validierung    | pydocstyle / Ruff                   |
 
 **Kernprinzip:** Gute Dokumentation ist Teil des Codes. Nutze Docstrings konsequent, automatische Generierung (Sphinx/MkDocs/pdoc), und CI/CD für stets aktuelle Dokumentation.
-

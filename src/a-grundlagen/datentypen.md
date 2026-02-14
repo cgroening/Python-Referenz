@@ -30,7 +30,7 @@
 ```python
 s = "Hallo"
 s = 'Hallo'
-s = """Hallo 
+s = """Hallo
     Welt"""
 s = ('Hallo '
      'Welt')
@@ -194,8 +194,3 @@ b = 3
 print(a ** b)          # 8
 print(math.pow(a, b))  # 8.0
 ```
-
-
-
-
-

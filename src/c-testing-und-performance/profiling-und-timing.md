@@ -272,4 +272,4 @@ def test_performance():
 | Terminal öffnen               | `Ctrl+``             |
 | Befehlspalette öffnen         | `Ctrl+Shift+P`       |
 | Tests entdecken               | `Python: Discover Tests` |
-| Nur einen Test ausführen      | `Rechtsklick > Run Test` |
+| Nueinen Test ausführen      | `Rechtsklick > Run Test` |

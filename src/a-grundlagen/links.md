@@ -15,6 +15,3 @@
 - [Programmieren lernen mit Python](https://py-tutorial-de.readthedocs.io/) – Strukturiertes Tutorial für Anfänger
 - [Python 3 Das umfassende Handbuch (Rheinwerk)](https://openbook.rheinwerk-verlag.de/python/) – Kostenloses Online-Buch von Rheinwerk
 - [Python Kurs](https://www.python-kurs.eu/index.php) – Ausführliche Tutorials mit praktischen Beispielen
-
-
-

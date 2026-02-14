@@ -215,5 +215,3 @@ sns.jointplot(data=df, x='total_bill', y='tip', kind='reg')
 | Farbschema         | --                           | `palette='Set2'` (oder 'deep', 'muted', etc.) |
 | Theme              | --                           | `sns.set_style('darkgrid')`                   |
 
-  
-
