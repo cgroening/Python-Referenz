@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-77a6c9c1.js";
+            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-f6524bb4.js"></script>
@@ -544,21 +544,21 @@ import os
 def load_plugins(plugin_dir):
     """Lädt alle Python-Dateien aus plugin_dir als Module"""
     plugins = []
-    
+
     for filename in os.listdir(plugin_dir):
         if filename.endswith('.py') and not filename.startswith('_'):
             module_name = filename[:-3]  # .py entfernen
-            
+
             # Dynamisch importieren
             spec = importlib.util.spec_from_file_location(
-                module_name, 
+                module_name,
                 os.path.join(plugin_dir, filename)
             )
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
-            
+
             plugins.append(module)
-    
+
     return plugins
 
 # Verwendung
@@ -693,7 +693,7 @@ sys.meta_path.insert(0, CustomFinder())
 def find_module(module_name):
     """Zeigt, wo Python nach einem Modul suchen würde"""
     import importlib.util
-    
+
     spec = importlib.util.find_spec(module_name)
     if spec:
         print(f"Found: {spec.origin}")
@@ -848,19 +848,19 @@ from src.core.engine import Engine
 <p><strong>Google Style (empfohlen für Lesbarkeit):</strong></p>
 <pre><code class="language-python">def calculate_distance(x1: float, y1: float, x2: float, y2: float) -&gt; float:
     """Berechnet die euklidische Distanz zwischen zwei Punkten.
-    
+
     Args:
         x1: X-Koordinate des ersten Punkts
         y1: Y-Koordinate des ersten Punkts
         x2: X-Koordinate des zweiten Punkts
         y2: Y-Koordinate des zweiten Punkts
-    
+
     Returns:
         Die euklidische Distanz als float
-    
+
     Raises:
         ValueError: Wenn Koordinaten nicht numerisch sind
-    
+
     Examples:
         &gt;&gt;&gt; calculate_distance(0, 0, 3, 4)
         5.0
@@ -871,7 +871,7 @@ from src.core.engine import Engine
 <pre><code class="language-python">def calculate_distance(x1, y1, x2, y2):
     """
     Berechnet die euklidische Distanz zwischen zwei Punkten.
-    
+
     Parameters
     ----------
     x1 : float
@@ -882,12 +882,12 @@ from src.core.engine import Engine
         X-Koordinate des zweiten Punkts
     y2 : float
         Y-Koordinate des zweiten Punkts
-    
+
     Returns
     -------
     float
         Die euklidische Distanz
-    
+
     Examples
     --------
     &gt;&gt;&gt; calculate_distance(0, 0, 3, 4)
@@ -898,7 +898,7 @@ from src.core.engine import Engine
 <p><strong>Sphinx Style (klassisch):</strong></p>
 <pre><code class="language-python">def calculate_distance(x1, y1, x2, y2):
     """Berechnet die euklidische Distanz zwischen zwei Punkten.
-    
+
     :param x1: X-Koordinate des ersten Punkts
     :type x1: float
     :param y1: Y-Koordinate des ersten Punkts
@@ -933,20 +933,20 @@ import math
 <p><strong>Klassen-Docstring:</strong></p>
 <pre><code class="language-python">class Circle:
     """Repräsentiert einen Kreis.
-    
+
     Attributes:
         radius: Radius des Kreises in Metern
         center: Tuple (x, y) für Mittelpunkt
-    
+
     Example:
         &gt;&gt;&gt; circle = Circle(5.0, (0, 0))
         &gt;&gt;&gt; circle.area()
         78.54
     """
-    
+
     def __init__(self, radius: float, center: tuple = (0, 0)):
         """Initialisiert einen Kreis.
-        
+
         Args:
             radius: Radius des Kreises
             center: Mittelpunkt als (x, y) Tuple
@@ -958,10 +958,10 @@ import math
 <pre><code class="language-python"># ✅ DO
 def process_data(data: list[str]) -&gt; dict:
     """Verarbeitet Eingabedaten zu strukturiertem Dictionary.
-    
+
     Args:
         data: Liste von Rohdaten-Strings
-    
+
     Returns:
         Dictionary mit verarbeiteten Daten
     """
@@ -1288,10 +1288,10 @@ Dieses Modul stellt grundlegende mathematische Operationen bereit.
 
 class Calculator:
     """Einfacher Taschenrechner.
-    
+
     Attributes:
         history: Liste der durchgeführten Operationen
-    
+
     Example:
         &gt;&gt;&gt; calc = Calculator()
         &gt;&gt;&gt; calc.add(2, 3)
@@ -1299,21 +1299,21 @@ class Calculator:
         &gt;&gt;&gt; calc.history
         ['2 + 3 = 5']
     """
-    
+
     def __init__(self):
         """Initialisiert Calculator mit leerer History."""
         self.history = []
-    
+
     def add(self, a: float, b: float) -&gt; float:
         """Addiert zwei Zahlen.
-        
+
         Args:
             a: Erste Zahl
             b: Zweite Zahl
-        
+
         Returns:
             Summe von a und b
-        
+
         Example:
             &gt;&gt;&gt; calc = Calculator()
             &gt;&gt;&gt; calc.add(10, 5)
@@ -1322,20 +1322,20 @@ class Calculator:
         result = a + b
         self.history.append(f"{a} + {b} = {result}")
         return result
-    
+
     def divide(self, a: float, b: float) -&gt; float:
         """Dividiert zwei Zahlen.
-        
+
         Args:
             a: Dividend
             b: Divisor
-        
+
         Returns:
             Quotient von a durch b
-        
+
         Raises:
             ValueError: Wenn b gleich 0 ist
-        
+
         Example:
             &gt;&gt;&gt; calc = Calculator()
             &gt;&gt;&gt; calc.divide(10, 2)
@@ -1361,20 +1361,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Install dependencies
         run: |
           pip install sphinx sphinx-rtd-theme
-      
+
       - name: Build docs
         run: |
           cd docs
           make html
-      
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

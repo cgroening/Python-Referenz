@@ -84,6 +84,508 @@ from functools import reduce
 summed = reduce(lambda acc, x: acc + x, numbers, 0)  # 15
 ```
 
+### 4.1 `map()` – Transformation anwenden
+
+`map(func, iterable)` wendet eine Funktion auf jedes Element eines Iterables an und gibt einen Iterator zurück.
+
+#### 4.1.1 Grundlagen
+
+```python
+# Syntax
+map(function, iterable)
+
+# Beispiel: Quadrieren
+numbers = [1, 2, 3, 4, 5]
+squared = map(lambda x: x**2, numbers)
+
+print(list(squared))  # [1, 4, 9, 16, 25]
+```
+
+**Wichtig:** `map()` gibt einen **Iterator** zurück, keine Liste! Daher `list()` verwenden um Ergebnis zu materialisieren.
+
+#### 4.1.2 Mit benannten Funktionen
+
+```python
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+
+temperatures_c = [0, 10, 20, 30, 40]
+temperatures_f = map(celsius_to_fahrenheit, temperatures_c)
+
+print(list(temperatures_f))
+# [32.0, 50.0, 68.0, 86.0, 104.0]
+```
+
+#### 4.1.3 Mehrere Iterables
+
+`map()` kann mehrere Iterables gleichzeitig verarbeiten:
+
+```python
+# Zwei Listen addieren
+a = [1, 2, 3]
+b = [10, 20, 30]
+
+result = map(lambda x, y: x + y, a, b)
+print(list(result))  # [11, 22, 33]
+
+# Drei Listen
+x = [1, 2, 3]
+y = [10, 20, 30]
+z = [100, 200, 300]
+
+result = map(lambda a, b, c: a + b + c, x, y, z)
+print(list(result))  # [111, 222, 333]
+```
+
+**Verhalten bei unterschiedlicher Länge:**
+
+```python
+a = [1, 2, 3]
+b = [10, 20]  # Kürzer!
+
+result = map(lambda x, y: x + y, a, b)
+print(list(result))  # [11, 22] - stoppt beim kürzesten!
+```
+
+#### 4.1.4 Mit String-Methoden
+
+```python
+# String-Methoden als Funktion
+words = ['hello', 'world', 'python']
+
+# Großbuchstaben
+upper = map(str.upper, words)
+print(list(upper))  # ['HELLO', 'WORLD', 'PYTHON']
+
+# Kapitalisieren
+capitalized = map(str.capitalize, words)
+print(list(capitalized))  # ['Hello', 'World', 'Python']
+
+# Länge ermitteln
+lengths = map(len, words)
+print(list(lengths))  # [5, 5, 6]
+```
+
+#### 4.1.5 Mit Type Conversion
+
+```python
+# Strings zu Integers
+string_numbers = ['1', '2', '3', '4', '5']
+integers = map(int, string_numbers)
+print(list(integers))  # [1, 2, 3, 4, 5]
+
+# Floats zu Integers
+floats = [1.5, 2.7, 3.2]
+ints = map(int, floats)
+print(list(ints))  # [1, 2, 3]
+
+# Mit float()
+strings = ['3.14', '2.71', '1.41']
+numbers = map(float, strings)
+print(list(numbers))  # [3.14, 2.71, 1.41]
+```
+
+#### 4.1.6 Praktische Beispiele
+
+**Daten bereinigen:**
+
+```python
+# Whitespace entfernen
+raw_data = ['  hello  ', 'world\n', '\tpython  ']
+cleaned = map(str.strip, raw_data)
+print(list(cleaned))  # ['hello', 'world', 'python']
+
+# Email-Adressen normalisieren
+emails = ['Alice@Example.COM', 'bob@TEST.com']
+normalized = map(str.lower, emails)
+print(list(normalized))  # ['alice@example.com', 'bob@test.com']
+```
+
+**Dictionary-Verarbeitung:**
+
+```python
+users = [
+    {'name': 'Alice', 'age': 30},
+    {'name': 'Bob', 'age': 25},
+    {'name': 'Charlie', 'age': 35}
+]
+
+# Nur Namen extrahieren
+names = map(lambda user: user['name'], users)
+print(list(names))  # ['Alice', 'Bob', 'Charlie']
+
+# Attribute transformieren
+def increment_age(user):
+    return {**user, 'age': user['age'] + 1}
+
+older_users = map(increment_age, users)
+print(list(older_users))
+# [{'name': 'Alice', 'age': 31}, ...]
+```
+
+**Nested Data:**
+
+```python
+# Matrix transponieren (vereinfacht)
+matrix = [[1, 2, 3], [4, 5, 6]]
+
+# Jede Zeile verdoppeln
+doubled = map(lambda row: list(map(lambda x: x * 2, row)), matrix)
+print(list(doubled))
+# [[2, 4, 6], [8, 10, 12]]
+```
+
+#### **4.1.7 `map()` vs List Comprehension**
+
+```python
+numbers = [1, 2, 3, 4, 5]
+
+# Mit map()
+squared_map = list(map(lambda x: x**2, numbers))
+
+# Mit List Comprehension
+squared_comp = [x**2 for x in numbers]
+
+print(squared_map == squared_comp)  # True
+```
+
+**Wann was verwenden?**
+
+|Situation|Empfehlung|Grund|
+|---|---|---|
+|Einfache Transformation|List Comprehension|Lesbarer|
+|Existierende Funktion anwenden|`map()`|Kürzer|
+|Komplexe Logik|List Comprehension|Bessere Kontrolle|
+|Mehrere Iterables|`map()`|Explizit designed dafür|
+|Performance (große Daten)|`map()`|Lazy Evaluation|
+|Type Conversion|`map()`|`map(int, data)` elegant|
+
+**Beispiele:**
+
+```python
+# ✅ Gut mit map(): Funktion bereits vorhanden
+words = ['hello', 'world']
+upper = list(map(str.upper, words))
+
+# ✅ Besser mit List Comprehension: Custom Logic
+numbers = [1, 2, 3, 4, 5]
+result = [x**2 if x % 2 == 0 else x for x in numbers]
+
+# ✅ Gut mit map(): Mehrere Listen
+a = [1, 2, 3]
+b = [10, 20, 30]
+sums = list(map(lambda x, y: x + y, a, b))
+
+# ✅ Besser mit List Comprehension: Lesbarkeit
+numbers = [1, 2, 3, 4, 5]
+squared = [x**2 for x in numbers]  # Klarer als map(lambda x: x**2, numbers)
+```
+
+#### 4.1.8 Performance-Vergleich
+
+```python
+import timeit
+
+# Setup
+numbers = range(1000000)
+
+# map() - Lazy
+def test_map():
+    return list(map(lambda x: x**2, numbers))
+
+# List Comprehension
+def test_comp():
+    return [x**2 for x in numbers]
+
+print(timeit.timeit(test_map, number=10))   # ~0.5s
+print(timeit.timeit(test_comp, number=10))  # ~0.4s
+
+# List Comprehension ist meist etwas schneller!
+```
+
+**Aber:** `map()` ohne `list()` ist **lazy** (spart Speicher):
+
+```python
+# map() ohne list() - kein Speicher verbraucht
+mapped = map(lambda x: x**2, range(1000000))
+
+# Nur bei Bedarf berechnet
+for i, value in enumerate(mapped):
+    if i > 5:
+        break
+    print(value)  # Nur 6 Werte berechnet!
+```
+
+### 4.2 `filter()` – Elemente filtern
+
+`filter(func, iterable)` behält nur Elemente, für die `func` `True` zurückgibt.
+
+```python
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Nur gerade Zahlen
+even = filter(lambda x: x % 2 == 0, numbers)
+print(list(even))  # [2, 4, 6, 8, 10]
+
+# Nur Zahlen > 5
+greater_five = filter(lambda x: x > 5, numbers)
+print(list(greater_five))  # [6, 7, 8, 9, 10]
+```
+
+**Mit benannten Funktionen:**
+
+```python
+def is_positive(n):
+    return n > 0
+
+numbers = [-2, -1, 0, 1, 2, 3]
+positive = filter(is_positive, numbers)
+print(list(positive))  # [1, 2, 3]
+```
+
+**Ohne Lambda (None als Funktion):**
+
+```python
+# filter(None, iterable) filtert "falsy" Werte
+mixed = [0, 1, '', 'hello', None, [], [1, 2], False, True]
+truthy = filter(None, mixed)
+print(list(truthy))  # [1, 'hello', [1, 2], True]
+```
+
+### 4.3 `reduce()` – Akkumulation
+
+`reduce(func, iterable, initial)` aus `functools` reduziert Iterable auf einzelnen Wert.
+
+```python
+from functools import reduce
+
+# Summe
+numbers = [1, 2, 3, 4, 5]
+total = reduce(lambda acc, x: acc + x, numbers)
+print(total)  # 15
+
+# Mit Startwert
+total = reduce(lambda acc, x: acc + x, numbers, 10)
+print(total)  # 25 (10 + 15)
+
+# Produkt
+product = reduce(lambda acc, x: acc * x, numbers)
+print(product)  # 120
+
+# Maximum finden
+maximum = reduce(lambda acc, x: x if x > acc else acc, numbers)
+print(maximum)  # 5
+```
+
+### 4.4 Kombination von `map()`, `filter()` und `reduce()`
+
+```python
+# Pipeline: filter → map → reduce
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# 1. Nur gerade Zahlen
+even = filter(lambda x: x % 2 == 0, numbers)
+
+# 2. Quadrieren
+squared = map(lambda x: x**2, even)
+
+# 3. Summe bilden
+from functools import reduce
+total = reduce(lambda acc, x: acc + x, squared)
+
+print(total)  # 220 (4 + 16 + 36 + 64 + 100)
+
+# Als One-Liner
+result = reduce(
+    lambda acc, x: acc + x,
+    map(lambda x: x**2, filter(lambda x: x % 2 == 0, numbers))
+)
+print(result)  # 220
+```
+
+### 4.5 Best Practices
+
+**✅ DO:**
+
+```python
+# map() für existierende Funktionen
+upper = list(map(str.upper, words))
+
+# filter() für einfache Bedingungen
+positive = list(filter(lambda x: x > 0, numbers))
+
+# Lazy Evaluation nutzen
+for value in map(expensive_function, huge_list):
+    if condition:
+        break  # Stoppt früh, spart Rechenzeit
+```
+
+**❌ DON'T:**
+
+```python
+# Zu verschachtelt
+result = list(map(lambda x: x**2, filter(lambda x: x > 0, map(int, data))))
+
+# Besser: List Comprehension oder Zwischenschritte
+cleaned = [int(x) for x in data]
+positive = [x for x in cleaned if x > 0]
+result = [x**2 for x in positive]
+
+# Oder moderne Pipe-Operator (ab Python 3.13 geplant)
+```
+
+### 4.6 Zusammenfassung
+
+|Funktion|Zweck|Rückgabe|Beispiel|
+|---|---|---|---|
+|`map()`|Transformation|Iterator|`map(str.upper, words)`|
+|`filter()`|Filtern nach Bedingung|Iterator|`filter(lambda x: x > 0, nums)`|
+|`reduce()`|Akkumulation zu 1 Wert|Einzelner Wert|`reduce(lambda a,b: a+b, nums)`|
+
+**Kernprinzip:** Moderne Python-Entwickler bevorzugen meist **List/Generator Comprehensions** über `map()/filter()` für bessere Lesbarkeit. `map()` ist aber elegant, wenn bereits eine passende Funktion existiert (`map(str.strip, data)`).
+
+### **4.2 `filter()` – Elemente filtern**
+
+`filter(func, iterable)` behält nur Elemente, für die `func` `True` zurückgibt.
+
+python
+
+```python
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Nur gerade Zahlen
+even = filter(lambda x: x % 2 == 0, numbers)
+print(list(even))  # [2, 4, 6, 8, 10]
+
+# Nur Zahlen > 5
+greater_five = filter(lambda x: x > 5, numbers)
+print(list(greater_five))  # [6, 7, 8, 9, 10]
+```
+
+**Mit benannten Funktionen:**
+
+python
+
+```python
+def is_positive(n):
+    return n > 0
+
+numbers = [-2, -1, 0, 1, 2, 3]
+positive = filter(is_positive, numbers)
+print(list(positive))  # [1, 2, 3]
+```
+
+**Ohne Lambda (None als Funktion):**
+
+python
+
+```python
+# filter(None, iterable) filtert "falsy" Werte
+mixed = [0, 1, '', 'hello', None, [], [1, 2], False, True]
+truthy = filter(None, mixed)
+print(list(truthy))  # [1, 'hello', [1, 2], True]
+```
+
+### **4.3 `reduce()` – Akkumulation**
+
+`reduce(func, iterable, initial)` aus `functools` reduziert Iterable auf einzelnen Wert.
+
+python
+
+```python
+from functools import reduce
+
+# Summe
+numbers = [1, 2, 3, 4, 5]
+total = reduce(lambda acc, x: acc + x, numbers)
+print(total)  # 15
+
+# Mit Startwert
+total = reduce(lambda acc, x: acc + x, numbers, 10)
+print(total)  # 25 (10 + 15)
+
+# Produkt
+product = reduce(lambda acc, x: acc * x, numbers)
+print(product)  # 120
+
+# Maximum finden
+maximum = reduce(lambda acc, x: x if x > acc else acc, numbers)
+print(maximum)  # 5
+```
+
+### **4.4 Kombination aller drei**
+
+python
+
+```python
+# Pipeline: filter → map → reduce
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# 1. Nur gerade Zahlen
+even = filter(lambda x: x % 2 == 0, numbers)
+
+# 2. Quadrieren
+squared = map(lambda x: x**2, even)
+
+# 3. Summe bilden
+from functools import reduce
+total = reduce(lambda acc, x: acc + x, squared)
+
+print(total)  # 220 (4 + 16 + 36 + 64 + 100)
+
+# Als One-Liner
+result = reduce(
+    lambda acc, x: acc + x,
+    map(lambda x: x**2, filter(lambda x: x % 2 == 0, numbers))
+)
+print(result)  # 220
+```
+
+### **4.5 Best Practices**
+
+**✅ DO:**
+
+python
+
+```python
+# map() für existierende Funktionen
+upper = list(map(str.upper, words))
+
+# filter() für einfache Bedingungen
+positive = list(filter(lambda x: x > 0, numbers))
+
+# Lazy Evaluation nutzen
+for value in map(expensive_function, huge_list):
+    if condition:
+        break  # Stoppt früh, spart Rechenzeit
+```
+
+**❌ DON'T:**
+
+python
+
+```python
+# Zu verschachtelt
+result = list(map(lambda x: x**2, filter(lambda x: x > 0, map(int, data))))
+
+# Besser: List Comprehension oder Zwischenschritte
+cleaned = [int(x) for x in data]
+positive = [x for x in cleaned if x > 0]
+result = [x**2 for x in positive]
+
+# Oder moderne Pipe-Operator (ab Python 3.13 geplant)
+```
+
+### 4.6 Zusammenfassung
+
+|Funktion|Zweck|Rückgabe|Beispiel|
+|---|---|---|---|
+|`map()`|Transformation|Iterator|`map(str.upper, words)`|
+|`filter()`|Filtern nach Bedingung|Iterator|`filter(lambda x: x > 0, nums)`|
+|`reduce()`|Akkumulation zu 1 Wert|Einzelner Wert|`reduce(lambda a,b: a+b, nums)`|
+
+**Kernprinzip:** Moderne Python-Entwickler bevorzugen meist **List/Generator Comprehensions** über `map()/filter()` für bessere Lesbarkeit. `map()` ist aber elegant, wenn bereits eine passende Funktion existiert (`map(str.strip, data)`).
+
 ## 5    Partial Functions
 
 Vorkonfigurierte Funktionen mit `functools.partial` erlauben das Vorbelegen von Argumenten einer Funktion. Das ist nützlich, wenn man spezialisierte Varianten einer Funktion benötigt.

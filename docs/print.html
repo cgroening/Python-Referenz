@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-77a6c9c1.js";
+            window.path_to_searchindex_js = "searchindex-078db5e0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-f6524bb4.js"></script>
@@ -972,7 +972,7 @@
 <h3 id="31----allgemein"><a class="header" href="#31----allgemein">3.1    Allgemein</a></h3>
 <pre><code class="language-python">s = "Hallo"
 s = 'Hallo'
-s = """Hallo 
+s = """Hallo
     Welt"""
 s = ('Hallo '
      'Welt')
@@ -3075,16 +3075,16 @@ match command:
     match response:
         case {"status": "success", "data": data}:
             return f"Success: {data}"
-        
+
         case {"status": "error", "code": 404}:
             return "Resource not found"
-        
+
         case {"status": "error", "code": code, "message": msg}:
             return f"Error {code}: {msg}"
-        
+
         case {"status": "error"}:
             return "Unknown error"
-        
+
         case _:
             return "Invalid response format"
 
@@ -3097,22 +3097,22 @@ print(handle_response({"status": "error", "code": 500, "message": "Server error"
     match cmd.split():
         case ["quit"] | ["exit"]:
             return "Exiting..."
-        
+
         case ["help"]:
             return "Available commands: help, quit, list, add, delete"
-        
+
         case ["list"]:
             return "Listing all items..."
-        
+
         case ["add", item]:
             return f"Adding {item}"
-        
+
         case ["add", *items]:
             return f"Adding multiple items: {items}"
-        
+
         case ["delete", item]:
             return f"Deleting {item}"
-        
+
         case _:
             return "Unknown command"
 
@@ -3136,21 +3136,21 @@ def evaluate(expr):
     match expr:
         case Constant(value):
             return value
-        
+
         case BinaryOp("+", left, right):
             return evaluate(left) + evaluate(right)
-        
+
         case BinaryOp("-", left, right):
             return evaluate(left) - evaluate(right)
-        
+
         case BinaryOp("*", left, right):
             return evaluate(left) * evaluate(right)
-        
+
         case _:
             raise ValueError(f"Unknown expression: {expr}")
 
 # Test: (2 + 3) * 5
-expr = BinaryOp("*", 
+expr = BinaryOp("*",
     BinaryOp("+", Constant(2), Constant(3)),
     Constant(5)
 )
@@ -3162,19 +3162,19 @@ print(evaluate(expr))  # 25
     match event:
         case {"type": "click", "x": x, "y": y, "button": "left"}:
             print(f"Left click at ({x}, {y})")
-        
+
         case {"type": "click", "x": x, "y": y, "button": "right"}:
             print(f"Right click at ({x}, {y})")
-        
+
         case {"type": "keypress", "key": "Enter"}:
             print("Enter pressed")
-        
+
         case {"type": "keypress", "key": key, "ctrl": True}:
             print(f"Ctrl+{key} pressed")
-        
+
         case {"type": "scroll", "delta": delta} if delta &gt; 0:
             print("Scrolling up")
-        
+
         case {"type": "scroll", "delta": delta} if delta &lt; 0:
             print("Scrolling down")
 
@@ -7868,6 +7868,422 @@ even = list(filter(lambda x: x % 2 == 0, numbers))  # [2, 4]
 from functools import reduce
 summed = reduce(lambda acc, x: acc + x, numbers, 0)  # 15
 </code></pre>
+<h3 id="41-map--transformation-anwenden"><a class="header" href="#41-map--transformation-anwenden">4.1 <code>map()</code> – Transformation anwenden</a></h3>
+<p><code>map(func, iterable)</code> wendet eine Funktion auf jedes Element eines Iterables an und gibt einen Iterator zurück.</p>
+<h4 id="411-grundlagen"><a class="header" href="#411-grundlagen">4.1.1 Grundlagen</a></h4>
+<pre><code class="language-python"># Syntax
+map(function, iterable)
+
+# Beispiel: Quadrieren
+numbers = [1, 2, 3, 4, 5]
+squared = map(lambda x: x**2, numbers)
+
+print(list(squared))  # [1, 4, 9, 16, 25]
+</code></pre>
+<p><strong>Wichtig:</strong> <code>map()</code> gibt einen <strong>Iterator</strong> zurück, keine Liste! Daher <code>list()</code> verwenden um Ergebnis zu materialisieren.</p>
+<h4 id="412-mit-benannten-funktionen"><a class="header" href="#412-mit-benannten-funktionen">4.1.2 Mit benannten Funktionen</a></h4>
+<pre><code class="language-python">def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+
+temperatures_c = [0, 10, 20, 30, 40]
+temperatures_f = map(celsius_to_fahrenheit, temperatures_c)
+
+print(list(temperatures_f))
+# [32.0, 50.0, 68.0, 86.0, 104.0]
+</code></pre>
+<h4 id="413-mehrere-iterables"><a class="header" href="#413-mehrere-iterables">4.1.3 Mehrere Iterables</a></h4>
+<p><code>map()</code> kann mehrere Iterables gleichzeitig verarbeiten:</p>
+<pre><code class="language-python"># Zwei Listen addieren
+a = [1, 2, 3]
+b = [10, 20, 30]
+
+result = map(lambda x, y: x + y, a, b)
+print(list(result))  # [11, 22, 33]
+
+# Drei Listen
+x = [1, 2, 3]
+y = [10, 20, 30]
+z = [100, 200, 300]
+
+result = map(lambda a, b, c: a + b + c, x, y, z)
+print(list(result))  # [111, 222, 333]
+</code></pre>
+<p><strong>Verhalten bei unterschiedlicher Länge:</strong></p>
+<pre><code class="language-python">a = [1, 2, 3]
+b = [10, 20]  # Kürzer!
+
+result = map(lambda x, y: x + y, a, b)
+print(list(result))  # [11, 22] - stoppt beim kürzesten!
+</code></pre>
+<h4 id="414-mit-string-methoden"><a class="header" href="#414-mit-string-methoden">4.1.4 Mit String-Methoden</a></h4>
+<pre><code class="language-python"># String-Methoden als Funktion
+words = ['hello', 'world', 'python']
+
+# Großbuchstaben
+upper = map(str.upper, words)
+print(list(upper))  # ['HELLO', 'WORLD', 'PYTHON']
+
+# Kapitalisieren
+capitalized = map(str.capitalize, words)
+print(list(capitalized))  # ['Hello', 'World', 'Python']
+
+# Länge ermitteln
+lengths = map(len, words)
+print(list(lengths))  # [5, 5, 6]
+</code></pre>
+<h4 id="415-mit-type-conversion"><a class="header" href="#415-mit-type-conversion">4.1.5 Mit Type Conversion</a></h4>
+<pre><code class="language-python"># Strings zu Integers
+string_numbers = ['1', '2', '3', '4', '5']
+integers = map(int, string_numbers)
+print(list(integers))  # [1, 2, 3, 4, 5]
+
+# Floats zu Integers
+floats = [1.5, 2.7, 3.2]
+ints = map(int, floats)
+print(list(ints))  # [1, 2, 3]
+
+# Mit float()
+strings = ['3.14', '2.71', '1.41']
+numbers = map(float, strings)
+print(list(numbers))  # [3.14, 2.71, 1.41]
+</code></pre>
+<h4 id="416-praktische-beispiele"><a class="header" href="#416-praktische-beispiele">4.1.6 Praktische Beispiele</a></h4>
+<p><strong>Daten bereinigen:</strong></p>
+<pre><code class="language-python"># Whitespace entfernen
+raw_data = ['  hello  ', 'world\n', '\tpython  ']
+cleaned = map(str.strip, raw_data)
+print(list(cleaned))  # ['hello', 'world', 'python']
+
+# Email-Adressen normalisieren
+emails = ['Alice@Example.COM', 'bob@TEST.com']
+normalized = map(str.lower, emails)
+print(list(normalized))  # ['alice@example.com', 'bob@test.com']
+</code></pre>
+<p><strong>Dictionary-Verarbeitung:</strong></p>
+<pre><code class="language-python">users = [
+    {'name': 'Alice', 'age': 30},
+    {'name': 'Bob', 'age': 25},
+    {'name': 'Charlie', 'age': 35}
+]
+
+# Nur Namen extrahieren
+names = map(lambda user: user['name'], users)
+print(list(names))  # ['Alice', 'Bob', 'Charlie']
+
+# Attribute transformieren
+def increment_age(user):
+    return {**user, 'age': user['age'] + 1}
+
+older_users = map(increment_age, users)
+print(list(older_users))
+# [{'name': 'Alice', 'age': 31}, ...]
+</code></pre>
+<p><strong>Nested Data:</strong></p>
+<pre><code class="language-python"># Matrix transponieren (vereinfacht)
+matrix = [[1, 2, 3], [4, 5, 6]]
+
+# Jede Zeile verdoppeln
+doubled = map(lambda row: list(map(lambda x: x * 2, row)), matrix)
+print(list(doubled))
+# [[2, 4, 6], [8, 10, 12]]
+</code></pre>
+<h4 id="417-map-vs-list-comprehension"><a class="header" href="#417-map-vs-list-comprehension"><strong>4.1.7 <code>map()</code> vs List Comprehension</strong></a></h4>
+<pre><code class="language-python">numbers = [1, 2, 3, 4, 5]
+
+# Mit map()
+squared_map = list(map(lambda x: x**2, numbers))
+
+# Mit List Comprehension
+squared_comp = [x**2 for x in numbers]
+
+print(squared_map == squared_comp)  # True
+</code></pre>
+<p><strong>Wann was verwenden?</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Situation</th><th>Empfehlung</th><th>Grund</th></tr>
+</thead>
+<tbody>
+<tr><td>Einfache Transformation</td><td>List Comprehension</td><td>Lesbarer</td></tr>
+<tr><td>Existierende Funktion anwenden</td><td><code>map()</code></td><td>Kürzer</td></tr>
+<tr><td>Komplexe Logik</td><td>List Comprehension</td><td>Bessere Kontrolle</td></tr>
+<tr><td>Mehrere Iterables</td><td><code>map()</code></td><td>Explizit designed dafür</td></tr>
+<tr><td>Performance (große Daten)</td><td><code>map()</code></td><td>Lazy Evaluation</td></tr>
+<tr><td>Type Conversion</td><td><code>map()</code></td><td><code>map(int, data)</code> elegant</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Beispiele:</strong></p>
+<pre><code class="language-python"># ✅ Gut mit map(): Funktion bereits vorhanden
+words = ['hello', 'world']
+upper = list(map(str.upper, words))
+
+# ✅ Besser mit List Comprehension: Custom Logic
+numbers = [1, 2, 3, 4, 5]
+result = [x**2 if x % 2 == 0 else x for x in numbers]
+
+# ✅ Gut mit map(): Mehrere Listen
+a = [1, 2, 3]
+b = [10, 20, 30]
+sums = list(map(lambda x, y: x + y, a, b))
+
+# ✅ Besser mit List Comprehension: Lesbarkeit
+numbers = [1, 2, 3, 4, 5]
+squared = [x**2 for x in numbers]  # Klarer als map(lambda x: x**2, numbers)
+</code></pre>
+<h4 id="418-performance-vergleich"><a class="header" href="#418-performance-vergleich">4.1.8 Performance-Vergleich</a></h4>
+<pre><code class="language-python">import timeit
+
+# Setup
+numbers = range(1000000)
+
+# map() - Lazy
+def test_map():
+    return list(map(lambda x: x**2, numbers))
+
+# List Comprehension
+def test_comp():
+    return [x**2 for x in numbers]
+
+print(timeit.timeit(test_map, number=10))   # ~0.5s
+print(timeit.timeit(test_comp, number=10))  # ~0.4s
+
+# List Comprehension ist meist etwas schneller!
+</code></pre>
+<p><strong>Aber:</strong> <code>map()</code> ohne <code>list()</code> ist <strong>lazy</strong> (spart Speicher):</p>
+<pre><code class="language-python"># map() ohne list() - kein Speicher verbraucht
+mapped = map(lambda x: x**2, range(1000000))
+
+# Nur bei Bedarf berechnet
+for i, value in enumerate(mapped):
+    if i &gt; 5:
+        break
+    print(value)  # Nur 6 Werte berechnet!
+</code></pre>
+<h3 id="42-filter--elemente-filtern"><a class="header" href="#42-filter--elemente-filtern">4.2 <code>filter()</code> – Elemente filtern</a></h3>
+<p><code>filter(func, iterable)</code> behält nur Elemente, für die <code>func</code> <code>True</code> zurückgibt.</p>
+<pre><code class="language-python">numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Nur gerade Zahlen
+even = filter(lambda x: x % 2 == 0, numbers)
+print(list(even))  # [2, 4, 6, 8, 10]
+
+# Nur Zahlen &gt; 5
+greater_five = filter(lambda x: x &gt; 5, numbers)
+print(list(greater_five))  # [6, 7, 8, 9, 10]
+</code></pre>
+<p><strong>Mit benannten Funktionen:</strong></p>
+<pre><code class="language-python">def is_positive(n):
+    return n &gt; 0
+
+numbers = [-2, -1, 0, 1, 2, 3]
+positive = filter(is_positive, numbers)
+print(list(positive))  # [1, 2, 3]
+</code></pre>
+<p><strong>Ohne Lambda (None als Funktion):</strong></p>
+<pre><code class="language-python"># filter(None, iterable) filtert "falsy" Werte
+mixed = [0, 1, '', 'hello', None, [], [1, 2], False, True]
+truthy = filter(None, mixed)
+print(list(truthy))  # [1, 'hello', [1, 2], True]
+</code></pre>
+<h3 id="43-reduce--akkumulation"><a class="header" href="#43-reduce--akkumulation">4.3 <code>reduce()</code> – Akkumulation</a></h3>
+<p><code>reduce(func, iterable, initial)</code> aus <code>functools</code> reduziert Iterable auf einzelnen Wert.</p>
+<pre><code class="language-python">from functools import reduce
+
+# Summe
+numbers = [1, 2, 3, 4, 5]
+total = reduce(lambda acc, x: acc + x, numbers)
+print(total)  # 15
+
+# Mit Startwert
+total = reduce(lambda acc, x: acc + x, numbers, 10)
+print(total)  # 25 (10 + 15)
+
+# Produkt
+product = reduce(lambda acc, x: acc * x, numbers)
+print(product)  # 120
+
+# Maximum finden
+maximum = reduce(lambda acc, x: x if x &gt; acc else acc, numbers)
+print(maximum)  # 5
+</code></pre>
+<h3 id="44-kombination-von-map-filter-und-reduce"><a class="header" href="#44-kombination-von-map-filter-und-reduce">4.4 Kombination von <code>map()</code>, <code>filter()</code> und <code>reduce()</code></a></h3>
+<pre><code class="language-python"># Pipeline: filter → map → reduce
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# 1. Nur gerade Zahlen
+even = filter(lambda x: x % 2 == 0, numbers)
+
+# 2. Quadrieren
+squared = map(lambda x: x**2, even)
+
+# 3. Summe bilden
+from functools import reduce
+total = reduce(lambda acc, x: acc + x, squared)
+
+print(total)  # 220 (4 + 16 + 36 + 64 + 100)
+
+# Als One-Liner
+result = reduce(
+    lambda acc, x: acc + x,
+    map(lambda x: x**2, filter(lambda x: x % 2 == 0, numbers))
+)
+print(result)  # 220
+</code></pre>
+<h3 id="45-best-practices"><a class="header" href="#45-best-practices">4.5 Best Practices</a></h3>
+<p><strong>✅ DO:</strong></p>
+<pre><code class="language-python"># map() für existierende Funktionen
+upper = list(map(str.upper, words))
+
+# filter() für einfache Bedingungen
+positive = list(filter(lambda x: x &gt; 0, numbers))
+
+# Lazy Evaluation nutzen
+for value in map(expensive_function, huge_list):
+    if condition:
+        break  # Stoppt früh, spart Rechenzeit
+</code></pre>
+<p><strong>❌ DON’T:</strong></p>
+<pre><code class="language-python"># Zu verschachtelt
+result = list(map(lambda x: x**2, filter(lambda x: x &gt; 0, map(int, data))))
+
+# Besser: List Comprehension oder Zwischenschritte
+cleaned = [int(x) for x in data]
+positive = [x for x in cleaned if x &gt; 0]
+result = [x**2 for x in positive]
+
+# Oder moderne Pipe-Operator (ab Python 3.13 geplant)
+</code></pre>
+<h3 id="46-zusammenfassung"><a class="header" href="#46-zusammenfassung">4.6 Zusammenfassung</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Funktion</th><th>Zweck</th><th>Rückgabe</th><th>Beispiel</th></tr>
+</thead>
+<tbody>
+<tr><td><code>map()</code></td><td>Transformation</td><td>Iterator</td><td><code>map(str.upper, words)</code></td></tr>
+<tr><td><code>filter()</code></td><td>Filtern nach Bedingung</td><td>Iterator</td><td><code>filter(lambda x: x &gt; 0, nums)</code></td></tr>
+<tr><td><code>reduce()</code></td><td>Akkumulation zu 1 Wert</td><td>Einzelner Wert</td><td><code>reduce(lambda a,b: a+b, nums)</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Kernprinzip:</strong> Moderne Python-Entwickler bevorzugen meist <strong>List/Generator Comprehensions</strong> über <code>map()/filter()</code> für bessere Lesbarkeit. <code>map()</code> ist aber elegant, wenn bereits eine passende Funktion existiert (<code>map(str.strip, data)</code>).</p>
+<h3 id="42-filter--elemente-filtern-1"><a class="header" href="#42-filter--elemente-filtern-1"><strong>4.2 <code>filter()</code> – Elemente filtern</strong></a></h3>
+<p><code>filter(func, iterable)</code> behält nur Elemente, für die <code>func</code> <code>True</code> zurückgibt.</p>
+<p>python</p>
+<pre><code class="language-python">numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Nur gerade Zahlen
+even = filter(lambda x: x % 2 == 0, numbers)
+print(list(even))  # [2, 4, 6, 8, 10]
+
+# Nur Zahlen &gt; 5
+greater_five = filter(lambda x: x &gt; 5, numbers)
+print(list(greater_five))  # [6, 7, 8, 9, 10]
+</code></pre>
+<p><strong>Mit benannten Funktionen:</strong></p>
+<p>python</p>
+<pre><code class="language-python">def is_positive(n):
+    return n &gt; 0
+
+numbers = [-2, -1, 0, 1, 2, 3]
+positive = filter(is_positive, numbers)
+print(list(positive))  # [1, 2, 3]
+</code></pre>
+<p><strong>Ohne Lambda (None als Funktion):</strong></p>
+<p>python</p>
+<pre><code class="language-python"># filter(None, iterable) filtert "falsy" Werte
+mixed = [0, 1, '', 'hello', None, [], [1, 2], False, True]
+truthy = filter(None, mixed)
+print(list(truthy))  # [1, 'hello', [1, 2], True]
+</code></pre>
+<h3 id="43-reduce--akkumulation-1"><a class="header" href="#43-reduce--akkumulation-1"><strong>4.3 <code>reduce()</code> – Akkumulation</strong></a></h3>
+<p><code>reduce(func, iterable, initial)</code> aus <code>functools</code> reduziert Iterable auf einzelnen Wert.</p>
+<p>python</p>
+<pre><code class="language-python">from functools import reduce
+
+# Summe
+numbers = [1, 2, 3, 4, 5]
+total = reduce(lambda acc, x: acc + x, numbers)
+print(total)  # 15
+
+# Mit Startwert
+total = reduce(lambda acc, x: acc + x, numbers, 10)
+print(total)  # 25 (10 + 15)
+
+# Produkt
+product = reduce(lambda acc, x: acc * x, numbers)
+print(product)  # 120
+
+# Maximum finden
+maximum = reduce(lambda acc, x: x if x &gt; acc else acc, numbers)
+print(maximum)  # 5
+</code></pre>
+<h3 id="44-kombination-aller-drei"><a class="header" href="#44-kombination-aller-drei"><strong>4.4 Kombination aller drei</strong></a></h3>
+<p>python</p>
+<pre><code class="language-python"># Pipeline: filter → map → reduce
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# 1. Nur gerade Zahlen
+even = filter(lambda x: x % 2 == 0, numbers)
+
+# 2. Quadrieren
+squared = map(lambda x: x**2, even)
+
+# 3. Summe bilden
+from functools import reduce
+total = reduce(lambda acc, x: acc + x, squared)
+
+print(total)  # 220 (4 + 16 + 36 + 64 + 100)
+
+# Als One-Liner
+result = reduce(
+    lambda acc, x: acc + x,
+    map(lambda x: x**2, filter(lambda x: x % 2 == 0, numbers))
+)
+print(result)  # 220
+</code></pre>
+<h3 id="45-best-practices-1"><a class="header" href="#45-best-practices-1"><strong>4.5 Best Practices</strong></a></h3>
+<p><strong>✅ DO:</strong></p>
+<p>python</p>
+<pre><code class="language-python"># map() für existierende Funktionen
+upper = list(map(str.upper, words))
+
+# filter() für einfache Bedingungen
+positive = list(filter(lambda x: x &gt; 0, numbers))
+
+# Lazy Evaluation nutzen
+for value in map(expensive_function, huge_list):
+    if condition:
+        break  # Stoppt früh, spart Rechenzeit
+</code></pre>
+<p><strong>❌ DON’T:</strong></p>
+<p>python</p>
+<pre><code class="language-python"># Zu verschachtelt
+result = list(map(lambda x: x**2, filter(lambda x: x &gt; 0, map(int, data))))
+
+# Besser: List Comprehension oder Zwischenschritte
+cleaned = [int(x) for x in data]
+positive = [x for x in cleaned if x &gt; 0]
+result = [x**2 for x in positive]
+
+# Oder moderne Pipe-Operator (ab Python 3.13 geplant)
+</code></pre>
+<h3 id="46-zusammenfassung-1"><a class="header" href="#46-zusammenfassung-1">4.6 Zusammenfassung</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Funktion</th><th>Zweck</th><th>Rückgabe</th><th>Beispiel</th></tr>
+</thead>
+<tbody>
+<tr><td><code>map()</code></td><td>Transformation</td><td>Iterator</td><td><code>map(str.upper, words)</code></td></tr>
+<tr><td><code>filter()</code></td><td>Filtern nach Bedingung</td><td>Iterator</td><td><code>filter(lambda x: x &gt; 0, nums)</code></td></tr>
+<tr><td><code>reduce()</code></td><td>Akkumulation zu 1 Wert</td><td>Einzelner Wert</td><td><code>reduce(lambda a,b: a+b, nums)</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Kernprinzip:</strong> Moderne Python-Entwickler bevorzugen meist <strong>List/Generator Comprehensions</strong> über <code>map()/filter()</code> für bessere Lesbarkeit. <code>map()</code> ist aber elegant, wenn bereits eine passende Funktion existiert (<code>map(str.strip, data)</code>).</p>
 <h2 id="5----partial-functions"><a class="header" href="#5----partial-functions">5    Partial Functions</a></h2>
 <p>Vorkonfigurierte Funktionen mit <code>functools.partial</code> erlauben das Vorbelegen von Argumenten einer Funktion. Das ist nützlich, wenn man spezialisierte Varianten einer Funktion benötigt.</p>
 <pre><code class="language-python">from functools import partial
@@ -13091,7 +13507,7 @@ VS Code erkennt <code>pytest</code> automatisch, wenn die Datei mit <code>test_*
 <tr><td>Terminal öffnen</td><td>`Ctrl+``</td></tr>
 <tr><td>Befehlspalette öffnen</td><td><code>Ctrl+Shift+P</code></td></tr>
 <tr><td>Tests entdecken</td><td><code>Python: Discover Tests</code></td></tr>
-<tr><td>Nur einen Test ausführen</td><td><code>Rechtsklick &gt; Run Test</code></td></tr>
+<tr><td>Nueinen Test ausführen</td><td><code>Rechtsklick &gt; Run Test</code></td></tr>
 </tbody>
 </table>
 </div>
@@ -15244,21 +15660,21 @@ import os
 def load_plugins(plugin_dir):
     """Lädt alle Python-Dateien aus plugin_dir als Module"""
     plugins = []
-    
+
     for filename in os.listdir(plugin_dir):
         if filename.endswith('.py') and not filename.startswith('_'):
             module_name = filename[:-3]  # .py entfernen
-            
+
             # Dynamisch importieren
             spec = importlib.util.spec_from_file_location(
-                module_name, 
+                module_name,
                 os.path.join(plugin_dir, filename)
             )
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
-            
+
             plugins.append(module)
-    
+
     return plugins
 
 # Verwendung
@@ -15393,7 +15809,7 @@ sys.meta_path.insert(0, CustomFinder())
 def find_module(module_name):
     """Zeigt, wo Python nach einem Modul suchen würde"""
     import importlib.util
-    
+
     spec = importlib.util.find_spec(module_name)
     if spec:
         print(f"Found: {spec.origin}")
@@ -15548,19 +15964,19 @@ from src.core.engine import Engine
 <p><strong>Google Style (empfohlen für Lesbarkeit):</strong></p>
 <pre><code class="language-python">def calculate_distance(x1: float, y1: float, x2: float, y2: float) -&gt; float:
     """Berechnet die euklidische Distanz zwischen zwei Punkten.
-    
+
     Args:
         x1: X-Koordinate des ersten Punkts
         y1: Y-Koordinate des ersten Punkts
         x2: X-Koordinate des zweiten Punkts
         y2: Y-Koordinate des zweiten Punkts
-    
+
     Returns:
         Die euklidische Distanz als float
-    
+
     Raises:
         ValueError: Wenn Koordinaten nicht numerisch sind
-    
+
     Examples:
         &gt;&gt;&gt; calculate_distance(0, 0, 3, 4)
         5.0
@@ -15571,7 +15987,7 @@ from src.core.engine import Engine
 <pre><code class="language-python">def calculate_distance(x1, y1, x2, y2):
     """
     Berechnet die euklidische Distanz zwischen zwei Punkten.
-    
+
     Parameters
     ----------
     x1 : float
@@ -15582,12 +15998,12 @@ from src.core.engine import Engine
         X-Koordinate des zweiten Punkts
     y2 : float
         Y-Koordinate des zweiten Punkts
-    
+
     Returns
     -------
     float
         Die euklidische Distanz
-    
+
     Examples
     --------
     &gt;&gt;&gt; calculate_distance(0, 0, 3, 4)
@@ -15598,7 +16014,7 @@ from src.core.engine import Engine
 <p><strong>Sphinx Style (klassisch):</strong></p>
 <pre><code class="language-python">def calculate_distance(x1, y1, x2, y2):
     """Berechnet die euklidische Distanz zwischen zwei Punkten.
-    
+
     :param x1: X-Koordinate des ersten Punkts
     :type x1: float
     :param y1: Y-Koordinate des ersten Punkts
@@ -15633,20 +16049,20 @@ import math
 <p><strong>Klassen-Docstring:</strong></p>
 <pre><code class="language-python">class Circle:
     """Repräsentiert einen Kreis.
-    
+
     Attributes:
         radius: Radius des Kreises in Metern
         center: Tuple (x, y) für Mittelpunkt
-    
+
     Example:
         &gt;&gt;&gt; circle = Circle(5.0, (0, 0))
         &gt;&gt;&gt; circle.area()
         78.54
     """
-    
+
     def __init__(self, radius: float, center: tuple = (0, 0)):
         """Initialisiert einen Kreis.
-        
+
         Args:
             radius: Radius des Kreises
             center: Mittelpunkt als (x, y) Tuple
@@ -15658,10 +16074,10 @@ import math
 <pre><code class="language-python"># ✅ DO
 def process_data(data: list[str]) -&gt; dict:
     """Verarbeitet Eingabedaten zu strukturiertem Dictionary.
-    
+
     Args:
         data: Liste von Rohdaten-Strings
-    
+
     Returns:
         Dictionary mit verarbeiteten Daten
     """
@@ -15988,10 +16404,10 @@ Dieses Modul stellt grundlegende mathematische Operationen bereit.
 
 class Calculator:
     """Einfacher Taschenrechner.
-    
+
     Attributes:
         history: Liste der durchgeführten Operationen
-    
+
     Example:
         &gt;&gt;&gt; calc = Calculator()
         &gt;&gt;&gt; calc.add(2, 3)
@@ -15999,21 +16415,21 @@ class Calculator:
         &gt;&gt;&gt; calc.history
         ['2 + 3 = 5']
     """
-    
+
     def __init__(self):
         """Initialisiert Calculator mit leerer History."""
         self.history = []
-    
+
     def add(self, a: float, b: float) -&gt; float:
         """Addiert zwei Zahlen.
-        
+
         Args:
             a: Erste Zahl
             b: Zweite Zahl
-        
+
         Returns:
             Summe von a und b
-        
+
         Example:
             &gt;&gt;&gt; calc = Calculator()
             &gt;&gt;&gt; calc.add(10, 5)
@@ -16022,20 +16438,20 @@ class Calculator:
         result = a + b
         self.history.append(f"{a} + {b} = {result}")
         return result
-    
+
     def divide(self, a: float, b: float) -&gt; float:
         """Dividiert zwei Zahlen.
-        
+
         Args:
             a: Dividend
             b: Divisor
-        
+
         Returns:
             Quotient von a durch b
-        
+
         Raises:
             ValueError: Wenn b gleich 0 ist
-        
+
         Example:
             &gt;&gt;&gt; calc = Calculator()
             &gt;&gt;&gt; calc.divide(10, 2)
@@ -16061,20 +16477,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Install dependencies
         run: |
           pip install sphinx sphinx-rtd-theme
-      
+
       - name: Build docs
         run: |
           cd docs
           make html
-      
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

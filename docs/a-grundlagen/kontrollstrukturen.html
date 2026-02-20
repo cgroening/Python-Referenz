@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-77a6c9c1.js";
+            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-f6524bb4.js"></script>
@@ -665,16 +665,16 @@ match command:
     match response:
         case {"status": "success", "data": data}:
             return f"Success: {data}"
-        
+
         case {"status": "error", "code": 404}:
             return "Resource not found"
-        
+
         case {"status": "error", "code": code, "message": msg}:
             return f"Error {code}: {msg}"
-        
+
         case {"status": "error"}:
             return "Unknown error"
-        
+
         case _:
             return "Invalid response format"
 
@@ -687,22 +687,22 @@ print(handle_response({"status": "error", "code": 500, "message": "Server error"
     match cmd.split():
         case ["quit"] | ["exit"]:
             return "Exiting..."
-        
+
         case ["help"]:
             return "Available commands: help, quit, list, add, delete"
-        
+
         case ["list"]:
             return "Listing all items..."
-        
+
         case ["add", item]:
             return f"Adding {item}"
-        
+
         case ["add", *items]:
             return f"Adding multiple items: {items}"
-        
+
         case ["delete", item]:
             return f"Deleting {item}"
-        
+
         case _:
             return "Unknown command"
 
@@ -726,21 +726,21 @@ def evaluate(expr):
     match expr:
         case Constant(value):
             return value
-        
+
         case BinaryOp("+", left, right):
             return evaluate(left) + evaluate(right)
-        
+
         case BinaryOp("-", left, right):
             return evaluate(left) - evaluate(right)
-        
+
         case BinaryOp("*", left, right):
             return evaluate(left) * evaluate(right)
-        
+
         case _:
             raise ValueError(f"Unknown expression: {expr}")
 
 # Test: (2 + 3) * 5
-expr = BinaryOp("*", 
+expr = BinaryOp("*",
     BinaryOp("+", Constant(2), Constant(3)),
     Constant(5)
 )
@@ -752,19 +752,19 @@ print(evaluate(expr))  # 25
     match event:
         case {"type": "click", "x": x, "y": y, "button": "left"}:
             print(f"Left click at ({x}, {y})")
-        
+
         case {"type": "click", "x": x, "y": y, "button": "right"}:
             print(f"Right click at ({x}, {y})")
-        
+
         case {"type": "keypress", "key": "Enter"}:
             print("Enter pressed")
-        
+
         case {"type": "keypress", "key": key, "ctrl": True}:
             print(f"Ctrl+{key} pressed")
-        
+
         case {"type": "scroll", "delta": delta} if delta &gt; 0:
             print("Scrolling up")
-        
+
         case {"type": "scroll", "delta": delta} if delta &lt; 0:
             print("Scrolling down")
 
