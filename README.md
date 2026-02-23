@@ -5,7 +5,7 @@
 > 
 > [cgroening.github.io/Python-Referenz/](https://cgroening.github.io/Python-Referenz/)
 
-[![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/) [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) [![Built with mdBook](https://img.shields.io/badge/built%20with-mdBook-orange.svg)](https://rust-lang.github.io/mdBook/)
+[![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/) [![License](LICENSE.md) [![Built with mdBook](https://img.shields.io/badge/built%20with-mdBook-orange.svg)](https://rust-lang.github.io/mdBook/)
 
 ## 📚 Über dieses Projekt 
 
