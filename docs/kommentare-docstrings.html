@@ -12,20 +12,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon-de23e50b.svg">
-        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
-        <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
-        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-80432388.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-80432388.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -34,13 +34,13 @@
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../";
+            const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -107,7 +107,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -142,7 +142,7 @@
                     <h1 class="menu-title">Python-Referenz</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
                         <a href="https://github.com/cgroening/Python-Referenz" title="Git repository" aria-label="Git repository">
@@ -417,131 +417,16 @@
 }
 </style>
 <h1 id="kommentare"><a class="header" href="#kommentare">Kommentare</a></h1>
-<h2 id="1----ein--und-mehrzeilige-kommentare"><a class="header" href="#1----ein--und-mehrzeilige-kommentare">1    Ein- und Mehrzeilige Kommentare</a></h2>
-<pre><code class="language-python"># Line comment
-
-'''
-Multi 
-line 
-comment
-'''
-
-"""
-Multi 
-line 
-comment 
-(wird hauptsächlich für Docstrings verwendet)
-"""
-</code></pre>
-<h2 id="2----docstrings"><a class="header" href="#2----docstrings">2    Docstrings</a></h2>
-<h3 id="21----numpy-style"><a class="header" href="#21----numpy-style">2.1    NumPy-Style</a></h3>
-<pre><code class="language-python">def dividiere(a: float, b: float) -&gt; float:
-    """
-    Dividiert zwei Zahlen.
-
-    Parameters
-    ----------
-    a : float
-        Die erste Zahl.
-    b : float
-        Die zweite Zahl.
-
-    Returns
-    -------
-    float
-        Das Ergebnis der Division.
-
-    Raises
-    ------
-    ZeroDivisionError
-        Falls `b` gleich Null ist.
-    TypeError
-        Falls einer der Eingaben kein Float oder Int ist.
-    """
-    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
-        raise TypeError("Beide Werte müssen Zahlen sein.")
-    if b == 0:
-        raise ZeroDivisionError("Division durch Null ist nicht erlaubt.")
-    return a / b
-</code></pre>
-<p><strong>Vorteile:</strong></p>
-<ul>
-<li>Besonders gut für wissenschaftliche Bibliotheken (<code>NumPy</code>, <code>SciPy</code>, <code>Pandas</code>)</li>
-<li>Strukturiert mit Abschnittsüberschriften (<code>Parameters</code>, <code>Returns</code>, <code>Raises</code>)</li>
-</ul>
-<h3 id="22----google-style"><a class="header" href="#22----google-style">2.2    Google-Style</a></h3>
-<p>Dies ist das Google-Dokumentationsformat. Es ist einfach zu lesen und wird oft in größeren Projekten verwendet.</p>
-<pre><code class="language-python">def addiere(a: int, b: int) -&gt; int:
-    """
-    Addiert zwei Zahlen und gibt das Ergebnis zurück.
-
-    Args:
-        a (int): Die erste Zahl.
-        b (int): Die zweite Zahl.
-
-    Returns:
-        int: Die Summe der beiden Zahlen.
-
-    Raises:
-        TypeError: Falls einer der Eingaben kein Integer ist.
-    """
-    if not isinstance(a, int) or not isinstance(b, int):
-        raise TypeError("Beide Werte müssen vom Typ int sein.")
-    return a + b
-</code></pre>
-<p><strong>Vorteile:</strong></p>
-<ul>
-<li>Leicht verständlich</li>
-<li>Strukturierte Abschnitte (<code>Args</code>, <code>Returns</code>, <code>Raises</code>)</li>
-</ul>
-<h3 id="23----restructuredtext-rest"><a class="header" href="#23----restructuredtext-rest">2.3    reStructuredText (reST)</a></h3>
-<p>Dieses Format wird in Sphinx-Dokumentationen häufig verwendet.</p>
-<pre><code class="language-python">def multipliziere(a: float, b: float) -&gt; float:
-    """
-    Multipliziert zwei Zahlen.
-
-    :param a: Die erste Zahl.
-    :type a: float
-    :param b: Die zweite Zahl.
-    :type b: float
-    :return: Das Produkt von a und b.
-    :rtype: float
-    :raises TypeError: Falls einer der Eingaben kein Float ist.
-    """
-    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
-        raise TypeError("Beide Werte müssen Zahlen sein.")
-    return a * b
-</code></pre>
-<p><strong>Vorteile:</strong></p>
-<ul>
-<li>Unterstützt von Sphinx für automatisch generierte Dokumentationen</li>
-<li>Klar strukturierte Parameter (<code>:param</code>, <code>:return</code>, <code>:rtype</code>, <code>:raises</code>)</li>
-</ul>
-<h3 id="24----vergleich"><a class="header" href="#24----vergleich">2.4    Vergleich</a></h3>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Format</th><th>Vorteile</th><th>Geeignet für</th></tr>
-</thead>
-<tbody>
-<tr><td><strong>NumPy</strong></td><td>Wissenschaftliche Standards</td><td>Data Science, ML, Forschung</td></tr>
-<tr><td><strong>Google</strong></td><td>Einfach zu lesen, klare Struktur</td><td>Allgemeine Python-Projekte</td></tr>
-<tr><td><strong>reST (Sphinx)</strong></td><td>Unterstützt in automatisierten Dokus</td><td>Große Dokumentationen, APIs</td></tr>
-</tbody>
-</table>
-</div>
-<p>Siehe auch:</p>
-<p><a href="https://www.datacamp.com/tutorial/docstrings-python">Python Docstrings Tutorial : Examples &amp; Format for Pydoc, Numpy, Sphinx Doc Strings</a>, insbesondere Abschnitt Comparison of docstring formats*</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../a-grundlagen/eingabe-ausgabe.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="a-grundlagen/eingabe-ausgabe.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../a-grundlagen/fehlerbehandlung.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="a-grundlagen/fehlerbehandlung.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -551,11 +436,11 @@ comment
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../a-grundlagen/eingabe-ausgabe.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="a-grundlagen/eingabe-ausgabe.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../a-grundlagen/fehlerbehandlung.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="a-grundlagen/fehlerbehandlung.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -575,13 +460,13 @@ comment
         </script>
 
 
-        <script src="../elasticlunr-ef4e11c1.min.js"></script>
-        <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
 
-        <script src="../clipboard-1626706a.min.js"></script>
-        <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
 

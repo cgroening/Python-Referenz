@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Fortgeschrittene Objektorientierung - Python-Referenz</title>
+        <title>Objektorientierung - Python-Referenz</title>
 
 
         <!-- Custom HTML head -->
@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -416,9 +416,180 @@
   --color-pink: #d53984;
 }
 </style>
-<h1 id="fortgeschrittene-objektorientierung"><a class="header" href="#fortgeschrittene-objektorientierung">Fortgeschrittene Objektorientierung</a></h1>
-<h2 id="1----type-isinstance-und-issubclass"><a class="header" href="#1----type-isinstance-und-issubclass">1    <code>type()</code>, <code>isinstance()</code> und <code>issubclass()</code></a></h2>
-<p>Diese eingebauten Funktionen helfen beim Umgang mit Typen und Vererbung.</p>
+<h1 id="objektorientierung"><a class="header" href="#objektorientierung">Objektorientierung</a></h1>
+<h2 id="1----grundlagen-der-objektorientierung"><a class="header" href="#1----grundlagen-der-objektorientierung">1    Grundlagen der Objektorientierung</a></h2>
+<h3 id="11----erstellung-einer-einfachen-klasse"><a class="header" href="#11----erstellung-einer-einfachen-klasse">1.1    Erstellung einer einfachen Klasse</a></h3>
+<p>Eine Klasse wird mit dem Schlüsselwort <code>class</code> definiert. Der Konstruktor heißt <code>__init__</code>. Auf die aktuelle Instanz eines Objekts wird mit <code>self</code> verwiesen.</p>
+<pre><code class="language-python">class Person:
+    """Eine Klasse, die eine Person repräsentiert."""
+
+    def __init__(self, name, age):
+        """Konstruktor für die Klasse Person."""
+        self.name = name
+        self.age = age
+
+    def introduce(self):
+        """Gibt eine Vorstellung der Person aus."""
+        print(f'Mein Name ist {self.name}, ich bin {self.age} Jahre alt.')
+
+# Objekt erstellen
+person1 = Person('Anna', 30)
+person1.introduce()
+</code></pre>
+<h3 id="12----vererbung"><a class="header" href="#12----vererbung">1.2    Vererbung</a></h3>
+<p>Die Elternklasse steht in Klammern hinter der Kindklasse. Die neue Klasse erbt alle Attribute und Methoden der Elternklasse. Mit <code>super().__init__(...)</code> wird der Konstruktor der Elternklasse aufgerufen.</p>
+<pre><code class="language-python">class Student(Person):
+    """Eine Klasse, die einen Studenten repräsentiert."""
+
+    def __init__(self, name, age, major):
+        """Konstruktor für die Klasse Student."""
+        super().__init__(name, age)  # Aufruf des Konstruktors der Elternklasse
+        self.major = major
+
+    def introduce(self):
+        """Überschreibt die Methode der Elternklasse."""
+        print(f'Mein Name ist {self.name}, ich bin {self.age} Jahre alt und studiere {self.major}.')
+
+# Objekt erstellen
+student1 = Student('Bernd', 22, 'Informatik')
+student1.introduce()
+</code></pre>
+<p>Die Methode <code>introduce</code> wird hier überschrieben.</p>
+<h3 id="13----mehrfachvererbung"><a class="header" href="#13----mehrfachvererbung">1.3    Mehrfachvererbung</a></h3>
+<p>Durch Mehrfachvererbung kann eine Klasse von mehreren Elternklassen abgeleitet werden. Da bei Mehrfachvererbung die automatische <code>super()</code>-Kette komplex werden kann, werden hier die Konstruktoren der Elternklasse explizit it <code>ElternKlasse.__init__()</code> aufgerufen.</p>
+<pre><code class="language-python">class Worker:
+    """Eine Klasse, die einen Arbeiter repräsentiert."""
+
+    def __init__(self, job):
+        """Konstruktor für die Klasse Worker."""
+        self.job = job
+
+    def work(self):
+        """Gibt den Beruf des Arbeiters aus."""
+        print(f'Ich arbeite als {self.job}.')
+
+class StudentWorker(Student, Worker):
+    """Eine Klasse für einen Studenten, der auch arbeitet."""
+
+    def __init__(self, name, age, major, job):
+        """Konstruktor für die Klasse StudentWorker."""
+        Student.__init__(self, name, age, major)
+        Worker.__init__(self, job)
+
+    def introduce(self):
+        """Erweitert die Vorstellungsmethode."""
+        print(f'Ich bin {self.name}, {self.age} Jahre alt, studiere {self.major} und arbeite als {self.job}.')
+
+# Objekt erstellen
+student_worker = StudentWorker('Christian', 25, 'Maschinenbau', 'Werkstudent')
+student_worker.introduce()
+</code></pre>
+<h4 id="131----method-resolution-order"><a class="header" href="#131----method-resolution-order">1.3.1    Method Resolution Order</a></h4>
+<p>Python verwendet das <strong>C3 Linearization</strong>-Verfahren, um die Reihenfolge von Vererbungen zu bestimmen. Die <code>mro()</code>-Methode zeigt die Aufrufreihenfolge.</p>
+<pre><code class="language-python">class A: pass
+class B(A): pass
+class C(A): pass
+class D(B, C): pass
+
+print(D.mro())  # [D, B, C, A, object]
+</code></pre>
+<h3 id="14----abstrakte-klassen"><a class="header" href="#14----abstrakte-klassen">1.4    Abstrakte Klassen</a></h3>
+<p>Abstrakte Klasse, d. h. Klassen, die als gemeinsame Grundlage dienen und selbst nicht instanziiert werden, werden mithilfe des Moduls <code>ABC</code> realisiert. Mit dem Dekorator <code>@abstractmethod</code> werden Methoden markiert, die in jeder Unterklasse zwingend implementiert werden müssen. Wird diese Pflicht verletzt, wirft Python beim Instanziieren einen <code>TypeError</code>.</p>
+<pre><code class="language-python">from abc import ABC, abstractmethod
+
+class Animal(ABC):
+    """Eine abstrakte Klasse für Tiere."""
+
+    @abstractmethod
+    def make_sound(self):
+        """Abstrakte Methode, die von Unterklassen implementiert werden muss."""
+        pass
+
+class Dog(Animal):
+    """Eine Klasse, die einen Hund repräsentiert."""
+
+    def make_sound(self):
+        """Implementiert die abstrakte Methode."""
+        print('Wuff Wuff!')
+
+# Objekt erstellen
+dog = Dog()
+dog.make_sound()
+</code></pre>
+<h3 id="15----getter-und-setter-mit-property"><a class="header" href="#15----getter-und-setter-mit-property">1.5    Getter und Setter mit <code>property</code></a></h3>
+<p>Das Kapselungsprinzip wird mit dem <code>@property</code>-Dekorator umgesetzt, der einen Getter und einen Setter für ein Attribut definiert. Konventionell werden geschützte Attribute mit einem führenden Unterstrich versehen (z.B. <code>_balance</code>), um anzuzeigen, dass sie nicht direkt von außen verändert werden sollten.</p>
+<pre><code class="language-python">class BankAccount:
+    """Eine Klasse für ein Bankkonto."""
+
+    def __init__(self, balance):
+        self._balance = balance  # Geschützte Variable
+
+    @property
+    def balance(self) -&gt; int:
+        """Getter für den Kontostand."""
+        return self._balance
+
+    @balance.setter
+    def balance(self, amount):
+        """Setter für den Kontostand mit Validierung."""
+        if amount &lt; 0:
+            print('Fehler: Der Kontostand kann nicht negativ sein.')
+        else:
+            self._balance = amount
+
+# Objekt erstellen
+account = BankAccount(1000)
+print(account.balance)
+account.balance = 500
+print(account.balance)
+account.balance = -100  # Fehler
+</code></pre>
+<h3 id="16----__str__-und-__repr__-methoden"><a class="header" href="#16----__str__-und-__repr__-methoden">1.6    <code>__str__</code> und <code>__repr__</code> Methoden</a></h3>
+<p>Python ermöglicht es, das Verhalten von Objekten bei der Ausgabe durch sogenannte <em>dunder methods</em> (von engl. <em>double underscore</em>) zu steuern.</p>
+<ul>
+<li><code>__str__</code> wird aufgerufen, wenn ein Objekt mit <code>print()</code> oder <code>str()</code> in einen lesbaren Text umgewandelt wird. Es ist die Darstellung für den Endnutzer.</li>
+<li><code>__repr__</code> liefert eine technisch präzise Darstellung, die idealerweise den Konstruktoraufruf widerspiegelt, mit dem das Objekt reproduziert werden kann. Sie wird u.a. in der interaktiven Python-Shell oder beim Debuggen verwendet.</li>
+</ul>
+<pre><code class="language-python">class Car:
+    """Eine Klasse für ein Auto."""
+
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    def __str__(self):
+        """Lesbare Darstellung des Objekts."""
+        return f'Auto: {self.brand} {self.model}'
+
+    def __repr__(self):
+        """Detaillierte Darstellung für Entwickler."""
+        return f'Car('{self.brand}', '{self.model}')'
+
+# Objekt erstellen
+car = Car('BMW', 'X5')
+print(car)  # __str__ Methode
+print(repr(car))  # __repr__ Methode
+</code></pre>
+<div class="mdbook-callouts mdbook-callouts-tip">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  tip
+</p>
+
+<p>Als Faustregel gilt: <code>__str__</code> für Menschen, <code>__repr__</code> für Entwickler.</p>
+</div>
+
+<h3 id="17----zusammenfassung"><a class="header" href="#17----zusammenfassung">1.7    Zusammenfassung</a></h3>
+<ul>
+<li><code>class</code> definiert eine Klasse.</li>
+<li><code>__init__</code> ist der Konstruktor.</li>
+<li><code>super()</code> ruft Methoden der Elternklasse auf.</li>
+<li>Abstrakte Klassen werden mit <code>ABC</code> definiert.</li>
+<li><code>@property</code> ermöglicht kontrollierten Zugriff auf Attribute.</li>
+<li><code>__str__</code> und <code>__repr__</code> geben eine Darstellung des Objekts zurück.</li>
+</ul>
+<h2 id="2----type-isinstance-und-issubclass"><a class="header" href="#2----type-isinstance-und-issubclass">2    <code>type()</code>, <code>isinstance()</code> und <code>issubclass()</code></a></h2>
+<p>Diese eingebauten Funktionen helfen beim Umgang mit Typen und Vererbung:</p>
 <ul>
 <li><code>type(obj)</code> gibt den exakten Typ des Objekts zurück.</li>
 <li><code>isinstance(obj, cls)</code> prüft, ob <code>obj</code> eine Instanz von <code>cls</code> oder einer abgeleiteten Klasse ist.</li>
@@ -435,7 +606,7 @@ print(isinstance(d, Animal))    # True
 print(issubclass(Dog, Animal))  # True
 </code></pre>
 <p>Diese Funktionen sind wichtig für dynamisches Verhalten, Validierung und Typprüfung.</p>
-<h2 id="2----__init__-vs-__new__"><a class="header" href="#2----__init__-vs-__new__">2    <code>__init__</code> vs <code>__new__</code></a></h2>
+<h2 id="3----__init__-vs-__new__"><a class="header" href="#3----__init__-vs-__new__">3    <code>__init__</code> vs <code>__new__</code></a></h2>
 <ul>
 <li><code>__new__</code> ist für das <strong>Erzeugen</strong> eines neuen Objekts zuständig.</li>
 <li><code>__init__</code> wird anschließend aufgerufen, um das Objekt zu <strong>initialisieren</strong>.</li>
@@ -452,8 +623,8 @@ print(issubclass(Dog, Animal))  # True
 obj = Custom(42)
 </code></pre>
 <p><code>__new__</code> wird z. B. bei unveränderlichen Typen wie <code>str</code> oder <code>tuple</code> benötigt, wenn diese beeinflusst werden sollen oder in der Metaprogrammierung (Singleton-Pattern).</p>
-<h2 id="3----methodenarten"><a class="header" href="#3----methodenarten">3    Methodenarten</a></h2>
-<h3 id="31----staticmethods-und-classmethods"><a class="header" href="#31----staticmethods-und-classmethods">3.1    StaticMethods und ClassMethods</a></h3>
+<h2 id="4----methodenarten"><a class="header" href="#4----methodenarten">4    Methodenarten</a></h2>
+<h3 id="41----staticmethods-und-classmethods"><a class="header" href="#41----staticmethods-und-classmethods">4.1    StaticMethods und ClassMethods</a></h3>
 <ul>
 <li><code>@staticmethod</code> definiert eine Methode, die <strong>keinen Zugriff</strong> auf <code>self</code> oder <code>cls</code> benötigt.</li>
 <li><code>@classmethod</code> arbeitet mit <code>cls</code> und kann so auf die Klasse zugreifen.</li>
@@ -472,7 +643,7 @@ Example.utility()
 obj = Example.construct()
 </code></pre>
 <p><code>classmethod</code> wird häufig für alternative Konstruktoren verwendet.</p>
-<h3 id="32----properties-private-attribute"><a class="header" href="#32----properties-private-attribute">3.2    Properties (Private Attribute)</a></h3>
+<h3 id="42----properties-private-attribute"><a class="header" href="#42----properties-private-attribute">4.2    Properties (Private Attribute)</a></h3>
 <p>Mit <code>@property</code> können Methoden wie Attribute verwendet werden. Das ist nützlich für <strong>gekapselte Attribute</strong>, z. B. mit Validierung oder automatischer Berechnung.</p>
 <pre><code class="language-python">class Person:
     def __init__(self, name):
@@ -492,7 +663,7 @@ p.name = 'Bob'
 print(p.name)
 </code></pre>
 <p>Durch Properties kann die API einfach bleiben, während intern komplexe Logik stattfinden kann.</p>
-<h2 id="4----dunder-methods"><a class="header" href="#4----dunder-methods">4    Dunder Methods</a></h2>
+<h2 id="5----dunder-methods"><a class="header" href="#5----dunder-methods">5    Dunder Methods</a></h2>
 <p>Dunder (Double Underscore) Methoden ermöglichen benutzerdefiniertes Verhalten für Operatoren und eingebaute Funktionen (<code>__str__</code>, <code>__len__</code>, <code>__getitem__</code> usw.).</p>
 <pre><code class="language-python">class Point:
     def __init__(self, x, y):
@@ -511,31 +682,6 @@ print(str(p1))  # (1, 2)
 print(p1 == p2)  # True
 </code></pre>
 <p>Diese Methoden machen Objekte “pythonisch”.</p>
-<h2 id="5----abstraktion-und-vererbung"><a class="header" href="#5----abstraktion-und-vererbung">5    Abstraktion und Vererbung</a></h2>
-<h3 id="51----abstract-methods"><a class="header" href="#51----abstract-methods">5.1    Abstract Methods</a></h3>
-<p>Das <code>abc</code>-Modul erlaubt die Definition abstrakter Basisklassen. Methoden mit <code>@abstractmethod</code> müssen in Subklassen implementiert werden.</p>
-<pre><code class="language-python">from abc import ABC, abstractmethod
-
-class Shape(ABC):
-    @abstractmethod
-    def area(self):
-        pass
-
-class Circle(Shape):
-    def area(self):
-        return 3.14 * 5 * 5
-</code></pre>
-<p>Abstrakte Methoden zwingen Unterklassen zur Implementierung und helfen beim Design stabiler APIs.</p>
-<h3 id="52----method-resolution-order"><a class="header" href="#52----method-resolution-order">5.2    Method Resolution Order</a></h3>
-<p>Python verwendet das <strong>C3 Linearization</strong>-Verfahren, um die Reihenfolge von Vererbungen zu bestimmen. Die <code>mro()</code>-Methode zeigt die Aufrufreihenfolge.</p>
-<pre><code class="language-python">class A: pass
-class B(A): pass
-class C(A): pass
-class D(B, C): pass
-
-print(D.mro())  # [D, B, C, A, object]
-</code></pre>
-<p>Wichtig bei Mehrfachvererbung.</p>
 <h2 id="6----interation-und-indizierung"><a class="header" href="#6----interation-und-indizierung">6    Interation und Indizierung</a></h2>
 <h3 id="61----iterator-klasse-und-generator-funktion"><a class="header" href="#61----iterator-klasse-und-generator-funktion">6.1    Iterator-Klasse und Generator-Funktion</a></h3>
 <p>Ein Iterator benötigt die Methoden <code>__iter__</code> und <code>__next__</code>. Alternativ kann <code>yield</code> verwendet werden.</p>
@@ -597,12 +743,9 @@ class Slim:
     x: int
     y: int
 </code></pre>
-<div class="mdbook-callouts mdbook-callouts-info">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  was macht `__slots__` bzw. `slots=true`?
-</p>
-
+<blockquote>
+<p>[!INFO]</p>
+<p><strong>Was macht <code>__slots__</code> bzw. <code>slots=True</code>?</strong></p>
 <p>Normalerweise speichert Python Objektattribute in einem internen Dictionary namens <code>__dict__.</code> Das ist flexibel, jedoch nicht speichereffizient oder performant.
 Wenn <code>__slots__</code> bzw. <code>slots=True</code> verwendet wird, wird dieses Dictionary durch ein festeres Layout ersetzt, bei dem nur die im Slot definierten Felder erlaubt sind.</p>
 <p><strong>Warum verbessert das die Leistung?</strong></p>
@@ -620,8 +763,7 @@ Statt eines Dictionary-Lookups wird ein schnellerer, indexbasierter Zugriff verw
 Schlankere Objekte passen besser in den Cache, was zu weiteren Geschwindigkeitsgewinnen führen kann – besonders bei großen Listen von Objekten.</p>
 </li>
 </ol>
-</div>
-
+</blockquote>
 <pre><code class="language-python"># Ohne __slots__ (Standard)
 class Person:
     def __init__(self, name, age):
@@ -735,7 +877,7 @@ p = Product('Book')
 </code></pre>
 <p>Class Decorators sind ein mächtiges Meta-Programmierungstool.</p>
 <h2 id="10----metaclasses--klassen-von-klassen"><a class="header" href="#10----metaclasses--klassen-von-klassen">10    Metaclasses – Klassen von Klassen</a></h2>
-<p>Metaclasses sind ein fortgeschrittenes Feature, mit dem man das Verhalten beim Erstellen von Klassen selbst kontrollieren kann. Sie sind die “Klassen von Klassen”.</p>
+<p>Metaclasses sind ein fortgeschrittenes Feature, mit dem man das Verhalten beim Erstellen von Klassen selbst kontrollieren kann. Sie sind die ‘Klassen von Klassen’.</p>
 <h3 id="101----grundkonzept"><a class="header" href="#101----grundkonzept">10.1    Grundkonzept</a></h3>
 <p>In Python ist alles ein Objekt – auch Klassen. Klassen sind Instanzen von Metaclasses.</p>
 <pre><code class="language-python"># Normale Hierarchie
@@ -766,13 +908,13 @@ print(type(x))  # &lt;class 'int'&gt;
 <pre><code class="language-python"># Normale Klassendefinition
 class Dog:
     def bark(self):
-        return "Woof!"
+        return 'Woof!'
 
 # Äquivalent mit type()
-Dog = type('Dog', (), {'bark': lambda self: "Woof!"})
+Dog = type('Dog', (), {'bark': lambda self: 'Woof!'})
 
 dog = Dog()
-print(dog.bark())  # "Woof!"
+print(dog.bark())  # 'Woof!'
 </code></pre>
 <p><strong>Syntax von <code>type()</code> zur Klassenerstellung:</strong></p>
 <pre><code class="language-python">type(name, bases, dict)
@@ -786,7 +928,7 @@ print(dog.bark())  # "Woof!"
 <pre><code class="language-python"># Basisklasse
 class Animal:
     def breathe(self):
-        return "Breathing..."
+        return 'Breathing...'
 
 # Mit type() erstellen
 Dog = type(
@@ -794,20 +936,20 @@ Dog = type(
     (Animal,),                       # Basisklassen
     {
         'species': 'Canis familiaris',
-        'bark': lambda self: "Woof!"
+        'bark': lambda self: 'Woof!'
     }
 )
 
 dog = Dog()
-print(dog.breathe())  # "Breathing..." (geerbt)
-print(dog.bark())     # "Woof!"
-print(dog.species)    # "Canis familiaris"
+print(dog.breathe())  # 'Breathing...' (geerbt)
+print(dog.bark())     # 'Woof!'
+print(dog.species)    # 'Canis familiaris'
 </code></pre>
 <h3 id="103----eigene-metaclass-erstellen"><a class="header" href="#103----eigene-metaclass-erstellen">10.3    Eigene Metaclass erstellen</a></h3>
 <p>Eine Metaclass ist eine Klasse, die von <code>type</code> erbt.</p>
 <pre><code class="language-python">class Meta(type):
     def __new__(mcs, name, bases, attrs):
-        print(f"Creating class {name}")
+        print(f'Creating class {name}')
         # Klasse erstellen
         cls = super().__new__(mcs, name, bases, attrs)
         return cls
@@ -829,13 +971,13 @@ class MyClass(metaclass=Meta):
 <pre><code class="language-python">class Meta(type):
     def __new__(mcs, name, bases, attrs):
         """Wird WÄHREND der Klassenerstellung aufgerufen"""
-        print(f"__new__: Creating {name}")
+        print(f'__new__: Creating {name}')
         cls = super().__new__(mcs, name, bases, attrs)
         return cls
     
     def __init__(cls, name, bases, attrs):
         """Wird NACH der Klassenerstellung aufgerufen"""
-        print(f"__init__: Initializing {name}")
+        print(f'__init__: Initializing {name}')
         super().__init__(name, bases, attrs)
 
 class MyClass(metaclass=Meta):
@@ -859,18 +1001,18 @@ class MyClass(metaclass=Meta):
             if not key.startswith('_'):  # Private ignorieren
                 if not key[0].isupper():
                     raise ValueError(
-                        f"Attribute {key} must start with uppercase letter"
+                        f'Attribute {key} must start with uppercase letter'
                     )
         return super().__new__(mcs, name, bases, attrs)
 
 # ✅ Funktioniert
 class GoodClass(metaclass=ValidatedMeta):
-    Name = "valid"
+    Name = 'valid'
     Age = 25
 
 # ❌ Fehler
 # class BadClass(metaclass=ValidatedMeta):
-#     name = "invalid"  # ValueError!
+#     name = 'invalid'  # ValueError!
 </code></pre>
 <h4 id="1052----automatische-registrierung"><a class="header" href="#1052----automatische-registrierung">10.5.2    Automatische Registrierung</a></h4>
 <pre><code class="language-python">class RegistryMeta(type):
@@ -912,12 +1054,12 @@ print(RegistryMeta.get_registry())
 
 class Database(metaclass=SingletonMeta):
     def __init__(self):
-        print("Connecting to database...")
+        print('Connecting to database...')
 
 # Erste Instanz
-db1 = Database()  # "Connecting to database..."
+db1 = Database()  # 'Connecting to database...'
 
-# Zweite "Instanz" - gibt dieselbe zurück
+# Zweite 'Instanz' - gibt dieselbe zurück
 db2 = Database()  # (kein Output)
 
 print(db1 is db2)  # True
@@ -928,10 +1070,10 @@ print(db1 is db2)  # True
         # Automatisch __repr__ generieren
         def auto_repr(self):
             attrs_str = ', '.join(
-                f"{k}={v!r}" 
+                f'{k}={v!r}' 
                 for k, v in self.__dict__.items()
             )
-            return f"{name}({attrs_str})"
+            return f'{name}({attrs_str})'
         
         # Nur hinzufügen, wenn nicht vorhanden
         if '__repr__' not in attrs:
@@ -957,7 +1099,7 @@ print(p)  # Point(x=10, y=20) - automatisch generiert!
                     for method in base._required_methods:
                         if method not in attrs:
                             raise TypeError(
-                                f"{name} must implement {method}()"
+                                f'{name} must implement {method}()'
                             )
         return super().__new__(mcs, name, bases, attrs)
 
@@ -983,12 +1125,12 @@ class Circle(Shape):
 <h3 id="106----metaclass-vererbung"><a class="header" href="#106----metaclass-vererbung">10.6    Metaclass-Vererbung</a></h3>
 <pre><code class="language-python">class MetaA(type):
     def __new__(mcs, name, bases, attrs):
-        print(f"MetaA creating {name}")
+        print(f'MetaA creating {name}')
         return super().__new__(mcs, name, bases, attrs)
 
 class MetaB(MetaA):
     def __new__(mcs, name, bases, attrs):
-        print(f"MetaB creating {name}")
+        print(f'MetaB creating {name}')
         return super().__new__(mcs, name, bases, attrs)
 
 class MyClass(metaclass=MetaB):
@@ -1009,7 +1151,7 @@ class MyClass(metaclass=MetaB):
         # Wird bei MyClass() aufgerufen
         instance = super().__call__(*args, **kwargs)
         cls._instance_count += 1
-        print(f"Created instance #{cls._instance_count}")
+        print(f'Created instance #{cls._instance_count}')
         return instance
 
 class MyClass(metaclass=CounterMeta):
@@ -1029,11 +1171,11 @@ class OrderedMeta(type):
     @classmethod
     def __prepare__(mcs, name, bases):
         """Wird VOR __new__ aufgerufen"""
-        print(f"Preparing namespace for {name}")
+        print(f'Preparing namespace for {name}')
         return OrderedDict()
     
     def __new__(mcs, name, bases, namespace):
-        print(f"Attributes in order: {list(namespace.keys())}")
+        print(f'Attributes in order: {list(namespace.keys())}')
         return super().__new__(mcs, name, bases, dict(namespace))
 
 class MyClass(metaclass=OrderedMeta):
@@ -1077,7 +1219,7 @@ class C(A, B, metaclass=MetaC):
 class AutoStrMeta(type):
     def __new__(mcs, name, bases, attrs):
         def __str__(self):
-            return f"{name} instance"
+            return f'{name} instance'
         attrs['__str__'] = __str__
         return super().__new__(mcs, name, bases, attrs)
 
@@ -1087,7 +1229,7 @@ class MyClass(metaclass=AutoStrMeta):
 # Mit Decorator (einfacher!)
 def auto_str(cls):
     def __str__(self):
-        return f"{cls.__name__} instance"
+        return f'{cls.__name__} instance'
     cls.__str__ = __str__
     return cls
 
@@ -1121,22 +1263,22 @@ print(Plugin._registry)  # [&lt;class 'AudioPlugin'&gt;]
 <h3 id="1011----debugging-von-metaclasses"><a class="header" href="#1011----debugging-von-metaclasses">10.11    Debugging von Metaclasses</a></h3>
 <pre><code class="language-python">class DebugMeta(type):
     def __new__(mcs, name, bases, attrs):
-        print(f"\n=== Creating class {name} ===")
-        print(f"Metaclass: {mcs}")
-        print(f"Bases: {bases}")
-        print(f"Attributes: {list(attrs.keys())}")
+        print(f'\n=== Creating class {name} ===')
+        print(f'Metaclass: {mcs}')
+        print(f'Bases: {bases}')
+        print(f'Attributes: {list(attrs.keys())}')
         
         cls = super().__new__(mcs, name, bases, attrs)
         
-        print(f"Class created: {cls}")
-        print(f"MRO: {cls.__mro__}")
+        print(f'Class created: {cls}')
+        print(f'MRO: {cls.__mro__}')
         return cls
 
 class Parent:
-    parent_attr = "parent"
+    parent_attr = 'parent'
 
 class Child(Parent, metaclass=DebugMeta):
-    child_attr = "child"
+    child_attr = 'child'
 
 # Output zeigt detaillierte Informationen über Klassenerstellung
 </code></pre>
@@ -1183,7 +1325,7 @@ class Child(Parent, metaclass=DebugMeta):
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Metaclasses kontrollieren die Klassenerstellung selbst. Sie sind ein sehr mächtiges Werkzeug, sollten aber sparsam eingesetzt werden. In den meisten Fällen sind Class Decorators oder <code>__init_subclass__</code> die bessere Wahl.</p>
+<p>Metaclasses kontrollieren die Klassenerstellung selbst. Sie sind ein sehr mächtiges Werkzeug, sollten aber sparsam eingesetzt werden. In den meisten Fällen sind Class Decorators oder <code>__init_subclass__</code> die bessere Wahl.</p>
 <p><strong>Entscheidungsbaum:</strong></p>
 <ol>
 <li>Brauche ich wirklich Metaprogrammierung? → Oft: Nein</li>
@@ -1206,7 +1348,7 @@ for i in counter:
 
 # Mit zip für begrenzte Iteration
 for i, letter in zip(count(1), ['a', 'b', 'c']):
-    print(f"{i}: {letter}")
+    print(f'{i}: {letter}')
 # 1: a
 # 2: b
 # 3: c
@@ -1230,7 +1372,7 @@ rows = ['Row 1', 'Row 2', 'Row 3', 'Row 4', 'Row 5']
 colors = cycle(['white', 'gray'])
 
 for row, color in zip(rows, colors):
-    print(f"{row} - {color}")
+    print(f'{row} - {color}')
 </code></pre>
 <h4 id="1113----repeat--element-wiederholen"><a class="header" href="#1113----repeat--element-wiederholen">11.1.3    <code>repeat()</code> – Element wiederholen</a></h4>
 <pre><code class="language-python">from itertools import repeat
@@ -1257,13 +1399,13 @@ colors = ['red', 'blue']
 sizes = ['S', 'M', 'L']
 
 for color, size in product(colors, sizes):
-    print(f"{color}-{size}")
+    print(f'{color}-{size}')
 # red-S, red-M, red-L, blue-S, blue-M, blue-L
 
 # Äquivalent zu verschachtelten Schleifen
 for color in colors:
     for size in sizes:
-        print(f"{color}-{size}")
+        print(f'{color}-{size}')
 
 # Mit repeat-Parameter
 for item in product(range(2), repeat=3):
@@ -1388,7 +1530,7 @@ data = [
 
 # Nach zweitem Element gruppieren (NICHT sortiert → falsche Gruppen!)
 for key, group in groupby(data, key=lambda x: x[1]):
-    print(f"{key}: {list(group)}")
+    print(f'{key}: {list(group)}')
 # A: [('Alice', 'A')]
 # B: [('Bob', 'B')]
 # C: [('Charlie', 'C')]
@@ -1398,7 +1540,7 @@ for key, group in groupby(data, key=lambda x: x[1]):
 # Richtig: Erst sortieren
 data_sorted = sorted(data, key=lambda x: x[1])
 for key, group in groupby(data_sorted, key=lambda x: x[1]):
-    print(f"{key}: {list(group)}")
+    print(f'{key}: {list(group)}')
 # A: [('Alice', 'A'), ('David', 'A')]
 # B: [('Bob', 'B'), ('Eve', 'B')]
 # C: [('Charlie', 'C')]
@@ -1410,7 +1552,7 @@ words = ['a', 'bb', 'ccc', 'dd', 'e', 'fff']
 words_sorted = sorted(words, key=len)
 
 for length, group in groupby(words_sorted, key=len):
-    print(f"Length {length}: {list(group)}")
+    print(f'Length {length}: {list(group)}')
 # Length 1: ['a', 'e']
 # Length 2: ['bb', 'dd']
 # Length 3: ['ccc', 'fff']
@@ -1595,20 +1737,20 @@ from itertools import islice, count
 start = time.time()
 large_list = list(range(10_000_000))
 first_100 = large_list[:100]
-print(f"List: {time.time() - start:.3f}s")
+print(f'List: {time.time() - start:.3f}s')
 
 # ✅ Effizient: Iterator verwenden
 start = time.time()
 first_100 = list(islice(count(), 100))
-print(f"Iterator: {time.time() - start:.3f}s")
+print(f'Iterator: {time.time() - start:.3f}s')
 
 # Speichervergleich
 import sys
 numbers_list = list(range(1_000_000))
 numbers_iter = range(1_000_000)
 
-print(f"List: {sys.getsizeof(numbers_list)} bytes")     # ~8 MB
-print(f"Iterator: {sys.getsizeof(numbers_iter)} bytes") # ~48 bytes
+print(f'List: {sys.getsizeof(numbers_list)} bytes')     # ~8 MB
+print(f'Iterator: {sys.getsizeof(numbers_iter)} bytes') # ~48 bytes
 </code></pre>
 <h3 id="117----best-practices"><a class="header" href="#117----best-practices">11.7    Best Practices</a></h3>
 <p><strong>✅ DO:</strong></p>
@@ -1646,7 +1788,7 @@ print(f"Iterator: {sys.getsizeof(numbers_iter)} bytes") # ~48 bytes
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> <code>itertools</code> bietet speichereffiziente, kombinierbare Iterator-Funktionen für funktionale Programmierung und große Datenmengen. Iteratoren sind lazy (verzögerte Auswertung) und können nur einmal durchlaufen werden.</p>
+<p><code>itertools</code> bietet speichereffiziente, kombinierbare Iterator-Funktionen für funktionale Programmierung und große Datenmengen. Iteratoren sind lazy (verzögerte Auswertung) und können nur einmal durchlaufen werden.</p>
 <h2 id="12----zusammenfassung"><a class="header" href="#12----zusammenfassung">12    Zusammenfassung</a></h2>
 <ol>
 <li>
@@ -1720,7 +1862,7 @@ print(f"Iterator: {sys.getsizeof(numbers_iter)} bytes") # ~48 bytes
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../b-oop-und-fortgeschrittene-konzepte/grundlagen-der-objektorientierung.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../a-grundlagen/fehlerbehandlung.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -1734,7 +1876,7 @@ print(f"Iterator: {sys.getsizeof(numbers_iter)} bytes") # ~48 bytes
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../b-oop-und-fortgeschrittene-konzepte/grundlagen-der-objektorientierung.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../a-grundlagen/fehlerbehandlung.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 

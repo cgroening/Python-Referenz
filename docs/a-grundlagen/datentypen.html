@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -456,20 +456,22 @@
 s = 'Hallo'
 s = """Hallo
     Welt"""
+s = ("Hallo " 
+     "Welt")
 s = ('Hallo '
      'Welt')
 </code></pre>
 <h3 id="32----f-strings"><a class="header" href="#32----f-strings">3.2    f-Strings</a></h3>
 <pre><code class="language-python">s = 'Welt'
 
-print(f'Hallo {s}')  # Hallo Welt
+print(f'Hallo {s}')
 </code></pre>
 <p>f-Strings sind Konkatenationen vorzuziehen, da sie sich schneller schreiben lassen und besser zu lesen sind:</p>
 <pre><code class="language-python">first_name = 'Max'
 last_name = 'Mustermann'
 
-print('Hallo ' + first_name + ' ' + last_name)
-print(f'Hallo {first_name} {last_name}')
+print('Hallo ' + first_name + ' ' + last_name)  # Konkatenationen
+print(f'Hallo {first_name} {last_name}')        # f-String
 </code></pre>
 <h3 id="33----teilstrings"><a class="header" href="#33----teilstrings">3.3    Teilstrings</a></h3>
 <pre><code class="language-python">s = 'Hallo'
@@ -491,7 +493,7 @@ print(s.replace('+', ' '))  # Hallo Welt
 <h3 id="36----raw-strings"><a class="header" href="#36----raw-strings">3.6    Raw-Strings</a></h3>
 <pre><code class="language-python">s = 'c:\\mein\\pfad'
 s_raw = r'c:\mein\pfad'  # raw string
-print(s, s_raw)  # c:\mein\pfad c:\mein\pfad
+print(s, s_raw)          # c:\mein\pfad c:\mein\pfad
 </code></pre>
 <h3 id="37----pfade"><a class="header" href="#37----pfade">3.7    Pfade</a></h3>
 <pre><code class="language-python">from pathlib import Path
@@ -505,32 +507,38 @@ print(p.is_dir())    # False
 print(p.is_file())   # True
 </code></pre>
 <h2 id="4----zahlen"><a class="header" href="#4----zahlen">4    Zahlen</a></h2>
-<h3 id="41----integer"><a class="header" href="#41----integer">4.1    Integer</a></h3>
-<p>Bei der Division entsteht ein float, auch wenn das Ergebnis gerade ist. Vermeiden kann man dies mit dem <code>//</code>-Operator.</p>
+<h3 id="41----integer--ganze-zahlen"><a class="header" href="#41----integer--ganze-zahlen">4.1    Integer – Ganze Zahlen</a></h3>
+<p>Bei der Division entsteht ein <code>float</code>, auch wenn das Ergebnis gerade ist. Vermeiden kann man dies mit dem <code>//</code>-Operator.</p>
 <pre><code class="language-python">result = 4 / 2
 print(f'{result}; Typ: {type(result)}')  # 2.0; Typ: &lt;class 'float'&gt;
 
 result = 4 // 2
 print(f'{result}; Typ: {type(result)}')  # 2; Typ: &lt;class 'int'&gt;
 </code></pre>
-<p><strong>Formatierung:</strong></p>
+<p><strong>Formatierung von Zahlen:</strong></p>
 <pre><code class="language-python">n1 = 1000
 n2 = 1
 print(n1)          # 1000
 print(f'{n2:4d}')  #    1
 </code></pre>
-<h3 id="42----floats"><a class="header" href="#42----floats">4.2    Floats</a></h3>
-<h3 id="43----vergleich"><a class="header" href="#43----vergleich">4.3    Vergleich</a></h3>
+<h3 id="42----floats---gleitkommazahlen"><a class="header" href="#42----floats---gleitkommazahlen">4.2    Floats  – Gleitkommazahlen</a></h3>
+<p>Gleitkommazahlen werden nach dem IEEE 754-Standard als 64-Bit-Wert gespeichert, bestehend aus Vorzeichen, Exponent und Mantisse. Dadurch können sie sehr große und sehr kleine Zahlen darstellen, allerdings nur mit begrenzter Präzision von ca. 15–17 signifikanten Dezimalstellen.</p>
+<pre><code class="language-python">pi = 3.14159
+x = 1.5e-10       # wissenschaftliche Notation: 1.5 × 10⁻¹⁰
+y = float('inf')  # positiv unendlich
+z = float('nan')  # Not a Number (z.B. Ergebnis von 0/0 in anderen Sprachen)
+</code></pre>
+<h4 id="421----vergleich-von-gleitkommazahlen"><a class="header" href="#421----vergleich-von-gleitkommazahlen">4.2.1    Vergleich von Gleitkommazahlen</a></h4>
 <div class="mdbook-callouts mdbook-callouts-danger">
 <p class="mdbook-callouts-title">
   <span class="mdbook-callouts-icon"></span>
   danger
 </p>
 
-<p>Die Nachkommastellen werden nicht exakt abgespeichert, daher sollten <code>float</code>-Werte niemals mit == vergleichen werden. Stattdessen eignet sich die Verwendung von <code>math.isclose()</code>.</p>
+<p>Die Nachkommastellen von Gleitkommazahlen werden <strong>nicht</strong> exakt abgespeichert, daher sollten <code>float</code>-Werte <strong>niemals</strong> mit <code>==</code> vergleichen werden. Stattdessen eignet sich die Verwendung von <code>math.isclose()</code>.</p>
 </div>
 
-<p>Beispiel:</p>
+<p><strong>Beispiel:</strong></p>
 <pre><code class="language-python">import math
 
 result = 1/10 + 1/10 + 1/10
@@ -541,12 +549,12 @@ print(f'{value:.32f}')   # 0.29999999999999998889776975374843
 print(result == value)              # False
 print(math.isclose(result, value))  # True
 </code></pre>
-<h3 id="44----runden"><a class="header" href="#44----runden">4.4    Runden</a></h3>
+<h4 id="422----runden-von-gleitkommazahlen"><a class="header" href="#422----runden-von-gleitkommazahlen">4.2.2    Runden von Gleitkommazahlen</a></h4>
 <p>Aufrunden:</p>
-<pre><code class="language-python">print(math.floor(1.2))    # 1
+<pre><code class="language-python">print(math.floor(1.2))  # 1
 </code></pre>
 <p>Abrunden:</p>
-<pre><code class="language-python">print(math.ceil(1.2))     # 2
+<pre><code class="language-python">print(math.ceil(1.2))  # 2
 </code></pre>
 <p>Auf 2 Nachkommastellen runden:</p>
 <pre><code class="language-python">print(round(1.23456, 2))  # 1.23
@@ -557,7 +565,7 @@ print(math.isclose(result, value))  # True
 <p>Auf das nächstgelegene Vielfache von <code>100 (= 10^2)</code> runden:</p>
 <pre><code class="language-python">print(round(644.123, -2))  # 600.0
 </code></pre>
-<h3 id="45----potenzen"><a class="header" href="#45----potenzen">4.5    Potenzen</a></h3>
+<h3 id="43----potenzen"><a class="header" href="#43----potenzen">4.3    Potenzen</a></h3>
 <div class="mdbook-callouts mdbook-callouts-danger">
 <p class="mdbook-callouts-title">
   <span class="mdbook-callouts-icon"></span>
@@ -575,6 +583,140 @@ b = 3
 # Es gibt 2 Möglichkeiten:
 print(a ** b)          # 8
 print(math.pow(a, b))  # 8.0
+</code></pre>
+<h2 id="5----typumwandlungen"><a class="header" href="#5----typumwandlungen">5    Typumwandlungen</a></h2>
+<p>Python unterscheidet zwischen <strong>impliziten</strong> Typumwandlungen, die Python automatisch vornimmt und <strong>expliziten</strong> Typumwandlungen, die der Entwickler durchführt.</p>
+<h3 id="51----implizite-typumwandlungen"><a class="header" href="#51----implizite-typumwandlungen">5.1    Implizite Typumwandlungen</a></h3>
+<p>Python wandelt Typen automatisch um, wenn es nötig ist – z.B. bei arithmetischen Operationen:</p>
+<pre><code class="language-python">x = 3 + 1.5        # int + float → float
+print(x, type(x))  # 4.5 &lt;class 'float'&gt;
+
+x = True + 1       # bool + int → int (True wird als 1 behandelt)
+print(x, type(x))  # 2 &lt;class 'int'&gt;
+</code></pre>
+<h3 id="52----explizite-typumwandlungen"><a class="header" href="#52----explizite-typumwandlungen">5.2    Explizite Typumwandlungen</a></h3>
+<h4 id="521----nach-int"><a class="header" href="#521----nach-int">5.2.1    Nach <code>int</code></a></h4>
+<pre><code class="language-python">print(int(3.9))    # 3 (Nachkommastellen werden abgeschnitten, nicht gerundet!)
+print(int(3.1))    # 3
+print(int(-3.9))   # -3 (nicht -4!)
+print(int(True))   # 1
+print(int(False))  # 0
+print(int('42'))   # 42
+print(int('0b1010', 2))  # 10   (Binär → int)
+print(int('0xFF', 16))   # 255  (Hex → int)
+</code></pre>
+<div class="mdbook-callouts mdbook-callouts-warning">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  warning
+</p>
+
+<p>Strings können nicht direkt in Gleitkommazahlen umgewandelt werden: <code>int('3.14')</code> wirft einen <code>ValueError</code>.</p>
+<p>Eine Umwandlung ist über den folgenden Umweg möglich: <code>int(float('3.14'))</code>.</p>
+</div>
+
+<h4 id="522----nach-float"><a class="header" href="#522----nach-float">5.2.2    Nach <code>float</code></a></h4>
+<pre><code class="language-python">print(float(3))          # 3.0
+print(float(True))       # 1.0
+print(float('3.14'))     # 3.14
+print(float('1.5e-10'))  # 1.5e-10
+print(float('inf'))      # inf
+print(float('nan'))      # nan
+</code></pre>
+<h4 id="523----nach-str"><a class="header" href="#523----nach-str">5.2.3    Nach <code>str</code></a></h4>
+<pre><code class="language-python">print(str(42))         # '42'
+print(str(3.14))       # '3.14'
+print(str(True))       # 'True'
+print(str([1, 2, 3]))  # '[1, 2, 3]'
+print(str(None))       # 'None'
+</code></pre>
+<h4 id="524----nach-bool"><a class="header" href="#524----nach-bool">5.2.4    Nach <code>bool</code></a></h4>
+<p>Jeder Typ kann in einen <code>bool</code> umgewandelt werden. Als <code>False</code> gelten dabei:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Wert</th><th>Typ</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0</code></td><td><code>int</code></td></tr>
+<tr><td><code>0.0</code></td><td><code>float</code></td></tr>
+<tr><td><code>''</code></td><td><code>str</code></td></tr>
+<tr><td><code>[]</code></td><td><code>list</code></td></tr>
+<tr><td><code>()</code></td><td><code>tuple</code></td></tr>
+<tr><td><code>{}</code></td><td><code>dict</code></td></tr>
+<tr><td><code>set()</code></td><td><code>set</code></td></tr>
+<tr><td><code>None</code></td><td><code>NoneType</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Alle anderen Werte gelten als <code>True</code>.</p>
+<pre><code class="language-python">print(bool(0))      # False
+print(bool(0.0))    # False
+print(bool(''))     # False
+print(bool([]))     # False
+print(bool(None))   # False
+
+print(bool(1))      # True
+print(bool(-1))     # True
+print(bool('0'))    # True (nicht-leerer String!)
+print(bool([0]))    # True (nicht-leere Liste!)
+</code></pre>
+<h4 id="525----nach-list-tuple-und-set"><a class="header" href="#525----nach-list-tuple-und-set">5.2.5    Nach <code>list</code>, <code>tuple</code> und <code>set</code></a></h4>
+<pre><code class="language-python"># str → list (jedes Zeichen wird ein Element)
+print(list('Hallo'))         # ['H', 'a', 'l', 'l', 'o']
+
+# tuple → list und umgekehrt
+print(list((1, 2, 3)))       # [1, 2, 3]
+print(tuple([1, 2, 3]))      # (1, 2, 3)
+
+# list → set (Duplikate werden entfernt, Reihenfolge nicht garantiert)
+print(set([1, 2, 2, 3, 3]))  # {1, 2, 3}
+
+# set → list
+print(list({1, 2, 3}))       # [1, 2, 3]
+</code></pre>
+<h4 id="526----nach-bytes-und-bytearray"><a class="header" href="#526----nach-bytes-und-bytearray">5.2.6    Nach <code>bytes</code> und <code>bytearray</code></a></h4>
+<pre><code class="language-python"># str → bytes (Encoding muss angegeben werden)
+b = 'Hallo'.encode('utf-8')
+print(b)                     # b'Hallo'
+print(type(b))               # &lt;class 'bytes'&gt;
+
+# bytes → str
+s = b.decode('utf-8')
+print(s)                     # Hallo
+
+# list → bytes
+b = bytes([72, 101, 108, 108, 111])
+print(b)                     # b'Hello'
+
+# bytes → bytearray (veränderlich)
+ba = bytearray(b)
+ba[0] = 104
+print(ba)                    # bytearray(b'hello')
+</code></pre>
+<h3 id="53----typprüfung"><a class="header" href="#53----typprüfung">5.3    Typprüfung</a></h3>
+<p>Vor einer Umwandlung kann es sinnvoll sein, den Typ eines Objekts zu prüfen:</p>
+<pre><code class="language-python">x = 42
+
+print(type(x))         # &lt;class 'int'&gt;
+print(type(x) == int)  # True
+
+# isinstance() ist vorzuziehen, da es auch Vererbung berücksichtigt
+print(isinstance(x, int))           # True
+print(isinstance(x, (int, float)))  # True (einer der Typen reicht)
+</code></pre>
+<p>Mehr zu Typvergleichen in <a href="typannotationen.html#10-typenvergleich">typannotationen</a>.</p>
+<h3 id="54----fehlerbehandlung-bei-typumwandlungen"><a class="header" href="#54----fehlerbehandlung-bei-typumwandlungen">5.4    Fehlerbehandlung bei Typumwandlungen</a></h3>
+<p>Ungültige Umwandlungen werfen eine Ausnahme. Für unsichere Umwandlungen empfiehlt sich ein <code>try/except</code>-Block:</p>
+<pre><code class="language-python">def to_int(value):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return None
+
+print(to_int('42'))   # 42
+print(to_int('abc'))  # None
+print(to_int(None))   # None
 </code></pre>
 
                     </main>

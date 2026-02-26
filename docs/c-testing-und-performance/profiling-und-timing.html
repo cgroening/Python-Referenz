@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -543,9 +543,9 @@ cProfile.run('compute_heavy_task()')
 <pre><code class="language-python">import timeit
 
 # Zeitmessung für einfachen Ausdruck
-code = "sum([i*i for i in range(1000)])"
+code = 'sum([i*i for i in range(1000)])'
 duration = timeit.timeit(stmt=code, number=1000)
-print(f"Durchschnittszeit: {duration:.4f} Sekunden")
+print(f'Durchschnittszeit: {duration:.4f} Sekunden')
 </code></pre>
 <h3 id="35----line_profiler-externe-installation-nötig"><a class="header" href="#35----line_profiler-externe-installation-nötig">3.5    line_profiler (externe Installation nötig)</a></h3>
 <pre><code class="language-zsh">pip install line_profiler

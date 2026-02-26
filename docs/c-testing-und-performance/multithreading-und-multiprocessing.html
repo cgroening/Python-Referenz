@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -418,12 +418,7 @@
 </style>
 <h1 id="multithreading-und-multiprocessing"><a class="header" href="#multithreading-und-multiprocessing">Multithreading und Multiprocessing</a></h1>
 <h2 id="1----begriffsdefinitionen"><a class="header" href="#1----begriffsdefinitionen">1    Begriffsdefinitionen</a></h2>
-<div class="mdbook-callouts mdbook-callouts-info">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  i/o-bound performance
-</p>
-
+<h3 id="io-bound-performance"><a class="header" href="#io-bound-performance">I/O-bound Performance</a></h3>
 <ul>
 <li>Eine Aufgabe ist I/O-bound, wenn sie viel Zeit mit Input/Output verbringt, z. B.:
 <ul>
@@ -435,41 +430,20 @@
 <li>Die CPU ist dabei oft untätig → Warten auf externe Ressourcen.</li>
 </ul>
 <p>Bei I/O-bound Tasks helfen Threads oder Asyncio besonders gut, weil sie während der Wartezeit andere Aufgaben erledigen können.</p>
-</div>
-
-<div class="mdbook-callouts mdbook-callouts-info">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  cpu-bound performance
-</p>
-
+<h3 id="cpu-bound-performance"><a class="header" href="#cpu-bound-performance">CPU-bound Performance</a></h3>
 <ul>
 <li>Eine Aufgabe ist CPU-bound, wenn sie hauptsächlich die Prozessorleistung beansprucht (z. B. große Berechnungen, Datenkompression).</li>
 <li>Je schneller der Prozessor, desto schneller die Aufgabe.</li>
 <li>Beispiel: Primzahlen berechnen, Matrixmultiplikation.</li>
 </ul>
 <p>Bei CPU-bound Tasks ist der GIL ein Problem in Threads – daher ist Multiprocessing hier besser.</p>
-</div>
-
-<div class="mdbook-callouts mdbook-callouts-info">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  global interpreter lock (gil)
-</p>
-
+<h3 id="global-interpreter-lock-gil"><a class="header" href="#global-interpreter-lock-gil">Global Interpreter Lock (GIL)</a></h3>
 <ul>
 <li>GIL = Python-Sperre, die nur einen Thread zur Zeit Bytecode ausführen lässt (bei CPython).</li>
 <li>Begrenzt die Effizienz von Multithreading bei CPU-bound Tasks (z. B. große Berechnungen).</li>
 <li>Umgehbar durch Multiprocessing oder C-Extensions.</li>
 </ul>
-</div>
-
-<div class="mdbook-callouts mdbook-callouts-info">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  ipc (inter-process communication)
-</p>
-
+<h3 id="ipc-inter-process-communication"><a class="header" href="#ipc-inter-process-communication">IPC (Inter-Process Communication)</a></h3>
 <ul>
 <li>Prozesse haben getrennte Speicherbereiche → sie teilen keine Variablen.</li>
 <li>Daher braucht man IPC, um Daten auszutauschen:
@@ -482,7 +456,7 @@
 <pre><code class="language-python">from multiprocessing import Process, Queue
 
 def worker(q):
-    q.put("Hallo aus dem Prozess")
+    q.put('Hallo aus dem Prozess')
 
 q = Queue()
 p = Process(target=worker, args=(q,))
@@ -490,14 +464,7 @@ p.start()
 print(q.get())  # Ausgabe: Hallo aus dem Prozess
 p.join()
 </code></pre>
-</div>
-
-<div class="mdbook-callouts mdbook-callouts-info">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  event loop
-</p>
-
+<h3 id="event-loop"><a class="header" href="#event-loop">Event Loop</a></h3>
 <ul>
 <li>Das Herzstück von Asyncio.</li>
 <li>Der Event Loop verwaltet alle Tasks, die gerade laufen oder darauf warten, weiterzumachen.</li>
@@ -507,15 +474,13 @@ p.join()
 <pre><code class="language-python">import asyncio
 
 async def task():
-    print("Task läuft")
+    print('Task läuft')
     await asyncio.sleep(1)
-    print("Task beendet")
+    print('Task beendet')
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(task())
 </code></pre>
-</div>
-
 <h2 id="2----multithreading-concurrently-gleichzeitig"><a class="header" href="#2----multithreading-concurrently-gleichzeitig">2    Multithreading (concurrently, gleichzeitig)</a></h2>
 <ul>
 <li>Leichtgewichtig: Laufen im gleichen Prozessspeicherraum (alle Threads gehören zu einem Prozess).</li>
@@ -546,9 +511,9 @@ loop.run_until_complete(task())
 import time
 
 def worker():
-    print("Thread startet")
+    print('Thread startet')
     time.sleep(2)
-    print("Thread endet")
+    print('Thread endet')
 
 t1 = threading.Thread(target=worker)
 t2 = threading.Thread(target=worker)
@@ -583,9 +548,9 @@ t2.join()
 import time
 
 def worker():
-    print("Prozess startet")
+    print('Prozess startet')
     time.sleep(2)
-    print("Prozess endet")
+    print('Prozess endet')
 
 p1 = multiprocessing.Process(target=worker)
 p2 = multiprocessing.Process(target=worker)
@@ -626,9 +591,9 @@ p2.join()
 <pre><code class="language-python">import asyncio
 
 async def say_hello():
-    print("Hello")
+    print('Hello')
     await asyncio.sleep(1)
-    print("World")
+    print('World')
 
 asyncio.run(say_hello())
 </code></pre>
@@ -640,9 +605,9 @@ asyncio.run(say_hello())
 <pre><code class="language-python">import asyncio
 
 async def task(n):
-    print(f"Task {n} startet")
+    print(f'Task {n} startet')
     await asyncio.sleep(n)
-    print(f"Task {n} endet")
+    print(f'Task {n} endet')
     return n * 10
 
 async def main():
@@ -651,7 +616,7 @@ async def main():
         task(2),
         task(3)
     )
-    print("Ergebnisse:", results)
+    print('Ergebnisse:', results)
 
 asyncio.run(main())
 </code></pre>

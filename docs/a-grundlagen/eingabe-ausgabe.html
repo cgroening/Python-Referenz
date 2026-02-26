@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -428,26 +428,22 @@ print(y)
 print(x, y, sep=', ', end=' ')  # Kein Zeilenumbruch am Ende
 print('(Meine Werte)')
 
-print(x, end=', ')  # Komma statt Zeilenumbruch am Ende
+print(x, end=', ')              # Komma statt Zeilenumbruch am Ende
 print(y)
-
-# Ausgabe:
-# 1
-# 2
-# 1, 2 (Meine Werte)
-# 1, 2
 </code></pre>
-<div class="mdbook-callouts mdbook-callouts-info">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  besonderheit bei der verwendung von `print()` mit `end=''`
-</p>
-
+<p>Ausgabe:</p>
+<pre><code>1
+2
+1, 2 (Meine Werte)
+1, 2
+</code></pre>
+<blockquote>
+<p>[!inote]
+<strong>Besonderheit bei der Verwendung von <code>print()</code> mit <code>end=''</code>:</strong></p>
 <p>Normalerweise geht die Ausgabe von <code>print()</code> in den Puffer. Wenn der <code>end</code>-Parameter verändert wird, wird der Puffer nicht mehr gespült, d. h. aus Effizienzgründen kann es sein, dass die Ausgabe nicht sofort erfolgt, wenn <code>print()</code> aufgerufen wird (z. B. in Schleifen). Abhilfe schafft die Verwendung des Parameters <code>flush</code>:</p>
 <pre><code class="language-python">print('Hallo', end='', flush=True)
 </code></pre>
-</div>
-
+</blockquote>
 <h3 id="12----formatierung"><a class="header" href="#12----formatierung">1.2    Formatierung</a></h3>
 <pre><code class="language-python">m = 123456789     # Masse in kg
 g = 9.81          # Erdbeschleunigung
@@ -477,7 +473,7 @@ logging.error('Fehler...')
 [ERROR] 2025-02-27 23:22:36,956 - Fehler...
 </code></pre>
 <h2 id="3----tabellen"><a class="header" href="#3----tabellen">3    Tabellen</a></h2>
-<h3 id="31----mit-bordmitteln-ohne-zus-pakete"><a class="header" href="#31----mit-bordmitteln-ohne-zus-pakete">3.1    Mit “Bordmitteln” (ohne zus. Pakete)</a></h3>
+<h3 id="31----mit-bordmitteln-ohne-zusätzliche-pakete"><a class="header" href="#31----mit-bordmitteln-ohne-zusätzliche-pakete">3.1    Mit “Bordmitteln” (ohne zusätzliche Pakete)</a></h3>
 <p><strong>Beispiel 1:</strong></p>
 <pre><code class="language-python">s1 = 'a'
 s2 = 'ab'
@@ -512,14 +508,14 @@ from prettytable import PrettyTable   # License: BSD (3 clause)
 head = ['Name', 'Alter']              # Überschriften
 data = [['Max', 33], ['Monika', 29]]  # Inhalt/Zeilen
 
-# Paket "tabulate"
+# Paket 'tabulate'
 # https://github.com/astanin/python-tabulate
 print(tabulate(tabular_data=data, headers=head, tablefmt='pretty',
                colalign=('left', 'right')))
 # Alternative: tablefmt='fancy_outline'
 print()
 
-# Paket "prettytable"
+# Paket 'prettytable'
 # https://github.com/jazzband/prettytable
 t = PrettyTable(head)
 t.add_rows(data)
@@ -547,7 +543,7 @@ print()
 </code></pre>
 <h3 id="33----texttable"><a class="header" href="#33----texttable">3.3    <code>texttable</code></a></h3>
 <pre><code class="language-python">from texttable import Texttable  # License: MIT
-# Paket "texttable"
+# Paket 'texttable'
 # https://github.com/foutaise/texttable/
 t = Texttable()
 t.set_cols_align(['l', 'c', 'r', 'l'])
@@ -587,6 +583,8 @@ Frau
 Monika         Moni         29   kein
 Petersen                         Kommentar
 </code></pre>
+<h3 id="34----rich"><a class="header" href="#34----rich">3.4    Rich</a></h3>
+<p>TODO: Beispiel mit rich</p>
 <h2 id="4----eingabe-mit-input"><a class="header" href="#4----eingabe-mit-input">4    Eingabe mit <code>input()</code></a></h2>
 <p>Eine Benutzereingabe aus der Konsole kann wie folgt eingelesen werden:</p>
 <pre><code class="language-python">print('Gib etwas ein:')
@@ -645,7 +643,7 @@ print(lines)
 
 # Data frame erstellen
 # header = None, wenn keine Überschriften vorhanden sind
-df = pd.read_csv('beispieldateien/tabelle.csv', header=0, sep=";", decimal=",",
+df = pd.read_csv('beispieldateien/tabelle.csv', header=0, sep=';', decimal=',',
                  names=['x-Wert', 'y-Wert'])
 print(df)
 print()
@@ -686,27 +684,27 @@ os.stat(file)         # Dateiinformationen wie Größe, Datum, usw.
 <pre><code class="language-python">import os
 
 # Pfad zusammensetzen
-pfad = os.path.join("verzeichnis", "datei.txt")
+path = os.path.join('verzeichnis', 'datei.txt')
 
 # Prüfen, ob Pfad existiert
-if os.path.exists(pfad):
-    print("Pfad existiert.")
+if os.path.exists(path):
+    print('Pfad existiert.')
 
 # Absoluten Pfad bekommen
-absolut = os.path.abspath(pfad)
+absolute = os.path.abspath(path)
 </code></pre>
 <h3 id="83----beispiele-mit-pathlibpath"><a class="header" href="#83----beispiele-mit-pathlibpath">8.3    Beispiele mit <code>pathlib.Path</code></a></h3>
 <pre><code class="language-python">from pathlib import Path
 
 # Pfad zusammensetzen
-pfad = Path("verzeichnis") / "datei.txt"
+path = Path('verzeichnis') / 'datei.txt'
 
 # Existenz prüfen
-if pfad.exists():
-    print("Pfad existiert.")
+if path.exists():
+    print('Pfad existiert.')
 
 # Absoluten Pfad bekommen
-absolut = pfad.resolve()
+absolute = path.resolve()
 </code></pre>
 <h3 id="84----vorteile-von-pathlibpath"><a class="header" href="#84----vorteile-von-pathlibpath">8.4    Vorteile von <code>pathlib.Path</code></a></h3>
 <ul>
@@ -727,8 +725,9 @@ absolut = pfad.resolve()
 <h3 id="85----kombination-mit-anderen-modulen"><a class="header" href="#85----kombination-mit-anderen-modulen">8.5    Kombination mit anderen Modulen</a></h3>
 <p><code>pathlib.Path</code> lässt sich gut mit anderen Modulen kombinieren, z. B.:</p>
 <pre><code class="language-python">import shutil
-pfad = Path("backup") / "datei.txt"
-shutil.copy(pfad, Path("ziel") / "kopie.txt")
+
+path = Path('backup') / 'datei.txt'
+shutil.copy(path, Path('ziel') / 'kopie.txt')
 </code></pre>
 <h3 id="86----zusammenfassung"><a class="header" href="#86----zusammenfassung">8.6    Zusammenfassung</a></h3>
 <ul>
@@ -745,26 +744,26 @@ shutil.copy(pfad, Path("ziel") / "kopie.txt")
 
 # Python-Objekt
 data = {
-    'name': 'Alice',
+    'name': 'Anna',
     'age': 30,
-    'hobbies': ['reading', 'coding'],
+    'hobbies': ['Lesen', 'Programmieren'],
     'active': True
 }
 
 # In JSON-String konvertieren
 json_string = json.dumps(data)
 print(json_string)
-# {"name": "Alice", "age": 30, "hobbies": ["reading", "coding"], "active": true}
+# {'name': 'Anna', 'age': 30, 'hobbies': ['Lesen', 'Programmieren'], 'active': true}
 
 # Zurück zu Python-Objekt
 parsed = json.loads(json_string)
-print(parsed['name'])  # Alice
+print(parsed['name'])  # Anna
 </code></pre>
 <h4 id="912----json-dateien-lesenschreiben"><a class="header" href="#912----json-dateien-lesenschreiben">9.1.2    JSON-Dateien lesen/schreiben</a></h4>
 <pre><code class="language-python">import json
 
 # In Datei schreiben
-data = {'users': ['Alice', 'Bob'], 'count': 2}
+data = {'users': ['Anna', 'Bernd'], 'count': 2}
 
 with open('data.json', 'w') as f:
     json.dump(data, f, indent=2)
@@ -775,15 +774,15 @@ with open('data.json', 'r') as f:
     print(loaded_data)
 </code></pre>
 <p><strong>Formatierung mit <code>indent</code> und <code>sort_keys</code>:</strong></p>
-<pre><code class="language-python">data = {'name': 'Bob', 'age': 25, 'city': 'Berlin'}
+<pre><code class="language-python">data = {'name': 'Anna', 'age': 25, 'city': 'Hamburg'}
 
 # Schön formatiert
 json_str = json.dumps(data, indent=4, sort_keys=True)
 print(json_str)
 # {
-#     "age": 25,
-#     "city": "Berlin",
-#     "name": "Bob"
+#     'age': 25,
+#     'city': 'Hamburg',
+#     'name': 'Anna'
 # }
 </code></pre>
 <h4 id="913----unterstützte-datentypen"><a class="header" href="#913----unterstützte-datentypen">9.1.3    Unterstützte Datentypen</a></h4>
@@ -803,7 +802,7 @@ print(json_str)
 </tbody>
 </table>
 </div>
-<p><strong>NICHT direkt unterstützt:</strong> <code>set</code>, <code>datetime</code>, <code>Decimal</code>, custom Objekte</p>
+<p><strong>NICHT direkt unterstützt:</strong> <code>set</code>, <code>datetime</code>, <code>Decimal</code>, custom-Objekte</p>
 <h4 id="914----custom-objekte-serialisieren"><a class="header" href="#914----custom-objekte-serialisieren">9.1.4    Custom Objekte serialisieren</a></h4>
 <pre><code class="language-python">import json
 from datetime import datetime
@@ -827,10 +826,10 @@ class PersonEncoder(json.JSONEncoder):
             return obj.isoformat()
         return super().default(obj)
 
-person = Person('Alice', 30, datetime(1994, 5, 15))
+person = Person('Anna', 30, datetime(1994, 5, 15))
 json_str = json.dumps(person, cls=PersonEncoder)
 print(json_str)
-# {"name": "Alice", "age": 30, "birthday": "1994-05-15T00:00:00"}
+# {'name': 'Anna', 'age': 30, 'birthday': '1994-05-15T00:00:00'}
 </code></pre>
 <p><strong>Custom Decoder:</strong></p>
 <pre><code class="language-python">def person_decoder(dct):
@@ -851,7 +850,7 @@ print(type(loaded))  # &lt;class '__main__.Person'&gt;
 
 data = {
     'tags': {'python', 'coding', 'tutorial'},  # Set
-    'coordinates': (10, 20)                     # Tuple
+    'coordinates': (10, 20)                    # Tuple
 }
 
 # Set → List, Tuple → List
@@ -868,12 +867,12 @@ loaded['coordinates'] = tuple(loaded['coordinates'])
 <h4 id="916----pretty-print-für-debugging"><a class="header" href="#916----pretty-print-für-debugging">9.1.6    Pretty-Print für Debugging</a></h4>
 <pre><code class="language-python">import json
 
-data = {'users': [{'name': 'Alice', 'age': 30}, {'name': 'Bob', 'age': 25}]}
+data = {'users': [{'name': 'Anna', 'age': 30}, {'name': 'Bernd', 'age': 25}]}
 
 # Kompakt (für Speicherung/Übertragung)
 compact = json.dumps(data, separators=(',', ':'))
 print(compact)
-# {"users":[{"name":"Alice","age":30},{"name":"Bob","age":25}]}
+# {'users':[{'name':'Anna','age':30},{'name':'Bernd','age':25}]}
 
 # Lesbar (für Debugging)
 readable = json.dumps(data, indent=2)
@@ -976,7 +975,7 @@ development:
 <pre><code class="language-python">import yaml
 
 # ❌ GEFÄHRLICH - kann beliebigen Python-Code ausführen!
-# data = yaml.load(file, Loader=yaml.Loader)
+data = yaml.load(file, Loader=yaml.Loader)
 
 # ✅ SICHER - nur einfache Python-Objekte
 with open('config.yaml', 'r') as f:
@@ -1007,10 +1006,10 @@ def person_constructor(loader, node):
 yaml.add_constructor('!person', person_constructor)
 
 # Verwendung
-person = Person('Alice', 30)
+person = Person('Anna', 30)
 yaml_str = yaml.dump(person)
 print(yaml_str)
-# !person {age: 30, name: Alice}
+# !person {age: 30, name: Anna}
 
 loaded = yaml.load(yaml_str, Loader=yaml.Loader)
 print(type(loaded))  # &lt;class '__main__.Person'&gt;
@@ -1039,7 +1038,7 @@ print(unpickled)  # {'numbers': [1, 2, 3], ...}
 <pre><code class="language-python">import pickle
 
 # Schreiben (Binärmodus!)
-data = {'users': ['Alice', 'Bob'], 'count': 2}
+data = {'users': ['Anna', 'Bernd'], 'count': 2}
 
 with open('data.pkl', 'wb') as f:
     pickle.dump(data, f)
@@ -1060,15 +1059,15 @@ class User:
         self.created = created
     
     def greet(self):
-        return f"Hello, I'm {self.name}"
+        return f'Hallo, ich bin {self.name}.'
 
-user = User('Alice', datetime.now())
+user = User('Anna', datetime.now())
 
 # Pickle kann custom Objekte direkt serialisieren
 pickled = pickle.dumps(user)
 loaded = pickle.loads(pickled)
 
-print(loaded.greet())  # Hello, I'm Alice
+print(loaded.greet())        # Hallo, ich bin Anna.
 print(type(loaded.created))  # &lt;class 'datetime.datetime'&gt;
 </code></pre>
 <h4 id="934----pickle-protokolle"><a class="header" href="#934----pickle-protokolle">9.3.4    Pickle-Protokolle</a></h4>
@@ -1086,16 +1085,16 @@ p4 = pickle.dumps(data, protocol=4)
 # Höchstes verfügbares Protokoll
 p_latest = pickle.dumps(data, protocol=pickle.HIGHEST_PROTOCOL)
 
-print(f"Protocol 0: {len(p0)} bytes")
-print(f"Protocol 4: {len(p4)} bytes")
+print(f'Protocol 0: {len(p0)} bytes')
+print(f'Protocol 4: {len(p4)} bytes')
 </code></pre>
 <h4 id="935----pickle-sicherheitsrisiken"><a class="header" href="#935----pickle-sicherheitsrisiken">9.3.5    Pickle-Sicherheitsrisiken</a></h4>
 <p><strong>⚠️ WARNUNG:</strong> Pickle ist UNSICHER für nicht-vertrauenswürdige Daten!</p>
 <pre><code class="language-python">import pickle
 
 # ❌ GEFÄHRLICH - Kann beliebigen Code ausführen!
-# untrusted_data = receive_from_network()
-# obj = pickle.loads(untrusted_data)  # NICHT tun!
+untrusted_data = receive_from_network()
+obj = pickle.loads(untrusted_data)  # NICHT tun!
 
 # ✅ Nur Daten aus vertrauenswürdigen Quellen laden
 with open('my_data.pkl', 'rb') as f:
@@ -1116,7 +1115,7 @@ try:
     data = lambda x: x * 2
     pickle.dumps(data)
 except Exception as e:
-    print(f"Error: {e}")  # Can't pickle lambda functions
+    print(f'Error: {e}')  # Can't pickle lambda functions
 
 # ✅ Alternative: dill-Bibliothek
 import dill
@@ -1132,7 +1131,7 @@ class Database:
     
     def _connect(self):
         # Simulierte Verbindung
-        return f"Connection to {self.host}"
+        return f'Connection to {self.host}'
     
     def __getstate__(self):
         """Was gepickled wird"""
@@ -1169,7 +1168,7 @@ print(restored.connection)  # Connection to localhost
 </table>
 </div>
 <h3 id="95----wann-was-verwenden"><a class="header" href="#95----wann-was-verwenden">9.5    Wann was verwenden?</a></h3>
-<p><strong>Verwende JSON wenn:</strong></p>
+<p><strong>Verwendung von JSON bei:</strong></p>
 <ul>
 <li>✅ Austausch mit anderen Systemen/Sprachen</li>
 <li>✅ API-Kommunikation</li>
@@ -1177,7 +1176,7 @@ print(restored.connection)  # Connection to localhost
 <li>✅ Einfache Datenstrukturen</li>
 <li>✅ Sicherheit wichtig</li>
 </ul>
-<p><strong>Verwende YAML wenn:</strong></p>
+<p><strong>Verwendung von YAML wenn:</strong></p>
 <ul>
 <li>✅ Konfigurationsdateien</li>
 <li>✅ Menschliche Lesbarkeit wichtig</li>
@@ -1189,151 +1188,10 @@ print(restored.connection)  # Connection to localhost
 <ul>
 <li>✅ Nur Python-zu-Python Kommunikation</li>
 <li>✅ Komplexe Python-Objekte</li>
-<li>✅ Performance kritisch</li>
+<li>✅ Performance kritische Anwendung</li>
 <li>✅ Temporärer Cache</li>
 <li>❌ NICHT für nicht-vertrauenswürdige Daten</li>
 </ul>
-<h3 id="96----praktische-beispiele"><a class="header" href="#96----praktische-beispiele">9.6    Praktische Beispiele</a></h3>
-<h4 id="961----konfigurationsdatei-mit-json"><a class="header" href="#961----konfigurationsdatei-mit-json">9.6.1    Konfigurationsdatei mit JSON</a></h4>
-<pre><code class="language-python">import json
-from pathlib import Path
-
-class Config:
-    def __init__(self, config_file='config.json'):
-        self.config_file = Path(config_file)
-        self.data = self.load()
-    
-    def load(self):
-        """Lädt Config oder erstellt Default"""
-        if self.config_file.exists():
-            with open(self.config_file, 'r') as f:
-                return json.load(f)
-        return self.get_default()
-    
-    def save(self):
-        """Speichert aktuelle Config"""
-        with open(self.config_file, 'w') as f:
-            json.dump(self.data, f, indent=2)
-    
-    def get_default(self):
-        return {
-            'database': {'host': 'localhost', 'port': 5432},
-            'debug': False,
-            'max_connections': 100
-        }
-    
-    def get(self, key, default=None):
-        return self.data.get(key, default)
-
-# Verwendung
-config = Config()
-print(config.get('database'))
-config.data['debug'] = True
-config.save()
-</code></pre>
-<h4 id="962----objekt-caching-mit-pickle"><a class="header" href="#962----objekt-caching-mit-pickle">9.6.2    Objekt-Caching mit Pickle</a></h4>
-<pre><code class="language-python">import pickle
-from pathlib import Path
-import time
-
-class Cache:
-    def __init__(self, cache_dir='cache'):
-        self.cache_dir = Path(cache_dir)
-        self.cache_dir.mkdir(exist_ok=True)
-    
-    def get(self, key):
-        """Lädt gecachtes Objekt"""
-        cache_file = self.cache_dir / f"{key}.pkl"
-        if cache_file.exists():
-            with open(cache_file, 'rb') as f:
-                return pickle.load(f)
-        return None
-    
-    def set(self, key, value):
-        """Speichert Objekt im Cache"""
-        cache_file = self.cache_dir / f"{key}.pkl"
-        with open(cache_file, 'wb') as f:
-            pickle.dump(value, f)
-    
-    def clear(self):
-        """Löscht alle Cache-Dateien"""
-        for file in self.cache_dir.glob('*.pkl'):
-            file.unlink()
-
-# Verwendung
-cache = Cache()
-
-# Teure Berechnung
-def expensive_operation():
-    time.sleep(2)
-    return {'result': [i**2 for i in range(1000)]}
-
-# Mit Cache
-result = cache.get('computation')
-if result is None:
-    print("Computing...")
-    result = expensive_operation()
-    cache.set('computation', result)
-else:
-    print("From cache!")
-</code></pre>
-<h4 id="963----multi-format-serializer"><a class="header" href="#963----multi-format-serializer">9.6.3    Multi-Format Serializer</a></h4>
-<pre><code class="language-python">import json
-import pickle
-import yaml
-from pathlib import Path
-
-class Serializer:
-    @staticmethod
-    def save(data, filepath, format='json'):
-        """Speichert Daten in gewünschtem Format"""
-        path = Path(filepath)
-        
-        if format == 'json':
-            with open(path, 'w') as f:
-                json.dump(data, f, indent=2)
-        
-        elif format == 'yaml':
-            with open(path, 'w') as f:
-                yaml.dump(data, f)
-        
-        elif format == 'pickle':
-            with open(path, 'wb') as f:
-                pickle.dump(data, f)
-        
-        else:
-            raise ValueError(f"Unknown format: {format}")
-    
-    @staticmethod
-    def load(filepath):
-        """Lädt Daten basierend auf Dateiendung"""
-        path = Path(filepath)
-        
-        if path.suffix == '.json':
-            with open(path, 'r') as f:
-                return json.load(f)
-        
-        elif path.suffix in ['.yaml', '.yml']:
-            with open(path, 'r') as f:
-                return yaml.safe_load(f)
-        
-        elif path.suffix == '.pkl':
-            with open(path, 'rb') as f:
-                return pickle.load(f)
-        
-        else:
-            raise ValueError(f"Unknown format: {path.suffix}")
-
-# Verwendung
-data = {'users': ['Alice', 'Bob'], 'count': 2}
-
-Serializer.save(data, 'data.json', 'json')
-Serializer.save(data, 'data.yaml', 'yaml')
-Serializer.save(data, 'data.pkl', 'pickle')
-
-loaded = Serializer.load('data.json')
-print(loaded)
-</code></pre>
 <h3 id="97----best-practices"><a class="header" href="#97----best-practices">9.7    Best Practices</a></h3>
 <p><strong>✅ DO:</strong></p>
 <ul>
@@ -1365,7 +1223,7 @@ print(loaded)
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Wähle das Serialisierungsformat basierend auf Use Case, Sicherheit und Interoperabilität. JSON ist der sichere Standard, YAML für Konfiguration, Pickle nur für vertrauenswürdige Python-interne Daten.</p>
+<p>Das Serialisierungsformat sollte basierend auf Use Case, Sicherheit und Interoperabilität gewählt werden. JSON ist der sichere Standard, YAML für Konfiguration, Pickle nur für vertrauenswürdige Python-interne Daten.</p>
 
                     </main>
 
@@ -1375,7 +1233,7 @@ print(loaded)
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../a-grundlagen/kommentare.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../kommentare-docstrings.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -1389,7 +1247,7 @@ print(loaded)
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../a-grundlagen/kommentare.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../kommentare-docstrings.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

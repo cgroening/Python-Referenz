@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -638,7 +638,7 @@ df.fillna({'A': 0, 'B': 'leer'})  # Spaltenweise unterschiedliche Werte
 <ul>
 <li><code>NaN</code> zählt bei <code>mean()</code>, <code>sum()</code> usw. nicht mit.</li>
 <li>Wenn man mit Strings arbeitet, verwendet man <code>pd.NA</code> und den Datentyp <code>string</code>, um sauber mit fehlenden Werten umzugehen.</li>
-<li>Bei CSV-Importen: <code>pd.read_csv(..., na_values=["NA", "-", "n/a"])</code> erkennt eigene Platzhalter als fehlend.</li>
+<li>Bei CSV-Importen: <code>pd.read_csv(..., na_values=['NA', '-', 'n/a'])</code> erkennt eigene Platzhalter als fehlend.</li>
 <li>Fehlende Daten sind normal - wichtig ist, sie zu erkennen und sinnvoll damit umzugehen!</li>
 </ul>
 </div>
@@ -718,8 +718,8 @@ df = pd.DataFrame({
 
 # Manuell formatierte Kopie (als Strings)
 df_formatted = df.copy()
-df_formatted['A'] = df_formatted['A'].map(lambda x: f"{x:.1f}")
-df_formatted['B'] = df_formatted['B'].map(lambda x: f"{x:.3f}")
+df_formatted['A'] = df_formatted['A'].map(lambda x: f'{x:.1f}')
+df_formatted['B'] = df_formatted['B'].map(lambda x: f'{x:.3f}')
 
 print(df_formatted)
 </code></pre>

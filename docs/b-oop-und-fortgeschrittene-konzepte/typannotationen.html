@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -435,7 +435,7 @@
 </code></pre>
 <p>In diesem Beispiel wird angegeben, dass sowohl <code>x</code> als auch <code>y</code> vom Typ <code>int</code> sind und die Funktion einen <code>int</code> zurückgibt.</p>
 <h2 id="2----typannotation-bei-variablen"><a class="header" href="#2----typannotation-bei-variablen">2    Typannotation bei Variablen</a></h2>
-<pre><code class="language-python">name: str = "Anna"
+<pre><code class="language-python">name: str = 'Anna'
 alter: int = 30
 aktiv: bool = True
 </code></pre>
@@ -445,7 +445,7 @@ aktiv: bool = True
 
 def finde_benutzer(id: int) -&gt; Optional[str]:
     if id == 1:
-        return "Anna"
+        return 'Anna'
     return None
 </code></pre>
 <h2 id="4----any"><a class="header" href="#4----any">4    <code>Any</code></a></h2>
@@ -726,7 +726,7 @@ if isinstance(p, tuple):
 <li><code>type()</code> gibt die exakte Klasse des Objekts <code>p</code> zurück, nämlich <code>Point</code>. Daher wird in dem Beispiel der Vergleich falsch ausgewertet.</li>
 <li><code>isinstance()</code> überprüft, ob <code>p</code> eine Instanz von <code>tuple</code> <strong>oder einer Unterklasse davon</strong> ist. Da <code>namedtuple</code> eine Unterklasse von <code>tuple</code> ist, gibt i<code>sinstance(p, tuple)</code> <strong><code>True</code></strong> zurück.</li>
 </ul>
-<p>Siehe auch: <a href="b-oop-und-fortgeschrittene-konzepte/fortgeschrittene-objektorientierung.html#1-`type()`,-`isinstance()`,-`issubclass()`">type(), isinstance() und issubclass()</a>.</p>
+<p>Siehe auch: <a href="objektorientierung.html#1-`type()`,-`isinstance()`,-`issubclass()`">type(), isinstance() und issubclass()</a>.</p>
 <h2 id="11----static-type-checking-tools"><a class="header" href="#11----static-type-checking-tools">11    Static Type Checking Tools</a></h2>
 <p>Typannotationen allein werden von Python zur Laufzeit nicht überprüft. Um Typfehler bereits vor der Ausführung zu finden, nutzt man <strong>Static Type Checker</strong> wie mypy oder Pyright.</p>
 <h3 id="111----mypy--der-standard-type-checker"><a class="header" href="#111----mypy--der-standard-type-checker">11.1    mypy – Der Standard Type Checker</a></h3>
@@ -737,15 +737,15 @@ if isinstance(p, tuple):
 <p><strong>Grundlegende Verwendung:</strong></p>
 <pre><code class="language-python"># example.py
 def greet(name: str) -&gt; str:
-    return f"Hello, {name}"
+    return f'Hello, {name}'
 
-result: int = greet("Alice")  # Typfehler!
+result: int = greet('Alice')  # Typfehler!
 </code></pre>
 <pre><code class="language-bash"># Type Checking ausführen
 mypy example.py
 </code></pre>
 <p><strong>Ausgabe:</strong></p>
-<pre><code>example.py:4: error: Incompatible types in assignment (expression has type "str", variable has type "int")
+<pre><code>example.py:4: error: Incompatible types in assignment (expression has type 'str', variable has type 'int')
 Found 1 error in 1 file (checked 1 source file)
 </code></pre>
 <h3 id="112----konfiguration-mit-mypyini-oder-pyprojecttoml"><a class="header" href="#112----konfiguration-mit-mypyini-oder-pyprojecttoml">11.2    Konfiguration mit <code>mypy.ini</code> oder <code>pyproject.toml</code></a></h3>
@@ -771,13 +771,13 @@ ignore_missing_imports = True
 </code></pre>
 <p><strong>pyproject.toml:</strong></p>
 <pre><code class="language-toml">[tool.mypy]
-python_version = "3.10"
+python_version = '3.10'
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
 
 [tool.mypy.overrides](tool.mypy.overrides.md)
-module = "pandas.*"
+module = 'pandas.*'
 ignore_missing_imports = true
 </code></pre>
 <h3 id="113----wichtige-mypy-optionen"><a class="header" href="#113----wichtige-mypy-optionen">11.3    Wichtige mypy-Optionen</a></h3>
@@ -820,7 +820,7 @@ def process_data(data: Any) -&gt; int:
 result = some_complex_function()  # type: ignore
 
 # Nur bestimmte Error-Codes ignorieren
-value = int("123")  # type: ignore[arg-type]
+value = int('123')  # type: ignore[arg-type]
 </code></pre>
 <h3 id="116----pyright--pylance--microsofts-type-checker"><a class="header" href="#116----pyright--pylance--microsofts-type-checker">11.6    Pyright / Pylance – Microsoft’s Type Checker</a></h3>
 <p>Pyright ist ein schneller, moderner Type Checker von Microsoft, integriert in VS Code als Pylance.</p>
@@ -835,20 +835,20 @@ npm install -g pyright
 </code></pre>
 <p><strong>Konfiguration (pyrightconfig.json):</strong></p>
 <pre><code class="language-json">{
-  "include": ["src"],
-  "exclude": ["**/node_modules", "**/__pycache__"],
-  "typeCheckingMode": "strict",
-  "pythonVersion": "3.10",
-  "reportMissingImports": true,
-  "reportMissingTypeStubs": false
+  'include': ['src'],
+  'exclude': ['**/node_modules', '**/__pycache__'],
+  'typeCheckingMode': 'strict',
+  'pythonVersion': '3.10',
+  'reportMissingImports': true,
+  'reportMissingTypeStubs': false
 }
 </code></pre>
 <p><strong>In pyproject.toml:</strong></p>
 <pre><code class="language-toml">[tool.pyright]
-include = ["src"]
-exclude = ["**/node_modules", "**/__pycache__"]
-typeCheckingMode = "strict"
-pythonVersion = "3.10"
+include = ['src']
+exclude = ['**/node_modules', '**/__pycache__']
+typeCheckingMode = 'strict'
+pythonVersion = '3.10'
 </code></pre>
 <h3 id="117----mypy-vs-pyright"><a class="header" href="#117----mypy-vs-pyright">11.7    mypy vs. Pyright</a></h3>
 <div class="table-wrapper">
@@ -880,11 +880,11 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      
+
       - name: Install dependencies
         run: |
           pip install mypy types-requests
-      
+
       - name: Run mypy
         run: mypy src/
 </code></pre>
@@ -931,12 +931,12 @@ def get_name() -&gt; Optional[str]:
 </code></pre>
 <p><strong>Fehler: <code>Argument has incompatible type</code></strong></p>
 <pre><code class="language-python">def greet(name: str) -&gt; None:
-    print(f"Hello, {name}")
+    print(f'Hello, {name}')
 
 greet(123)  # Fehler!
 
 # Lösung: Richtigen Typ übergeben
-greet("Alice")
+greet('Alice')
 </code></pre>
 <p><strong>Fehler: <code>Missing type parameters</code></strong></p>
 <pre><code class="language-python">from typing import List

@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -417,7 +417,6 @@
 }
 </style>
 <h1 id="operatoren"><a class="header" href="#operatoren">Operatoren</a></h1>
-<p>Siehe auch <a href="a-grundlagen/datenstrukturen-collections.html">datenstrukturen-collections</a>, Abschnitt “Sets bzw. Mengen”.</p>
 <h2 id="1----vergleichsoperatoren"><a class="header" href="#1----vergleichsoperatoren">1    Vergleichsoperatoren</a></h2>
 <div class="table-wrapper">
 <table>
@@ -459,7 +458,7 @@
 </thead>
 <tbody>
 <tr><td><code>a &amp; b</code></td><td>Bitweises AND</td></tr>
-<tr><td><code>a | b</code></td><td>Bitweises OR</td></tr>
+<tr><td>a || b</td><td>Bitweises OR</td></tr>
 <tr><td><code>a ^ b</code></td><td>Bitweises XOR</td></tr>
 <tr><td><code>~a</code></td><td>Bitweises NOT (Eins-Komplement)</td></tr>
 <tr><td><code>a &lt;&lt; b</code></td><td>Bitweise Linksverschiebung</td></tr>
@@ -484,50 +483,52 @@
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Ausdruck</th><th>Bedeutung</th></tr>
+<tr><th>Ausdruck</th><th>Bedeutung</th><th>Beispiel</th></tr>
 </thead>
 <tbody>
-<tr><td><code>a += b</code></td><td>Wert addieren und zuweisen (<code>a = a + b</code>)</td></tr>
-<tr><td><code>a -= b</code></td><td>Wert subtrahieren und zuweisen (<code>a = a - b</code>)</td></tr>
-<tr><td><code>a /= b</code></td><td>Wert teilen und zuweisen (<code>a = a / b</code>)</td></tr>
-<tr><td><code>a //= b</code></td><td>Ganzzahldivision und zuweisen (<code>a = a // b</code>)</td></tr>
-<tr><td><code>a *= b</code></td><td>Wert multiplizieren und zuweisen (<code>a = a * b</code>)</td></tr>
-<tr><td><code>a **= b</code></td><td>Potenzieren und zuweisen (<code>a = a ** b</code>)</td></tr>
-<tr><td><code>a |= b</code></td><td>Bitweises ODER und zuweisen (<code>a = a | b</code>)</td></tr>
-<tr><td><code>a &amp;= b</code></td><td>Bitweises UND und zuweisen (<code>a = a &amp; b</code>)</td></tr>
-<tr><td><code>a ^= b</code></td><td>Bitweises XOR und zuweisen (<code>a = a ^ b</code>)</td></tr>
-<tr><td><code>a &lt;&lt;= b</code></td><td>Linksverschiebung und zuweisen (<code>a = a &lt;&lt; b</code>)</td></tr>
-<tr><td><code>a &gt;&gt;= b</code></td><td>Rechtsverschiebung und zuweisen (<code>a = a &gt;&gt; b</code>)</td></tr>
+<tr><td><code>a += b</code></td><td>Wert addieren und zuweisen</td><td><code>a = a + b</code></td></tr>
+<tr><td><code>a -= b</code></td><td>Wert subtrahieren und zuweisen</td><td><code>a = a - b</code></td></tr>
+<tr><td><code>a /= b</code></td><td>Wert teilen und zuweisen</td><td><code>a = a / b</code></td></tr>
+<tr><td><code>a //= b</code></td><td>Ganzzahldivision und zuweisen</td><td><code>a = a // b</code></td></tr>
+<tr><td><code>a *= b</code></td><td>Wert multiplizieren und zuweisen</td><td><code>a = a * b</code></td></tr>
+<tr><td><code>a **= b</code></td><td>Potenzieren und zuweisen</td><td><code>a = a ** b</code></td></tr>
+<tr><td><code>a |= b</code></td><td>Bitweises ODER und zuweisen</td><td><code>a = a | b</code></td></tr>
+<tr><td><code>a &amp;= b</code></td><td>Bitweises UND und zuweisen</td><td><code>a = a &amp; b</code></td></tr>
+<tr><td><code>a ^= b</code></td><td>Bitweises XOR und zuweisen</td><td><code>a = a ^ b</code></td></tr>
+<tr><td><code>a &lt;&lt;= b</code></td><td>Linksverschiebung und zuweisen</td><td><code>a = a &lt;&lt; b</code></td></tr>
+<tr><td><code>a &gt;&gt;= b</code></td><td>Rechtsverschiebung und zuweisen</td><td><code>a = a &gt;&gt; b</code></td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="6----walrus-operator--assignment-expression"><a class="header" href="#6----walrus-operator--assignment-expression">6    Walrus Operator <code>:=</code> (Assignment Expression)</a></h2>
+<h2 id="6----operationen-bei-set-und-mengen"><a class="header" href="#6----operationen-bei-set-und-mengen">6    Operationen bei Set und Mengen</a></h2>
+<p>Siehe <a href="datenstrukturen-collections.html#5-sets-bzw.-mengen">datenstrukturen-collections</a>.</p>
+<h2 id="7----walrus-operator--assignment-expression"><a class="header" href="#7----walrus-operator--assignment-expression">7    Walrus-Operator <code>:=</code> (Assignment Expression)</a></h2>
 <p>Der Walrus Operator (<code>:=</code>) wurde in Python 3.8 eingeführt und ermöglicht Zuweisungen innerhalb von Ausdrücken.</p>
 <p><strong>Syntax:</strong></p>
 <pre><code class="language-python">(variable := expression)
 </code></pre>
-<h3 id="61----grundlegendes-beispiel"><a class="header" href="#61----grundlegendes-beispiel">6.1    Grundlegendes Beispiel</a></h3>
+<h3 id="71----grundlegendes-beispiel"><a class="header" href="#71----grundlegendes-beispiel">7.1    Grundlegendes Beispiel</a></h3>
 <pre><code class="language-python"># Ohne Walrus Operator
-data = input("Enter text: ")
+data = input('Gib Text ein: ')
 if len(data) &gt; 5:
-    print(f"Text is {len(data)} characters long")
+    print(f'Der Text is {len(data)} Zeichen lang.')
 
 # Mit Walrus Operator (kompakter)
-if (n := len(input("Enter text: "))) &gt; 5:
-    print(f"Text is {n} characters long")
+if (n := len(input('Gib Text ein: '))) &gt; 5:
+    print(f' Der Text ist {n} Zeichen lang.')
 </code></pre>
-<h3 id="62----in-while-schleifen"><a class="header" href="#62----in-while-schleifen">6.2    In while-Schleifen</a></h3>
+<h3 id="72----in-while-schleifen"><a class="header" href="#72----in-while-schleifen">7.2    In <code>while</code>-Schleifen</a></h3>
 <pre><code class="language-python"># Ohne Walrus Operator
-line = input("Enter command: ")
-while line != "quit":
-    print(f"You entered: {line}")
-    line = input("Enter command: ")
+line = input('Gib Befehl ein: ')
+while line != 'quit':
+    print(f'Du hast eingegeben: {line}')
+    line = input('Gib Befehl ein: ')
 
 # Mit Walrus Operator (DRY - Don't Repeat Yourself)
-while (line := input("Enter command: ")) != "quit":
-    print(f"You entered: {line}")
+while (line := input('Gib Befehl ein: ')) != 'quit':
+    print(f'You entered: {line}')
 </code></pre>
-<h3 id="63----in-list-comprehensions"><a class="header" href="#63----in-list-comprehensions">6.3    In List Comprehensions</a></h3>
+<h3 id="73----in-list-comprehensions"><a class="header" href="#73----in-list-comprehensions">7.3    In List Comprehensions</a></h3>
 <pre><code class="language-python"># Liste von Quadraten, nur wenn Quadrat &gt; 10
 numbers = [1, 2, 3, 4, 5, 6]
 
@@ -538,21 +539,21 @@ squares = [x**2 for x in numbers if x**2 &gt; 10]
 squares = [square for x in numbers if (square := x**2) &gt; 10]
 # [16, 25, 36]
 </code></pre>
-<h3 id="64----bei-regulären-ausdrücken"><a class="header" href="#64----bei-regulären-ausdrücken">6.4    Bei regulären Ausdrücken</a></h3>
+<h3 id="74----bei-regulären-ausdrücken"><a class="header" href="#74----bei-regulären-ausdrücken">7.4    Bei regulären Ausdrücken</a></h3>
 <pre><code class="language-python">import re
 
 # Ohne Walrus Operator
-text = "Email: user@example.com"
+text = 'Email: user@example.com'
 match = re.search(r'[\w\.-]+@[\w\.-]+', text)
 if match:
-    print(f"Found: {match.group()}")
+    print(f'Gefunden: {match.group()}')
 
 # Mit Walrus Operator
 if (match := re.search(r'[\w\.-]+@[\w\.-]+', text)):
-    print(f"Found: {match.group()}")
+    print(f'Found: {match.group()}')
 </code></pre>
-<h3 id="65----wichtige-hinweise"><a class="header" href="#65----wichtige-hinweise">6.5    Wichtige Hinweise</a></h3>
-<p><strong>Klammern erforderlich:</strong></p>
+<h3 id="75----wichtige-hinweise"><a class="header" href="#75----wichtige-hinweise">7.5    Wichtige Hinweise</a></h3>
+<p><strong>Es sind Klammern erforderlich:</strong></p>
 <pre><code class="language-python"># ❌ Syntaxfehler
 if n := 5 &gt; 3:
     pass
@@ -561,20 +562,20 @@ if n := 5 &gt; 3:
 if (n := 5) &gt; 3:
     pass
 </code></pre>
-<p><strong>Nicht in allen Kontexten erlaubt:</strong></p>
+<p><strong>Der Walrus-Operator ist nicht in allen Kontexten erlaubt:</strong></p>
 <pre><code class="language-python"># ❌ Nicht als standalone statement
 n := 5  # SyntaxError
 
 # ✅ Normale Zuweisung verwenden
 n = 5
 </code></pre>
-<p><strong>Wann verwenden:</strong></p>
+<p>✅ <strong>Wann verwenden:</strong></p>
 <ul>
 <li>Wenn ein Wert berechnet UND in einer Bedingung verwendet wird</li>
-<li>Bei while-Schleifen mit komplexen Bedingungen</li>
+<li>Bei <code>while</code>-Schleifen mit komplexen Bedingungen</li>
 <li>In List Comprehensions zur Vermeidung doppelter Berechnungen</li>
 </ul>
-<p><strong>Wann nicht verwenden:</strong></p>
+<p>❌ <strong>Wann nicht verwenden:</strong></p>
 <ul>
 <li>Wenn normale Zuweisung ausreicht</li>
 <li>Wenn es die Lesbarkeit verschlechtert</li>

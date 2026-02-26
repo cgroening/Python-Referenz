@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -424,41 +424,52 @@
 <tr><th>Fehlertyp</th><th>Beschreibung</th></tr>
 </thead>
 <tbody>
-<tr><td><strong><code>SyntaxError</code></strong></td><td>Fehler in der Code-Syntax</td></tr>
-<tr><td><strong><code>TypeError</code></strong></td><td>Falscher Typ einer Variablen oder eines Arguments</td></tr>
-<tr><td><strong><code>ValueError</code></strong></td><td>Ungültiger Wert für eine Operation</td></tr>
-<tr><td><strong><code>IndexError</code></strong></td><td>Zugriff auf nicht vorhandenen Index in einer Liste</td></tr>
-<tr><td><strong><code>KeyError</code></strong></td><td>Zugriff auf nicht vorhandenen Schlüssel in einem Dictionary</td></tr>
-<tr><td><strong><code>ZeroDivisionError</code></strong></td><td>Division durch Null</td></tr>
-<tr><td><strong><code>FileNotFoundError</code></strong></td><td>Datei nicht gefunden</td></tr>
-<tr><td><strong><code>ImportError</code></strong></td><td>Modul kann nicht importiert werden</td></tr>
+<tr><td><code>SyntaxError</code></td><td>Fehler in der Code-Syntax</td></tr>
+<tr><td><code>TypeError</code></td><td>Falscher Typ einer Variablen oder eines Arguments</td></tr>
+<tr><td><code>ValueError</code></td><td>Ungültiger Wert für eine Operation</td></tr>
+<tr><td><code>IndexError</code></td><td>Zugriff auf nicht vorhandenen Index in einer Liste</td></tr>
+<tr><td><code>KeyError</code></td><td>Zugriff auf nicht vorhandenen Schlüssel in einem Dictionary</td></tr>
+<tr><td><code>ZeroDivisionError</code></td><td>Division durch Null</td></tr>
+<tr><td><code>FileNotFoundError</code></td><td>Datei nicht gefunden</td></tr>
+<tr><td><code>ImportError</code></td><td>Modul kann nicht importiert werden</td></tr>
 </tbody>
 </table>
 </div>
 <h2 id="2----grundlegende-fehlerbehandlung-mit-try-und-except"><a class="header" href="#2----grundlegende-fehlerbehandlung-mit-try-und-except">2    Grundlegende Fehlerbehandlung mit <code>try</code> und <code>except</code></a></h2>
+<p>Code, der einen Fehler auslösen könnte, wird in einen <code>try</code>-Block geschrieben. Tritt ein Fehler auf, wird die Ausführung unterbrochen und der passende <code>except</code>-Block ausgeführt.</p>
 <pre><code class="language-python">try:
-    number = int(input("Enter a number: "))
+    number = int(input('Zahl eingeben: '))
     print(10 / number)
 except ZeroDivisionError:
-    print("Error: Division by zero is not allowed.")
+    print('Fehler: Division durch Null ist nicht erlaubt.')
 except ValueError:
-    print("Error: Please enter a valid number.")
+    print('Fehler: Bitte eine gültige Zahl eingeben.')
 </code></pre>
+<ul>
+<li><code>try</code> und <code>except</code> dienen der Fehlerbehandlung.</li>
+<li>Der <code>else</code>-Block wird ausgeführt, wenn kein Fehler auftritt.</li>
+<li>Der <code>finally</code>-Block wird immer ausgeführt.</li>
+<li>Mit <code>raise</code> können eigene Fehler erzeugt werden.</li>
+<li>Eigene Fehlerklassen werden für spezifische Fehler genutzt.</li>
+<li>Logging ermöglicht eine bessere Fehlerverfolgung.</li>
+</ul>
 <h2 id="3----mehrere-except-blöcke"><a class="header" href="#3----mehrere-except-blöcke">3    Mehrere <code>except</code>-Blöcke</a></h2>
+<p>Können verschiedene Fehlertypen auftreten, lassen sich mehrere <code>except</code>-Blöcke hintereinander definieren. Python prüft sie der Reihe nach und führt den ersten passenden aus. Spezifischere Fehlertypen sollten dabei immer vor dem allgemeinen <code>Exception</code> stehen.</p>
 <pre><code class="language-python">try:
-    data = {"name": "Alice"}
-    print(data["age"])
+    data = {'name': 'Anna'}
+    print(data['age'])
 except KeyError as e:
-    print(f"Missing key: {e}")
+    print(f'Fehlender Schlüssel: {e}')
 except Exception as e:
-    print(f"General error: {e}")
+    print(f'Allgemeiner Fehler: {e}')
 </code></pre>
 <h2 id="4----generischer-except-block-nicht-empfohlen"><a class="header" href="#4----generischer-except-block-nicht-empfohlen">4    Generischer <code>except</code>-Block (nicht empfohlen)</a></h2>
+<p>Mit <code>Exception</code> als Fehlertyp werden alle Ausnahmen abgefangen, unabhängig von ihrer Art.</p>
 <pre><code class="language-python">try:
-    # Code that may raise an error
+    # Code, der einen Fehler auslösen kann
     print(10 / 0)
 except Exception as e:
-    print(f"An error occurred: {e}")
+    print(f'Ein Fehler ist aufgetreten: {e}')
 </code></pre>
 <div class="mdbook-callouts mdbook-callouts-warning">
 <p class="mdbook-callouts-title">
@@ -470,37 +481,41 @@ except Exception as e:
 </div>
 
 <h2 id="5----else--und-finally-blöcke"><a class="header" href="#5----else--und-finally-blöcke">5    <code>else</code>- und <code>finally</code>-Blöcke</a></h2>
+<p>Der <code>else</code>-Block wird nur ausgeführt, wenn im <code>try</code>-Block kein Fehler aufgetreten ist. Der <code>finally</code>-Block wird dagegen immer ausgeführt – unabhängig davon, ob ein Fehler aufgetreten ist oder nicht. Er eignet sich daher für Aufräumarbeiten wie das Schließen von Dateien oder Datenbankverbindungen.</p>
 <pre><code class="language-python">try:
-    with open("file.txt", "r") as file:
+    with open('datei.txt', 'r') as file:
         content = file.read()
 except FileNotFoundError:
-    print("File not found.")
+    print('Datei nicht gefunden.')
 else:
-    print("File read successfully.")
+    print('Datei erfolgreich gelesen.')
 finally:
-    print("This block always executes.")
+    print('Dieser Block wird immer ausgeführt.')
 </code></pre>
 <h2 id="6----eigene-fehler-mit-raise-auslösen"><a class="header" href="#6----eigene-fehler-mit-raise-auslösen">6    Eigene Fehler mit <code>raise</code> auslösen</a></h2>
+<p>Mit <code>raise</code> kann ein Fehler manuell ausgelöst werden, z. B. um ungültige Eingaben frühzeitig abzufangen. Als Fehlertyp können sowohl eingebaute Ausnahmen wie <code>ValueError</code> als auch eigene Fehlerklassen verwendet werden.</p>
 <pre><code class="language-python">def positive_number(number):
     if number &lt; 0:
-        raise ValueError("Number must be positive!")
+        raise ValueError('Zahl muss positiv sein!')
     return number
 
 try:
     positive_number(-5)
 except ValueError as e:
-    print(f"Error: {e}")
+    print(f'Fehler: {e}')
 </code></pre>
 <h2 id="7----eigene-fehlerklassen-definieren"><a class="header" href="#7----eigene-fehlerklassen-definieren">7    Eigene Fehlerklassen definieren</a></h2>
+<p>Durch Ableitung von <code>Exception</code> lassen sich eigene Fehlerklassen definieren. Das ist sinnvoll, wenn man zwischen anwendungsspezifischen Fehlern und eingebauten Python-Fehlern unterscheiden möchte.</p>
 <pre><code class="language-python">class CustomError(Exception):
     pass
 
 try:
-    raise CustomError("This is a custom error!")
+    raise CustomError('Dies ist ein benutzerdefinierter Fehler!')
 except CustomError as e:
-    print(f"Custom error: {e}")
+    print(f'Benutzerdefinierter Fehler: {e}')
 </code></pre>
-<h2 id="8----logging-statt-print-verwenden"><a class="header" href="#8----logging-statt-print-verwenden">8    Logging statt <code>print</code> verwenden</a></h2>
+<h2 id="8----logging-statt-print"><a class="header" href="#8----logging-statt-print">8    Logging statt <code>print</code></a></h2>
+<p>Statt Fehlermeldungen mit <code>print</code> auszugeben, sollte in produktivem Code das <code>logging</code>-Modul verwendet werden. Es ermöglicht die Ausgabe von Zeitstempel und Schweregrad, die Weiterleitung in Dateien oder externe Systeme sowie eine feingranulare Steuerung, welche Meldungen angezeigt werden.</p>
 <pre><code class="language-python">import logging
 
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -508,27 +523,18 @@ logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %
 try:
     1 / 0
 except ZeroDivisionError as e:
-    logging.error(f"An error occurred: {e}")
+    logging.error(f'Ein Fehler ist aufgetreten: {e}')
 </code></pre>
-<h2 id="9----zusammenfassung"><a class="header" href="#9----zusammenfassung">9    Zusammenfassung</a></h2>
-<ul>
-<li><code>try</code> und <code>except</code> dienen der Fehlerbehandlung.</li>
-<li>Der <code>else</code>-Block wird ausgeführt, wenn kein Fehler auftritt.</li>
-<li>Der <code>finally</code>-Block wird immer ausgeführt.</li>
-<li>Mit <code>raise</code> können eigene Fehler erzeugt werden.</li>
-<li>Eigene Fehlerklassen werden für spezifische Fehler genutzt.</li>
-<li>Logging ermöglicht eine bessere Fehlerverfolgung.</li>
-</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../a-grundlagen/kommentare.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../kommentare-docstrings.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../b-oop-und-fortgeschrittene-konzepte/grundlagen-der-objektorientierung.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../b-oop-und-fortgeschrittene-konzepte/objektorientierung.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -538,11 +544,11 @@ except ZeroDivisionError as e:
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../a-grundlagen/kommentare.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../kommentare-docstrings.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../b-oop-und-fortgeschrittene-konzepte/grundlagen-der-objektorientierung.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../b-oop-und-fortgeschrittene-konzepte/objektorientierung.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

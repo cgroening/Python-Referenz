@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -419,61 +419,62 @@
 <h1 id="funktionen"><a class="header" href="#funktionen">Funktionen</a></h1>
 <h2 id="1----args-und-kwargs"><a class="header" href="#1----args-und-kwargs">1    <code>*args</code> und <code>**kwargs</code></a></h2>
 <p><code>*args</code> und <code>**kwargs</code> sind optionale Paramenter. <code>args</code> (positional arguments) ist eine Liste oder ein Tupel. <code>kwargs</code> (keyword arguments) ist ein Dictionary.</p>
-<div class="mdbook-callouts mdbook-callouts-benennung der positional und keyword rguments)">
+<div class="mdbook-callouts mdbook-callouts-note">
 <p class="mdbook-callouts-title">
   <span class="mdbook-callouts-icon"></span>
-  benennung der positional und keyword rguments)
+  note
 </p>
 
+<p><strong>Benennung der positional und keyword rguments:</strong></p>
 <p>Die Namen sind nicht vorgeschrieben, wichtig sind nur die Sternchen vor den Variablennamen. Die Benennung <code>*args</code> und <code>**kwargs</code> ist jedoch üblich.</p>
 </div>
 
 <p><strong>Beispiel zu positional arguments:</strong></p>
-<pre><code class="language-python">def summiere(*zahlen):
-    return sum(zahlen)
+<pre><code class="language-python">def sum_up(*numbers):
+    return sum(numbers)
 
-ergebnis = summiere(1, 2, 3, 4, 5)  # 15
+result = sum_up(1, 2, 3, 4, 5)  # 15
 </code></pre>
 <p><strong>Beispiel zu keyword arguments:</strong></p>
 <pre><code class="language-python">def details(**info):
-    for schluessel, wert in info.items():
-        print(f"{schluessel}: {wert}")
+    for key, value in info.items():
+        print(f'{key}: {value}')
         
-details(name="Max", alter=25, beruf="Entwickler")
+details(name='Max', age=25, job='Entwickler')
 </code></pre>
 <p>Ausgabe:</p>
 <pre><code>name: Max
-alter: 25
-beruf: Entwickler
+age: 25
+job: Entwickler
 </code></pre>
 <h2 id="2----lambda-funktion-anonyme-funktion"><a class="header" href="#2----lambda-funktion-anonyme-funktion">2    Lambda-Funktion (anonyme Funktion)</a></h2>
-<pre><code class="language-python">quadrieren = lambda x: x ** 2
-ergebnis = quadrieren(4)  # 16
+<pre><code class="language-python">square = lambda x: x ** 2
+result = square(4)  # 16
 </code></pre>
 <h2 id="3----funktion-mit-mehreren-rückgabewerten"><a class="header" href="#3----funktion-mit-mehreren-rückgabewerten">3    Funktion mit mehreren Rückgabewerten</a></h2>
-<pre><code class="language-python">def rechne(a, b):
+<pre><code class="language-python">def calculate(a, b):
     return a + b, a * b
 
-summe, produkt = rechne(3, 4)
-print(summe, produkt)  # 7 12
+total, product = calculate(3, 4)
+print(total, product)  # 7 12
 </code></pre>
 <h2 id="4----rekursive-funktion"><a class="header" href="#4----rekursive-funktion">4    Rekursive Funktion</a></h2>
-<pre><code class="language-python">def fakultaet(n):
+<pre><code class="language-python">def factorial(n):
     if n == 0:
         return 1
-    return n * fakultaet(n - 1)
+    return n * factorial(n - 1)
 
-ergebnis = fakultaet(5)  # 120
+result = factorial(5)  # 120
 </code></pre>
 <h2 id="5----scope-gültigkeitsbereich-von-variablen"><a class="header" href="#5----scope-gültigkeitsbereich-von-variablen">5    Scope (Gültigkeitsbereich) von Variablen</a></h2>
-<pre><code class="language-python">x = 10  # Globale Variable
+<pre><code class="language-python">x = 10     # Globale Variable
 
-def meine_funktion():
+def my_function():
     x = 5  # Lokale Variable
     print(x)
 
-meine_funktion()  # 5
-print(x)         # 10
+my_function()  # 5
+print(x)       # 10
 </code></pre>
 <h2 id="6----benannte-parameter-keyword-parameter"><a class="header" href="#6----benannte-parameter-keyword-parameter">6    Benannte Parameter (keyword parameter)</a></h2>
 <h3 id="61----standardverhalten"><a class="header" href="#61----standardverhalten">6.1    Standardverhalten</a></h3>
@@ -492,12 +493,13 @@ res1 = my_function(2)    # OK: Positionsargument
 res2 = my_function(a=2)  # Fehler: Darf nicht als Keyword-Argument übergeben werden
 </code></pre>
 <p>Der Schrägstrich (<code>/</code>) bedeutet, dass alle Parameter davor NUR als Positionsargumente übergeben werden dürfen.</p>
-<div class="mdbook-callouts mdbook-callouts-warum positional-only?">
+<div class="mdbook-callouts mdbook-callouts-note">
 <p class="mdbook-callouts-title">
   <span class="mdbook-callouts-icon"></span>
-  warum positional-only?
+  note
 </p>
 
+<p><strong>Warum positional-only?</strong></p>
 <ul>
 <li>Wird oft bei eingebauten Funktionen wie <code>len()</code> genutzt (<code>len(obj)</code> statt <code>len(obj=obj))</code></li>
 <li>Macht API-Design klarer</li>
@@ -513,14 +515,17 @@ res1 = my_function(2)    # Fehler: Darf nicht als Positionsargument übergeben w
 res2 = my_function(a=2)  # OK: Muss als benanntes Argument übergeben werden
 </code></pre>
 <p>Das Sternchen (<code>*</code>) bedeutet, dass alle Parameter danach NUR als Keyword-Argument übergeben werden dürfen.</p>
-<div class="mdbook-callouts mdbook-callouts-warum keyword-only?">
+<div class="mdbook-callouts mdbook-callouts-note">
 <p class="mdbook-callouts-title">
   <span class="mdbook-callouts-icon"></span>
-  warum keyword-only?
+  note
 </p>
 
-<p>Erhöht die Lesbarkeit von Funktionen
-Verhindert Verwechslungen bei der Reihenfolge der Argumente</p>
+<p><strong>Warum keyword-only?</strong></p>
+<ul>
+<li>Erhöht die Lesbarkeit von Funktionen</li>
+<li>Verhindert Verwechslungen bei der Reihenfolge der Argumente</li>
+</ul>
 </div>
 
 <h3 id="64----kombination-aus--und-"><a class="header" href="#64----kombination-aus--und-">6.4    Kombination aus <code>/</code> und <code>*</code></a></h3>
@@ -552,12 +557,13 @@ res4 = my_function(1, 2, 3)      # Fehler: c muss als benanntes Argument überge
 </tbody>
 </table>
 </div>
-<div class="mdbook-callouts mdbook-callouts-best practice:">
+<div class="mdbook-callouts mdbook-callouts-tip">
 <p class="mdbook-callouts-title">
   <span class="mdbook-callouts-icon"></span>
-  best practice:
+  tip
 </p>
 
+<p><strong>Best Practice:</strong></p>
 <ul>
 <li><code>/</code> für klare API-Schnittstellen</li>
 <li><code>*</code> für mehr Lesbarkeit und weniger Fehler</li>

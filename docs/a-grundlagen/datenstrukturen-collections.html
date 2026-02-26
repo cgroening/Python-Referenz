@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -463,11 +463,16 @@ L1.extend(L2)
 print(L1)       # [1, 2, 3, 4, 5, 6]
 </code></pre>
 <p>Prüfen, ob Wert in Liste ist:</p>
-<pre><code class="language-python">L = ["A", "B", "C"]
-x = "B"
+<pre><code class="language-python">L = ['A', 'B', 'C']
+x = 'B'
 print(x in L)  # True
 </code></pre>
 <h3 id="14----list-comprehensions-kompakte-erstellung-von-listen"><a class="header" href="#14----list-comprehensions-kompakte-erstellung-von-listen">1.4    List comprehensions (kompakte Erstellung von Listen)</a></h3>
+<p>Eine List Comprehension ist eine kompakte Schreibweise zur Erstellung von Listen. Sie fasst eine <code>for</code>-Schleife – optional mit einer <code>if</code>-Bedingung – in einem einzigen Ausdruck zusammen.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-python">[ausdruck for element in iterable]
+[ausdruck for element in iterable if bedingung]
+</code></pre>
 <p><strong>Beispiel 1:</strong></p>
 <pre><code class="language-python">numbers = []
 for i in range(5):
@@ -489,13 +494,40 @@ print(L2)                         # [4, 6]
 L = [1, 2, 3]
 print([x*2 for x in L if x &gt; 1])  # [4, 6]
 </code></pre>
-<p>List comprehension sind in einigen Fällen besser lesbar, können jedoch auch schnell unübersichtlich werden. Sie sind auch mit <code>if</code>-Bedingungen möglich.</p>
-<p><strong>Beispiel 1:</strong></p>
-<pre><code class="language-python">numbers = [i*-1 if i&lt;3 else -1 for i in range(5)]
-print(numbers)  # [0, -1, -2, -1, -1]
+<h4 id="141----lesbarkeit-von-list-comprehensions"><a class="header" href="#141----lesbarkeit-von-list-comprehensions">1.4.1    Lesbarkeit von List Comprehensions</a></h4>
+<p>List Comprehensions sind in manchen Fällen besser lesbar, können jedoch auch schnell unübersichtlich werden!</p>
+<p><strong>Beispiel 1 (List Comprehension ist besser lesbar):</strong></p>
+<pre><code class="language-python"># Besser als List Comprehension – kompakt und klar:
+squares = [x**2 for x in range(10)]
+
+# Normale Schreibweise (umständlicher):
+squares = []
+for x in range(10):
+    squares.append(x**2)
 </code></pre>
-<p><strong>Beispiel 2:</strong></p>
-<pre><code class="language-python">numbers = [i+1 for i in range(5) if i != 3]
+<p><strong>Beispiel 2 (Normale Schreibweise ist verständlicher):</strong></p>
+<pre><code class="language-python"># Normale Schreibweise – übersichtlicher bei komplexer Logik:
+results = []
+for x in range(10):
+    value = x ** 2
+    if value % 3 == 0 and value &gt; 5:
+        results.append(value * 2 - 1)
+
+# List Comprehension (schwerer lesbar):
+results = [x**2 * 2 - 1 for x in range(10) if x**2 % 3 == 0 and x**2 &gt; 5]
+</code></pre>
+<blockquote class="blockquote-tag blockquote-tag-tip">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>Sobald die List Comprehension nicht mehr auf eine Zeile passt oder mehrere verschachtelte Bedingungen enthält, ist die normale Schreibweise vorzuziehen.</p>
+</blockquote>
+<h4 id="142----list-comprehensions-mit-if-bedingungen"><a class="header" href="#142----list-comprehensions-mit-if-bedingungen">1.4.2    List comprehensions mit <code>if</code>-Bedingungen</a></h4>
+<p><strong>Beispiel 1:</strong></p>
+<pre><code class="language-python"># Beispiel 1
+numbers = [i*-1 if i&lt;3 else -1 for i in range(5)]
+print(numbers)  # [0, -1, -2, -1, -1]
+
+# Beispiel 2
+numbers = [i+1 for i in range(5) if i != 3]
 print(numbers)  # [1, 2, 3, 5]
 </code></pre>
 <p>Beim ersten Beispiel steht die if-Bedingung am Anfang, dadurch wird festgelegt, was abgespeichert wird. Beim zweiten Beispiel, bei der die <code>if</code>-Bedingung am Ende steht, wird festgelegt, ob überhaupt etwas abgespeichert werden soll.</p>
@@ -516,7 +548,7 @@ l2[0] = 3
 print(l1)  # [3, 2]
 print(l2)  # [3, 2]
 </code></pre>
-<p>Dies liegt daran, dass auf diese Weite l1 und l2 auf die selbe Speicheradresse verweisen:</p>
+<p>Dies liegt daran, dass auf diese Weite <code>l1</code> und <code>l2</code> auf dieselbe Speicheradresse verweisen:</p>
 <pre><code class="language-python">l1 = [1, 2]
 l2 = l1
 print(id(l1))  # 1957190476864
@@ -564,8 +596,6 @@ print(id(l2))        # 1957190477184
 print(id(l1[0][0]))  # 1956557750512
 print(id(l2[0][0]))  # 1956557750640
 </code></pre>
-<p>Mehr zu Listen unter:
-https://www.programiz.com/python-programming/methods/list</p>
 <h2 id="2----arrays"><a class="header" href="#2----arrays">2    Arrays</a></h2>
 <p>Arrays sind ähnlich wie Listen, jedoch effizienter bei numerischen Operationen, insbesondere für große Datenmengen. In Python können Arrays mit dem <code>array</code>-Modul oder über <code>NumPy</code> verwendet werden.</p>
 <pre><code class="language-python">import array
@@ -592,6 +622,7 @@ t = (1, 2, 3)
 print(t[0])  # 1
 </code></pre>
 <h3 id="31----tuple-unpacking"><a class="header" href="#31----tuple-unpacking">3.1    Tuple unpacking</a></h3>
+<p>Beim Tuple Unpacking werden die Elemente eines Tupels in einem einzigen Schritt mehreren Variablen zugewiesen. Mit <code>_</code> als Platzhalter ignoriert man einzelne Werte, mit <code>*</code> fasst man mehrere verbleibende Elemente in einer Liste zusammen.</p>
 <pre><code class="language-python">t = (1, 2, 3)
 
 val1, val2, val3 = t
@@ -607,18 +638,18 @@ print(val1, t2)          # 1 [2, 3]
 <p>Dictionaries werden benutzt, um Daten in <code>key</code>-<code>value</code>-Paaren zu speichern.</p>
 <p><strong>Erstellung von Dictionaries:</strong></p>
 <pre><code class="language-python"># Möglichkeit 1:
-baujahr = {'Ford': 2019, 'Honda': 2013}
-print(baujahr)  # {'Ford': 2019, 'Honda': 2013}
+year = {'Ford': 2019, 'Honda': 2013}
+print(year)  # {'Ford': 2019, 'Honda': 2013}
 
 # Möglichkeit 2:
-baujahr = dict(Ford = 2019, Honda = 2013)
-print(baujahr)  # {'Ford': 2019, 'Honda': 2013}
+year = dict(Ford = 2019, Honda = 2013)
+print(year)  # {'Ford': 2019, 'Honda': 2013}
 
 # Möglichkeit 3: Schlüssel werden als Tupel übergeben)
-baujahr = dict.fromkeys( ('Ford', 'Honda') )
-baujahr['Ford'] = 2019
-baujahr['Honda'] = 2013
-print(baujahr)  # {'Ford': 2019, 'Honda': 2013}
+year = dict.fromkeys( ('Ford', 'Honda') )
+year['Ford'] = 2019
+year['Honda'] = 2013
+print(year)  # {'Ford': 2019, 'Honda': 2013}
 </code></pre>
 <p><strong>Zugriff auf die Schlüssel und Werte von Dictionaries in Schleifen:</strong></p>
 <pre><code class="language-python">D = {'Ford': 2019, 'Honda': 2013}
@@ -641,6 +672,15 @@ for key, value in D.items():
     # Ford: 2019
     # Honda: 2013
 </code></pre>
+<div class="mdbook-callouts mdbook-callouts-note">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  note
+</p>
+
+<p>Seit Python 3.7 ist die Einfügereihenfolge von Dictionaries garantiert. In älteren Python-Versionen war die Reihenfolge der Schlüssel nicht definiert.</p>
+</div>
+
 <h2 id="5----sets-bzw-mengen"><a class="header" href="#5----sets-bzw-mengen">5    Sets bzw. Mengen</a></h2>
 <p>Siehe auch <a href="operatoren.html">operatoren</a>.</p>
 <p><strong>Operationen:</strong></p>
@@ -676,19 +716,19 @@ print(S1.symmetric_difference(S2))  # {'Apfel', 'Zitrone', 'Gurke', 'Birne'}
 <p>Mehr zu Datentypen:
 https://docs.python.org/3/library/stdtypes.html</p>
 <h2 id="6----das-collections-modul"><a class="header" href="#6----das-collections-modul">6    Das <code>collections</code>-Modul</a></h2>
-<p>Das <code>collections</code>-Modul bietet spezialisierte Container-Datentypen, die über die eingebauten Listen, Tupel, Dictionaries und Sets hinausgehen.</p>
+<p>Die eingebauten Datenstrukturen <code>list</code>, <code>dict</code>, <code>tuple</code> und <code>set</code> decken die meisten Anwendungsfälle ab. Das <code>collections</code>-Modul ergänzt sie um spezialisierte Container, die für bestimmte Aufgaben effizienter oder ausdrucksstärker sind und häufig wiederkehrenden Boilerplate-Code vermeiden.</p>
 <h3 id="61----counter--zählen-von-elementen"><a class="header" href="#61----counter--zählen-von-elementen">6.1    <code>Counter</code> – Zählen von Elementen</a></h3>
 <p><code>Counter</code> ist ein Dictionary-Subtyp zum Zählen von hashbaren Objekten.</p>
 <h4 id="611----grundlegende-verwendung"><a class="header" href="#611----grundlegende-verwendung">6.1.1    Grundlegende Verwendung</a></h4>
 <pre><code class="language-python">from collections import Counter
 
 # Aus Liste erstellen
-words = ['apple', 'banana', 'apple', 'cherry', 'banana', 'apple']
+words = ['Apfel', 'Banane', 'Apfel', 'Tomate', 'Banane', 'Apfel']
 counter = Counter(words)
-print(counter)  # Counter({'apple': 3, 'banana': 2, 'cherry': 1})
+print(counter)  # Counter({'Apfel': 3, 'Banane': 2, 'Tomate': 1})
 
 # Aus String erstellen (zählt Zeichen)
-text = "mississippi"
+text = 'mississippi'
 counter = Counter(text)
 print(counter)  # Counter({'i': 4, 's': 4, 'p': 2, 'm': 1})
 
@@ -699,14 +739,14 @@ print(counter)  # Counter({'a': 3, 'b': 2, 'c': 1})
 <h4 id="612----häufigste-elemente"><a class="header" href="#612----häufigste-elemente">6.1.2    Häufigste Elemente</a></h4>
 <pre><code class="language-python">from collections import Counter
 
-votes = ['Alice', 'Bob', 'Alice', 'Charlie', 'Bob', 'Alice']
+votes = ['Anna', 'Bernd', 'Anna', 'Christian', 'Bernd', 'Anna']
 counter = Counter(votes)
 
 # Häufigste n Elemente
-print(counter.most_common(2))  # [('Alice', 3), ('Bob', 2)]
+print(counter.most_common(2))  # [('Anna', 3), ('Bernd', 2)]
 
 # Alle Elemente nach Häufigkeit
-print(counter.most_common())   # [('Alice', 3), ('Bob', 2), ('Charlie', 1)]
+print(counter.most_common())   # [('Anna', 3), ('Bernd', 2), ('Christian', 1)]
 </code></pre>
 <h4 id="613----counter-operationen"><a class="header" href="#613----counter-operationen">6.1.3    Counter-Operationen</a></h4>
 <pre><code class="language-python">from collections import Counter
@@ -756,11 +796,11 @@ print(duplicates)  # [2, 3]
 
 # Mit list als Factory
 d = defaultdict(list)
-d['fruits'].append('apple')
-d['fruits'].append('banana')
-d['vegetables'].append('carrot')
+d['obst'].append('Apfel')
+d['obst'].append('Banane')
+d['gemüse'].append('Karotte')
 
-print(d)  # defaultdict(&lt;class 'list'&gt;, {'fruits': ['apple', 'banana'], 'vegetables': ['carrot']})
+print(d)  # defaultdict(&lt;class 'list'&gt;, {'obst': ['Apfel', 'Banane'], 'gemüse': ['Karotte']})
 
 # Mit int als Factory (Standardwert 0)
 counter = defaultdict(int)
@@ -792,10 +832,10 @@ print(d4['key'])  # set()
 d5 = defaultdict(lambda: 'N/A')
 print(d5['key'])  # 'N/A'
 </code></pre>
-<h4 id="623----vergleich-dict-vs-defaultdict"><a class="header" href="#623----vergleich-dict-vs-defaultdict">6.2.3    Vergleich: dict vs. defaultdict</a></h4>
+<h4 id="623----vergleich-dict-vs-defaultdict"><a class="header" href="#623----vergleich-dict-vs-defaultdict">6.2.3    Vergleich: <code>dict</code> vs. <code>defaultdict</code></a></h4>
 <pre><code class="language-python"># Normales dict
 d = {}
-# d['key'].append('value')  # KeyError!
+d['key'].append('value')  # KeyError!
 
 # Mit setdefault (umständlich)
 d.setdefault('key', []).append('value')
@@ -810,11 +850,11 @@ d['key'].append('value')  # Funktioniert!
 <pre><code class="language-python">from collections import defaultdict
 
 students = [
-    ('Alice', 'Math'),
-    ('Bob', 'Physics'),
-    ('Charlie', 'Math'),
-    ('Diana', 'Physics'),
-    ('Eve', 'Math')
+    ('Anna', 'Mathe'),
+    ('Bernd', 'Physik'),
+    ('Christian', 'Mathe'),
+    ('David', 'Physik'),
+    ('Erwin', 'Mathe')
 ]
 
 by_subject = defaultdict(list)
@@ -822,7 +862,7 @@ for name, subject in students:
     by_subject[subject].append(name)
 
 print(dict(by_subject))
-# {'Math': ['Alice', 'Charlie', 'Eve'], 'Physics': ['Bob', 'Diana']}
+# {'Mathe': ['Anna', 'Christian', 'Erwin'], 'Physik': ['Bernd', 'David']}
 </code></pre>
 <p><strong>Verschachtelte defaultdict:</strong></p>
 <pre><code class="language-python">from collections import defaultdict
@@ -831,15 +871,15 @@ print(dict(by_subject))
 tree = lambda: defaultdict(tree)
 users = tree()
 
-users['john']['age'] = 30
-users['john']['city'] = 'New York'
-users['alice']['age'] = 25
+users['Bernd']['age'] = 30
+users['Bernd']['city'] = 'New York'
+users['Anna']['age'] = 25
 
 print(dict(users))
-# {'john': {'age': 30, 'city': 'New York'}, 'alice': {'age': 25}}
+# {'Bernd': {'age': 30, 'city': 'New York'}, 'Anna': {'age': 25}}
 </code></pre>
 <h3 id="63----deque--double-ended-queue"><a class="header" href="#63----deque--double-ended-queue">6.3    <code>deque</code> – Double-Ended Queue</a></h3>
-<p><code>deque</code> (ausgesprochen “deck”) ist eine Liste, die für schnelle Zugriffe an beiden Enden optimiert ist.</p>
+<p>Im Gegensatz zur normalen Liste, bei der das Einfügen oder Entfernen am Anfang alle übrigen Elemente verschiebt (O(n)), bietet <code>deque</code> für beide Enden konstante Zeit (O(1)). Sie eignet sich daher besonders für Queues, Stacks und Sliding-Window-Algorithmen, bei denen häufig Elemente vorne oder hinten eingefügt bzw. entfernt werden.</p>
 <h4 id="631----grundoperationen"><a class="header" href="#631----grundoperationen">6.3.1    Grundoperationen</a></h4>
 <pre><code class="language-python">from collections import deque
 
@@ -890,12 +930,12 @@ d = deque(maxlen=3)
 d.append(1)
 d.append(2)
 d.append(3)
-print(d)  # deque([1, 2, 3], maxlen=3)
+print(d)     # deque([1, 2, 3], maxlen=3)
 
 d.append(4)  # Ältestes Element (1) wird automatisch entfernt
-print(d)  # deque([2, 3, 4], maxlen=3)
+print(d)     # deque([2, 3, 4], maxlen=3)
 </code></pre>
-<h4 id="634----performance-vergleich-list-vs-deque"><a class="header" href="#634----performance-vergleich-list-vs-deque">6.3.4    Performance-Vergleich: list vs. deque</a></h4>
+<h4 id="634----performance-vergleich-list-vs-deque"><a class="header" href="#634----performance-vergleich-list-vs-deque">6.3.4    Performance-Vergleich: <code>list</code> vs. <code>deque</code></a></h4>
 <pre><code class="language-python">from collections import deque
 import time
 
@@ -904,19 +944,19 @@ data_list = []
 start = time.time()
 for i in range(100000):
     data_list.insert(0, i)  # O(n) - langsam!
-print(f"List insert(0): {time.time() - start:.3f}s")
+print(f'List insert(0): {time.time() - start:.3f}s')
 
 # Deque
 data_deque = deque()
 start = time.time()
 for i in range(100000):
     data_deque.appendleft(i)  # O(1) - schnell!
-print(f"Deque appendleft: {time.time() - start:.3f}s")
+print(f'Deque appendleft: {time.time() - start:.3f}s')
 </code></pre>
 <p><strong>Typisches Ergebnis:</strong></p>
 <ul>
-<li>List insert(0): ~3.5s</li>
-<li>Deque appendleft: ~0.01s</li>
+<li>List insert(0): 3.5 s</li>
+<li>Deque appendleft: 0.01 s</li>
 </ul>
 <h4 id="635----praktische-beispiele"><a class="header" href="#635----praktische-beispiele">6.3.5    Praktische Beispiele</a></h4>
 <p><strong>FIFO-Queue (First In, First Out):</strong></p>
@@ -925,14 +965,14 @@ print(f"Deque appendleft: {time.time() - start:.3f}s")
 queue = deque()
 
 # Elemente hinzufügen
-queue.append('Task 1')
-queue.append('Task 2')
-queue.append('Task 3')
+queue.append('Aufgabe 1')
+queue.append('Aufgabe 2')
+queue.append('Aufgabe 3')
 
 # Elemente verarbeiten (FIFO)
 while queue:
     task = queue.popleft()
-    print(f"Processing: {task}")
+    print(f'Verarbeite: {task}')
 </code></pre>
 <p><strong>Sliding Window:</strong></p>
 <pre><code class="language-python">from collections import deque
@@ -952,7 +992,8 @@ data = [10, 20, 30, 40, 50, 60]
 result = moving_average(data, window_size=3)
 print(result)  # [10.0, 15.0, 20.0, 30.0, 40.0, 50.0]
 </code></pre>
-<p><strong>Browser History (Back/Forward):</strong></p>
+<p>**Browser History (Back/Forward):
+**</p>
 <pre><code class="language-python">from collections import deque
 
 class BrowserHistory:
@@ -1005,7 +1046,15 @@ print(chain['b'])  # 2 (aus dict1, nicht dict2!)
 print(chain['c'])  # 4 (aus dict2, nicht dict3!)
 print(chain['d'])  # 6 (aus dict3)
 </code></pre>
-<p><strong>Wichtig:</strong> Bei Lookup wird das <strong>erste</strong> Dictionary mit dem Schlüssel verwendet.</p>
+<div class="mdbook-callouts mdbook-callouts-important">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  important
+</p>
+
+<p>Bei Lookup wird das <strong>erste</strong> Dictionary mit dem Schlüssel verwendet.</p>
+</div>
+
 <h4 id="642----modifikationen"><a class="header" href="#642----modifikationen">6.4.2    Modifikationen</a></h4>
 <pre><code class="language-python">from collections import ChainMap
 
@@ -1019,7 +1068,7 @@ print(config['auto_save'])  # True (aus default_config)
 
 # Änderungen gehen ins ERSTE Dictionary
 config['theme'] = 'blue'
-print(user_config)  # {'theme': 'blue', 'font_size': 12}
+print(user_config)     # {'theme': 'blue', 'font_size': 12}
 print(default_config)  # Unverändert
 
 # Neuer Schlüssel wird auch ins ERSTE Dictionary eingefügt
@@ -1103,14 +1152,14 @@ class Scope:
 
 # Verwendung
 scope = Scope()
-scope.set('x', 10)          # Global: x=10
+scope.set('x', 10)     # Global: x=10
 
-scope.push_scope()          # Neue Funktion
-scope.set('x', 20)          # Lokal: x=20
-print(scope.get('x'))       # 20
+scope.push_scope()     # Neue Funktion
+scope.set('x', 20)     # Lokal: x=20
+print(scope.get('x'))  # 20
 
-scope.pop_scope()           # Funktion verlassen
-print(scope.get('x'))       # 10 (global wieder sichtbar)
+scope.pop_scope()      # Funktion verlassen
+print(scope.get('x'))  # 10 (global wieder sichtbar)
 </code></pre>
 <h3 id="65----namedtuple--tupel-mit-benannten-feldern"><a class="header" href="#65----namedtuple--tupel-mit-benannten-feldern">6.5    <code>namedtuple</code> – Tupel mit benannten Feldern</a></h3>
 <p><code>namedtuple</code> erstellt Tuple-Subklassen mit benannten Feldern.</p>
@@ -1125,13 +1174,13 @@ p1 = Point(10, 20)
 p2 = Point(x=30, y=40)
 
 # Zugriff per Name oder Index
-print(p1.x)     # 10
-print(p1[0])    # 10
-print(p1.y)     # 20
+print(p1.x)   # 10
+print(p1[0])  # 10
+print(p1.y)   # 20
 
 # Tuple unpacking funktioniert
 x, y = p1
-print(x, y)     # 10 20
+print(x, y)   # 10 20
 </code></pre>
 <h4 id="652----verschiedene-erstellungsmethoden"><a class="header" href="#652----verschiedene-erstellungsmethoden">6.5.2    Verschiedene Erstellungsmethoden</a></h4>
 <pre><code class="language-python">from collections import namedtuple
@@ -1179,28 +1228,28 @@ print(p2)  # Point(x=10, y=0, z=0)
 p3 = Point(10, 20)
 print(p3)  # Point(x=10, y=20, z=0)
 </code></pre>
-<h4 id="655----vergleich-namedtuple-vs-dict-vs-class"><a class="header" href="#655----vergleich-namedtuple-vs-dict-vs-class">6.5.5    Vergleich: namedtuple vs. dict vs. class</a></h4>
+<h4 id="655----vergleich-namedtuple-vs-dict-vs-class"><a class="header" href="#655----vergleich-namedtuple-vs-dict-vs-class">6.5.5    Vergleich: <code>namedtuple</code> vs. <code>dict</code> vs. <code>class</code></a></h4>
 <pre><code class="language-python">from collections import namedtuple
 
 # namedtuple
 Person = namedtuple('Person', 'name age')
-p1 = Person('Alice', 30)
+p1 = Person('Anna', 30)
 
 # Dictionary
-p2 = {'name': 'Alice', 'age': 30}
+p2 = {'name': 'Anna', 'age': 30}
 
 # Klasse
 class PersonClass:
     def __init__(self, name, age):
         self.name = name
         self.age = age
-p3 = PersonClass('Alice', 30)
+p3 = PersonClass('Anna', 30)
 
 # Speicherverbrauch
 import sys
-print(f"namedtuple: {sys.getsizeof(p1)} bytes")  # ~56
-print(f"dict: {sys.getsizeof(p2)} bytes")        # ~232
-print(f"class: {sys.getsizeof(p3)} bytes")       # ~48 + __dict__
+print(f'namedtuple: {sys.getsizeof(p1)} bytes')  # ~56
+print(f'dict: {sys.getsizeof(p2)} bytes')        # ~232
+print(f'class: {sys.getsizeof(p3)} bytes')       # ~48 + __dict__
 </code></pre>
 <h4 id="656----praktische-beispiele"><a class="header" href="#656----praktische-beispiele">6.5.6    Praktische Beispiele</a></h4>
 <p><strong>CSV-Daten verarbeiten:</strong></p>
@@ -1208,10 +1257,10 @@ print(f"class: {sys.getsizeof(p3)} bytes")       # ~48 + __dict__
 import csv
 
 # CSV-Daten
-csv_data = """name,age,city
-Alice,30,New York
-Bob,25,London
-Charlie,35,Paris"""
+csv_data = """Name,Alter,Stadt
+Anna,30,Flensburg
+Bernd,25,Hamburg
+Christian,35,Kiel"""
 
 # namedtuple aus CSV-Header
 lines = csv_data.strip().split('\n')
@@ -1226,7 +1275,7 @@ for line in lines[1:]:
     people.append(person)
 
 for p in people:
-    print(f"{p.name} is {p.age} years old from {p.city}")
+    print(f'{p.name} ist {p.age} Jahre alt und aus {p.city}')
 </code></pre>
 <p><strong>Koordinaten-System:</strong></p>
 <pre><code class="language-python">from collections import namedtuple
@@ -1241,7 +1290,7 @@ def distance(p1, p2):
 p1 = Point(0, 0)
 p2 = Point(3, 4)
 
-print(f"Distance: {distance(p1, p2)}")  # 5.0
+print(f'Distanz: {distance(p1, p2)}')  # 5.0
 </code></pre>
 <p><strong>RGB-Farben:</strong></p>
 <pre><code class="language-python">from collections import namedtuple

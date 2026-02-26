@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -423,7 +423,8 @@
 <h4 id="111----installation-und-setup"><a class="header" href="#111----installation-und-setup">1.1.1    Installation und Setup</a></h4>
 <pre><code class="language-bash">pip install pytest pytest-cov
 </code></pre>
-<p><strong>Projekt-Struktur:</strong></p>
+<p>**Projekt-Struktur:
+**</p>
 <pre><code>myproject/
 ├── src/
 │   ├── __init__.py
@@ -442,7 +443,7 @@ def add(a, b):
 
 def divide(a, b):
     if b == 0:
-        raise ValueError("Cannot divide by zero")
+        raise ValueError('Cannot divide by zero')
     return a / b
 </code></pre>
 <pre><code class="language-python"># tests/test_calculator.py
@@ -459,7 +460,7 @@ def test_divide():
     assert divide(9, 3) == 3
 
 def test_divide_by_zero():
-    with pytest.raises(ValueError, match="Cannot divide by zero"):
+    with pytest.raises(ValueError, match='Cannot divide by zero'):
         divide(10, 0)
 </code></pre>
 <p><strong>Tests ausführen:</strong></p>
@@ -483,7 +484,7 @@ pytest --cov=src tests/
 <pre><code class="language-python">def test_assertions():
     # Gleichheit
     assert 1 + 1 == 2
-    assert "hello" == "hello"
+    assert 'hello' == 'hello'
     
     # Ungleichheit
     assert 5 != 3
@@ -494,7 +495,7 @@ pytest --cov=src tests/
     
     # Membership
     assert 3 in [1, 2, 3]
-    assert "a" not in "xyz"
+    assert 'a' not in 'xyz'
     
     # Identität
     x = [1, 2]
@@ -513,26 +514,26 @@ pytest --cov=src tests/
     assert {1, 2} == {2, 1}  # Set-Reihenfolge egal
     
     # Dictionaries
-    assert {"a": 1, "b": 2} == {"b": 2, "a": 1}
+    assert {'a': 1, 'b': 2} == {'b': 2, 'a': 1}
     
     # Teilmengen
-    assert {"a", "b"} &lt;= {"a", "b", "c"}
+    assert {'a', 'b'} &lt;= {'a', 'b', 'c'}
 </code></pre>
 <h4 id="123----exception-testing"><a class="header" href="#123----exception-testing">1.2.3    Exception-Testing</a></h4>
 <pre><code class="language-python">def test_exceptions():
     # Einfach
     with pytest.raises(ValueError):
-        int("invalid")
+        int('invalid')
     
     # Mit Message-Check
-    with pytest.raises(ValueError, match="invalid literal"):
-        int("invalid")
+    with pytest.raises(ValueError, match='invalid literal'):
+        int('invalid')
     
     # Exception-Objekt inspizieren
     with pytest.raises(ValueError) as exc_info:
-        raise ValueError("Custom message")
+        raise ValueError('Custom message')
     
-    assert "Custom" in str(exc_info.value)
+    assert 'Custom' in str(exc_info.value)
     assert exc_info.type is ValueError
 </code></pre>
 <h3 id="13----fixtures"><a class="header" href="#13----fixtures">1.3    Fixtures</a></h3>
@@ -560,8 +561,8 @@ from pathlib import Path
 def temp_file(tmp_path):
     """Erstellt temporäre Datei, löscht sie nach Test"""
     # Setup
-    file_path = tmp_path / "test.txt"
-    file_path.write_text("Hello World")
+    file_path = tmp_path / 'test.txt'
+    file_path.write_text('Hello World')
     
     # Fixture-Wert übergeben
     yield file_path
@@ -569,40 +570,40 @@ def temp_file(tmp_path):
     # Teardown (wird nach Test ausgeführt)
     if file_path.exists():
         file_path.unlink()
-    print("Cleanup completed")
+    print('Cleanup completed')
 
 def test_file_content(temp_file):
     content = temp_file.read_text()
-    assert content == "Hello World"
+    assert content == 'Hello World'
 </code></pre>
 <h4 id="133----fixture-scopes"><a class="header" href="#133----fixture-scopes">1.3.3    Fixture-Scopes</a></h4>
 <pre><code class="language-python">import pytest
 
 # Function-Scope (Standard - für jeden Test neu)
-@pytest.fixture(scope="function")
+@pytest.fixture(scope='function')
 def function_fixture():
-    print("\nSetup function fixture")
-    return "data"
+    print('\nSetup function fixture')
+    return 'data'
 
 # Class-Scope (einmal pro Test-Klasse)
-@pytest.fixture(scope="class")
+@pytest.fixture(scope='class')
 def class_fixture():
-    print("\nSetup class fixture")
-    return "class data"
+    print('\nSetup class fixture')
+    return 'class data'
 
 # Module-Scope (einmal pro Modul)
-@pytest.fixture(scope="module")
+@pytest.fixture(scope='module')
 def module_fixture():
-    print("\nSetup module fixture")
+    print('\nSetup module fixture')
     db = Database()
     yield db
     db.close()
 
 # Session-Scope (einmal pro Test-Session)
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def session_fixture():
-    print("\nSetup session fixture")
-    return "session data"
+    print('\nSetup session fixture')
+    return 'session data'
 </code></pre>
 <h4 id="134----fixture-dependencies"><a class="header" href="#134----fixture-dependencies">1.3.4    Fixture-Dependencies</a></h4>
 <pre><code class="language-python">import pytest
@@ -610,20 +611,20 @@ def session_fixture():
 @pytest.fixture
 def database():
     """Simulierte Datenbank"""
-    db = {"users": []}
+    db = {'users': []}
     yield db
     db.clear()
 
 @pytest.fixture
 def user(database):
     """Benötigt database-Fixture"""
-    user = {"id": 1, "name": "Alice"}
-    database["users"].append(user)
+    user = {'id': 1, 'name': 'Alice'}
+    database['users'].append(user)
     return user
 
 def test_user_in_database(database, user):
-    assert user in database["users"]
-    assert len(database["users"]) == 1
+    assert user in database['users']
+    assert len(database['users']) == 1
 </code></pre>
 <h4 id="135----autouse-fixtures"><a class="header" href="#135----autouse-fixtures">1.3.5    Autouse-Fixtures</a></h4>
 <pre><code class="language-python">import pytest
@@ -638,38 +639,38 @@ def reset_state():
 <h4 id="136----built-in-fixtures"><a class="header" href="#136----built-in-fixtures">1.3.6    Built-in Fixtures</a></h4>
 <pre><code class="language-python">def test_tmp_path(tmp_path):
     """tmp_path: Temporäres Verzeichnis (pathlib.Path)"""
-    file = tmp_path / "test.txt"
-    file.write_text("content")
-    assert file.read_text() == "content"
+    file = tmp_path / 'test.txt'
+    file.write_text('content')
+    assert file.read_text() == 'content'
 
 def test_tmp_path_factory(tmp_path_factory):
     """Erstellt mehrere temp Verzeichnisse"""
-    dir1 = tmp_path_factory.mktemp("data1")
-    dir2 = tmp_path_factory.mktemp("data2")
+    dir1 = tmp_path_factory.mktemp('data1')
+    dir2 = tmp_path_factory.mktemp('data2')
     assert dir1 != dir2
 
 def test_monkeypatch(monkeypatch):
     """monkeypatch: Temporär Code ändern"""
     import os
-    monkeypatch.setenv("API_KEY", "test_key")
-    assert os.environ["API_KEY"] == "test_key"
+    monkeypatch.setenv('API_KEY', 'test_key')
+    assert os.environ['API_KEY'] == 'test_key'
     # Nach Test wird original wiederhergestellt
 
 def test_capsys(capsys):
     """capsys: stdout/stderr erfassen"""
-    print("Hello")
-    print("World", file=sys.stderr)
+    print('Hello')
+    print('World', file=sys.stderr)
     
     captured = capsys.readouterr()
-    assert captured.out == "Hello\n"
-    assert captured.err == "World\n"
+    assert captured.out == 'Hello\n'
+    assert captured.err == 'World\n'
 </code></pre>
 <h3 id="14----parametrized-tests"><a class="header" href="#14----parametrized-tests">1.4    Parametrized Tests</a></h3>
 <p>Tests mit mehreren Input/Output-Kombinationen.</p>
 <h4 id="141----basis-parametrize"><a class="header" href="#141----basis-parametrize">1.4.1    Basis-Parametrize</a></h4>
 <pre><code class="language-python">import pytest
 
-@pytest.mark.parametrize("input,expected", [
+@pytest.mark.parametrize('input,expected', [
     (2, 4),
     (3, 9),
     (4, 16),
@@ -685,7 +686,7 @@ def test_square(input, expected):
 # test_square[5-25] PASSED
 </code></pre>
 <h4 id="142----mehrere-parameter"><a class="header" href="#142----mehrere-parameter">1.4.2    Mehrere Parameter</a></h4>
-<pre><code class="language-python">@pytest.mark.parametrize("a,b,expected", [
+<pre><code class="language-python">@pytest.mark.parametrize('a,b,expected', [
     (2, 3, 5),
     (10, 5, 15),
     (-1, 1, 0),
@@ -695,11 +696,11 @@ def test_add(a, b, expected):
     assert a + b == expected
 </code></pre>
 <h4 id="143----ids-für-lesbare-test-namen"><a class="header" href="#143----ids-für-lesbare-test-namen">1.4.3    IDs für lesbare Test-Namen</a></h4>
-<pre><code class="language-python">@pytest.mark.parametrize("input,expected", [
+<pre><code class="language-python">@pytest.mark.parametrize('input,expected', [
     (2, 4),
     (3, 9),
     (5, 25),
-], ids=["two", "three", "five"])
+], ids=['two', 'three', 'five'])
 def test_square(input, expected):
     assert input ** 2 == expected
 
@@ -709,7 +710,7 @@ def test_square(input, expected):
 # test_square[five] PASSED
 </code></pre>
 <h4 id="144----parametrize-mit-pytestparam"><a class="header" href="#144----parametrize-mit-pytestparam">1.4.4    Parametrize mit pytest.param</a></h4>
-<pre><code class="language-python">@pytest.mark.parametrize("input,expected", [
+<pre><code class="language-python">@pytest.mark.parametrize('input,expected', [
     (2, 4),
     pytest.param(0, 0, marks=pytest.mark.skip),
     pytest.param(3, 9, marks=pytest.mark.xfail),
@@ -719,8 +720,8 @@ def test_square(input, expected):
     assert input ** 2 == expected
 </code></pre>
 <h4 id="145----verschachtelte-parametrize"><a class="header" href="#145----verschachtelte-parametrize">1.4.5    Verschachtelte Parametrize</a></h4>
-<pre><code class="language-python">@pytest.mark.parametrize("x", [1, 2, 3])
-@pytest.mark.parametrize("y", [10, 20])
+<pre><code class="language-python">@pytest.mark.parametrize('x', [1, 2, 3])
+@pytest.mark.parametrize('y', [10, 20])
 def test_multiply(x, y):
     result = x * y
     assert result == x * y
@@ -741,15 +742,15 @@ def test_positive(number):
 <h4 id="151----basis-marks"><a class="header" href="#151----basis-marks">1.5.1    Basis-Marks</a></h4>
 <pre><code class="language-python">import pytest
 
-@pytest.mark.skip(reason="Not implemented yet")
+@pytest.mark.skip(reason='Not implemented yet')
 def test_feature():
     pass
 
-@pytest.mark.skipif(sys.platform == "win32", reason="Unix only")
+@pytest.mark.skipif(sys.platform == 'win32', reason='Unix only')
 def test_unix_feature():
     pass
 
-@pytest.mark.xfail(reason="Known bug #123")
+@pytest.mark.xfail(reason='Known bug #123')
 def test_buggy_feature():
     assert False
 
@@ -763,11 +764,11 @@ def test_expensive_operation():
 pytest -m slow
 
 # Alles außer slow
-pytest -m "not slow"
+pytest -m 'not slow'
 
 # Kombinationen
-pytest -m "slow and database"
-pytest -m "slow or database"
+pytest -m 'slow and database'
+pytest -m 'slow or database'
 </code></pre>
 <h4 id="152----custom-marks"><a class="header" href="#152----custom-marks">1.5.2    Custom Marks</a></h4>
 <pre><code class="language-python"># pytest.ini
@@ -801,7 +802,7 @@ def test_full_workflow():
     def test_subtract(self):
         assert self.calc.subtract(5, 3) == 2
     
-    @pytest.mark.parametrize("a,b,expected", [
+    @pytest.mark.parametrize('a,b,expected', [
         (10, 2, 5),
         (20, 4, 5),
     ])
@@ -836,7 +837,7 @@ import requests
 
 def get_user_data(user_id):
     """Holt Daten von API"""
-    response = requests.get(f"https://api.example.com/users/{user_id}")
+    response = requests.get(f'https://api.example.com/users/{user_id}')
     return response.json()
 
 def test_get_user_data():
@@ -881,7 +882,7 @@ def test_multiple_patches(mock_a, mock_b):
     assert mock() == 3
     
     # Exception werfen
-    mock.side_effect = ValueError("Error")
+    mock.side_effect = ValueError('Error')
     with pytest.raises(ValueError):
         mock()
     
@@ -893,12 +894,12 @@ def test_multiple_patches(mock_a, mock_b):
 <pre><code class="language-python">def test_mock_object():
     # Mock-Objekt mit Attributen
     mock_user = Mock()
-    mock_user.name = "Alice"
+    mock_user.name = 'Alice'
     mock_user.age = 30
-    mock_user.get_email.return_value = "alice@example.com"
+    mock_user.get_email.return_value = 'alice@example.com'
     
-    assert mock_user.name == "Alice"
-    assert mock_user.get_email() == "alice@example.com"
+    assert mock_user.name == 'Alice'
+    assert mock_user.get_email() == 'alice@example.com'
 </code></pre>
 <h4 id="167----pytest-mock-plugin"><a class="header" href="#167----pytest-mock-plugin">1.6.7    Pytest-mock Plugin</a></h4>
 <pre><code class="language-bash">pip install pytest-mock
@@ -930,22 +931,22 @@ pytest --cov=src --cov-report=term-missing --cov-fail-under=80 tests/
 <h4 id="172----coverage-konfiguration"><a class="header" href="#172----coverage-konfiguration">1.7.2    Coverage-Konfiguration</a></h4>
 <pre><code class="language-ini"># .coveragerc oder pyproject.toml
 [tool.coverage.run]
-source = ["src"]
+source = ['src']
 omit = [
-    "*/tests/*",
-    "*/test_*.py",
-    "*/__pycache__/*",
-    "*/site-packages/*"
+    '*/tests/*',
+    '*/test_*.py',
+    '*/__pycache__/*',
+    '*/site-packages/*'
 ]
 
 [tool.coverage.report]
 exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if __name__ == .__main__.:",
-    "if TYPE_CHECKING:",
+    'pragma: no cover',
+    'def __repr__',
+    'raise AssertionError',
+    'raise NotImplementedError',
+    'if __name__ == .__main__.:',
+    'if TYPE_CHECKING:',
 ]
 </code></pre>
 <h4 id="173----coverage-ausschließen"><a class="header" href="#173----coverage-ausschließen">1.7.3    Coverage ausschließen</a></h4>
@@ -963,7 +964,7 @@ exclude_lines = [
 <pre><code class="language-python"># conftest.py (wird automatisch geladen)
 import pytest
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def config():
     """Globale Konfiguration"""
     return {
@@ -972,20 +973,20 @@ def config():
         'debug': True
     }
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def database_url():
     """Test-Datenbank URL"""
-    return "sqlite:///:memory:"
+    return 'sqlite:///:memory:'
 </code></pre>
 <h4 id="182----datenbank-tests"><a class="header" href="#182----datenbank-tests">1.8.2    Datenbank-Tests</a></h4>
 <pre><code class="language-python">import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope='module')
 def engine():
     """Erstellt Test-Datenbank"""
-    engine = create_engine("sqlite:///:memory:")
+    engine = create_engine('sqlite:///:memory:')
     Base.metadata.create_all(engine)
     yield engine
     Base.metadata.drop_all(engine)
@@ -1002,7 +1003,7 @@ def db_session(engine):
     session.close()
 
 def test_create_user(db_session):
-    user = User(name="Alice", email="alice@example.com")
+    user = User(name='Alice', email='alice@example.com')
     db_session.add(user)
     db_session.commit()
     
@@ -1017,20 +1018,20 @@ import requests
 def api_client():
     """API Client mit Base URL"""
     class APIClient:
-        base_url = "http://localhost:8000/api"
+        base_url = 'http://localhost:8000/api'
         
         def get(self, endpoint):
-            return requests.get(f"{self.base_url}{endpoint}")
+            return requests.get(f'{self.base_url}{endpoint}')
         
         def post(self, endpoint, data):
-            return requests.post(f"{self.base_url}{endpoint}", json=data)
+            return requests.post(f'{self.base_url}{endpoint}', json=data)
     
     return APIClient()
 
 def test_get_users(api_client, mocker):
     # Mock HTTP-Call
     mock_response = mocker.Mock()
-    mock_response.json.return_value = [{"id": 1, "name": "Alice"}]
+    mock_response.json.return_value = [{'id': 1, 'name': 'Alice'}]
     mock_response.status_code = 200
     
     mocker.patch('requests.get', return_value=mock_response)

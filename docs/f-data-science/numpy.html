@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -449,7 +449,7 @@ print(end - start)  # 0.22649779099447187
 <p>Das Herzstück des NumPy-Pakets ist das <code>ndarray</code>-Objekt. Dieses kapselt <code>n</code>-dimensionale Arrays homogener Datentypen, wobei viele Operationen in kompiliertem C-Code ausgeführt werden, was zu einer deutlich höheren Leistung im Vergleich zu Listen führt. Des Weiteren ist die Schreibweise kürzer und besser lesbar.</p>
 <p><strong>Eigenschaften eines <code>ndarray</code>:</strong></p>
 <ul>
-<li>Es beschreibt eine Sammlung von “Elementen” des <strong>gleichen</strong> Typs.</li>
+<li>Es beschreibt eine Sammlung von ‘Elementen’ des <strong>gleichen</strong> Typs.</li>
 <li>Die Elemente können beispielsweise mit <code>n</code> ganzen Zahlen indexiert werden.</li>
 <li>Alle <code>ndarrays</code> sind homogen: Jedes Element belegt einen gleich großen Speicherblock.</li>
 <li>Ein Element aus dem Array wird durch ein <code>PyObject</code> repräsentiert, das zu den eingebauten skalaren NumPy-Typen gehört.</li>
@@ -539,10 +539,10 @@ shape = arr2D.shape
 size = arr2D.size
 dtype = arr2D.dtype
 
-print("Anzahl der Dimensionen:", ndim)  # 2
-print("Form des Arrays:", shape)        # (3, 4)
-print("Anzahl der Elemente:", size)     # 12
-print("Datentyp der Elemente:", dtype)  # int64
+print('Anzahl der Dimensionen:', ndim)  # 2
+print('Form des Arrays:', shape)        # (3, 4)
+print('Anzahl der Elemente:', size)     # 12
+print('Datentyp der Elemente:', dtype)  # int64
 </code></pre>
 <h2 id="7---grundlegende-operationen"><a class="header" href="#7---grundlegende-operationen">7   Grundlegende Operationen</a></h2>
 <pre><code class="language-python"># Arithmetische Operationen
@@ -644,9 +644,9 @@ col_vector = arr1D[:, np.newaxis]
 # Umwandlung in Zeilen-Vektor (1 Zeile, 4 Spalten)
 row_vector = arr1D[np.newaxis, :]
 
-print("Original:", arr1D.shape)             # Original: (4,)
-print("Spalten-Vektor:", col_vector.shape)  # Spalten-Vektor: (4, 1)
-print("Zeilen-Vektor:", row_vector.shape)   # Zeilen-Vektor: (1, 4)
+print('Original:', arr1D.shape)             # Original: (4,)
+print('Spalten-Vektor:', col_vector.shape)  # Spalten-Vektor: (4, 1)
+print('Zeilen-Vektor:', row_vector.shape)   # Zeilen-Vektor: (1, 4)
 </code></pre>
 <h2 id="12---zufallszahlen"><a class="header" href="#12---zufallszahlen">12   Zufallszahlen</a></h2>
 <p>Matrix der Größe 5x5 mit $M_{i,j}\in[-10, 10]$:</p>
@@ -667,11 +667,11 @@ mask = arr &gt; 2
 filtered = arr[mask]  # Enthält nur Werte &gt; 2
 </code></pre>
 <h2 id="14---speichern-und-laden"><a class="header" href="#14---speichern-und-laden">14   Speichern und Laden</a></h2>
-<pre><code class="language-python">np.save("array.npy", arr)           # Speichern
-loaded_array = np.load("array.npy")  # Laden
+<pre><code class="language-python">np.save('array.npy', arr)           # Speichern
+loaded_array = np.load('array.npy')  # Laden
 </code></pre>
 <h2 id="15---ufuncs-universal-functions"><a class="header" href="#15---ufuncs-universal-functions">15   Ufuncs (Universal Functions)</a></h2>
-<p>Eine Universal Function ist eine Funktion, welche auf ein <code>ndarray</code> elementweise angewendet wird. Es handelt sich um einen “vektorbasierten” Wrapper für eine Funktion, die eine feste Anzahl spezifischer Eingaben nimmt und eine feste Anzahl spezifischer Ausgaben erzeugt.</p>
+<p>Eine Universal Function ist eine Funktion, welche auf ein <code>ndarray</code> elementweise angewendet wird. Es handelt sich um einen ‘vektorbasierten’ Wrapper für eine Funktion, die eine feste Anzahl spezifischer Eingaben nimmt und eine feste Anzahl spezifischer Ausgaben erzeugt.</p>
 <p>Ufuncs sind teilweise 1000-2000 x schneller, als eine Lösung über Python-Code (ohne Numpy).</p>
 <h2 id="16---häufig-verwendete-funktionen"><a class="header" href="#16---häufig-verwendete-funktionen">16   Häufig verwendete Funktionen</a></h2>
 <div class="table-wrapper">
@@ -755,8 +755,8 @@ sum_cols = np.sum(arr2D, axis=0)
 # Summe pro Zeile (→)
 sum_rows = np.sum(arr2D, axis=1)
 
-print("Summe pro Spalte:", sum_cols)  # [15 18 21 24]
-print("Summe pro Zeile:", sum_rows)   # [10 26 42]
+print('Summe pro Spalte:', sum_cols)  # [15 18 21 24]
+print('Summe pro Zeile:', sum_rows)   # [10 26 42]
 </code></pre>
 <ul>
 <li><code>axis=0</code> ➝ Berechnung erfolgt <strong>über Zeilen hinweg</strong> → ergibt Spalten-Ergebnisse</li>
@@ -799,7 +799,7 @@ B.shape = (4,)  # entspricht intern (1, 4)
 <pre><code>A: (3, 4)
 B:    (4)    → automatisch zu (1, 4)
 </code></pre>
-<p>✅ passt! → Broadcasting funktioniert → B wird auf jede der 3 Zeilen “kopiert”</p>
+<p>✅ passt! → Broadcasting funktioniert → B wird auf jede der 3 Zeilen ‘kopiert’</p>
 <h3 id="183---dimensionen-müssen-gleich-sein-oder-eine-von-beiden-muss-1-sein"><a class="header" href="#183---dimensionen-müssen-gleich-sein-oder-eine-von-beiden-muss-1-sein">18.3   Dimensionen müssen gleich sein oder eine von beiden muss 1 sein</a></h3>
 <p><strong>Beispiel 1:</strong></p>
 <pre><code class="language-python">A = np.ones((5, 1))
@@ -831,7 +831,7 @@ B = np.ones((3, 4))        # (3, 4)
 B: (3, 4)
 </code></pre>
 <ul>
-<li><code>1</code> funktioniert wie ein Platzhalter → es wird “in diese Richtung” kopiert</li>
+<li><code>1</code> funktioniert wie ein Platzhalter → es wird ‘in diese Richtung’ kopiert</li>
 <li>Fehlende Dimension? → einfach eine <code>1</code> davor denken!</li>
 </ul>
 <h2 id="19---masken-und-vergleichsoperatoren"><a class="header" href="#19---masken-und-vergleichsoperatoren">19   Masken und Vergleichsoperatoren</a></h2>
@@ -968,37 +968,37 @@ np.fill_diagonal(M, np.pi)
 <h3 id="221---binäres-speichern-schnell--effizient"><a class="header" href="#221---binäres-speichern-schnell--effizient">22.1   Binäres Speichern (schnell &amp; effizient)</a></h3>
 <p><strong><code>np.save()</code>: Speichert ein einzelnes Array als <code>.npy</code>-Datei</strong></p>
 <pre><code class="language-python">arr = np.array([1, 2, 3])
-np.save("array.npy", arr)  # speichert binär
+np.save('array.npy', arr)  # speichert binär
 </code></pre>
 <p><strong><code>np.savez()</code>: Speichert mehrere Arrays in einer komprimierten ZIP-Datei</strong></p>
 <pre><code class="language-python">a = np.arange(5)
 b = np.linspace(0, 1, 5)
 
-np.savez("arrays.npz", first=a, second=b)
+np.savez('arrays.npz', first=a, second=b)
 
-data = np.load("arrays.npz")
-print(data["first"])   # Zugriff auf gespeicherte Arrays
+data = np.load('arrays.npz')
+print(data['first'])   # Zugriff auf gespeicherte Arrays
 </code></pre>
 <p><strong><code>np.load()</code>: Lädt .npy- oder .npz-Dateien</strong></p>
-<pre><code class="language-python">loaded = np.load("array.npy")
+<pre><code class="language-python">loaded = np.load('array.npy')
 </code></pre>
 <h3 id="222---speichern-im-textformat"><a class="header" href="#222---speichern-im-textformat">22.2   Speichern im Textformat</a></h3>
 <p><strong><code>np.savetxt()</code>: Speichert Array als Klartext (CSV, TSV etc.)</strong></p>
 <pre><code class="language-python">arr = np.array([[1, 2], [3, 4]])
-np.savetxt("array.txt", arr, fmt="%d", delimiter=",")
+np.savetxt('array.txt', arr, fmt='%d', delimiter=',')
 </code></pre>
 <p><strong><code>np.loadtxt()</code>: Lädt ein Array aus einer Textdatei</strong></p>
-<pre><code class="language-python">loaded_txt = np.loadtxt("array.txt", delimiter=",")
+<pre><code class="language-python">loaded_txt = np.loadtxt('array.txt', delimiter=',')
 </code></pre>
 <p>Nur für einfache, numerische Arrays geeignet. Keine Metadaten oder Struktur.</p>
 <h3 id="223---strukturierte-arrays"><a class="header" href="#223---strukturierte-arrays">22.3   Strukturierte Arrays</a></h3>
 <pre><code class="language-python">data = np.array([
-    (1, 1.5, "A"),
-    (2, 2.5, "B")
-], dtype=[("id", "i4"), ("value", "f4"), ("label", "U1")])
+    (1, 1.5, 'A'),
+    (2, 2.5, 'B')
+], dtype=[('id', 'i4'), ('value', 'f4'), ('label', 'U1')])
 
-print(data["id"])        # Zugriff auf Spalte
-print(data[0]["label"])  # Zugriff auf Zelle
+print(data['id'])        # Zugriff auf Spalte
+print(data[0]['label'])  # Zugriff auf Zelle
 </code></pre>
 <ul>
 <li>.npy = kompaktes, schnelles Binärformat für ein Array</li>

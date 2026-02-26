@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -453,13 +453,15 @@ b = 2
 if a &lt; b: print('a ist kleiner als b')
 </code></pre>
 <h3 id="13----ternary-operators-conditional-expressions"><a class="header" href="#13----ternary-operators-conditional-expressions">1.3    Ternary operators (conditional expressions)</a></h3>
+<p>Ein Ternary Operator (<em>conditional expression</em>) fasst eine einfache <code>if</code>-<code>else</code>-Abfrage in einer einzigen Zeile zusammen. Die Syntax lautet: <code>wert_wenn_wahr if bedingung else wert_wenn_falsch</code>. Das Ergebnis wird direkt einer Variable zugewiesen oder weiterverwendet. Sinnvoll ist diese Schreibweise, wenn der Ausdruck kurz und gut lesbar bleibt.</p>
 <pre><code class="language-python">a = 1
 b = 2
 
-kommentar = 'a ist größer als b' if a &gt; b else 'a ist kleiner als b'
-print(kommentar)  # a ist kleiner als b
+comment = 'a ist größer als b' if a &gt; b else 'a ist kleiner als b'
+print(comment)  # a ist kleiner als b
 </code></pre>
 <h3 id="14----shorthand-ternary"><a class="header" href="#14----shorthand-ternary">1.4    ShortHand Ternary</a></h3>
+<p>Python wertet logische Ausdrücke mit <code>or</code> <strong>lazy</strong> aus: Der rechte Operand wird nur dann betrachtet, wenn der linke <em>falsy</em> ist (also <code>False</code>, <code>None</code>, <code>0</code>, <code>''</code>, <code>[]</code> usw.). Das lässt sich als kompakte Alternative zu einem Ternary Operator nutzen, um Fallback-Werte zu setzen.</p>
 <p><strong>Beispiel 1:</strong></p>
 <pre><code class="language-python">print( True or 'Some' )  # True
 </code></pre>
@@ -485,7 +487,7 @@ print(msg)  # Keine Daten
 
     return msg
 
-print( witcher(50))  # Volljährig
+print(switcher(50))  # Volljährig
 </code></pre>
 <h2 id="3----pattern-matching-mit-match-case-python-310"><a class="header" href="#3----pattern-matching-mit-match-case-python-310">3    Pattern Matching mit <code>match</code>-<code>case</code> (Python 3.10+)</a></h2>
 <p>Seit Python 3.10 gibt es strukturelles Pattern Matching mit <code>match</code>-<code>case</code>. Dies ist deutlich mächtiger als einfache Switch-Case-Statements aus anderen Sprachen.</p>
@@ -493,46 +495,46 @@ print( witcher(50))  # Volljährig
 <pre><code class="language-python">def http_status(status):
     match status:
         case 200:
-            return "OK"
+            return 'OK'
         case 404:
-            return "Not Found"
+            return 'Nicht gefunden'
         case 500:
-            return "Internal Server Error"
-        case _:  # Wildcard (default)
-            return "Unknown Status"
+            return 'Interner Serverfehler'
+        case _:  # Wildcard (Standard)
+            return 'Unbekannter Status'
 
-print(http_status(404))  # Not Found
+print(http_status(404))  # Nicht gefunden
 </code></pre>
-<h3 id="32----mehrere-werte-or-patterns"><a class="header" href="#32----mehrere-werte-or-patterns">3.2    Mehrere Werte (OR Patterns)</a></h3>
+<h3 id="32----mehrere-werte-or-patterns"><a class="header" href="#32----mehrere-werte-or-patterns">3.2    Mehrere Werte (<code>OR</code>-Patterns)</a></h3>
 <pre><code class="language-python">def classify_http_status(status):
     match status:
         case 200 | 201 | 204:
-            return "Success"
+            return 'Erfolgreich'
         case 400 | 401 | 403 | 404:
-            return "Client Error"
+            return 'Client-Fehler'
         case 500 | 502 | 503:
-            return "Server Error"
+            return 'Server-Fehler'
         case _:
-            return "Unknown"
+            return 'Unbekannt'
 
-print(classify_http_status(201))  # Success
+print(classify_http_status(201))  # Erfolgreich
 </code></pre>
-<h3 id="33----guards-if-bedingungen"><a class="header" href="#33----guards-if-bedingungen">3.3    Guards (if-Bedingungen)</a></h3>
+<h3 id="33----guards-if-bedingungen"><a class="header" href="#33----guards-if-bedingungen">3.3    Guards (<code>if</code>-Bedingungen)</a></h3>
 <pre><code class="language-python">age = 50
 
 match age:
     case _ if age &lt; 0:
-        msg = "Invalid age"
+        msg = 'Ungültiges Alter'
     case _ if age &lt; 18:
-        msg = "Minor"
+        msg = 'Minderjähriger'
     case _ if age &lt; 67:
-        msg = "Adult"
+        msg = 'Erwachsener'
     case _ if age &lt; 150:
-        msg = "Senior"
+        msg = 'Rentner'
     case _:
-        msg = "Invalid age"
+        msg = 'Ungültiges Alter'
 
-print(msg)  # Adult
+print(msg)  # Erwachsener
 </code></pre>
 <h3 id="34----sequence-patterns-listen-tupel"><a class="header" href="#34----sequence-patterns-listen-tupel">3.4    Sequence Patterns (Listen, Tupel)</a></h3>
 <pre><code class="language-python"># Listen/Tupel matchen
@@ -540,66 +542,66 @@ point = (0, 5)
 
 match point:
     case (0, 0):
-        print("Origin")
+        print('Ursprung')
     case (0, y):
-        print(f"On Y-axis at y={y}")
+        print(f'Auf y-Achse bei y={y}')
     case (x, 0):
-        print(f"On X-axis at x={x}")
+        print(f'Auf x-Achse bei x={x}')
     case (x, y):
-        print(f"Point at ({x}, {y})")
+        print(f'Punkt auf ({x}, {y})')
 
-# Output: On Y-axis at y=5
+# Ausgabe: Aus y-Achse bei y=5
 </code></pre>
 <p><strong>Variable-length Patterns:</strong></p>
 <pre><code class="language-python">data = [1, 2, 3, 4, 5]
 
 match data:
     case []:
-        print("Empty list")
+        print('Leere Liste')
     case [x]:
-        print(f"Single element: {x}")
+        print(f'Einzelnes Element: {x}')
     case [x, y]:
-        print(f"Two elements: {x}, {y}")
+        print(f'Zwei Elemente: {x}, {y}')
     case [first, *rest]:
-        print(f"First: {first}, Rest: {rest}")
+        print(f'Erstes: {first}, Rest: {rest}')
 
-# Output: First: 1, Rest: [2, 3, 4, 5]
+# Ausgabe: Erstes: 1, Rest: [2, 3, 4, 5]
 </code></pre>
 <p><strong>Exakte Länge mit Wildcard:</strong></p>
 <pre><code class="language-python">coordinates = (10, 20, 30)
 
 match coordinates:
     case (x, y):
-        print(f"2D: {x}, {y}")
+        print(f'2D: {x}, {y}')
     case (x, y, z):
-        print(f"3D: {x}, {y}, {z}")
+        print(f'3D: {x}, {y}, {z}')
     case (x, y, z, _):
-        print(f"4D+: First three {x}, {y}, {z}")
+        print(f'4D+: Erste drei {x}, {y}, {z}')
 
-# Output: 3D: 10, 20, 30
+# Ausgabe: 3D: 10, 20, 30
 </code></pre>
 <h3 id="35----mapping-patterns-dictionaries"><a class="header" href="#35----mapping-patterns-dictionaries">3.5    Mapping Patterns (Dictionaries)</a></h3>
-<pre><code class="language-python">user = {"name": "Alice", "age": 30, "role": "admin"}
+<pre><code class="language-python">user = {'name': 'Alice', 'age': 30, 'role': 'admin'}
 
 match user:
-    case {"role": "admin", "name": name}:
-        print(f"Admin user: {name}")
-    case {"role": "user", "name": name}:
-        print(f"Regular user: {name}")
-    case {"name": name}:
-        print(f"User without role: {name}")
+    case {'role': 'admin', 'name': name}:
+        print(f'Administrator: {name}')
+    case {'role': 'user', 'name': name}:
+        print(f'Normaler Benutzer: {name}')
+    case {'name': name}:
+        print(f'Benutzer ohne Rolle: {name}')
 
-# Output: Admin user: Alice
+# Ausgabe: Administrator: Alice
 </code></pre>
 <p><strong>Wichtig:</strong> Dictionaries matchen partial (zusätzliche Keys werden ignoriert):</p>
-<pre><code class="language-python">data = {"type": "point", "x": 10, "y": 20, "color": "red"}
+<pre><code class="language-python">data = {'type': 'point', 'x': 10, 'y': 20, 'color': 'red'}
 
 match data:
-    case {"type": "point", "x": x, "y": y}:
-        print(f"Point at ({x}, {y})")
-        # "color" wird ignoriert
+    case {'type': 'point', 'x': x, 'y': y}:
+        print(f'Punkt bei ({x}, {y})')
+        # 'color' wird ignoriert
 
-# Output: Point at (10, 20)
+# Ausgabe: Punkt bei (10, 20)
 </code></pre>
 <h3 id="36----class-patterns-strukturelles-matching"><a class="header" href="#36----class-patterns-strukturelles-matching">3.6    Class Patterns (Strukturelles Matching)</a></h3>
 <pre><code class="language-python">from dataclasses import dataclass
@@ -618,18 +620,18 @@ shape = Circle(Point(0, 0), 5)
 
 match shape:
     case Circle(center=Point(x=0, y=0), radius=r):
-        print(f"Circle at origin with radius {r}")
+        print(f'Kreis im Ursprung mit Radius {r}')
     case Circle(center=Point(x=x, y=y), radius=r):
-        print(f"Circle at ({x}, {y}) with radius {r}")
+        print(f'Kreis bei ({x}, {y}) mit Radius {r}')
 
-# Output: Circle at origin with radius 5
+# Ausgabe: Kreis im Ursprung mit Radius 5
 </code></pre>
 <p><strong>Kürzere Syntax:</strong></p>
 <pre><code class="language-python">match shape:
     case Circle(Point(0, 0), r):
-        print(f"Circle at origin with radius {r}")
+        print(f'Kreis im Ursprung mit Radius {r}')
     case Circle(Point(x, y), r):
-        print(f"Circle at ({x}, {y}) with radius {r}")
+        print(f'Kreis bei ({x}, {y}) mit Radius {r}')
 </code></pre>
 <h3 id="37----as-patterns-capture-whole--parts"><a class="header" href="#37----as-patterns-capture-whole--parts">3.7    AS Patterns (Capture Whole + Parts)</a></h3>
 <p>Mit <code>as</code> kann man sowohl das Gesamtobjekt als auch Teile davon erfassen:</p>
@@ -637,139 +639,27 @@ match shape:
 
 match data:
     case [x, *rest] as full_list:
-        print(f"First: {x}")
-        print(f"Rest: {rest}")
-        print(f"Full list: {full_list}")
+        print(f'Erstes: {x}')
+        print(f'Rest: {rest}')
+        print(f'Gesamte Liste: {full_list}')
 
-# Output:
-# First: 1
+# Ausgabe:
+# Erstes: 1
 # Rest: [2, 3, 4]
-# Full list: [1, 2, 3, 4]
+# Gesamte Liste: [1, 2, 3, 4]
 </code></pre>
 <h3 id="38----verschachtelte-patterns"><a class="header" href="#38----verschachtelte-patterns">3.8    Verschachtelte Patterns</a></h3>
-<pre><code class="language-python">command = ("move", {"x": 10, "y": 20})
+<pre><code class="language-python">command = ('move', {'x': 10, 'y': 20})
 
 match command:
-    case ("move", {"x": x, "y": y}):
-        print(f"Move to ({x}, {y})")
-    case ("resize", {"width": w, "height": h}):
-        print(f"Resize to {w}x{h}")
-    case ("rotate", {"angle": angle}):
-        print(f"Rotate by {angle}°")
+    case ('move', {'x': x, 'y': y}):
+        print(f'Bewege zu ({x}, {y})')
+    case ('resize', {'width': w, 'height': h}):
+        print(f'Skaliere auf {w}x{h}')
+    case ('rotate', {'angle': angle}):
+        print(f'Drehe um {angle}°')
 
-# Output: Move to (10, 20)
-</code></pre>
-<h3 id="39----praktische-beispiele"><a class="header" href="#39----praktische-beispiele">3.9    Praktische Beispiele</a></h3>
-<h4 id="391----json-api-response-handling"><a class="header" href="#391----json-api-response-handling">3.9.1    JSON-API Response Handling</a></h4>
-<pre><code class="language-python">def handle_response(response):
-    match response:
-        case {"status": "success", "data": data}:
-            return f"Success: {data}"
-
-        case {"status": "error", "code": 404}:
-            return "Resource not found"
-
-        case {"status": "error", "code": code, "message": msg}:
-            return f"Error {code}: {msg}"
-
-        case {"status": "error"}:
-            return "Unknown error"
-
-        case _:
-            return "Invalid response format"
-
-# Test
-print(handle_response({"status": "success", "data": {"id": 1}}))
-print(handle_response({"status": "error", "code": 500, "message": "Server error"}))
-</code></pre>
-<h4 id="392----command-parser"><a class="header" href="#392----command-parser">3.9.2    Command Parser</a></h4>
-<pre><code class="language-python">def execute_command(cmd):
-    match cmd.split():
-        case ["quit"] | ["exit"]:
-            return "Exiting..."
-
-        case ["help"]:
-            return "Available commands: help, quit, list, add, delete"
-
-        case ["list"]:
-            return "Listing all items..."
-
-        case ["add", item]:
-            return f"Adding {item}"
-
-        case ["add", *items]:
-            return f"Adding multiple items: {items}"
-
-        case ["delete", item]:
-            return f"Deleting {item}"
-
-        case _:
-            return "Unknown command"
-
-print(execute_command("add apple"))          # Adding apple
-print(execute_command("add apple banana"))   # Adding multiple items: ['apple', 'banana']
-</code></pre>
-<h4 id="393----ast-ähnliche-strukturen"><a class="header" href="#393----ast-ähnliche-strukturen">3.9.3    AST-ähnliche Strukturen</a></h4>
-<pre><code class="language-python">from dataclasses import dataclass
-
-@dataclass
-class BinaryOp:
-    op: str
-    left: any
-    right: any
-
-@dataclass
-class Constant:
-    value: int
-
-def evaluate(expr):
-    match expr:
-        case Constant(value):
-            return value
-
-        case BinaryOp("+", left, right):
-            return evaluate(left) + evaluate(right)
-
-        case BinaryOp("-", left, right):
-            return evaluate(left) - evaluate(right)
-
-        case BinaryOp("*", left, right):
-            return evaluate(left) * evaluate(right)
-
-        case _:
-            raise ValueError(f"Unknown expression: {expr}")
-
-# Test: (2 + 3) * 5
-expr = BinaryOp("*",
-    BinaryOp("+", Constant(2), Constant(3)),
-    Constant(5)
-)
-
-print(evaluate(expr))  # 25
-</code></pre>
-<h4 id="394----event-handler"><a class="header" href="#394----event-handler">3.9.4    Event Handler</a></h4>
-<pre><code class="language-python">def handle_event(event):
-    match event:
-        case {"type": "click", "x": x, "y": y, "button": "left"}:
-            print(f"Left click at ({x}, {y})")
-
-        case {"type": "click", "x": x, "y": y, "button": "right"}:
-            print(f"Right click at ({x}, {y})")
-
-        case {"type": "keypress", "key": "Enter"}:
-            print("Enter pressed")
-
-        case {"type": "keypress", "key": key, "ctrl": True}:
-            print(f"Ctrl+{key} pressed")
-
-        case {"type": "scroll", "delta": delta} if delta &gt; 0:
-            print("Scrolling up")
-
-        case {"type": "scroll", "delta": delta} if delta &lt; 0:
-            print("Scrolling down")
-
-handle_event({"type": "click", "x": 100, "y": 200, "button": "left"})
-handle_event({"type": "keypress", "key": "S", "ctrl": True})
+# Ausgabe: Bewege zu (10, 20)
 </code></pre>
 <h3 id="310----best-practices"><a class="header" href="#310----best-practices">3.10    Best Practices</a></h3>
 <p><strong>✅ DO:</strong></p>
@@ -781,27 +671,26 @@ handle_event({"type": "keypress", "key": "S", "ctrl": True})
 </ul>
 <p><strong>❌ DON’T:</strong></p>
 <ul>
-<li>Verwende nicht <code>match</code> für einfache if-elif-Ketten</li>
+<li>Verwende nicht <code>match</code> für einfache <code>if</code>-elif-Ketten</li>
 <li>Vermeide zu komplexe, verschachtelte Patterns</li>
-<li>Default-Case (<code>case _:</code>) nicht vergessen</li>
 </ul>
-<h3 id="311----pattern-matching-vs-if-elif"><a class="header" href="#311----pattern-matching-vs-if-elif">3.11    Pattern Matching vs. if-elif</a></h3>
+<h3 id="311----pattern-matching-vs-if-elif"><a class="header" href="#311----pattern-matching-vs-if-elif">3.11    Pattern Matching vs. <code>if</code>-<code>elif</code></a></h3>
 <p><strong>Wann <code>match</code> verwenden:</strong></p>
-<pre><code class="language-python"># ✅ Gut für strukturelle Daten
+<pre><code class="language-python"># Gut für strukturelle Daten
 match point:
-    case (0, 0): return "Origin"
-    case (x, 0): return f"X-axis: {x}"
-    case (0, y): return f"Y-axis: {y}"
-    case (x, y): return f"Point: ({x}, {y})"
+    case (0, 0): return 'Ursprung'
+    case (x, 0): return f'x-Achse: {x}'
+    case (0, y): return f'y-Achse: {y}'
+    case (x, y): return f'Punkt: ({x}, {y})'
 </code></pre>
 <p><strong>Wann <code>if-elif</code> verwenden:</strong></p>
-<pre><code class="language-python"># ✅ Besser für einfache Vergleiche
+<pre><code class="language-python"># Besser für einfache Vergleiche
 if age &lt; 18:
-    return "Minor"
+    return 'Minderjährig'
 elif age &lt; 65:
-    return "Adult"
+    return 'Erwachsen'
 else:
-    return "Senior"
+    return 'Senior'
 </code></pre>
 <h3 id="312----zusammenfassung"><a class="header" href="#312----zusammenfassung">3.12    Zusammenfassung</a></h3>
 <div class="table-wrapper">
@@ -816,7 +705,7 @@ else:
 <tr><td>OR</td><td><code>case 200 | 201 | 204:</code></td><td>Mehrere Werte</td></tr>
 <tr><td>Sequence</td><td><code>case [x, y, z]:</code></td><td>Listen/Tupel mit fester Länge</td></tr>
 <tr><td>Sequence (rest)</td><td><code>case [first, *rest]:</code></td><td>Variable Länge</td></tr>
-<tr><td>Mapping</td><td><code>case {"key": value}:</code></td><td>Dictionaries</td></tr>
+<tr><td>Mapping</td><td><code>case {'key': value}:</code></td><td>Dictionaries</td></tr>
 <tr><td>Class</td><td><code>case Point(x, y):</code></td><td>Objekte/Dataclasses</td></tr>
 <tr><td>Guard</td><td><code>case x if x &gt; 0:</code></td><td>Zusätzliche Bedingung</td></tr>
 <tr><td>AS</td><td><code>case [x, *rest] as full:</code></td><td>Ganzes + Teile erfassen</td></tr>
@@ -824,7 +713,7 @@ else:
 </table>
 </div>
 <h2 id="4----schleifen"><a class="header" href="#4----schleifen">4    Schleifen</a></h2>
-<h3 id="41----for"><a class="header" href="#41----for">4.1    <code>for</code></a></h3>
+<h3 id="41----for-schleifen"><a class="header" href="#41----for-schleifen">4.1    <code>for</code>-Schleifen</a></h3>
 <pre><code class="language-python">L = [0, 1, 2, 3]
 count = len(L)
 
@@ -883,7 +772,8 @@ for av, bv in zip(a, b):
 for i, (av, bv) in enumerate(zip(a, b)):
     print(f'{i}: {av} und {bv}')
 </code></pre>
-<h3 id="42----while"><a class="header" href="#42----while">4.2    <code>while</code></a></h3>
+<h3 id="42----while-schleifen"><a class="header" href="#42----while-schleifen">4.2    <code>while</code>-Schleifen</a></h3>
+<p>Mit Zählbedingung:</p>
 <pre><code class="language-python">i = 0
 m = 3
 
@@ -891,6 +781,7 @@ while i &lt;= m:
     print(i)
     i += 1
 </code></pre>
+<p>Mit Flag:</p>
 <pre><code class="language-python">i = 0
 m = 3
 run = True
@@ -900,6 +791,7 @@ while run:
     if i == m: run = False
     i += 1
 </code></pre>
+<p>Endlosschleife mit <code>break</code>:</p>
 <pre><code class="language-python">i = 0
 m = 3
 

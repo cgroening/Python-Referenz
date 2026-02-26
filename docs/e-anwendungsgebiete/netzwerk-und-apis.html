@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-078db5e0.js";
+            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f6524bb4.js"></script>
+        <script src="../toc-e23b86dd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -597,14 +597,14 @@ retry_strategy = Retry(
     total=3,                          # Maximale Anzahl Retries
     backoff_factor=1,                 # Wartezeit: 1s, 2s, 4s, ...
     status_forcelist=[429, 500, 502, 503, 504],  # Bei diesen Status-Codes
-    allowed_methods=["GET", "POST"]   # Nur für diese Methoden
+    allowed_methods=['GET', 'POST']   # Nur für diese Methoden
 )
 
 adapter = HTTPAdapter(max_retries=retry_strategy)
 
 session = requests.Session()
-session.mount("http://", adapter)
-session.mount("https://", adapter)
+session.mount('http://', adapter)
+session.mount('https://', adapter)
 
 # Request mit automatischen Retries
 response = session.get('https://api.example.com/data')
