@@ -1,6 +1,6 @@
 # Summary
 
-[einleitung](einleitung.md)
+[Einleitung](einleitung.md)
 
 # TEIL I: GRUNDLAGEN
 
@@ -11,7 +11,7 @@
 5. [Kontrollstrukturen](a-grundlagen/kontrollstrukturen.md)
 6. [Funktionen](a-grundlagen/funktionen.md)
 7. [Ein- und Ausgabe](a-grundlagen/eingabe-ausgabe.md)
-8. [Kommentare](a-grundlagen/kommentare.md)
+8. [Kommentare](kommentare-docstrings.md)
 9. [Fehlerbehandlung](a-grundlagen/fehlerbehandlung.md)
 
 # TEIL II: OOP & FORTGESCHRITTENE KONZEPTE

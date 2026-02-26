@@ -65,6 +65,15 @@ print(x in L)  # True
 
 ### 1.4    List comprehensions (kompakte Erstellung von Listen)
 
+Eine List Comprehension ist eine kompakte Schreibweise zur Erstellung von Listen. Sie fasst eine `for`-Schleife – optional mit einer `if`-Bedingung – in einem einzigen Ausdruck zusammen.
+
+**Syntax:**
+
+```python
+[ausdruck for element in iterable]
+[ausdruck for element in iterable if bedingung]
+```
+
 **Beispiel 1:**
 
 ```python
@@ -92,18 +101,49 @@ L = [1, 2, 3]
 print([x*2 for x in L if x > 1])  # [4, 6]
 ```
 
-List comprehension sind in einigen Fällen besser lesbar, können jedoch auch schnell unübersichtlich werden. Sie sind auch mit `if`-Bedingungen möglich.
+#### 1.4.1    Lesbarkeit von List Comprehensions
+
+List Comprehensions sind in manchen Fällen besser lesbar, können jedoch auch schnell unübersichtlich werden! 
+
+**Beispiel 1 (List Comprehension ist besser lesbar):**
+
+```python
+# Besser als List Comprehension – kompakt und klar:
+squares = [x**2 for x in range(10)]
+
+# Normale Schreibweise (umständlicher):
+squares = []
+for x in range(10):
+    squares.append(x**2)
+```
+
+**Beispiel 2 (Normale Schreibweise ist verständlicher):**
+
+```python
+# Normale Schreibweise – übersichtlicher bei komplexer Logik:
+results = []
+for x in range(10):
+    value = x ** 2
+    if value % 3 == 0 and value > 5:
+        results.append(value * 2 - 1)
+
+# List Comprehension (schwerer lesbar):
+results = [x**2 * 2 - 1 for x in range(10) if x**2 % 3 == 0 and x**2 > 5]
+```
+
+> [!TIP] 
+> Sobald die List Comprehension nicht mehr auf eine Zeile passt oder mehrere verschachtelte Bedingungen enthält, ist die normale Schreibweise vorzuziehen.
+
+#### 1.4.2    List comprehensions mit `if`-Bedingungen
 
 **Beispiel 1:**
 
 ```python
+# Beispiel 1
 numbers = [i*-1 if i<3 else -1 for i in range(5)]
 print(numbers)  # [0, -1, -2, -1, -1]
-```
 
-**Beispiel 2:**
-
-```python
+# Beispiel 2
 numbers = [i+1 for i in range(5) if i != 3]
 print(numbers)  # [1, 2, 3, 5]
 ```
@@ -125,7 +165,7 @@ print(l1)  # [3, 2]
 print(l2)  # [3, 2]
 ```
 
-Dies liegt daran, dass auf diese Weite l1 und l2 auf die selbe Speicheradresse verweisen:
+Dies liegt daran, dass auf diese Weite `l1` und `l2` auf dieselbe Speicheradresse verweisen:
 
 ```python
 l1 = [1, 2]
@@ -179,9 +219,6 @@ print(id(l1[0][0]))  # 1956557750512
 print(id(l2[0][0]))  # 1956557750640
 ```
 
-Mehr zu Listen unter:
-https://www.programiz.com/python-programming/methods/list
-
 ## 2    Arrays
 
 Arrays sind ähnlich wie Listen, jedoch effizienter bei numerischen Operationen, insbesondere für große Datenmengen. In Python können Arrays mit dem `array`-Modul oder über `NumPy` verwendet werden.
@@ -217,6 +254,8 @@ print(t[0])  # 1
 
 ### 3.1    Tuple unpacking
 
+Beim Tuple Unpacking werden die Elemente eines Tupels in einem einzigen Schritt mehreren Variablen zugewiesen. Mit `_` als Platzhalter ignoriert man einzelne Werte, mit `*` fasst man mehrere verbleibende Elemente in einer Liste zusammen.
+
 ```python
 t = (1, 2, 3)
 
@@ -238,18 +277,18 @@ Dictionaries werden benutzt, um Daten in `key`-`value`-Paaren zu speichern.
 
 ```python
 # Möglichkeit 1:
-baujahr = {'Ford': 2019, 'Honda': 2013}
-print(baujahr)  # {'Ford': 2019, 'Honda': 2013}
+year = {'Ford': 2019, 'Honda': 2013}
+print(year)  # {'Ford': 2019, 'Honda': 2013}
 
 # Möglichkeit 2:
-baujahr = dict(Ford = 2019, Honda = 2013)
-print(baujahr)  # {'Ford': 2019, 'Honda': 2013}
+year = dict(Ford = 2019, Honda = 2013)
+print(year)  # {'Ford': 2019, 'Honda': 2013}
 
 # Möglichkeit 3: Schlüssel werden als Tupel übergeben)
-baujahr = dict.fromkeys( ('Ford', 'Honda') )
-baujahr['Ford'] = 2019
-baujahr['Honda'] = 2013
-print(baujahr)  # {'Ford': 2019, 'Honda': 2013}
+year = dict.fromkeys( ('Ford', 'Honda') )
+year['Ford'] = 2019
+year['Honda'] = 2013
+print(year)  # {'Ford': 2019, 'Honda': 2013}
 ```
 
 **Zugriff auf die Schlüssel und Werte von Dictionaries in Schleifen:**
@@ -275,6 +314,9 @@ for key, value in D.items():
     # Ford: 2019
     # Honda: 2013
 ```
+
+> [!NOTE]
+> Seit Python 3.7 ist die Einfügereihenfolge von Dictionaries garantiert. In älteren Python-Versionen war die Reihenfolge der Schlüssel nicht definiert.
 
 ## 5    Sets bzw. Mengen
 
@@ -318,23 +360,24 @@ https://docs.python.org/3/library/stdtypes.html
 
 ## 6    Das `collections`-Modul
 
-Das `collections`-Modul bietet spezialisierte Container-Datentypen, die über die eingebauten Listen, Tupel, Dictionaries und Sets hinausgehen.
+Die eingebauten Datenstrukturen `list`, `dict`, `tuple` und `set` decken die meisten Anwendungsfälle ab. Das `collections`-Modul ergänzt sie um spezialisierte Container, die für bestimmte Aufgaben effizienter oder ausdrucksstärker sind und häufig wiederkehrenden Boilerplate-Code vermeiden.
 
 ### 6.1    `Counter` – Zählen von Elementen
 
 `Counter` ist ein Dictionary-Subtyp zum Zählen von hashbaren Objekten.
 
 #### 6.1.1    Grundlegende Verwendung
+
 ```python
 from collections import Counter
 
 # Aus Liste erstellen
-words = ['apple', 'banana', 'apple', 'cherry', 'banana', 'apple']
+words = ['Apfel', 'Banane', 'Apfel', 'Tomate', 'Banane', 'Apfel']
 counter = Counter(words)
-print(counter)  # Counter({'apple': 3, 'banana': 2, 'cherry': 1})
+print(counter)  # Counter({'Apfel': 3, 'Banane': 2, 'Tomate': 1})
 
 # Aus String erstellen (zählt Zeichen)
-text = "mississippi"
+text = 'mississippi'
 counter = Counter(text)
 print(counter)  # Counter({'i': 4, 's': 4, 'p': 2, 'm': 1})
 
@@ -344,20 +387,22 @@ print(counter)  # Counter({'a': 3, 'b': 2, 'c': 1})
 ```
 
 #### 6.1.2    Häufigste Elemente
+
 ```python
 from collections import Counter
 
-votes = ['Alice', 'Bob', 'Alice', 'Charlie', 'Bob', 'Alice']
+votes = ['Anna', 'Bernd', 'Anna', 'Christian', 'Bernd', 'Anna']
 counter = Counter(votes)
 
 # Häufigste n Elemente
-print(counter.most_common(2))  # [('Alice', 3), ('Bob', 2)]
+print(counter.most_common(2))  # [('Anna', 3), ('Bernd', 2)]
 
 # Alle Elemente nach Häufigkeit
-print(counter.most_common())   # [('Alice', 3), ('Bob', 2), ('Charlie', 1)]
+print(counter.most_common())   # [('Anna', 3), ('Bernd', 2), ('Christian', 1)]
 ```
 
 #### 6.1.3    Counter-Operationen
+
 ```python
 from collections import Counter
 
@@ -380,6 +425,7 @@ print(c1 & c2)  # Counter({'a': 1, 'b': 1})
 #### 6.1.4    Praktische Beispiele
 
 **Wortfrequenz-Analyse:**
+
 ```python
 from collections import Counter
 
@@ -394,6 +440,7 @@ print(word_count.most_common(3))
 ```
 
 **Duplikate finden:**
+
 ```python
 from collections import Counter
 
@@ -410,16 +457,17 @@ print(duplicates)  # [2, 3]
 `defaultdict` erstellt automatisch Standardwerte für fehlende Schlüssel.
 
 #### 6.2.1    Grundkonzept
+
 ```python
 from collections import defaultdict
 
 # Mit list als Factory
 d = defaultdict(list)
-d['fruits'].append('apple')
-d['fruits'].append('banana')
-d['vegetables'].append('carrot')
+d['obst'].append('Apfel')
+d['obst'].append('Banane')
+d['gemüse'].append('Karotte')
 
-print(d)  # defaultdict(<class 'list'>, {'fruits': ['apple', 'banana'], 'vegetables': ['carrot']})
+print(d)  # defaultdict(<class 'list'>, {'obst': ['Apfel', 'Banane'], 'gemüse': ['Karotte']})
 
 # Mit int als Factory (Standardwert 0)
 counter = defaultdict(int)
@@ -430,6 +478,7 @@ print(counter)  # defaultdict(<class 'int'>, {'a': 3, 'b': 2, 'c': 1})
 ```
 
 #### 6.2.2    Verschiedene Factory-Funktionen
+
 ```python
 from collections import defaultdict
 
@@ -454,11 +503,12 @@ d5 = defaultdict(lambda: 'N/A')
 print(d5['key'])  # 'N/A'
 ```
 
-#### 6.2.3    Vergleich: dict vs. defaultdict
+#### 6.2.3    Vergleich: `dict` vs. `defaultdict`
+
 ```python
 # Normales dict
 d = {}
-# d['key'].append('value')  # KeyError!
+d['key'].append('value')  # KeyError!
 
 # Mit setdefault (umständlich)
 d.setdefault('key', []).append('value')
@@ -472,15 +522,16 @@ d['key'].append('value')  # Funktioniert!
 #### 6.2.4    Praktische Beispiele
 
 **Gruppieren nach Schlüssel:**
+
 ```python
 from collections import defaultdict
 
 students = [
-    ('Alice', 'Math'),
-    ('Bob', 'Physics'),
-    ('Charlie', 'Math'),
-    ('Diana', 'Physics'),
-    ('Eve', 'Math')
+    ('Anna', 'Mathe'),
+    ('Bernd', 'Physik'),
+    ('Christian', 'Mathe'),
+    ('David', 'Physik'),
+    ('Erwin', 'Mathe')
 ]
 
 by_subject = defaultdict(list)
@@ -488,10 +539,11 @@ for name, subject in students:
     by_subject[subject].append(name)
 
 print(dict(by_subject))
-# {'Math': ['Alice', 'Charlie', 'Eve'], 'Physics': ['Bob', 'Diana']}
+# {'Mathe': ['Anna', 'Christian', 'Erwin'], 'Physik': ['Bernd', 'David']}
 ```
 
 **Verschachtelte defaultdict:**
+
 ```python
 from collections import defaultdict
 
@@ -499,19 +551,20 @@ from collections import defaultdict
 tree = lambda: defaultdict(tree)
 users = tree()
 
-users['john']['age'] = 30
-users['john']['city'] = 'New York'
-users['alice']['age'] = 25
+users['Bernd']['age'] = 30
+users['Bernd']['city'] = 'New York'
+users['Anna']['age'] = 25
 
 print(dict(users))
-# {'john': {'age': 30, 'city': 'New York'}, 'alice': {'age': 25}}
+# {'Bernd': {'age': 30, 'city': 'New York'}, 'Anna': {'age': 25}}
 ```
 
 ### 6.3    `deque` – Double-Ended Queue
 
-`deque` (ausgesprochen "deck") ist eine Liste, die für schnelle Zugriffe an beiden Enden optimiert ist.
+Im Gegensatz zur normalen Liste, bei der das Einfügen oder Entfernen am Anfang alle übrigen Elemente verschiebt (O(n)), bietet `deque` für beide Enden konstante Zeit (O(1)). Sie eignet sich daher besonders für Queues, Stacks und Sliding-Window-Algorithmen, bei denen häufig Elemente vorne oder hinten eingefügt bzw. entfernt werden.
 
 #### 6.3.1    Grundoperationen
+
 ```python
 from collections import deque
 
@@ -535,6 +588,7 @@ print(first, d)  # 0 deque([1, 2, 3])
 ```
 
 #### 6.3.2    Rotation und Erweiterung
+
 ```python
 from collections import deque
 
@@ -557,6 +611,7 @@ print(d)  # deque([-1, 0, 1, 2, 3, 4, 5, 6, 7])
 ```
 
 #### 6.3.3    Maximale Länge (Ringbuffer)
+
 ```python
 from collections import deque
 
@@ -566,13 +621,14 @@ d = deque(maxlen=3)
 d.append(1)
 d.append(2)
 d.append(3)
-print(d)  # deque([1, 2, 3], maxlen=3)
+print(d)     # deque([1, 2, 3], maxlen=3)
 
 d.append(4)  # Ältestes Element (1) wird automatisch entfernt
-print(d)  # deque([2, 3, 4], maxlen=3)
+print(d)     # deque([2, 3, 4], maxlen=3)
 ```
 
-#### 6.3.4    Performance-Vergleich: list vs. deque
+#### 6.3.4    Performance-Vergleich: `list` vs. `deque`
+
 ```python
 from collections import deque
 import time
@@ -593,29 +649,32 @@ print(f"Deque appendleft: {time.time() - start:.3f}s")
 ```
 
 **Typisches Ergebnis:**
-- List insert(0): ~3.5s
-- Deque appendleft: ~0.01s
+
+- List insert(0): 3.5 s
+- Deque appendleft: 0.01 s
 
 #### 6.3.5    Praktische Beispiele
 
 **FIFO-Queue (First In, First Out):**
+
 ```python
 from collections import deque
 
 queue = deque()
 
 # Elemente hinzufügen
-queue.append('Task 1')
-queue.append('Task 2')
-queue.append('Task 3')
+queue.append('Aufgabe 1')
+queue.append('Aufgabe 2')
+queue.append('Aufgabe 3')
 
 # Elemente verarbeiten (FIFO)
 while queue:
     task = queue.popleft()
-    print(f"Processing: {task}")
+    print(f"Verarbeite: {task}")
 ```
 
 **Sliding Window:**
+
 ```python
 from collections import deque
 
@@ -635,7 +694,8 @@ result = moving_average(data, window_size=3)
 print(result)  # [10.0, 15.0, 20.0, 30.0, 40.0, 50.0]
 ```
 
-**Browser History (Back/Forward):**
+**Browser History (Back/Forward):
+**
 ```python
 from collections import deque
 
@@ -678,6 +738,7 @@ print(browser.forward())  # python.org
 `ChainMap` gruppiert mehrere Dictionaries zu einem einzigen View.
 
 #### 6.4.1    Grundkonzept
+
 ```python
 from collections import ChainMap
 
@@ -694,9 +755,11 @@ print(chain['c'])  # 4 (aus dict2, nicht dict3!)
 print(chain['d'])  # 6 (aus dict3)
 ```
 
-**Wichtig:** Bei Lookup wird das **erste** Dictionary mit dem Schlüssel verwendet.
+> [!IMPORTANT]
+> Bei Lookup wird das **erste** Dictionary mit dem Schlüssel verwendet.
 
 #### 6.4.2    Modifikationen
+
 ```python
 from collections import ChainMap
 
@@ -710,7 +773,7 @@ print(config['auto_save'])  # True (aus default_config)
 
 # Änderungen gehen ins ERSTE Dictionary
 config['theme'] = 'blue'
-print(user_config)  # {'theme': 'blue', 'font_size': 12}
+print(user_config)     # {'theme': 'blue', 'font_size': 12}
 print(default_config)  # Unverändert
 
 # Neuer Schlüssel wird auch ins ERSTE Dictionary eingefügt
@@ -719,6 +782,7 @@ print(user_config)  # {'theme': 'blue', 'font_size': 12, 'new_key': 'value'}
 ```
 
 #### 6.4.3    Methoden
+
 ```python
 from collections import ChainMap
 
@@ -742,6 +806,7 @@ print(chain.maps)  # [{'a': 1}, {'b': 2}]
 #### 6.4.4    Praktische Beispiele
 
 **Konfiguration mit Fallbacks:**
+
 ```python
 from collections import ChainMap
 import os
@@ -776,6 +841,7 @@ print(config['port'])   # 3000 (aus config_file)
 ```
 
 **Scope-Management (z.B. für Interpreter):**
+
 ```python
 from collections import ChainMap
 
@@ -801,14 +867,14 @@ class Scope:
 
 # Verwendung
 scope = Scope()
-scope.set('x', 10)          # Global: x=10
+scope.set('x', 10)     # Global: x=10
 
-scope.push_scope()          # Neue Funktion
-scope.set('x', 20)          # Lokal: x=20
-print(scope.get('x'))       # 20
+scope.push_scope()     # Neue Funktion
+scope.set('x', 20)     # Lokal: x=20
+print(scope.get('x'))  # 20
 
-scope.pop_scope()           # Funktion verlassen
-print(scope.get('x'))       # 10 (global wieder sichtbar)
+scope.pop_scope()      # Funktion verlassen
+print(scope.get('x'))  # 10 (global wieder sichtbar)
 ```
 
 ### 6.5    `namedtuple` – Tupel mit benannten Feldern
@@ -816,6 +882,7 @@ print(scope.get('x'))       # 10 (global wieder sichtbar)
 `namedtuple` erstellt Tuple-Subklassen mit benannten Feldern.
 
 #### 6.5.1    Grundlegende Verwendung
+
 ```python
 from collections import namedtuple
 
@@ -827,16 +894,17 @@ p1 = Point(10, 20)
 p2 = Point(x=30, y=40)
 
 # Zugriff per Name oder Index
-print(p1.x)     # 10
-print(p1[0])    # 10
-print(p1.y)     # 20
+print(p1.x)   # 10
+print(p1[0])  # 10
+print(p1.y)   # 20
 
 # Tuple unpacking funktioniert
 x, y = p1
-print(x, y)     # 10 20
+print(x, y)   # 10 20
 ```
 
 #### 6.5.2    Verschiedene Erstellungsmethoden
+
 ```python
 from collections import namedtuple
 
@@ -851,6 +919,7 @@ Point = namedtuple('Point', 'x, y')
 ```
 
 #### 6.5.3    Methoden von namedtuple
+
 ```python
 from collections import namedtuple
 
@@ -872,6 +941,7 @@ Point._make([40, 50])  # Point(x=40, y=50)
 ```
 
 #### 6.5.4    Default-Werte
+
 ```python
 from collections import namedtuple
 
@@ -888,23 +958,24 @@ p3 = Point(10, 20)
 print(p3)  # Point(x=10, y=20, z=0)
 ```
 
-#### 6.5.5    Vergleich: namedtuple vs. dict vs. class
+#### 6.5.5    Vergleich: `namedtuple` vs. `dict` vs. `class`
+
 ```python
 from collections import namedtuple
 
 # namedtuple
 Person = namedtuple('Person', 'name age')
-p1 = Person('Alice', 30)
+p1 = Person('Anna', 30)
 
 # Dictionary
-p2 = {'name': 'Alice', 'age': 30}
+p2 = {'name': 'Anna', 'age': 30}
 
 # Klasse
 class PersonClass:
     def __init__(self, name, age):
         self.name = name
         self.age = age
-p3 = PersonClass('Alice', 30)
+p3 = PersonClass('Anna', 30)
 
 # Speicherverbrauch
 import sys
@@ -916,15 +987,16 @@ print(f"class: {sys.getsizeof(p3)} bytes")       # ~48 + __dict__
 #### 6.5.6    Praktische Beispiele
 
 **CSV-Daten verarbeiten:**
+
 ```python
 from collections import namedtuple
 import csv
 
 # CSV-Daten
-csv_data = """name,age,city
-Alice,30,New York
-Bob,25,London
-Charlie,35,Paris"""
+csv_data = """Name,Alter,Stadt
+Anna,30,Flensburg
+Bernd,25,Hamburg
+Christian,35,Kiel"""
 
 # namedtuple aus CSV-Header
 lines = csv_data.strip().split('\n')
@@ -939,10 +1011,11 @@ for line in lines[1:]:
     people.append(person)
 
 for p in people:
-    print(f"{p.name} is {p.age} years old from {p.city}")
+    print(f"{p.name} ist {p.age} Jahre alt und aus {p.city}")
 ```
 
 **Koordinaten-System:**
+
 ```python
 from collections import namedtuple
 import math
@@ -956,10 +1029,11 @@ def distance(p1, p2):
 p1 = Point(0, 0)
 p2 = Point(3, 4)
 
-print(f"Distance: {distance(p1, p2)}")  # 5.0
+print(f"Distanz: {distance(p1, p2)}")  # 5.0
 ```
 
 **RGB-Farben:**
+
 ```python
 from collections import namedtuple
 

@@ -1,7 +1,5 @@
 # Operatoren
 
-Siehe auch [datenstrukturen-collections](a-grundlagen/datenstrukturen-collections.md), Abschnitt "Sets bzw. Mengen".
-
 ## 1    Vergleichsoperatoren
 
 | Ausdruck | Bedeutung                       |
@@ -30,13 +28,14 @@ Siehe auch [datenstrukturen-collections](a-grundlagen/datenstrukturen-collection
 | Ausdruck | Bedeutung                       |
 | -------- | ------------------------------- |
 | `a & b`  | Bitweises AND                   |
-| `a \| b` | Bitweises OR                    |
+| a \|\| b | Bitweises OR                    |
 | `a ^ b`  | Bitweises XOR                   |
 | `~a`     | Bitweises NOT (Eins-Komplement) |
 | `a << b` | Bitweise Linksverschiebung      |
 | `a >> b` | Bitweise Rechtsverschiebung     |
 
 ## 4    Logische Operatoren
+
 | Ausdruck | Bedeutung    |
 | -------- | ----------------------- |
 | `a and b` | Beide sind wahr (AND)   |
@@ -45,21 +44,25 @@ Siehe auch [datenstrukturen-collections](a-grundlagen/datenstrukturen-collection
 
 ## 5    Zusammengesetzte Zuweisungsoperatoren
 
-| Ausdruck  | Bedeutung                                      |
-| --------- | ---------------------------------------------- |
-| `a += b`  | Wert addieren und zuweisen (`a = a + b`)       |
-| `a -= b`  | Wert subtrahieren und zuweisen (`a = a - b`)   |
-| `a /= b`  | Wert teilen und zuweisen (`a = a / b`)         |
-| `a //= b` | Ganzzahldivision und zuweisen (`a = a // b`)   |
-| `a *= b`  | Wert multiplizieren und zuweisen (`a = a * b`) |
-| `a **= b` | Potenzieren und zuweisen (`a = a ** b`)        |
-| `a \|= b` | Bitweises ODER und zuweisen (`a = a \| b`)     |
-| `a &= b`  | Bitweises UND und zuweisen (`a = a & b`)       |
-| `a ^= b`  | Bitweises XOR und zuweisen (`a = a ^ b`)       |
-| `a <<= b` | Linksverschiebung und zuweisen (`a = a << b`)  |
-| `a >>= b` | Rechtsverschiebung und zuweisen (`a = a >> b`) |
+| Ausdruck  | Bedeutung                        | Beispiel     |
+| --------- | -------------------------------- | ------------ |
+| `a += b`  | Wert addieren und zuweisen       | `a = a + b`  |
+| `a -= b`  | Wert subtrahieren und zuweisen   | `a = a - b`  |
+| `a /= b`  | Wert teilen und zuweisen         | `a = a / b`  |
+| `a //= b` | Ganzzahldivision und zuweisen    | `a = a // b` |
+| `a *= b`  | Wert multiplizieren und zuweisen | `a = a * b`  |
+| `a **= b` | Potenzieren und zuweisen         | `a = a ** b` |
+| `a \|= b` | Bitweises ODER und zuweisen      | `a = a \| b` |
+| `a &= b`  | Bitweises UND und zuweisen       | `a = a & b`  |
+| `a ^= b`  | Bitweises XOR und zuweisen       | `a = a ^ b`  |
+| `a <<= b` | Linksverschiebung und zuweisen   | `a = a << b` |
+| `a >>= b` | Rechtsverschiebung und zuweisen  | `a = a >> b` |
 
-## 6    Walrus Operator `:=` (Assignment Expression)
+## 6    Operationen bei Set und Mengen
+
+Siehe [[datenstrukturen-collections#5 Sets bzw. Mengen]].
+
+## 7    Walrus-Operator `:=` (Assignment Expression)
 
 Der Walrus Operator (`:=`) wurde in Python 3.8 eingeführt und ermöglicht Zuweisungen innerhalb von Ausdrücken.
 
@@ -69,34 +72,34 @@ Der Walrus Operator (`:=`) wurde in Python 3.8 eingeführt und ermöglicht Zuwei
 (variable := expression)
 ```
 
-### 6.1    Grundlegendes Beispiel
+### 7.1    Grundlegendes Beispiel
 
 ```python
 # Ohne Walrus Operator
-data = input("Enter text: ")
+data = input('Gib Text ein: ')
 if len(data) > 5:
-    print(f"Text is {len(data)} characters long")
+    print(f'Der Text is {len(data)} Zeichen lang.')
 
 # Mit Walrus Operator (kompakter)
-if (n := len(input("Enter text: "))) > 5:
-    print(f"Text is {n} characters long")
+if (n := len(input('Gib Text ein: '))) > 5:
+    print(f' Der Text ist {n} Zeichen lang.')
 ```
 
-### 6.2    In while-Schleifen
+### 7.2    In `while`-Schleifen
 
 ```python
 # Ohne Walrus Operator
-line = input("Enter command: ")
-while line != "quit":
-    print(f"You entered: {line}")
-    line = input("Enter command: ")
+line = input('Gib Befehl ein: ')
+while line != 'quit':
+    print(f'Du hast eingegeben: {line}')
+    line = input('Gib Befehl ein: ')
 
 # Mit Walrus Operator (DRY - Don't Repeat Yourself)
-while (line := input("Enter command: ")) != "quit":
-    print(f"You entered: {line}")
+while (line := input('Gib Befehl ein: ')) != 'quit':
+    print(f'You entered: {line}')
 ```
 
-### 6.3    In List Comprehensions
+### 7.3    In List Comprehensions
 
 ```python
 # Liste von Quadraten, nur wenn Quadrat > 10
@@ -110,25 +113,25 @@ squares = [square for x in numbers if (square := x**2) > 10]
 # [16, 25, 36]
 ```
 
-### 6.4    Bei regulären Ausdrücken
+### 7.4    Bei regulären Ausdrücken
 
 ```python
 import re
 
 # Ohne Walrus Operator
-text = "Email: user@example.com"
+text = 'Email: user@example.com'
 match = re.search(r'[\w\.-]+@[\w\.-]+', text)
 if match:
-    print(f"Found: {match.group()}")
+    print(f'Gefunden: {match.group()}')
 
 # Mit Walrus Operator
 if (match := re.search(r'[\w\.-]+@[\w\.-]+', text)):
-    print(f"Found: {match.group()}")
+    print(f'Found: {match.group()}')
 ```
 
-### 6.5    Wichtige Hinweise
+### 7.5    Wichtige Hinweise
 
-**Klammern erforderlich:**
+**Es sind Klammern erforderlich:**
 
 ```python
 # ❌ Syntaxfehler
@@ -140,7 +143,7 @@ if (n := 5) > 3:
     pass
 ```
 
-**Nicht in allen Kontexten erlaubt:**
+**Der Walrus-Operator ist nicht in allen Kontexten erlaubt:**
 
 ```python
 # ❌ Nicht als standalone statement
@@ -150,13 +153,13 @@ n := 5  # SyntaxError
 n = 5
 ```
 
-**Wann verwenden:**
+✅ **Wann verwenden:**
 
 - Wenn ein Wert berechnet UND in einer Bedingung verwendet wird
-- Bei while-Schleifen mit komplexen Bedingungen
+- Bei `while`-Schleifen mit komplexen Bedingungen
 - In List Comprehensions zur Vermeidung doppelter Berechnungen
 
-**Wann nicht verwenden:**
+❌ **Wann nicht verwenden:**
 
 - Wenn normale Zuweisung ausreicht
 - Wenn es die Lesbarkeit verschlechtert

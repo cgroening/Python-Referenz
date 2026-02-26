@@ -2,16 +2,16 @@
 
 ## 1    Fehlertypen
 
-| Fehlertyp           | Beschreibung                                                |
-| ------------------- | ----------------------------------------------------------- |
-| **`SyntaxError`**       | Fehler in der Code-Syntax                                   |
-| **`TypeError`**         | Falscher Typ einer Variablen oder eines Arguments           |
-| **`ValueError`**        | Ungültiger Wert für eine Operation                          |
-| **`IndexError`**        | Zugriff auf nicht vorhandenen Index in einer Liste          |
-| **`KeyError`**          | Zugriff auf nicht vorhandenen Schlüssel in einem Dictionary |
-| **`ZeroDivisionError`** | Division durch Null                                         |
-| **`FileNotFoundError`** | Datei nicht gefunden                                        |
-| **`ImportError`**       | Modul kann nicht importiert werden                          |
+| Fehlertyp               | Beschreibung                                                |
+| ----------------------- | ----------------------------------------------------------- |
+| `SyntaxError`       | Fehler in der Code-Syntax                                   |
+| `TypeError`         | Falscher Typ einer Variablen oder eines Arguments           |
+| `ValueError`        | Ungültiger Wert für eine Operation                          |
+| `IndexError`        | Zugriff auf nicht vorhandenen Index in einer Liste          |
+| `KeyError`          | Zugriff auf nicht vorhandenen Schlüssel in einem Dictionary |
+| `ZeroDivisionError` | Division durch Null                                         |
+| `FileNotFoundError` | Datei nicht gefunden                                        |
+| `ImportError`       | Modul kann nicht importiert werden                          |
 
 ## 2    Grundlegende Fehlerbehandlung mit `try` und `except`
 
