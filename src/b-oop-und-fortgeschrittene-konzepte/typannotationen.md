@@ -381,7 +381,7 @@ if isinstance(p, tuple):
 - `type()` gibt die exakte Klasse des Objekts `p` zurück, nämlich `Point`. Daher wird in dem Beispiel der Vergleich falsch ausgewertet.
 - `isinstance()` überprüft, ob `p` eine Instanz von `tuple` **oder einer Unterklasse davon** ist. Da `namedtuple` eine Unterklasse von `tuple` ist, gibt i`sinstance(p, tuple)` **`True`** zurück.
 
-Siehe auch: [[b-oop-und-fortgeschrittene-konzepte/fortgeschrittene-objektorientierung#1 `type()`, `isinstance()`, `issubclass()`|type(), isinstance() und issubclass()]].
+Siehe auch: [[objektorientierung#1 `type()`, `isinstance()`, `issubclass()`|type(), isinstance() und issubclass()]].
 
 ## 11    Static Type Checking Tools
 

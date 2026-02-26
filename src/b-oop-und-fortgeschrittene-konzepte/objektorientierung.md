@@ -1,8 +1,202 @@
-# Fortgeschrittene Objektorientierung
+# Objektorientierung
 
-## 1    `type()`, `isinstance()` und `issubclass()`
+## 1    Grundlagen der Objektorientierung
 
-Diese eingebauten Funktionen helfen beim Umgang mit Typen und Vererbung.
+### 1.1    Erstellung einer einfachen Klasse
+
+Eine Klasse wird mit dem Schlüsselwort `class` definiert. Der Konstruktor heißt `__init__`. Auf die aktuelle Instanz eines Objekts wird mit `self` verwiesen.
+
+```python
+class Person:
+    """Eine Klasse, die eine Person repräsentiert."""
+
+    def __init__(self, name, age):
+        """Konstruktor für die Klasse Person."""
+        self.name = name
+        self.age = age
+
+    def introduce(self):
+        """Gibt eine Vorstellung der Person aus."""
+        print(f'Mein Name ist {self.name}, ich bin {self.age} Jahre alt.')
+
+# Objekt erstellen
+person1 = Person('Anna', 30)
+person1.introduce()
+```
+
+### 1.2    Vererbung
+
+Die Elternklasse steht in Klammern hinter der Kindklasse. Die neue Klasse erbt alle Attribute und Methoden der Elternklasse. Mit `super().__init__(...)` wird der Konstruktor der Elternklasse aufgerufen.
+
+```python
+class Student(Person):
+    """Eine Klasse, die einen Studenten repräsentiert."""
+
+    def __init__(self, name, age, major):
+        """Konstruktor für die Klasse Student."""
+        super().__init__(name, age)  # Aufruf des Konstruktors der Elternklasse
+        self.major = major
+
+    def introduce(self):
+        """Überschreibt die Methode der Elternklasse."""
+        print(f'Mein Name ist {self.name}, ich bin {self.age} Jahre alt und studiere {self.major}.')
+
+# Objekt erstellen
+student1 = Student('Bernd', 22, 'Informatik')
+student1.introduce()
+```
+
+Die Methode `introduce` wird hier überschrieben.
+
+### 1.3    Mehrfachvererbung
+
+Durch Mehrfachvererbung kann eine Klasse von mehreren Elternklassen abgeleitet werden. Da bei Mehrfachvererbung die automatische `super()`-Kette komplex werden kann, werden hier die Konstruktoren der Elternklasse explizit it `ElternKlasse.__init__()` aufgerufen.
+
+```python
+class Worker:
+    """Eine Klasse, die einen Arbeiter repräsentiert."""
+
+    def __init__(self, job):
+        """Konstruktor für die Klasse Worker."""
+        self.job = job
+
+    def work(self):
+        """Gibt den Beruf des Arbeiters aus."""
+        print(f'Ich arbeite als {self.job}.')
+
+class StudentWorker(Student, Worker):
+    """Eine Klasse für einen Studenten, der auch arbeitet."""
+
+    def __init__(self, name, age, major, job):
+        """Konstruktor für die Klasse StudentWorker."""
+        Student.__init__(self, name, age, major)
+        Worker.__init__(self, job)
+
+    def introduce(self):
+        """Erweitert die Vorstellungsmethode."""
+        print(f'Ich bin {self.name}, {self.age} Jahre alt, studiere {self.major} und arbeite als {self.job}.')
+
+# Objekt erstellen
+student_worker = StudentWorker('Christian', 25, 'Maschinenbau', 'Werkstudent')
+student_worker.introduce()
+```
+
+#### 1.3.1    Method Resolution Order
+
+Python verwendet das **C3 Linearization**-Verfahren, um die Reihenfolge von Vererbungen zu bestimmen. Die `mro()`-Methode zeigt die Aufrufreihenfolge.
+
+```python
+class A: pass
+class B(A): pass
+class C(A): pass
+class D(B, C): pass
+
+print(D.mro())  # [D, B, C, A, object]
+```
+
+### 1.4    Abstrakte Klassen
+
+Abstrakte Klasse, d. h. Klassen, die als gemeinsame Grundlage dienen und selbst nicht instanziiert werden, werden mithilfe des Moduls `ABC` realisiert. Mit dem Dekorator `@abstractmethod` werden Methoden markiert, die in jeder Unterklasse zwingend implementiert werden müssen. Wird diese Pflicht verletzt, wirft Python beim Instanziieren einen `TypeError`.
+
+```python
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+    """Eine abstrakte Klasse für Tiere."""
+
+    @abstractmethod
+    def make_sound(self):
+        """Abstrakte Methode, die von Unterklassen implementiert werden muss."""
+        pass
+
+class Dog(Animal):
+    """Eine Klasse, die einen Hund repräsentiert."""
+
+    def make_sound(self):
+        """Implementiert die abstrakte Methode."""
+        print('Wuff Wuff!')
+
+# Objekt erstellen
+dog = Dog()
+dog.make_sound()
+```
+
+### 1.5    Getter und Setter mit `property`
+
+Das Kapselungsprinzip wird mit dem `@property`-Dekorator umgesetzt, der einen Getter und einen Setter für ein Attribut definiert. Konventionell werden geschützte Attribute mit einem führenden Unterstrich versehen (z.B. `_balance`), um anzuzeigen, dass sie nicht direkt von außen verändert werden sollten.
+
+```python
+class BankAccount:
+    """Eine Klasse für ein Bankkonto."""
+
+    def __init__(self, balance):
+        self._balance = balance  # Geschützte Variable
+
+    @property
+    def balance(self) -> int:
+        """Getter für den Kontostand."""
+        return self._balance
+
+    @balance.setter
+    def balance(self, amount):
+        """Setter für den Kontostand mit Validierung."""
+        if amount < 0:
+            print('Fehler: Der Kontostand kann nicht negativ sein.')
+        else:
+            self._balance = amount
+
+# Objekt erstellen
+account = BankAccount(1000)
+print(account.balance)
+account.balance = 500
+print(account.balance)
+account.balance = -100  # Fehler
+```
+
+### 1.6    `__str__` und `__repr__` Methoden
+
+Python ermöglicht es, das Verhalten von Objekten bei der Ausgabe durch sogenannte *dunder methods* (von engl. _double underscore_) zu steuern.
+
+- `__str__` wird aufgerufen, wenn ein Objekt mit `print()` oder `str()` in einen lesbaren Text umgewandelt wird. Es ist die Darstellung für den Endnutzer.
+- `__repr__` liefert eine technisch präzise Darstellung, die idealerweise den Konstruktoraufruf widerspiegelt, mit dem das Objekt reproduziert werden kann. Sie wird u.a. in der interaktiven Python-Shell oder beim Debuggen verwendet.
+
+```python
+class Car:
+    """Eine Klasse für ein Auto."""
+
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    def __str__(self):
+        """Lesbare Darstellung des Objekts."""
+        return f'Auto: {self.brand} {self.model}'
+
+    def __repr__(self):
+        """Detaillierte Darstellung für Entwickler."""
+        return f'Car('{self.brand}', '{self.model}')'
+
+# Objekt erstellen
+car = Car('BMW', 'X5')
+print(car)  # __str__ Methode
+print(repr(car))  # __repr__ Methode
+```
+
+> [!TIP]
+> Als Faustregel gilt: `__str__` für Menschen, `__repr__` für Entwickler.
+
+### 1.7    Zusammenfassung
+
+- `class` definiert eine Klasse.
+- `__init__` ist der Konstruktor.
+- `super()` ruft Methoden der Elternklasse auf.
+- Abstrakte Klassen werden mit `ABC` definiert.
+- `@property` ermöglicht kontrollierten Zugriff auf Attribute.
+- `__str__` und `__repr__` geben eine Darstellung des Objekts zurück.
+
+## 2    `type()`, `isinstance()` und `issubclass()`
+
+Diese eingebauten Funktionen helfen beim Umgang mit Typen und Vererbung:
 
 - `type(obj)` gibt den exakten Typ des Objekts zurück.
 - `isinstance(obj, cls)` prüft, ob `obj` eine Instanz von `cls` oder einer abgeleiteten Klasse ist.
@@ -22,7 +216,7 @@ print(issubclass(Dog, Animal))  # True
 
 Diese Funktionen sind wichtig für dynamisches Verhalten, Validierung und Typprüfung.
 
-## 2    `__init__` vs `__new__`
+## 3    `__init__` vs `__new__`
 
 - `__new__` ist für das **Erzeugen** eines neuen Objekts zuständig.
 - `__init__` wird anschließend aufgerufen, um das Objekt zu **initialisieren**.
@@ -42,9 +236,9 @@ obj = Custom(42)
 
 `__new__` wird z. B. bei unveränderlichen Typen wie `str` oder `tuple` benötigt, wenn diese beeinflusst werden sollen oder in der Metaprogrammierung (Singleton-Pattern).
 
-## 3    Methodenarten
+## 4    Methodenarten
 
-### 3.1    StaticMethods und ClassMethods
+### 4.1    StaticMethods und ClassMethods
 
 - `@staticmethod` definiert eine Methode, die **keinen Zugriff** auf `self` oder `cls` benötigt.
 - `@classmethod` arbeitet mit `cls` und kann so auf die Klasse zugreifen.
@@ -66,7 +260,7 @@ obj = Example.construct()
 
 `classmethod` wird häufig für alternative Konstruktoren verwendet.
 
-### 3.2    Properties (Private Attribute)
+### 4.2    Properties (Private Attribute)
 
 Mit `@property` können Methoden wie Attribute verwendet werden. Das ist nützlich für **gekapselte Attribute**, z. B. mit Validierung oder automatischer Berechnung.
 
@@ -91,7 +285,7 @@ print(p.name)
 
 Durch Properties kann die API einfach bleiben, während intern komplexe Logik stattfinden kann.
 
-## 4    Dunder Methods
+## 5    Dunder Methods
 
 Dunder (Double Underscore) Methoden ermöglichen benutzerdefiniertes Verhalten für Operatoren und eingebaute Funktionen (`__str__`, `__len__`, `__getitem__` usw.).
 
@@ -113,43 +307,7 @@ print(str(p1))  # (1, 2)
 print(p1 == p2)  # True
 ```
 
-Diese Methoden machen Objekte 'pythonisch'.
-
-## 5    Abstraktion und Vererbung
-
-### 5.1    Abstract Methods
-
-Das `abc`-Modul erlaubt die Definition abstrakter Basisklassen. Methoden mit `@abstractmethod` müssen in Subklassen implementiert werden.
-
-```python
-from abc import ABC, abstractmethod
-
-class Shape(ABC):
-    @abstractmethod
-    def area(self):
-        pass
-
-class Circle(Shape):
-    def area(self):
-        return 3.14 * 5 * 5
-```
-
-Abstrakte Methoden zwingen Unterklassen zur Implementierung und helfen beim Design stabiler APIs.
-
-### 5.2    Method Resolution Order
-
-Python verwendet das **C3 Linearization**-Verfahren, um die Reihenfolge von Vererbungen zu bestimmen. Die `mro()`-Methode zeigt die Aufrufreihenfolge.
-
-```python
-class A: pass
-class B(A): pass
-class C(A): pass
-class D(B, C): pass
-
-print(D.mro())  # [D, B, C, A, object]
-```
-
-Wichtig bei Mehrfachvererbung.
+Diese Methoden machen Objekte "pythonisch".
 
 ## 6    Interation und Indizierung
 
@@ -237,7 +395,9 @@ class Slim:
     y: int
 ```
 
-> [!INFO] Was macht `__slots__` bzw. `slots=True`?
+> [!INFO] 
+> 
+> **Was macht `__slots__` bzw. `slots=True`?**
 >
 > Normalerweise speichert Python Objektattribute in einem internen Dictionary namens `__dict__.` Das ist flexibel, jedoch nicht speichereffizient oder performant.
 > Wenn `__slots__` bzw. `slots=True` verwendet wird, wird dieses Dictionary durch ein festeres Layout ersetzt, bei dem nur die im Slot definierten Felder erlaubt sind.
@@ -270,6 +430,7 @@ class PersonSlotted:
 ```
 
 **Speichervergleich:**
+
 ```python
 import sys
 
@@ -293,6 +454,7 @@ print(sys.getsizeof(p2))            # ~56 bytes
 **3. Typsicherheit:**
 - Nur definierte Attribute erlaubt
 - Verhindert Tippfehler
+
 ```python
 class Point:
     __slots__ = ('x', 'y')
@@ -396,6 +558,7 @@ Metaclasses sind ein fortgeschrittenes Feature, mit dem man das Verhalten beim E
 ### 10.1    Grundkonzept
 
 In Python ist alles ein Objekt – auch Klassen. Klassen sind Instanzen von Metaclasses.
+
 ```python
 # Normale Hierarchie
 class Dog:
@@ -529,6 +692,7 @@ class MyClass(metaclass=Meta):
 ### 10.5    Praktische Anwendungsfälle
 
 #### 10.5.1    Attribute validieren
+
 ```python
 class ValidatedMeta(type):
     def __new__(mcs, name, bases, attrs):
@@ -552,6 +716,7 @@ class GoodClass(metaclass=ValidatedMeta):
 ```
 
 #### 10.5.2    Automatische Registrierung
+
 ```python
 class RegistryMeta(type):
     _registry = {}
@@ -583,6 +748,7 @@ print(RegistryMeta.get_registry())
 ```
 
 #### 10.5.3    Singleton-Pattern
+
 ```python
 class SingletonMeta(type):
     _instances = {}
@@ -606,6 +772,7 @@ print(db1 is db2)  # True
 ```
 
 #### 10.5.4    Automatische `__repr__` Methode
+
 ```python
 class AutoReprMeta(type):
     def __new__(mcs, name, bases, attrs):
@@ -633,6 +800,7 @@ print(p)  # Point(x=10, y=20) - automatisch generiert!
 ```
 
 #### 10.5.5    Interface/Abstract Base Class erzwingen
+
 ```python
 class InterfaceMeta(type):
     def __new__(mcs, name, bases, attrs):
@@ -668,6 +836,7 @@ class Circle(Shape):
 ```
 
 ### 10.6    Metaclass-Vererbung
+
 ```python
 class MetaA(type):
     def __new__(mcs, name, bases, attrs):
@@ -690,6 +859,7 @@ class MyClass(metaclass=MetaB):
 ### 10.7    `__call__` in Metaclasses
 
 `__call__` wird aufgerufen, wenn eine Instanz der Klasse erstellt wird.
+
 ```python
 class CounterMeta(type):
     def __init__(cls, name, bases, attrs):
@@ -716,6 +886,7 @@ print(MyClass._instance_count)  # 3
 ### 10.8    `__prepare__` – Dictionary für Klassenattribute vorbereiten
 
 `__prepare__` bestimmt, welches Dictionary für die Klassenattribute verwendet wird (normalerweise ein normales `dict`).
+
 ```python
 from collections import OrderedDict
 
@@ -743,6 +914,7 @@ class MyClass(metaclass=OrderedMeta):
 ### 10.9    Metaclass-Konflikte vermeiden
 
 Bei Mehrfachvererbung können Metaclass-Konflikte auftreten:
+
 ```python
 class MetaA(type):
     pass
@@ -773,6 +945,7 @@ class C(A, B, metaclass=MetaC):
 Metaclasses sind mächtig, aber oft gibt es einfachere Alternativen.
 
 #### 10.10.1    Class Decorators
+
 ```python
 # Mit Metaclass
 class AutoStrMeta(type):
@@ -798,6 +971,7 @@ class MyClass:
 ```
 
 #### 10.10.2    `__init_subclass__` (Python 3.6+)
+
 ```python
 # Mit Metaclass
 class RegistryMeta(type):
@@ -823,6 +997,7 @@ print(Plugin._registry)  # [<class 'AudioPlugin'>]
 ```
 
 ### 10.11    Debugging von Metaclasses
+
 ```python
 class DebugMeta(type):
     def __new__(mcs, name, bases, attrs):
@@ -849,6 +1024,7 @@ class Child(Parent, metaclass=DebugMeta):
 ### 10.12    Best Practices
 
 **✅ Wann Metaclasses verwenden:**
+
 - Framework-/Library-Entwicklung
 - Automatische Registrierung/Plugin-Systeme
 - Enforcing von Code-Standards
@@ -856,19 +1032,22 @@ class Child(Parent, metaclass=DebugMeta):
 - Komplexe ORM-Systeme (wie Django Models)
 
 **❌ Wann NICHT verwenden:**
+
 - Für alltägliche Programmierung
 - Wenn Class Decorators ausreichen
 - Wenn `__init_subclass__` ausreicht
 - Wenn es den Code unleserlich macht
 
 **Alternativen prüfen:**
+
 1. Class Decorators (meistens ausreichend)
 2. `__init_subclass__` (Python 3.6+)
 3. Descriptor Protocol
 4. Erst dann: Metaclasses
 
 **Zitat von Tim Peters:**
-> 'Metaclasses are deeper magic than 99% of users should ever worry about. If you wonder whether you need them, you don't.'
+
+> "Metaclasses are deeper magic than 99% of users should ever worry about. If you wonder whether you need them, you don't."
 
 ### 10.13    Zusammenfassung
 
@@ -881,9 +1060,10 @@ class Child(Parent, metaclass=DebugMeta):
 | `__prepare__`     | Namespace-Dictionary vorbereiten              |
 | `metaclass=`      | Custom Metaclass zuweisen                     |
 
-**Kernprinzip:** Metaclasses kontrollieren die Klassenerstellung selbst. Sie sind ein sehr mächtiges Werkzeug, sollten aber sparsam eingesetzt werden. In den meisten Fällen sind Class Decorators oder `__init_subclass__` die bessere Wahl.
+Metaclasses kontrollieren die Klassenerstellung selbst. Sie sind ein sehr mächtiges Werkzeug, sollten aber sparsam eingesetzt werden. In den meisten Fällen sind Class Decorators oder `__init_subclass__` die bessere Wahl.
 
 **Entscheidungsbaum:**
+
 1. Brauche ich wirklich Metaprogrammierung? → Oft: Nein
 2. Reicht ein Class Decorator? → Meistens: Ja
 3. Reicht `__init_subclass__`? → Oft: Ja
@@ -896,6 +1076,7 @@ Das `itertools`-Modul bietet spezialisierte Iterator-Funktionen für effiziente 
 ### 11.1    Unendliche Iteratoren
 
 #### 11.1.1    `count()` – Unendliches Zählen
+
 ```python
 from itertools import count
 
@@ -915,6 +1096,7 @@ for i, letter in zip(count(1), ['a', 'b', 'c']):
 ```
 
 #### 11.1.2    `cycle()` – Elemente wiederholen
+
 ```python
 from itertools import cycle
 
@@ -929,6 +1111,7 @@ for i, color in enumerate(colors):
 ```
 
 **Praktisches Beispiel – Zeilen abwechselnd einfärben:**
+
 ```python
 from itertools import cycle
 
@@ -940,6 +1123,7 @@ for row, color in zip(rows, colors):
 ```
 
 #### 11.1.3    `repeat()` – Element wiederholen
+
 ```python
 from itertools import repeat
 
@@ -960,6 +1144,7 @@ print(result)  # [8, 27, 64] (2³, 3³, 4³)
 ### 11.2    Kombinatorische Iteratoren
 
 #### 11.2.1    `product()` – Kartesisches Produkt
+
 ```python
 from itertools import product
 
@@ -983,6 +1168,7 @@ for item in product(range(2), repeat=3):
 ```
 
 #### 11.2.2    `permutations()` – Permutationen
+
 ```python
 from itertools import permutations
 
@@ -1005,6 +1191,7 @@ print(count)  # 6
 ```
 
 #### 11.2.3    `combinations()` – Kombinationen (ohne Wiederholung)
+
 ```python
 from itertools import combinations
 
@@ -1022,6 +1209,7 @@ print(count)  # 6
 ```
 
 #### 11.2.4    `combinations_with_replacement()` – Kombinationen mit Wiederholung
+
 ```python
 from itertools import combinations_with_replacement
 
@@ -1034,6 +1222,7 @@ for combo in combinations_with_replacement(items, 2):
 ### 11.3    Terminierende Iteratoren
 
 #### 11.3.1    `chain()` – Iterables verketten
+
 ```python
 from itertools import chain
 
@@ -1055,6 +1244,7 @@ print(flattened)  # [1, 2, 3, 4, 5, 6]
 ```
 
 #### 11.3.2    `compress()` – Filtern mit Boolean-Mask
+
 ```python
 from itertools import compress
 
@@ -1072,6 +1262,7 @@ print(evens)  # [2, 4, 6, 8, 10]
 ```
 
 #### 11.3.3    `dropwhile()` und `takewhile()` – Bedingte Iteration
+
 ```python
 from itertools import dropwhile, takewhile
 
@@ -1087,6 +1278,7 @@ print(result)  # [1, 4] (bis erstes x >= 5)
 ```
 
 #### 11.3.4    `filterfalse()` – Umgekehrtes filter()
+
 ```python
 from itertools import filterfalse
 
@@ -1102,6 +1294,7 @@ print(odds)   # [1, 3, 5, 7, 9]
 ```
 
 #### 11.3.5    `groupby()` – Gruppieren nach Schlüssel
+
 ```python
 from itertools import groupby
 
@@ -1133,6 +1326,7 @@ for key, group in groupby(data_sorted, key=lambda x: x[1]):
 ```
 
 **Praktisches Beispiel – Nach Länge gruppieren:**
+
 ```python
 from itertools import groupby
 
@@ -1147,6 +1341,7 @@ for length, group in groupby(words_sorted, key=len):
 ```
 
 #### 11.3.6    `islice()` – Slice für Iteratoren
+
 ```python
 from itertools import islice, count
 
@@ -1171,6 +1366,7 @@ print(result)  # [10, 11, 12, 13, 14]
 ```
 
 #### 11.3.7    `starmap()` – map mit Argument-Unpacking
+
 ```python
 from itertools import starmap
 
@@ -1190,6 +1386,7 @@ print(result)  # [3, 7, 11]
 ```
 
 #### 11.3.8    `tee()` – Iterator duplizieren
+
 ```python
 from itertools import tee
 
@@ -1204,6 +1401,7 @@ print(list(it2))  # [0, 1, 2, 3, 4]
 ```
 
 #### 11.3.9    `zip_longest()` – Zip mit Auffüllung
+
 ```python
 from itertools import zip_longest
 
@@ -1224,6 +1422,7 @@ print(list(zip_longest(a, b, fillvalue='?')))
 ### 11.4    Akkumulatoren
 
 #### 11.4.1    `accumulate()` – Kumulative Werte
+
 ```python
 from itertools import accumulate
 import operator
@@ -1250,6 +1449,7 @@ print(result)  # [5, 5, 8, 8, 9, 9]
 ### 11.5    Praktische Kombinationen
 
 #### 11.5.1    Paarweise Iteration
+
 ```python
 from itertools import tee
 
@@ -1272,6 +1472,7 @@ for pair in pairwise(data):
 ```
 
 #### 11.5.2    Fenster-Iteration (Sliding Window)
+
 ```python
 from itertools import islice
 
@@ -1291,6 +1492,7 @@ for window in sliding_window(data, 3):
 ```
 
 #### 11.5.3    Batching (Chunks)
+
 ```python
 from itertools import islice
 
@@ -1314,6 +1516,7 @@ for batch in batched(data, 3):
 ```
 
 #### 11.5.4    Flatten (Verschachtelung auflösen)
+
 ```python
 from itertools import chain
 
@@ -1339,6 +1542,7 @@ print(result)  # [1, 2, 3, 4, 5]
 ```
 
 ### 11.6    Performance-Vorteile
+
 ```python
 import time
 from itertools import islice, count
@@ -1366,12 +1570,14 @@ print(f'Iterator: {sys.getsizeof(numbers_iter)} bytes') # ~48 bytes
 ### 11.7    Best Practices
 
 **✅ DO:**
+
 - Nutze Iteratoren für große Datenmengen (speichereffizient)
 - Kombiniere itertools-Funktionen für komplexe Operationen
 - Sortiere Daten vor `groupby()`
 - Verwende `chain.from_iterable()` statt verschachtelter Loops
 
 **❌ DON'T:**
+
 - Konvertiere Iteratoren nicht unnötig zu Listen
 - Vergiss nicht, dass Iteratoren nur einmal durchlaufen werden können
 - Verwende `groupby()` nicht ohne vorheriges Sortieren
@@ -1393,7 +1599,7 @@ print(f'Iterator: {sys.getsizeof(numbers_iter)} bytes') # ~48 bytes
 | `islice()`            | Slice für Iteratoren                     | Teilbereich         |
 | `accumulate()`        | Kumulative Werte                         | 1, 3, 6, 10, ...    |
 
-**Kernprinzip:** `itertools` bietet speichereffiziente, kombinierbare Iterator-Funktionen für funktionale Programmierung und große Datenmengen. Iteratoren sind lazy (verzögerte Auswertung) und können nur einmal durchlaufen werden.
+`itertools` bietet speichereffiziente, kombinierbare Iterator-Funktionen für funktionale Programmierung und große Datenmengen. Iteratoren sind lazy (verzögerte Auswertung) und können nur einmal durchlaufen werden.
 
 ## 12    Zusammenfassung
 

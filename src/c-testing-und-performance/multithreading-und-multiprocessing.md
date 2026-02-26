@@ -2,66 +2,70 @@
 
 ## 1    Begriffsdefinitionen
 
-> [!INFO] I/O-bound Performance
-> - Eine Aufgabe ist I/O-bound, wenn sie viel Zeit mit Input/Output verbringt, z. B.:
-> 	- Auf Netzwerkdaten warten
-> 	- Dateien lesen/schreiben
-> 	- Datenbankabfragen
-> - Die CPU ist dabei oft untätig → Warten auf externe Ressourcen.
->
-> Bei I/O-bound Tasks helfen Threads oder Asyncio besonders gut, weil sie während der Wartezeit andere Aufgaben erledigen können.
+### I/O-bound Performance
 
-> [!INFO] CPU-bound Performance
-> - Eine Aufgabe ist CPU-bound, wenn sie hauptsächlich die Prozessorleistung beansprucht (z. B. große Berechnungen, Datenkompression).
-> - Je schneller der Prozessor, desto schneller die Aufgabe.
-> - Beispiel: Primzahlen berechnen, Matrixmultiplikation.
->
-> Bei CPU-bound Tasks ist der GIL ein Problem in Threads – daher ist Multiprocessing hier besser.
+- Eine Aufgabe ist I/O-bound, wenn sie viel Zeit mit Input/Output verbringt, z. B.:
+	- Auf Netzwerkdaten warten
+	- Dateien lesen/schreiben
+	- Datenbankabfragen
+- Die CPU ist dabei oft untätig → Warten auf externe Ressourcen.
 
-> [!INFO] Global Interpreter Lock (GIL)
-> - GIL = Python-Sperre, die nur einen Thread zur Zeit Bytecode ausführen lässt (bei CPython).
-> - Begrenzt die Effizienz von Multithreading bei CPU-bound Tasks (z. B. große Berechnungen).
-> - Umgehbar durch Multiprocessing oder C-Extensions.
+Bei I/O-bound Tasks helfen Threads oder Asyncio besonders gut, weil sie während der Wartezeit andere Aufgaben erledigen können.
 
-> [!INFO] IPC (Inter-Process Communication)
-> - Prozesse haben getrennte Speicherbereiche → sie teilen keine Variablen.
-> - Daher braucht man IPC, um Daten auszutauschen:
-> 	- z. B. Queue, Pipe, Shared Memory, Sockets.
->
-> **Beispiel mit `multiprocessing.Queue`:**
->
-> ```python
-> from multiprocessing import Process, Queue
->
-> def worker(q):
->     q.put('Hallo aus dem Prozess')
->
-> q = Queue()
-> p = Process(target=worker, args=(q,))
-> p.start()
-> print(q.get())  # Ausgabe: Hallo aus dem Prozess
-> p.join()
-> ```
+### CPU-bound Performance
 
-> [!INFO] Event Loop
-> - Das Herzstück von Asyncio.
-> - Der Event Loop verwaltet alle Tasks, die gerade laufen oder darauf warten, weiterzumachen.
-> - Bei `await` wird eine Task "geparkt", und der Loop schaut, ob eine andere weiterlaufen kann.
->
-> **Beispiel mit einem Loop:**
->
-> ```python
-> import asyncio
->
-> async def task():
->     print('Task läuft')
->     await asyncio.sleep(1)
->     print('Task beendet')
->
-> loop = asyncio.get_event_loop()
-> loop.run_until_complete(task())
-> ```
+- Eine Aufgabe ist CPU-bound, wenn sie hauptsächlich die Prozessorleistung beansprucht (z. B. große Berechnungen, Datenkompression).
+- Je schneller der Prozessor, desto schneller die Aufgabe.
+- Beispiel: Primzahlen berechnen, Matrixmultiplikation.
 
+Bei CPU-bound Tasks ist der GIL ein Problem in Threads – daher ist Multiprocessing hier besser.
+
+### Global Interpreter Lock (GIL)
+
+- GIL = Python-Sperre, die nur einen Thread zur Zeit Bytecode ausführen lässt (bei CPython).
+- Begrenzt die Effizienz von Multithreading bei CPU-bound Tasks (z. B. große Berechnungen).
+- Umgehbar durch Multiprocessing oder C-Extensions.
+
+### IPC (Inter-Process Communication)
+
+- Prozesse haben getrennte Speicherbereiche → sie teilen keine Variablen.
+- Daher braucht man IPC, um Daten auszutauschen:
+	- z. B. Queue, Pipe, Shared Memory, Sockets.
+
+**Beispiel mit `multiprocessing.Queue`:**
+
+```python
+from multiprocessing import Process, Queue
+
+def worker(q):
+    q.put('Hallo aus dem Prozess')
+
+q = Queue()
+p = Process(target=worker, args=(q,))
+p.start()
+print(q.get())  # Ausgabe: Hallo aus dem Prozess
+p.join()
+```
+
+### Event Loop
+
+- Das Herzstück von Asyncio.
+- Der Event Loop verwaltet alle Tasks, die gerade laufen oder darauf warten, weiterzumachen.
+- Bei `await` wird eine Task "geparkt", und der Loop schaut, ob eine andere weiterlaufen kann.
+
+**Beispiel mit einem Loop:**
+
+```python
+import asyncio
+
+async def task():
+    print('Task läuft')
+    await asyncio.sleep(1)
+    print('Task beendet')
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(task())
+```
 
 ## 2    Multithreading (concurrently, gleichzeitig)
 

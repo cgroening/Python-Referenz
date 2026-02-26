@@ -47,19 +47,19 @@ if a < b: print('a ist kleiner als b')
 
 ### 1.3    Ternary operators (conditional expressions)
 
-TODO: Kurze Erklärung
+Ein Ternary Operator (_conditional expression_) fasst eine einfache `if`-`else`-Abfrage in einer einzigen Zeile zusammen. Die Syntax lautet: `wert_wenn_wahr if bedingung else wert_wenn_falsch`. Das Ergebnis wird direkt einer Variable zugewiesen oder weiterverwendet. Sinnvoll ist diese Schreibweise, wenn der Ausdruck kurz und gut lesbar bleibt.
 
 ```python
 a = 1
 b = 2
 
-kommentar = 'a ist größer als b' if a > b else 'a ist kleiner als b'
-print(kommentar)  # a ist kleiner als b
+comment = 'a ist größer als b' if a > b else 'a ist kleiner als b'
+print(comment)  # a ist kleiner als b
 ```
 
 ### 1.4    ShortHand Ternary
 
-TODO: Kurze Erklärung
+Python wertet logische Ausdrücke mit `or` **lazy** aus: Der rechte Operand wird nur dann betrachtet, wenn der linke _falsy_ ist (also `False`, `None`, `0`, `''`, `[]` usw.). Das lässt sich als kompakte Alternative zu einem Ternary Operator nutzen, um Fallback-Werte zu setzen.
 
 **Beispiel 1:**
 
@@ -325,8 +325,6 @@ match command:
 
 - Verwende nicht `match` für einfache `if`-elif-Ketten
 - Vermeide zu komplexe, verschachtelte Patterns
-- Default-Case (`case _:`) nicht vergessen
-
 ### 3.11    Pattern Matching vs. `if`-`elif`
 
 **Wann `match` verwenden:**

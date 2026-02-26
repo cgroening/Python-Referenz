@@ -7,11 +7,13 @@ Unit Tests prüfen einzelne Komponenten (Funktionen, Klassen) isoliert. Pytest i
 ### 1.1    Grundlagen
 
 #### 1.1.1    Installation und Setup
+
 ```bash
 pip install pytest pytest-cov
 ```
 
-**Projekt-Struktur:**
+**Projekt-Struktur:
+**
 ```
 myproject/
 ├── src/
@@ -26,6 +28,7 @@ myproject/
 ```
 
 #### 1.1.2    Einfacher Test
+
 ```python
 # src/calculator.py
 def add(a, b):
@@ -36,6 +39,7 @@ def divide(a, b):
         raise ValueError('Cannot divide by zero')
     return a / b
 ```
+
 ```python
 # tests/test_calculator.py
 from src.calculator import add, divide
@@ -56,6 +60,7 @@ def test_divide_by_zero():
 ```
 
 **Tests ausführen:**
+
 ```bash
 # Alle Tests
 pytest
@@ -76,6 +81,7 @@ pytest --cov=src tests/
 ### 1.2    Assertions
 
 #### 1.2.1    Basis-Assertions
+
 ```python
 def test_assertions():
     # Gleichheit
@@ -101,6 +107,7 @@ def test_assertions():
 ```
 
 #### 1.2.2    Erweiterte Assertions
+
 ```python
 def test_advanced_assertions():
     # Approximation (Float-Vergleich)
@@ -119,6 +126,7 @@ def test_advanced_assertions():
 ```
 
 #### 1.2.3    Exception-Testing
+
 ```python
 def test_exceptions():
     # Einfach
