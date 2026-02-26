@@ -4,75 +4,77 @@
 
 `*args` und `**kwargs` sind optionale Paramenter. `args` (positional arguments) ist eine Liste oder ein Tupel. `kwargs` (keyword arguments) ist ein Dictionary.
 
-> [!Benennung der positional und keyword rguments)]
+> [!note]
+> **Benennung der positional und keyword rguments:**
+> 
 > Die Namen sind nicht vorgeschrieben, wichtig sind nur die Sternchen vor den Variablennamen. Die Benennung `*args` und `**kwargs` ist jedoch üblich.
 
 **Beispiel zu positional arguments:**
 
 ```python
-def summiere(*zahlen):
-    return sum(zahlen)
+def sum_up(*numbers):
+    return sum(numbers)
 
-ergebnis = summiere(1, 2, 3, 4, 5)  # 15
+result = sum_up(1, 2, 3, 4, 5)  # 15
 ```
 
 **Beispiel zu keyword arguments:**
 
 ```python
 def details(**info):
-    for schluessel, wert in info.items():
-        print(f'{schluessel}: {wert}')
+    for key, value in info.items():
+        print(f'{key}: {value}')
         
-details(name='Max', alter=25, beruf='Entwickler')
+details(name='Max', age=25, job='Entwickler')
 ```
 
 Ausgabe:
 
 ```
 name: Max
-alter: 25
-beruf: Entwickler
+age: 25
+job: Entwickler
 ```
 
 ## 2    Lambda-Funktion (anonyme Funktion)
 
 ```python
-quadrieren = lambda x: x ** 2
-ergebnis = quadrieren(4)  # 16
+square = lambda x: x ** 2
+result = square(4)  # 16
 ```
 
 ## 3    Funktion mit mehreren Rückgabewerten
 
 ```python
-def rechne(a, b):
+def calculate(a, b):
     return a + b, a * b
 
-summe, produkt = rechne(3, 4)
-print(summe, produkt)  # 7 12
+total, product = calculate(3, 4)
+print(total, product)  # 7 12
 ```
 
 ## 4    Rekursive Funktion
 
 ```python
-def fakultaet(n):
+def factorial(n):
     if n == 0:
         return 1
-    return n * fakultaet(n - 1)
+    return n * factorial(n - 1)
 
-ergebnis = fakultaet(5)  # 120
+result = factorial(5)  # 120
 ```
 
 ## 5    Scope (Gültigkeitsbereich) von Variablen
 
 ```python
-x = 10  # Globale Variable
+x = 10     # Globale Variable
 
-def meine_funktion():
+def my_function():
     x = 5  # Lokale Variable
     print(x)
 
-meine_funktion()  # 5
-print(x)         # 10
+my_function()  # 5
+print(x)       # 10
 ```
 
 ## 6    Benannte Parameter (keyword parameter)
@@ -101,7 +103,9 @@ res2 = my_function(a=2)  # Fehler: Darf nicht als Keyword-Argument übergeben we
 
 Der Schrägstrich (`/`) bedeutet, dass alle Parameter davor NUR als Positionsargumente übergeben werden dürfen.
 
-> [!Warum positional-only?]
+> [!note]
+> **Warum positional-only?**
+> 
 > - Wird oft bei eingebauten Funktionen wie `len()` genutzt (`len(obj)` statt `len(obj=obj))`
 > - Macht API-Design klarer
 > - Verhindert, dass Parameter versehentlich als Schlüsselwort verwendet werden
@@ -118,9 +122,11 @@ res2 = my_function(a=2)  # OK: Muss als benanntes Argument übergeben werden
 
 Das Sternchen (`*`) bedeutet, dass alle Parameter danach NUR als Keyword-Argument übergeben werden dürfen.
 
-> [!Warum keyword-only?]
-> Erhöht die Lesbarkeit von Funktionen
-> Verhindert Verwechslungen bei der Reihenfolge der Argumente
+> [!note]
+> **Warum keyword-only?**
+> 
+> - Erhöht die Lesbarkeit von Funktionen
+> - Verhindert Verwechslungen bei der Reihenfolge der Argumente
 
 ### 6.4    Kombination aus `/` und `*`
 
@@ -147,7 +153,10 @@ Erklärung:
 | `def f(a, /)`          | `a` ist positional-only (kein `a=` erlaubt)                                                       |
 | `def f(*, a)`          | `a` ist keyword-only (kein `f(2)`, nur `f(a=2)`)                                                  |
 | `def f(a, /, b, *, c)` | `a` $\rightarrow$ nur positional, `b` $\rightarrow$ beides erlaubt, `c` $\rightarrow$ nur keyword |
-> [!Best Practice:]
+
+> [!tip]
+> **Best Practice:**
+> 
 > - `/` für klare API-Schnittstellen
 > - `*` für mehr Lesbarkeit und weniger Fehler
 

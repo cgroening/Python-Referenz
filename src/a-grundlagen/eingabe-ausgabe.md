@@ -14,17 +14,22 @@ print(y)
 print(x, y, sep=', ', end=' ')  # Kein Zeilenumbruch am Ende
 print('(Meine Werte)')
 
-print(x, end=', ')  # Komma statt Zeilenumbruch am Ende
+print(x, end=', ')              # Komma statt Zeilenumbruch am Ende
 print(y)
-
-# Ausgabe:
-# 1
-# 2
-# 1, 2 (Meine Werte)
-# 1, 2
 ```
 
-> [!info] Besonderheit bei der Verwendung von `print()` mit `end=''`
+Ausgabe:
+
+```
+1
+2
+1, 2 (Meine Werte)
+1, 2
+```
+
+> [!inote] 
+> **Besonderheit bei der Verwendung von `print()` mit `end=''`:**
+> 
 > Normalerweise geht die Ausgabe von `print()` in den Puffer. Wenn der `end`-Parameter verändert wird, wird der Puffer nicht mehr gespült, d. h. aus Effizienzgründen kann es sein, dass die Ausgabe nicht sofort erfolgt, wenn `print()` aufgerufen wird (z. B. in Schleifen). Abhilfe schafft die Verwendung des Parameters `flush`:
 > 
 > ```python
@@ -70,7 +75,7 @@ logging.error('Fehler...')
 
 ## 3    Tabellen
 
-### 3.1    Mit 'Bordmitteln' (ohne zus. Pakete)
+### 3.1    Mit "Bordmitteln" (ohne zusätzliche Pakete)
 
 **Beispiel 1:**
 
@@ -202,6 +207,10 @@ Monika         Moni         29   kein
 Petersen                         Kommentar
 ```
 
+### 3.4    Rich
+
+TODO: Beispiel mit rich
+
 ## 4    Eingabe mit `input()`
 
 Eine Benutzereingabe aus der Konsole kann wie folgt eingelesen werden:
@@ -317,14 +326,14 @@ Es gibt es zwei gängige Möglichkeiten, mit Dateipfaden und dem Dateisystem zu 
 import os
 
 # Pfad zusammensetzen
-pfad = os.path.join('verzeichnis', 'datei.txt')
+path = os.path.join('verzeichnis', 'datei.txt')
 
 # Prüfen, ob Pfad existiert
-if os.path.exists(pfad):
+if os.path.exists(path):
     print('Pfad existiert.')
 
 # Absoluten Pfad bekommen
-absolut = os.path.abspath(pfad)
+absolute = os.path.abspath(path)
 ```
 
 ### 8.3    Beispiele mit `pathlib.Path`
@@ -333,14 +342,14 @@ absolut = os.path.abspath(pfad)
 from pathlib import Path
 
 # Pfad zusammensetzen
-pfad = Path('verzeichnis') / 'datei.txt'
+path = Path('verzeichnis') / 'datei.txt'
 
 # Existenz prüfen
-if pfad.exists():
+if path.exists():
     print('Pfad existiert.')
 
 # Absoluten Pfad bekommen
-absolut = pfad.resolve()
+absolute = path.resolve()
 ```
 
 ### 8.4    Vorteile von `pathlib.Path`
@@ -359,8 +368,9 @@ absolut = pfad.resolve()
 
 ```python
 import shutil
-pfad = Path('backup') / 'datei.txt'
-shutil.copy(pfad, Path('ziel') / 'kopie.txt')
+
+path = Path('backup') / 'datei.txt'
+shutil.copy(path, Path('ziel') / 'kopie.txt')
 ```
 
 ### 8.6    Zusammenfassung
@@ -378,25 +388,26 @@ Serialisierung ist der Prozess, Python-Objekte in ein speicherbares Format zu ko
 JSON ist ein textbasiertes, sprachunabhängiges Datenformat. Es ist lesbar, weit verbreitet und ideal für APIs und Konfigurationsdateien.
 
 #### 9.1.1    Grundlegende Verwendung
+
 ```python
 import json
 
 # Python-Objekt
 data = {
-    'name': 'Alice',
+    'name': 'Anna',
     'age': 30,
-    'hobbies': ['reading', 'coding'],
+    'hobbies': ['Lesen', 'Programmieren'],
     'active': True
 }
 
 # In JSON-String konvertieren
 json_string = json.dumps(data)
 print(json_string)
-# {'name': 'Alice', 'age': 30, 'hobbies': ['reading', 'coding'], 'active': true}
+# {'name': 'Anna', 'age': 30, 'hobbies': ['Lesen', 'Programmieren'], 'active': true}
 
 # Zurück zu Python-Objekt
 parsed = json.loads(json_string)
-print(parsed['name'])  # Alice
+print(parsed['name'])  # Anna
 ```
 
 #### 9.1.2    JSON-Dateien lesen/schreiben
@@ -404,7 +415,7 @@ print(parsed['name'])  # Alice
 import json
 
 # In Datei schreiben
-data = {'users': ['Alice', 'Bob'], 'count': 2}
+data = {'users': ['Anna', 'Bernd'], 'count': 2}
 
 with open('data.json', 'w') as f:
     json.dump(data, f, indent=2)
@@ -417,15 +428,15 @@ with open('data.json', 'r') as f:
 
 **Formatierung mit `indent` und `sort_keys`:**
 ```python
-data = {'name': 'Bob', 'age': 25, 'city': 'Berlin'}
+data = {'name': 'Anna', 'age': 25, 'city': 'Hamburg'}
 
 # Schön formatiert
 json_str = json.dumps(data, indent=4, sort_keys=True)
 print(json_str)
 # {
 #     'age': 25,
-#     'city': 'Berlin',
-#     'name': 'Bob'
+#     'city': 'Hamburg',
+#     'name': 'Anna'
 # }
 ```
 
@@ -441,9 +452,10 @@ print(json_str)
 | `False`        | `false`   |
 | `None`         | `null`    |
 
-**NICHT direkt unterstützt:** `set`, `datetime`, `Decimal`, custom Objekte
+**NICHT direkt unterstützt:** `set`, `datetime`, `Decimal`, custom-Objekte
 
 #### 9.1.4    Custom Objekte serialisieren
+
 ```python
 import json
 from datetime import datetime
@@ -467,13 +479,14 @@ class PersonEncoder(json.JSONEncoder):
             return obj.isoformat()
         return super().default(obj)
 
-person = Person('Alice', 30, datetime(1994, 5, 15))
+person = Person('Anna', 30, datetime(1994, 5, 15))
 json_str = json.dumps(person, cls=PersonEncoder)
 print(json_str)
-# {'name': 'Alice', 'age': 30, 'birthday': '1994-05-15T00:00:00'}
+# {'name': 'Anna', 'age': 30, 'birthday': '1994-05-15T00:00:00'}
 ```
 
 **Custom Decoder:**
+
 ```python
 def person_decoder(dct):
     """Konvertiert Dictionary zurück zu Person"""
@@ -490,12 +503,13 @@ print(type(loaded))  # <class '__main__.Person'>
 ```
 
 #### 9.1.5    Sets und Tuples behandeln
+
 ```python
 import json
 
 data = {
     'tags': {'python', 'coding', 'tutorial'},  # Set
-    'coordinates': (10, 20)                     # Tuple
+    'coordinates': (10, 20)                    # Tuple
 }
 
 # Set → List, Tuple → List
@@ -511,15 +525,16 @@ loaded['coordinates'] = tuple(loaded['coordinates'])
 ```
 
 #### 9.1.6    Pretty-Print für Debugging
+
 ```python
 import json
 
-data = {'users': [{'name': 'Alice', 'age': 30}, {'name': 'Bob', 'age': 25}]}
+data = {'users': [{'name': 'Anna', 'age': 30}, {'name': 'Bernd', 'age': 25}]}
 
 # Kompakt (für Speicherung/Übertragung)
 compact = json.dumps(data, separators=(',', ':'))
 print(compact)
-# {'users':[{'name':'Alice','age':30},{'name':'Bob','age':25}]}
+# {'users':[{'name':'Anna','age':30},{'name':'Bernd','age':25}]}
 
 # Lesbar (für Debugging)
 readable = json.dumps(data, indent=2)
@@ -531,6 +546,7 @@ print(readable)
 YAML ist ein menschenlesbares Datenformat, ideal für Konfigurationsdateien. Erfordert Installation: `pip install pyyaml`
 
 #### 9.2.1    Grundlegende Verwendung
+
 ```python
 import yaml
 
@@ -567,6 +583,7 @@ print(parsed['database']['host'])  # localhost
 ```
 
 #### 9.2.2    YAML-Dateien lesen/schreiben
+
 ```python
 import yaml
 
@@ -588,15 +605,18 @@ with open('config.yaml', 'r') as f:
 #### 9.2.3    YAML vs. JSON
 
 **Vorteile von YAML:**
+
 - Menschenlesbarer (keine Klammern, weniger Syntax)
 - Kommentare möglich
 - Komplexe Datenstrukturen (Anker, Aliase)
 - Multiline Strings
 
 **Nachteile von YAML:**
+
 - Langsamer als JSON
 - Komplexere Syntax (Einrückung wichtig!)
 - Sicherheitsrisiko mit `yaml.load()` (immer `safe_load()` verwenden!)
+
 ```yaml
 # config.yaml - Beispiel
 
@@ -626,11 +646,12 @@ development:
 ```
 
 #### 9.2.4    Sicherheit: `safe_load()` vs. `load()`
+
 ```python
 import yaml
 
 # ❌ GEFÄHRLICH - kann beliebigen Python-Code ausführen!
-# data = yaml.load(file, Loader=yaml.Loader)
+data = yaml.load(file, Loader=yaml.Loader)
 
 # ✅ SICHER - nur einfache Python-Objekte
 with open('config.yaml', 'r') as f:
@@ -638,6 +659,7 @@ with open('config.yaml', 'r') as f:
 ```
 
 #### 9.2.5    Custom Objekte in YAML
+
 ```python
 import yaml
 
@@ -663,10 +685,10 @@ def person_constructor(loader, node):
 yaml.add_constructor('!person', person_constructor)
 
 # Verwendung
-person = Person('Alice', 30)
+person = Person('Anna', 30)
 yaml_str = yaml.dump(person)
 print(yaml_str)
-# !person {age: 30, name: Alice}
+# !person {age: 30, name: Anna}
 
 loaded = yaml.load(yaml_str, Loader=yaml.Loader)
 print(type(loaded))  # <class '__main__.Person'>
@@ -677,6 +699,7 @@ print(type(loaded))  # <class '__main__.Person'>
 Pickle serialisiert Python-Objekte in Binärformat. Nur für Python-zu-Python Kommunikation geeignet.
 
 #### 9.3.1    Grundlegende Verwendung
+
 ```python
 import pickle
 
@@ -697,11 +720,12 @@ print(unpickled)  # {'numbers': [1, 2, 3], ...}
 ```
 
 #### 9.3.2    Pickle-Dateien
+
 ```python
 import pickle
 
 # Schreiben (Binärmodus!)
-data = {'users': ['Alice', 'Bob'], 'count': 2}
+data = {'users': ['Anna', 'Bernd'], 'count': 2}
 
 with open('data.pkl', 'wb') as f:
     pickle.dump(data, f)
@@ -715,6 +739,7 @@ with open('data.pkl', 'rb') as f:
 #### 9.3.3    Komplexe Objekte pickleln
 
 Pickle kann fast alles serialisieren:
+
 ```python
 import pickle
 from datetime import datetime
@@ -725,21 +750,22 @@ class User:
         self.created = created
     
     def greet(self):
-        return f'Hello, I'm {self.name}'
+        return f'Hallo, ich bin {self.name}.'
 
-user = User('Alice', datetime.now())
+user = User('Anna', datetime.now())
 
 # Pickle kann custom Objekte direkt serialisieren
 pickled = pickle.dumps(user)
 loaded = pickle.loads(pickled)
 
-print(loaded.greet())  # Hello, I'm Alice
+print(loaded.greet())        # Hallo, ich bin Anna.
 print(type(loaded.created))  # <class 'datetime.datetime'>
 ```
 
 #### 9.3.4    Pickle-Protokolle
 
 Pickle hat verschiedene Protokoll-Versionen:
+
 ```python
 import pickle
 
@@ -761,12 +787,13 @@ print(f'Protocol 4: {len(p4)} bytes')
 #### 9.3.5    Pickle-Sicherheitsrisiken
 
 **⚠️ WARNUNG:** Pickle ist UNSICHER für nicht-vertrauenswürdige Daten!
+
 ```python
 import pickle
 
 # ❌ GEFÄHRLICH - Kann beliebigen Code ausführen!
-# untrusted_data = receive_from_network()
-# obj = pickle.loads(untrusted_data)  # NICHT tun!
+untrusted_data = receive_from_network()
+obj = pickle.loads(untrusted_data)  # NICHT tun!
 
 # ✅ Nur Daten aus vertrauenswürdigen Quellen laden
 with open('my_data.pkl', 'rb') as f:
@@ -780,6 +807,7 @@ with open('my_data.pkl', 'rb') as f:
 - File Handles
 - Netzwerk-Connections
 - Thread/Lock Objekte
+
 ```python
 import pickle
 
@@ -796,6 +824,7 @@ pickled = dill.dumps(lambda x: x * 2)
 ```
 
 #### 9.3.7    Custom Pickle-Verhalten
+
 ```python
 import pickle
 
@@ -840,14 +869,16 @@ print(restored.connection)  # Connection to localhost
 
 ### 9.5    Wann was verwenden?
 
-**Verwende JSON wenn:**
+**Verwendung von JSON bei:**
+
 - ✅ Austausch mit anderen Systemen/Sprachen
 - ✅ API-Kommunikation
 - ✅ Web-Anwendungen
 - ✅ Einfache Datenstrukturen
 - ✅ Sicherheit wichtig
 
-**Verwende YAML wenn:**
+**Verwendung von YAML wenn:**
+
 - ✅ Konfigurationsdateien
 - ✅ Menschliche Lesbarkeit wichtig
 - ✅ Komplexe Hierarchien
@@ -855,163 +886,16 @@ print(restored.connection)  # Connection to localhost
 - ✅ CI/CD Pipelines (Docker, Kubernetes, etc.)
 
 **Verwende Pickle wenn:**
+
 - ✅ Nur Python-zu-Python Kommunikation
 - ✅ Komplexe Python-Objekte
-- ✅ Performance kritisch
+- ✅ Performance kritische Anwendung
 - ✅ Temporärer Cache
 - ❌ NICHT für nicht-vertrauenswürdige Daten
-
-### 9.6    Praktische Beispiele
-
-#### 9.6.1    Konfigurationsdatei mit JSON
-```python
-import json
-from pathlib import Path
-
-class Config:
-    def __init__(self, config_file='config.json'):
-        self.config_file = Path(config_file)
-        self.data = self.load()
-    
-    def load(self):
-        """Lädt Config oder erstellt Default"""
-        if self.config_file.exists():
-            with open(self.config_file, 'r') as f:
-                return json.load(f)
-        return self.get_default()
-    
-    def save(self):
-        """Speichert aktuelle Config"""
-        with open(self.config_file, 'w') as f:
-            json.dump(self.data, f, indent=2)
-    
-    def get_default(self):
-        return {
-            'database': {'host': 'localhost', 'port': 5432},
-            'debug': False,
-            'max_connections': 100
-        }
-    
-    def get(self, key, default=None):
-        return self.data.get(key, default)
-
-# Verwendung
-config = Config()
-print(config.get('database'))
-config.data['debug'] = True
-config.save()
-```
-
-#### 9.6.2    Objekt-Caching mit Pickle
-```python
-import pickle
-from pathlib import Path
-import time
-
-class Cache:
-    def __init__(self, cache_dir='cache'):
-        self.cache_dir = Path(cache_dir)
-        self.cache_dir.mkdir(exist_ok=True)
-    
-    def get(self, key):
-        """Lädt gecachtes Objekt"""
-        cache_file = self.cache_dir / f'{key}.pkl'
-        if cache_file.exists():
-            with open(cache_file, 'rb') as f:
-                return pickle.load(f)
-        return None
-    
-    def set(self, key, value):
-        """Speichert Objekt im Cache"""
-        cache_file = self.cache_dir / f'{key}.pkl'
-        with open(cache_file, 'wb') as f:
-            pickle.dump(value, f)
-    
-    def clear(self):
-        """Löscht alle Cache-Dateien"""
-        for file in self.cache_dir.glob('*.pkl'):
-            file.unlink()
-
-# Verwendung
-cache = Cache()
-
-# Teure Berechnung
-def expensive_operation():
-    time.sleep(2)
-    return {'result': [i**2 for i in range(1000)]}
-
-# Mit Cache
-result = cache.get('computation')
-if result is None:
-    print('Computing...')
-    result = expensive_operation()
-    cache.set('computation', result)
-else:
-    print('From cache!')
-```
-
-#### 9.6.3    Multi-Format Serializer
-```python
-import json
-import pickle
-import yaml
-from pathlib import Path
-
-class Serializer:
-    @staticmethod
-    def save(data, filepath, format='json'):
-        """Speichert Daten in gewünschtem Format"""
-        path = Path(filepath)
-        
-        if format == 'json':
-            with open(path, 'w') as f:
-                json.dump(data, f, indent=2)
-        
-        elif format == 'yaml':
-            with open(path, 'w') as f:
-                yaml.dump(data, f)
-        
-        elif format == 'pickle':
-            with open(path, 'wb') as f:
-                pickle.dump(data, f)
-        
-        else:
-            raise ValueError(f'Unknown format: {format}')
-    
-    @staticmethod
-    def load(filepath):
-        """Lädt Daten basierend auf Dateiendung"""
-        path = Path(filepath)
-        
-        if path.suffix == '.json':
-            with open(path, 'r') as f:
-                return json.load(f)
-        
-        elif path.suffix in ['.yaml', '.yml']:
-            with open(path, 'r') as f:
-                return yaml.safe_load(f)
-        
-        elif path.suffix == '.pkl':
-            with open(path, 'rb') as f:
-                return pickle.load(f)
-        
-        else:
-            raise ValueError(f'Unknown format: {path.suffix}')
-
-# Verwendung
-data = {'users': ['Alice', 'Bob'], 'count': 2}
-
-Serializer.save(data, 'data.json', 'json')
-Serializer.save(data, 'data.yaml', 'yaml')
-Serializer.save(data, 'data.pkl', 'pickle')
-
-loaded = Serializer.load('data.json')
-print(loaded)
-```
-
 ### 9.7    Best Practices
 
 **✅ DO:**
+
 - Verwende JSON für APIs und Webdienste
 - Verwende YAML für Konfigurationsdateien
 - Verwende Pickle nur für vertrauenswürdige Python-interne Daten
@@ -1020,6 +904,7 @@ print(loaded)
 - Versionierung bei Änderungen am Datenformat
 
 **❌ DON'T:**
+
 - Pickle für nicht-vertrauenswürdige Daten
 - `yaml.load()` ohne Loader (Sicherheitsrisiko!)
 - JSON für binäre Daten (Base64 verwenden falls nötig)
@@ -1034,4 +919,4 @@ print(loaded)
 | YAML    | Config, CI/CD, menschenlesbar        | Kommentare, lesbar         |
 | Pickle  | Python-Cache, temporäre Speicherung  | Alle Python-Typen, schnell |
 
-**Kernprinzip:** Wähle das Serialisierungsformat basierend auf Use Case, Sicherheit und Interoperabilität. JSON ist der sichere Standard, YAML für Konfiguration, Pickle nur für vertrauenswürdige Python-interne Daten.
+Das Serialisierungsformat sollte basierend auf Use Case, Sicherheit und Interoperabilität gewählt werden. JSON ist der sichere Standard, YAML für Konfiguration, Pickle nur für vertrauenswürdige Python-interne Daten.

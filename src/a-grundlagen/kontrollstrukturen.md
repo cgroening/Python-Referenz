@@ -47,6 +47,8 @@ if a < b: print('a ist kleiner als b')
 
 ### 1.3    Ternary operators (conditional expressions)
 
+TODO: Kurze Erklärung
+
 ```python
 a = 1
 b = 2
@@ -56,6 +58,8 @@ print(kommentar)  # a ist kleiner als b
 ```
 
 ### 1.4    ShortHand Ternary
+
+TODO: Kurze Erklärung
 
 **Beispiel 1:**
 
@@ -102,92 +106,98 @@ print(switcher(50))  # Volljährig
 Seit Python 3.10 gibt es strukturelles Pattern Matching mit `match`-`case`. Dies ist deutlich mächtiger als einfache Switch-Case-Statements aus anderen Sprachen.
 
 ### 3.1    Einfaches Matching (Literal Patterns)
+
 ```python
 def http_status(status):
     match status:
         case 200:
             return 'OK'
         case 404:
-            return 'Not Found'
+            return 'Nicht gefunden'
         case 500:
-            return 'Internal Server Error'
-        case _:  # Wildcard (default)
-            return 'Unknown Status'
+            return 'Interner Serverfehler'
+        case _:  # Wildcard (Standard)
+            return 'Unbekannter Status'
 
-print(http_status(404))  # Not Found
+print(http_status(404))  # Nicht gefunden
 ```
 
-### 3.2    Mehrere Werte (OR Patterns)
+### 3.2    Mehrere Werte (`OR`-Patterns)
+
 ```python
 def classify_http_status(status):
     match status:
         case 200 | 201 | 204:
-            return 'Success'
+            return 'Erfolgreich'
         case 400 | 401 | 403 | 404:
-            return 'Client Error'
+            return 'Client-Fehler'
         case 500 | 502 | 503:
-            return 'Server Error'
+            return 'Server-Fehler'
         case _:
-            return 'Unknown'
+            return 'Unbekannt'
 
-print(classify_http_status(201))  # Success
+print(classify_http_status(201))  # Erfolgreich
 ```
 
-### 3.3    Guards (if-Bedingungen)
+### 3.3    Guards (`if`-Bedingungen)
+
 ```python
 age = 50
 
 match age:
     case _ if age < 0:
-        msg = 'Invalid age'
+        msg = 'Ungültiges Alter'
     case _ if age < 18:
-        msg = 'Minor'
+        msg = 'Minderjähriger'
     case _ if age < 67:
-        msg = 'Adult'
+        msg = 'Erwachsener'
     case _ if age < 150:
-        msg = 'Senior'
+        msg = 'Rentner'
     case _:
-        msg = 'Invalid age'
+        msg = 'Ungültiges Alter'
 
-print(msg)  # Adult
+print(msg)  # Erwachsener
 ```
 
 ### 3.4    Sequence Patterns (Listen, Tupel)
+
 ```python
 # Listen/Tupel matchen
 point = (0, 5)
 
 match point:
     case (0, 0):
-        print('Origin')
+        print('Ursprung')
     case (0, y):
-        print(f'On Y-axis at y={y}')
+        print(f'Auf y-Achse bei y={y}')
     case (x, 0):
-        print(f'On X-axis at x={x}')
+        print(f'Auf x-Achse bei x={x}')
     case (x, y):
-        print(f'Point at ({x}, {y})')
+        print(f'Punkt auf ({x}, {y})')
 
-# Output: On Y-axis at y=5
+# Ausgabe: Aus y-Achse bei y=5
 ```
 
 **Variable-length Patterns:**
+
 ```python
 data = [1, 2, 3, 4, 5]
 
 match data:
     case []:
-        print('Empty list')
+        print('Leere Liste')
     case [x]:
-        print(f'Single element: {x}')
+        print(f'Einzelnes Element: {x}')
     case [x, y]:
-        print(f'Two elements: {x}, {y}')
+        print(f'Zwei Elemente: {x}, {y}')
     case [first, *rest]:
-        print(f'First: {first}, Rest: {rest}')
+        print(f'Erstes: {first}, Rest: {rest}')
 
-# Output: First: 1, Rest: [2, 3, 4, 5]
+# Ausgabe: Erstes: 1, Rest: [2, 3, 4, 5]
 ```
 
 **Exakte Länge mit Wildcard:**
+
 ```python
 coordinates = (10, 20, 30)
 
@@ -197,39 +207,42 @@ match coordinates:
     case (x, y, z):
         print(f'3D: {x}, {y}, {z}')
     case (x, y, z, _):
-        print(f'4D+: First three {x}, {y}, {z}')
+        print(f'4D+: Erste drei {x}, {y}, {z}')
 
-# Output: 3D: 10, 20, 30
+# Ausgabe: 3D: 10, 20, 30
 ```
 
 ### 3.5    Mapping Patterns (Dictionaries)
+
 ```python
 user = {'name': 'Alice', 'age': 30, 'role': 'admin'}
 
 match user:
     case {'role': 'admin', 'name': name}:
-        print(f'Admin user: {name}')
+        print(f'Administrator: {name}')
     case {'role': 'user', 'name': name}:
-        print(f'Regular user: {name}')
+        print(f'Normaler Benutzer: {name}')
     case {'name': name}:
-        print(f'User without role: {name}')
+        print(f'Benutzer ohne Rolle: {name}')
 
-# Output: Admin user: Alice
+# Ausgabe: Administrator: Alice
 ```
 
 **Wichtig:** Dictionaries matchen partial (zusätzliche Keys werden ignoriert):
+
 ```python
 data = {'type': 'point', 'x': 10, 'y': 20, 'color': 'red'}
 
 match data:
     case {'type': 'point', 'x': x, 'y': y}:
-        print(f'Point at ({x}, {y})')
+        print(f'Punkt bei ({x}, {y})')
         # 'color' wird ignoriert
 
-# Output: Point at (10, 20)
+# Ausgabe: Punkt bei (10, 20)
 ```
 
 ### 3.6    Class Patterns (Strukturelles Matching)
+
 ```python
 from dataclasses import dataclass
 
@@ -247,208 +260,94 @@ shape = Circle(Point(0, 0), 5)
 
 match shape:
     case Circle(center=Point(x=0, y=0), radius=r):
-        print(f'Circle at origin with radius {r}')
+        print(f'Kreis im Ursprung mit Radius {r}')
     case Circle(center=Point(x=x, y=y), radius=r):
-        print(f'Circle at ({x}, {y}) with radius {r}')
+        print(f'Kreis bei ({x}, {y}) mit Radius {r}')
 
-# Output: Circle at origin with radius 5
+# Ausgabe: Kreis im Ursprung mit Radius 5
 ```
 
 **Kürzere Syntax:**
+
 ```python
 match shape:
     case Circle(Point(0, 0), r):
-        print(f'Circle at origin with radius {r}')
+        print(f'Kreis im Ursprung mit Radius {r}')
     case Circle(Point(x, y), r):
-        print(f'Circle at ({x}, {y}) with radius {r}')
+        print(f'Kreis bei ({x}, {y}) mit Radius {r}')
 ```
 
 ### 3.7    AS Patterns (Capture Whole + Parts)
 
 Mit `as` kann man sowohl das Gesamtobjekt als auch Teile davon erfassen:
+
 ```python
 data = [1, 2, 3, 4]
 
 match data:
     case [x, *rest] as full_list:
-        print(f'First: {x}')
+        print(f'Erstes: {x}')
         print(f'Rest: {rest}')
-        print(f'Full list: {full_list}')
+        print(f'Gesamte Liste: {full_list}')
 
-# Output:
-# First: 1
+# Ausgabe:
+# Erstes: 1
 # Rest: [2, 3, 4]
-# Full list: [1, 2, 3, 4]
+# Gesamte Liste: [1, 2, 3, 4]
 ```
 
 ### 3.8    Verschachtelte Patterns
+
 ```python
 command = ('move', {'x': 10, 'y': 20})
 
 match command:
     case ('move', {'x': x, 'y': y}):
-        print(f'Move to ({x}, {y})')
+        print(f'Bewege zu ({x}, {y})')
     case ('resize', {'width': w, 'height': h}):
-        print(f'Resize to {w}x{h}')
+        print(f'Skaliere auf {w}x{h}')
     case ('rotate', {'angle': angle}):
-        print(f'Rotate by {angle}°')
+        print(f'Drehe um {angle}°')
 
-# Output: Move to (10, 20)
-```
-
-### 3.9    Praktische Beispiele
-
-#### 3.9.1    JSON-API Response Handling
-```python
-def handle_response(response):
-    match response:
-        case {'status': 'success', 'data': data}:
-            return f'Success: {data}'
-
-        case {'status': 'error', 'code': 404}:
-            return 'Resource not found'
-
-        case {'status': 'error', 'code': code, 'message': msg}:
-            return f'Error {code}: {msg}'
-
-        case {'status': 'error'}:
-            return 'Unknown error'
-
-        case _:
-            return 'Invalid response format'
-
-# Test
-print(handle_response({'status': 'success', 'data': {'id': 1}}))
-print(handle_response({'status': 'error', 'code': 500, 'message': 'Server error'}))
-```
-
-#### 3.9.2    Command Parser
-```python
-def execute_command(cmd):
-    match cmd.split():
-        case ['quit'] | ['exit']:
-            return 'Exiting...'
-
-        case ['help']:
-            return 'Available commands: help, quit, list, add, delete'
-
-        case ['list']:
-            return 'Listing all items...'
-
-        case ['add', item]:
-            return f'Adding {item}'
-
-        case ['add', *items]:
-            return f'Adding multiple items: {items}'
-
-        case ['delete', item]:
-            return f'Deleting {item}'
-
-        case _:
-            return 'Unknown command'
-
-print(execute_command('add apple'))          # Adding apple
-print(execute_command('add apple banana'))   # Adding multiple items: ['apple', 'banana']
-```
-
-#### 3.9.3    AST-ähnliche Strukturen
-```python
-from dataclasses import dataclass
-
-@dataclass
-class BinaryOp:
-    op: str
-    left: any
-    right: any
-
-@dataclass
-class Constant:
-    value: int
-
-def evaluate(expr):
-    match expr:
-        case Constant(value):
-            return value
-
-        case BinaryOp('+', left, right):
-            return evaluate(left) + evaluate(right)
-
-        case BinaryOp('-', left, right):
-            return evaluate(left) - evaluate(right)
-
-        case BinaryOp('*', left, right):
-            return evaluate(left) * evaluate(right)
-
-        case _:
-            raise ValueError(f'Unknown expression: {expr}')
-
-# Test: (2 + 3) * 5
-expr = BinaryOp('*',
-    BinaryOp('+', Constant(2), Constant(3)),
-    Constant(5)
-)
-
-print(evaluate(expr))  # 25
-```
-
-#### 3.9.4    Event Handler
-```python
-def handle_event(event):
-    match event:
-        case {'type': 'click', 'x': x, 'y': y, 'button': 'left'}:
-            print(f'Left click at ({x}, {y})')
-
-        case {'type': 'click', 'x': x, 'y': y, 'button': 'right'}:
-            print(f'Right click at ({x}, {y})')
-
-        case {'type': 'keypress', 'key': 'Enter'}:
-            print('Enter pressed')
-
-        case {'type': 'keypress', 'key': key, 'ctrl': True}:
-            print(f'Ctrl+{key} pressed')
-
-        case {'type': 'scroll', 'delta': delta} if delta > 0:
-            print('Scrolling up')
-
-        case {'type': 'scroll', 'delta': delta} if delta < 0:
-            print('Scrolling down')
-
-handle_event({'type': 'click', 'x': 100, 'y': 200, 'button': 'left'})
-handle_event({'type': 'keypress', 'key': 'S', 'ctrl': True})
+# Ausgabe: Bewege zu (10, 20)
 ```
 
 ### 3.10    Best Practices
 
 **✅ DO:**
+
 - Nutze Pattern Matching für komplexe Datenstrukturen
 - Verwende Guards für zusätzliche Bedingungen
 - Ordne Patterns von spezifisch zu allgemein
 - Nutze `_` als Wildcard/Default-Case
 
 **❌ DON'T:**
-- Verwende nicht `match` für einfache if-elif-Ketten
+
+- Verwende nicht `match` für einfache `if`-elif-Ketten
 - Vermeide zu komplexe, verschachtelte Patterns
 - Default-Case (`case _:`) nicht vergessen
 
-### 3.11    Pattern Matching vs. if-elif
+### 3.11    Pattern Matching vs. `if`-`elif`
 
 **Wann `match` verwenden:**
+
 ```python
-# ✅ Gut für strukturelle Daten
+# Gut für strukturelle Daten
 match point:
-    case (0, 0): return 'Origin'
-    case (x, 0): return f'X-axis: {x}'
-    case (0, y): return f'Y-axis: {y}'
-    case (x, y): return f'Point: ({x}, {y})'
+    case (0, 0): return 'Ursprung'
+    case (x, 0): return f'x-Achse: {x}'
+    case (0, y): return f'y-Achse: {y}'
+    case (x, y): return f'Punkt: ({x}, {y})'
 ```
 
 **Wann `if-elif` verwenden:**
+
 ```python
-# ✅ Besser für einfache Vergleiche
+# Besser für einfache Vergleiche
 if age < 18:
-    return 'Minor'
+    return 'Minderjährig'
 elif age < 65:
-    return 'Adult'
+    return 'Erwachsen'
 else:
     return 'Senior'
 ```
@@ -470,7 +369,7 @@ else:
 
 ## 4    Schleifen
 
-### 4.1    `for`
+### 4.1    `for`-Schleifen
 
 ```python
 L = [0, 1, 2, 3]
@@ -540,8 +439,9 @@ for i, (av, bv) in enumerate(zip(a, b)):
     print(f'{i}: {av} und {bv}')
 ```
 
+### 4.2    `while`-Schleifen
 
-### 4.2    `while`
+Mit Zählbedingung:
 
 ```python
 i = 0
@@ -551,6 +451,8 @@ while i <= m:
     print(i)
     i += 1
 ```
+
+Mit Flag:
 
 ```python
 i = 0
@@ -562,6 +464,8 @@ while run:
     if i == m: run = False
     i += 1
 ```
+
+Endlosschleife mit `break`:
 
 ```python
 i = 0
