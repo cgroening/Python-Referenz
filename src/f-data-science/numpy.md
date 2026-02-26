@@ -42,7 +42,7 @@ Das Herzstück des NumPy-Pakets ist das `ndarray`-Objekt. Dieses kapselt `n`-dim
 
 **Eigenschaften eines `ndarray`:**
 
-* Es beschreibt eine Sammlung von "Elementen" des **gleichen** Typs.
+* Es beschreibt eine Sammlung von 'Elementen' des **gleichen** Typs.
 * Die Elemente können beispielsweise mit `n` ganzen Zahlen indexiert werden.
 * Alle `ndarrays` sind homogen: Jedes Element belegt einen gleich großen Speicherblock.
 * Ein Element aus dem Array wird durch ein `PyObject` repräsentiert, das zu den eingebauten skalaren NumPy-Typen gehört.
@@ -145,10 +145,10 @@ shape = arr2D.shape
 size = arr2D.size
 dtype = arr2D.dtype
 
-print("Anzahl der Dimensionen:", ndim)  # 2
-print("Form des Arrays:", shape)        # (3, 4)
-print("Anzahl der Elemente:", size)     # 12
-print("Datentyp der Elemente:", dtype)  # int64
+print('Anzahl der Dimensionen:', ndim)  # 2
+print('Form des Arrays:', shape)        # (3, 4)
+print('Anzahl der Elemente:', size)     # 12
+print('Datentyp der Elemente:', dtype)  # int64
 ```
 
 ## 7   Grundlegende Operationen
@@ -266,9 +266,9 @@ col_vector = arr1D[:, np.newaxis]
 # Umwandlung in Zeilen-Vektor (1 Zeile, 4 Spalten)
 row_vector = arr1D[np.newaxis, :]
 
-print("Original:", arr1D.shape)             # Original: (4,)
-print("Spalten-Vektor:", col_vector.shape)  # Spalten-Vektor: (4, 1)
-print("Zeilen-Vektor:", row_vector.shape)   # Zeilen-Vektor: (1, 4)
+print('Original:', arr1D.shape)             # Original: (4,)
+print('Spalten-Vektor:', col_vector.shape)  # Spalten-Vektor: (4, 1)
+print('Zeilen-Vektor:', row_vector.shape)   # Zeilen-Vektor: (1, 4)
 ```
 
 ## 12   Zufallszahlen
@@ -305,13 +305,13 @@ filtered = arr[mask]  # Enthält nur Werte > 2
 ## 14   Speichern und Laden
 
 ```python
-np.save("array.npy", arr)           # Speichern
-loaded_array = np.load("array.npy")  # Laden
+np.save('array.npy', arr)           # Speichern
+loaded_array = np.load('array.npy')  # Laden
 ```
 
 ## 15   Ufuncs (Universal Functions)
 
-Eine Universal Function ist eine Funktion, welche auf ein `ndarray` elementweise angewendet wird. Es handelt sich um einen "vektorbasierten" Wrapper für eine Funktion, die eine feste Anzahl spezifischer Eingaben nimmt und eine feste Anzahl spezifischer Ausgaben erzeugt.
+Eine Universal Function ist eine Funktion, welche auf ein `ndarray` elementweise angewendet wird. Es handelt sich um einen 'vektorbasierten' Wrapper für eine Funktion, die eine feste Anzahl spezifischer Eingaben nimmt und eine feste Anzahl spezifischer Ausgaben erzeugt.
 
 Ufuncs sind teilweise 1000-2000 x schneller, als eine Lösung über Python-Code (ohne Numpy).
 
@@ -399,8 +399,8 @@ sum_cols = np.sum(arr2D, axis=0)
 # Summe pro Zeile (→)
 sum_rows = np.sum(arr2D, axis=1)
 
-print("Summe pro Spalte:", sum_cols)  # [15 18 21 24]
-print("Summe pro Zeile:", sum_rows)   # [10 26 42]
+print('Summe pro Spalte:', sum_cols)  # [15 18 21 24]
+print('Summe pro Zeile:', sum_rows)   # [10 26 42]
 ```
 
 * `axis=0` ➝ Berechnung erfolgt **über Zeilen hinweg** → ergibt Spalten-Ergebnisse
@@ -465,7 +465,7 @@ A: (3, 4)
 B:    (4)    → automatisch zu (1, 4)
 ```
 
-✅ passt! → Broadcasting funktioniert → B wird auf jede der 3 Zeilen "kopiert"
+✅ passt! → Broadcasting funktioniert → B wird auf jede der 3 Zeilen 'kopiert'
 
 ### 18.3   Dimensionen müssen gleich sein oder eine von beiden muss 1 sein
 
@@ -520,7 +520,7 @@ A:     (1, 4)
 B: (3, 4)
 ```
 
-- `1` funktioniert wie ein Platzhalter → es wird "in diese Richtung" kopiert
+- `1` funktioniert wie ein Platzhalter → es wird 'in diese Richtung' kopiert
 - Fehlende Dimension? → einfach eine `1` davor denken!
 
 ## 19   Masken und Vergleichsoperatoren
@@ -674,7 +674,7 @@ np.fill_diagonal(M, np.pi)
 
 ```python
 arr = np.array([1, 2, 3])
-np.save("array.npy", arr)  # speichert binär
+np.save('array.npy', arr)  # speichert binär
 ```
 
 **`np.savez()`: Speichert mehrere Arrays in einer komprimierten ZIP-Datei**
@@ -683,16 +683,16 @@ np.save("array.npy", arr)  # speichert binär
 a = np.arange(5)
 b = np.linspace(0, 1, 5)
 
-np.savez("arrays.npz", first=a, second=b)
+np.savez('arrays.npz', first=a, second=b)
 
-data = np.load("arrays.npz")
-print(data["first"])   # Zugriff auf gespeicherte Arrays
+data = np.load('arrays.npz')
+print(data['first'])   # Zugriff auf gespeicherte Arrays
 ```
 
 **`np.load()`: Lädt .npy- oder .npz-Dateien**
 
 ```python
-loaded = np.load("array.npy")
+loaded = np.load('array.npy')
 ```
 
 ### 22.2   Speichern im Textformat
@@ -701,13 +701,13 @@ loaded = np.load("array.npy")
 
 ```python
 arr = np.array([[1, 2], [3, 4]])
-np.savetxt("array.txt", arr, fmt="%d", delimiter=",")
+np.savetxt('array.txt', arr, fmt='%d', delimiter=',')
 ```
 
 **`np.loadtxt()`: Lädt ein Array aus einer Textdatei**
 
 ```python
-loaded_txt = np.loadtxt("array.txt", delimiter=",")
+loaded_txt = np.loadtxt('array.txt', delimiter=',')
 ```
 
 Nur für einfache, numerische Arrays geeignet. Keine Metadaten oder Struktur.
@@ -716,12 +716,12 @@ Nur für einfache, numerische Arrays geeignet. Keine Metadaten oder Struktur.
 
 ```python
 data = np.array([
-    (1, 1.5, "A"),
-    (2, 2.5, "B")
-], dtype=[("id", "i4"), ("value", "f4"), ("label", "U1")])
+    (1, 1.5, 'A'),
+    (2, 2.5, 'B')
+], dtype=[('id', 'i4'), ('value', 'f4'), ('label', 'U1')])
 
-print(data["id"])        # Zugriff auf Spalte
-print(data[0]["label"])  # Zugriff auf Zelle
+print(data['id'])        # Zugriff auf Spalte
+print(data[0]['label'])  # Zugriff auf Zelle
 ```
 
 - .npy = kompaktes, schnelles Binärformat für ein Array

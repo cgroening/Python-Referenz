@@ -346,7 +346,7 @@ print(list(positive))  # [1, 2, 3]
 **Ohne Lambda (None als Funktion):**
 
 ```python
-# filter(None, iterable) filtert "falsy" Werte
+# filter(None, iterable) filtert 'falsy' Werte
 mixed = [0, 1, '', 'hello', None, [], [1, 2], False, True]
 truthy = filter(None, mixed)
 print(list(truthy))  # [1, 'hello', [1, 2], True]
@@ -480,7 +480,7 @@ print(list(positive))  # [1, 2, 3]
 python
 
 ```python
-# filter(None, iterable) filtert "falsy" Werte
+# filter(None, iterable) filtert 'falsy' Werte
 mixed = [0, 1, '', 'hello', None, [], [1, 2], False, True]
 truthy = filter(None, mixed)
 print(list(truthy))  # [1, 'hello', [1, 2], True]
@@ -686,7 +686,7 @@ def whisper():
 whisper()
 ```
 
-- `speaker("quiet")` gibt den eigentlichen Decorator zurück.
+- `speaker('quiet')` gibt den eigentlichen Decorator zurück.
 - Mehr Flexibilität durch parametrisierte Dekoration.
 
 ### 7.4    Eingebaute Decorators
@@ -809,11 +809,11 @@ def fib_fast(n):
 # Vergleich
 start = time.time()
 fib_slow(30)
-print(f"Ohne Cache: {time.time() - start:.3f}s")  # ~0.3s
+print(f'Ohne Cache: {time.time() - start:.3f}s')  # ~0.3s
 
 start = time.time()
 fib_fast(30)
-print(f"Mit Cache: {time.time() - start:.6f}s")   # ~0.000050s
+print(f'Mit Cache: {time.time() - start:.6f}s')   # ~0.000050s
 ```
 
 ### 8.2    `wraps` – Decorator-Metadaten erhalten
@@ -832,7 +832,7 @@ def bad_decorator(func):
 @bad_decorator
 def greet(name):
     """Greet a person"""
-    return f"Hello, {name}"
+    return f'Hello, {name}'
 
 print(greet.__name__)  # 'wrapper' (falsch!)
 print(greet.__doc__)   # 'Wrapper docstring' (falsch!)
@@ -848,7 +848,7 @@ def good_decorator(func):
 @good_decorator
 def greet(name):
     """Greet a person"""
-    return f"Hello, {name}"
+    return f'Hello, {name}'
 
 print(greet.__name__)  # 'greet' (richtig!)
 print(greet.__doc__)   # 'Greet a person' (richtig!)
@@ -892,8 +892,8 @@ debug = partial(log, logging.DEBUG)
 info = partial(log, logging.INFO)
 error = partial(log, logging.ERROR)
 
-debug("Debug message")
-error("Error occurred")
+debug('Debug message')
+error('Error occurred')
 ```
 
 **Callback-Funktionen:**
@@ -901,14 +901,14 @@ error("Error occurred")
 from functools import partial
 
 def send_notification(user, message, priority):
-    print(f"[{priority}] To {user}: {message}")
+    print(f'[{priority}] To {user}: {message}')
 
 # Vorkonfigurierte Benachrichtigungen
-notify_admin = partial(send_notification, user="admin", priority="HIGH")
-notify_user = partial(send_notification, priority="NORMAL")
+notify_admin = partial(send_notification, user='admin', priority='HIGH')
+notify_user = partial(send_notification, priority='NORMAL')
 
-notify_admin("Server down!")
-notify_user(user="alice", message="Welcome!")
+notify_admin('Server down!')
+notify_user(user='alice', message='Welcome!')
 ```
 
 ### 8.4    `reduce` – Akkumulation
@@ -979,7 +979,7 @@ from functools import singledispatch
 @singledispatch
 def process(data):
     """Default-Implementierung"""
-    raise NotImplementedError(f"Cannot process type {type(data)}")
+    raise NotImplementedError(f'Cannot process type {type(data)}')
 
 @process.register
 def _(data: int):
@@ -995,7 +995,7 @@ def _(data: list):
 
 # Verwendung
 print(process(5))        # 10
-print(process("hello"))  # "HELLO"
+print(process('hello'))  # 'HELLO'
 print(process([1,2,3]))  # 3
 ```
 
@@ -1006,7 +1006,7 @@ from typing import List
 
 @singledispatch
 def to_json(obj):
-    raise TypeError(f"Cannot serialize {type(obj)}")
+    raise TypeError(f'Cannot serialize {type(obj)}')
 
 @to_json.register(int)
 @to_json.register(float)
@@ -1015,7 +1015,7 @@ def _(obj):
 
 @to_json.register(str)
 def _(obj):
-    return f'"{obj}"'
+    return f''{obj}''
 
 @to_json.register(list)
 def _(obj):
@@ -1024,14 +1024,14 @@ def _(obj):
 
 @to_json.register(dict)
 def _(obj):
-    items = ', '.join(f'"{k}": {to_json(v)}' for k, v in obj.items())
+    items = ', '.join(f''{k}': {to_json(v)}' for k, v in obj.items())
     return f'{{{items}}}'
 
 # Verwendung
-print(to_json(42))                    # "42"
-print(to_json("hello"))               # '"hello"'
-print(to_json([1, "two", 3]))         # '[1, "two", 3]'
-print(to_json({"a": 1, "b": "two"}))  # '{"a": 1, "b": "two"}'
+print(to_json(42))                    # '42'
+print(to_json('hello'))               # ''hello''
+print(to_json([1, 'two', 3]))         # '[1, 'two', 3]'
+print(to_json({'a': 1, 'b': 'two'}))  # '{'a': 1, 'b': 'two'}'
 ```
 
 **Registrierte Typen anzeigen:**
@@ -1076,7 +1076,7 @@ class Card:
         self.suit = suit
 
     def __repr__(self):
-        return f"{self.rank} of {self.suit}"
+        return f'{self.rank} of {self.suit}'
 
 def compare_cards(card1, card2):
     """Erst nach Farbe, dann nach Wert"""
@@ -1150,7 +1150,7 @@ class DataProcessor:
     @cached_property
     def processed_data(self):
         """Teure Berechnung"""
-        print("Computing...")
+        print('Computing...')
         time.sleep(2)
         return [x * 2 for x in self.data]
 
@@ -1158,7 +1158,7 @@ class DataProcessor:
 processor = DataProcessor([1, 2, 3, 4, 5])
 
 # Erste Verwendung: Berechnung
-print(processor.processed_data)  # "Computing..." dann [2, 4, 6, 8, 10]
+print(processor.processed_data)  # 'Computing...' dann [2, 4, 6, 8, 10]
 
 # Zweite Verwendung: Cache
 print(processor.processed_data)  # [2, 4, 6, 8, 10] (instant!)
@@ -1169,23 +1169,23 @@ print(processor.processed_data)  # [2, 4, 6, 8, 10] (instant!)
 class Example:
     @property
     def normal_prop(self):
-        print("Computing...")
+        print('Computing...')
         return expensive_computation()
 
     @cached_property
     def cached_prop(self):
-        print("Computing...")
+        print('Computing...')
         return expensive_computation()
 
 obj = Example()
 
 # @property: Jedes Mal neu berechnet
-obj.normal_prop  # "Computing..."
-obj.normal_prop  # "Computing..." (erneut!)
+obj.normal_prop  # 'Computing...'
+obj.normal_prop  # 'Computing...' (erneut!)
 
 # @cached_property: Nur einmal berechnet
-obj.cached_prop  # "Computing..."
-obj.cached_prop  # (kein "Computing...")
+obj.cached_prop  # 'Computing...'
+obj.cached_prop  # (kein 'Computing...')
 ```
 
 ### 8.9    Praktische Kombinationen
@@ -1205,7 +1205,7 @@ def timed_lru_cache(maxsize=128):
             start = time.time()
             result = cached_func(*args, **kwargs)
             elapsed = time.time() - start
-            print(f"{func.__name__} took {elapsed:.6f}s")
+            print(f'{func.__name__} took {elapsed:.6f}s')
             return result
 
         wrapper.cache_info = cached_func.cache_info
@@ -1233,19 +1233,19 @@ def format_value(value, precision=2):
 
 @format_value.register(float)
 def _(value, precision=2):
-    return f"{value:.{precision}f}"
+    return f'{value:.{precision}f}'
 
 @format_value.register(int)
 def _(value, precision=2):
-    return f"{value:,}"
+    return f'{value:,}'
 
 # Partial für feste Präzision
 format_2dp = partial(format_value, precision=2)
 format_4dp = partial(format_value, precision=4)
 
-print(format_2dp(3.14159))   # "3.14"
-print(format_4dp(3.14159))   # "3.1416"
-print(format_2dp(1000000))   # "1,000,000"
+print(format_2dp(3.14159))   # '3.14'
+print(format_4dp(3.14159))   # '3.1416'
+print(format_2dp(1000000))   # '1,000,000'
 ```
 
 ### 8.10    Zusammenfassung
@@ -1435,7 +1435,7 @@ class ThrottleDebounceApp:
         self.debounce_timer.start()
 
     def handle_text(self, reason: str, text: str):
-        print(f'[{time.strftime("%X")}] [{reason}] Verarbeitung: {text}')
+        print(f'[{time.strftime('%X')}] [{reason}] Verarbeitung: {text}')
 
 
 ## Tkinter-App starten

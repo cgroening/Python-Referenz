@@ -21,9 +21,9 @@ ergebnis = summiere(1, 2, 3, 4, 5)  # 15
 ```python
 def details(**info):
     for schluessel, wert in info.items():
-        print(f"{schluessel}: {wert}")
+        print(f'{schluessel}: {wert}')
         
-details(name="Max", alter=25, beruf="Entwickler")
+details(name='Max', alter=25, beruf='Entwickler')
 ```
 
 Ausgabe:

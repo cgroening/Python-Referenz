@@ -17,24 +17,24 @@
 
 ```python
 try:
-    number = int(input("Enter a number: "))
+    number = int(input('Enter a number: '))
     print(10 / number)
 except ZeroDivisionError:
-    print("Error: Division by zero is not allowed.")
+    print('Error: Division by zero is not allowed.')
 except ValueError:
-    print("Error: Please enter a valid number.")
+    print('Error: Please enter a valid number.')
 ```
 
 ## 3    Mehrere `except`-Blöcke
 
 ```python
 try:
-    data = {"name": "Alice"}
-    print(data["age"])
+    data = {'name': 'Alice'}
+    print(data['age'])
 except KeyError as e:
-    print(f"Missing key: {e}")
+    print(f'Missing key: {e}')
 except Exception as e:
-    print(f"General error: {e}")
+    print(f'General error: {e}')
 ```
 
 ## 4    Generischer `except`-Block (nicht empfohlen)
@@ -44,7 +44,7 @@ try:
     # Code that may raise an error
     print(10 / 0)
 except Exception as e:
-    print(f"An error occurred: {e}")
+    print(f'An error occurred: {e}')
 ```
 
 > [!warning] Hinweis
@@ -54,14 +54,14 @@ except Exception as e:
 
 ```python
 try:
-    with open("file.txt", "r") as file:
+    with open('file.txt', 'r') as file:
         content = file.read()
 except FileNotFoundError:
-    print("File not found.")
+    print('File not found.')
 else:
-    print("File read successfully.")
+    print('File read successfully.')
 finally:
-    print("This block always executes.")
+    print('This block always executes.')
 ```
 
 ## 6    Eigene Fehler mit `raise` auslösen
@@ -69,13 +69,13 @@ finally:
 ```python
 def positive_number(number):
     if number < 0:
-        raise ValueError("Number must be positive!")
+        raise ValueError('Number must be positive!')
     return number
 
 try:
     positive_number(-5)
 except ValueError as e:
-    print(f"Error: {e}")
+    print(f'Error: {e}')
 ```
 
 ## 7    Eigene Fehlerklassen definieren
@@ -85,9 +85,9 @@ class CustomError(Exception):
     pass
 
 try:
-    raise CustomError("This is a custom error!")
+    raise CustomError('This is a custom error!')
 except CustomError as e:
-    print(f"Custom error: {e}")
+    print(f'Custom error: {e}')
 ```
 
 ## 8    Logging statt `print` verwenden
@@ -100,7 +100,7 @@ logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %
 try:
     1 / 0
 except ZeroDivisionError as e:
-    logging.error(f"An error occurred: {e}")
+    logging.error(f'An error occurred: {e}')
 ```
 
 ## 9    Zusammenfassung

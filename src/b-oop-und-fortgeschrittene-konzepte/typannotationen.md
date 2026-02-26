@@ -21,7 +21,7 @@ In diesem Beispiel wird angegeben, dass sowohl `x` als auch `y` vom Typ `int` si
 ## 2    Typannotation bei Variablen
 
 ```python
-name: str = "Anna"
+name: str = 'Anna'
 alter: int = 30
 aktiv: bool = True
 ```
@@ -35,7 +35,7 @@ from typing import Optional
 
 def finde_benutzer(id: int) -> Optional[str]:
     if id == 1:
-        return "Anna"
+        return 'Anna'
     return None
 ```
 
@@ -400,9 +400,9 @@ pip install mypy
 ```python
 # example.py
 def greet(name: str) -> str:
-    return f"Hello, {name}"
+    return f'Hello, {name}'
 
-result: int = greet("Alice")  # Typfehler!
+result: int = greet('Alice')  # Typfehler!
 ```
 ```bash
 # Type Checking ausführen
@@ -411,7 +411,7 @@ mypy example.py
 
 **Ausgabe:**
 ```
-example.py:4: error: Incompatible types in assignment (expression has type "str", variable has type "int")
+example.py:4: error: Incompatible types in assignment (expression has type 'str', variable has type 'int')
 Found 1 error in 1 file (checked 1 source file)
 ```
 
@@ -442,13 +442,13 @@ ignore_missing_imports = True
 **pyproject.toml:**
 ```toml
 [tool.mypy]
-python_version = "3.10"
+python_version = '3.10'
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
 
 [[tool.mypy.overrides]]
-module = "pandas.*"
+module = 'pandas.*'
 ignore_missing_imports = true
 ```
 
@@ -491,7 +491,7 @@ def process_data(data: Any) -> int:
 result = some_complex_function()  # type: ignore
 
 # Nur bestimmte Error-Codes ignorieren
-value = int("123")  # type: ignore[arg-type]
+value = int('123')  # type: ignore[arg-type]
 ```
 
 ### 11.6    Pyright / Pylance – Microsoft's Type Checker
@@ -514,22 +514,22 @@ pyright src/
 **Konfiguration (pyrightconfig.json):**
 ```json
 {
-  "include": ["src"],
-  "exclude": ["**/node_modules", "**/__pycache__"],
-  "typeCheckingMode": "strict",
-  "pythonVersion": "3.10",
-  "reportMissingImports": true,
-  "reportMissingTypeStubs": false
+  'include': ['src'],
+  'exclude': ['**/node_modules', '**/__pycache__'],
+  'typeCheckingMode': 'strict',
+  'pythonVersion': '3.10',
+  'reportMissingImports': true,
+  'reportMissingTypeStubs': false
 }
 ```
 
 **In pyproject.toml:**
 ```toml
 [tool.pyright]
-include = ["src"]
-exclude = ["**/node_modules", "**/__pycache__"]
-typeCheckingMode = "strict"
-pythonVersion = "3.10"
+include = ['src']
+exclude = ['**/node_modules', '**/__pycache__']
+typeCheckingMode = 'strict'
+pythonVersion = '3.10'
 ```
 
 ### 11.7    mypy vs. Pyright
@@ -559,11 +559,11 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      
+
       - name: Install dependencies
         run: |
           pip install mypy types-requests
-      
+
       - name: Run mypy
         run: mypy src/
 ```
@@ -619,12 +619,12 @@ def get_name() -> Optional[str]:
 **Fehler: `Argument has incompatible type`**
 ```python
 def greet(name: str) -> None:
-    print(f"Hello, {name}")
+    print(f'Hello, {name}')
 
 greet(123)  # Fehler!
 
 # Lösung: Richtigen Typ übergeben
-greet("Alice")
+greet('Alice')
 ```
 
 **Fehler: `Missing type parameters`**

@@ -106,13 +106,13 @@ Seit Python 3.10 gibt es strukturelles Pattern Matching mit `match`-`case`. Dies
 def http_status(status):
     match status:
         case 200:
-            return "OK"
+            return 'OK'
         case 404:
-            return "Not Found"
+            return 'Not Found'
         case 500:
-            return "Internal Server Error"
+            return 'Internal Server Error'
         case _:  # Wildcard (default)
-            return "Unknown Status"
+            return 'Unknown Status'
 
 print(http_status(404))  # Not Found
 ```
@@ -122,13 +122,13 @@ print(http_status(404))  # Not Found
 def classify_http_status(status):
     match status:
         case 200 | 201 | 204:
-            return "Success"
+            return 'Success'
         case 400 | 401 | 403 | 404:
-            return "Client Error"
+            return 'Client Error'
         case 500 | 502 | 503:
-            return "Server Error"
+            return 'Server Error'
         case _:
-            return "Unknown"
+            return 'Unknown'
 
 print(classify_http_status(201))  # Success
 ```
@@ -139,15 +139,15 @@ age = 50
 
 match age:
     case _ if age < 0:
-        msg = "Invalid age"
+        msg = 'Invalid age'
     case _ if age < 18:
-        msg = "Minor"
+        msg = 'Minor'
     case _ if age < 67:
-        msg = "Adult"
+        msg = 'Adult'
     case _ if age < 150:
-        msg = "Senior"
+        msg = 'Senior'
     case _:
-        msg = "Invalid age"
+        msg = 'Invalid age'
 
 print(msg)  # Adult
 ```
@@ -159,13 +159,13 @@ point = (0, 5)
 
 match point:
     case (0, 0):
-        print("Origin")
+        print('Origin')
     case (0, y):
-        print(f"On Y-axis at y={y}")
+        print(f'On Y-axis at y={y}')
     case (x, 0):
-        print(f"On X-axis at x={x}")
+        print(f'On X-axis at x={x}')
     case (x, y):
-        print(f"Point at ({x}, {y})")
+        print(f'Point at ({x}, {y})')
 
 # Output: On Y-axis at y=5
 ```
@@ -176,13 +176,13 @@ data = [1, 2, 3, 4, 5]
 
 match data:
     case []:
-        print("Empty list")
+        print('Empty list')
     case [x]:
-        print(f"Single element: {x}")
+        print(f'Single element: {x}')
     case [x, y]:
-        print(f"Two elements: {x}, {y}")
+        print(f'Two elements: {x}, {y}')
     case [first, *rest]:
-        print(f"First: {first}, Rest: {rest}")
+        print(f'First: {first}, Rest: {rest}')
 
 # Output: First: 1, Rest: [2, 3, 4, 5]
 ```
@@ -193,38 +193,38 @@ coordinates = (10, 20, 30)
 
 match coordinates:
     case (x, y):
-        print(f"2D: {x}, {y}")
+        print(f'2D: {x}, {y}')
     case (x, y, z):
-        print(f"3D: {x}, {y}, {z}")
+        print(f'3D: {x}, {y}, {z}')
     case (x, y, z, _):
-        print(f"4D+: First three {x}, {y}, {z}")
+        print(f'4D+: First three {x}, {y}, {z}')
 
 # Output: 3D: 10, 20, 30
 ```
 
 ### 3.5    Mapping Patterns (Dictionaries)
 ```python
-user = {"name": "Alice", "age": 30, "role": "admin"}
+user = {'name': 'Alice', 'age': 30, 'role': 'admin'}
 
 match user:
-    case {"role": "admin", "name": name}:
-        print(f"Admin user: {name}")
-    case {"role": "user", "name": name}:
-        print(f"Regular user: {name}")
-    case {"name": name}:
-        print(f"User without role: {name}")
+    case {'role': 'admin', 'name': name}:
+        print(f'Admin user: {name}')
+    case {'role': 'user', 'name': name}:
+        print(f'Regular user: {name}')
+    case {'name': name}:
+        print(f'User without role: {name}')
 
 # Output: Admin user: Alice
 ```
 
 **Wichtig:** Dictionaries matchen partial (zusätzliche Keys werden ignoriert):
 ```python
-data = {"type": "point", "x": 10, "y": 20, "color": "red"}
+data = {'type': 'point', 'x': 10, 'y': 20, 'color': 'red'}
 
 match data:
-    case {"type": "point", "x": x, "y": y}:
-        print(f"Point at ({x}, {y})")
-        # "color" wird ignoriert
+    case {'type': 'point', 'x': x, 'y': y}:
+        print(f'Point at ({x}, {y})')
+        # 'color' wird ignoriert
 
 # Output: Point at (10, 20)
 ```
@@ -247,9 +247,9 @@ shape = Circle(Point(0, 0), 5)
 
 match shape:
     case Circle(center=Point(x=0, y=0), radius=r):
-        print(f"Circle at origin with radius {r}")
+        print(f'Circle at origin with radius {r}')
     case Circle(center=Point(x=x, y=y), radius=r):
-        print(f"Circle at ({x}, {y}) with radius {r}")
+        print(f'Circle at ({x}, {y}) with radius {r}')
 
 # Output: Circle at origin with radius 5
 ```
@@ -258,9 +258,9 @@ match shape:
 ```python
 match shape:
     case Circle(Point(0, 0), r):
-        print(f"Circle at origin with radius {r}")
+        print(f'Circle at origin with radius {r}')
     case Circle(Point(x, y), r):
-        print(f"Circle at ({x}, {y}) with radius {r}")
+        print(f'Circle at ({x}, {y}) with radius {r}')
 ```
 
 ### 3.7    AS Patterns (Capture Whole + Parts)
@@ -271,9 +271,9 @@ data = [1, 2, 3, 4]
 
 match data:
     case [x, *rest] as full_list:
-        print(f"First: {x}")
-        print(f"Rest: {rest}")
-        print(f"Full list: {full_list}")
+        print(f'First: {x}')
+        print(f'Rest: {rest}')
+        print(f'Full list: {full_list}')
 
 # Output:
 # First: 1
@@ -283,15 +283,15 @@ match data:
 
 ### 3.8    Verschachtelte Patterns
 ```python
-command = ("move", {"x": 10, "y": 20})
+command = ('move', {'x': 10, 'y': 20})
 
 match command:
-    case ("move", {"x": x, "y": y}):
-        print(f"Move to ({x}, {y})")
-    case ("resize", {"width": w, "height": h}):
-        print(f"Resize to {w}x{h}")
-    case ("rotate", {"angle": angle}):
-        print(f"Rotate by {angle}°")
+    case ('move', {'x': x, 'y': y}):
+        print(f'Move to ({x}, {y})')
+    case ('resize', {'width': w, 'height': h}):
+        print(f'Resize to {w}x{h}')
+    case ('rotate', {'angle': angle}):
+        print(f'Rotate by {angle}°')
 
 # Output: Move to (10, 20)
 ```
@@ -302,53 +302,53 @@ match command:
 ```python
 def handle_response(response):
     match response:
-        case {"status": "success", "data": data}:
-            return f"Success: {data}"
+        case {'status': 'success', 'data': data}:
+            return f'Success: {data}'
 
-        case {"status": "error", "code": 404}:
-            return "Resource not found"
+        case {'status': 'error', 'code': 404}:
+            return 'Resource not found'
 
-        case {"status": "error", "code": code, "message": msg}:
-            return f"Error {code}: {msg}"
+        case {'status': 'error', 'code': code, 'message': msg}:
+            return f'Error {code}: {msg}'
 
-        case {"status": "error"}:
-            return "Unknown error"
+        case {'status': 'error'}:
+            return 'Unknown error'
 
         case _:
-            return "Invalid response format"
+            return 'Invalid response format'
 
 # Test
-print(handle_response({"status": "success", "data": {"id": 1}}))
-print(handle_response({"status": "error", "code": 500, "message": "Server error"}))
+print(handle_response({'status': 'success', 'data': {'id': 1}}))
+print(handle_response({'status': 'error', 'code': 500, 'message': 'Server error'}))
 ```
 
 #### 3.9.2    Command Parser
 ```python
 def execute_command(cmd):
     match cmd.split():
-        case ["quit"] | ["exit"]:
-            return "Exiting..."
+        case ['quit'] | ['exit']:
+            return 'Exiting...'
 
-        case ["help"]:
-            return "Available commands: help, quit, list, add, delete"
+        case ['help']:
+            return 'Available commands: help, quit, list, add, delete'
 
-        case ["list"]:
-            return "Listing all items..."
+        case ['list']:
+            return 'Listing all items...'
 
-        case ["add", item]:
-            return f"Adding {item}"
+        case ['add', item]:
+            return f'Adding {item}'
 
-        case ["add", *items]:
-            return f"Adding multiple items: {items}"
+        case ['add', *items]:
+            return f'Adding multiple items: {items}'
 
-        case ["delete", item]:
-            return f"Deleting {item}"
+        case ['delete', item]:
+            return f'Deleting {item}'
 
         case _:
-            return "Unknown command"
+            return 'Unknown command'
 
-print(execute_command("add apple"))          # Adding apple
-print(execute_command("add apple banana"))   # Adding multiple items: ['apple', 'banana']
+print(execute_command('add apple'))          # Adding apple
+print(execute_command('add apple banana'))   # Adding multiple items: ['apple', 'banana']
 ```
 
 #### 3.9.3    AST-ähnliche Strukturen
@@ -370,21 +370,21 @@ def evaluate(expr):
         case Constant(value):
             return value
 
-        case BinaryOp("+", left, right):
+        case BinaryOp('+', left, right):
             return evaluate(left) + evaluate(right)
 
-        case BinaryOp("-", left, right):
+        case BinaryOp('-', left, right):
             return evaluate(left) - evaluate(right)
 
-        case BinaryOp("*", left, right):
+        case BinaryOp('*', left, right):
             return evaluate(left) * evaluate(right)
 
         case _:
-            raise ValueError(f"Unknown expression: {expr}")
+            raise ValueError(f'Unknown expression: {expr}')
 
 # Test: (2 + 3) * 5
-expr = BinaryOp("*",
-    BinaryOp("+", Constant(2), Constant(3)),
+expr = BinaryOp('*',
+    BinaryOp('+', Constant(2), Constant(3)),
     Constant(5)
 )
 
@@ -395,26 +395,26 @@ print(evaluate(expr))  # 25
 ```python
 def handle_event(event):
     match event:
-        case {"type": "click", "x": x, "y": y, "button": "left"}:
-            print(f"Left click at ({x}, {y})")
+        case {'type': 'click', 'x': x, 'y': y, 'button': 'left'}:
+            print(f'Left click at ({x}, {y})')
 
-        case {"type": "click", "x": x, "y": y, "button": "right"}:
-            print(f"Right click at ({x}, {y})")
+        case {'type': 'click', 'x': x, 'y': y, 'button': 'right'}:
+            print(f'Right click at ({x}, {y})')
 
-        case {"type": "keypress", "key": "Enter"}:
-            print("Enter pressed")
+        case {'type': 'keypress', 'key': 'Enter'}:
+            print('Enter pressed')
 
-        case {"type": "keypress", "key": key, "ctrl": True}:
-            print(f"Ctrl+{key} pressed")
+        case {'type': 'keypress', 'key': key, 'ctrl': True}:
+            print(f'Ctrl+{key} pressed')
 
-        case {"type": "scroll", "delta": delta} if delta > 0:
-            print("Scrolling up")
+        case {'type': 'scroll', 'delta': delta} if delta > 0:
+            print('Scrolling up')
 
-        case {"type": "scroll", "delta": delta} if delta < 0:
-            print("Scrolling down")
+        case {'type': 'scroll', 'delta': delta} if delta < 0:
+            print('Scrolling down')
 
-handle_event({"type": "click", "x": 100, "y": 200, "button": "left"})
-handle_event({"type": "keypress", "key": "S", "ctrl": True})
+handle_event({'type': 'click', 'x': 100, 'y': 200, 'button': 'left'})
+handle_event({'type': 'keypress', 'key': 'S', 'ctrl': True})
 ```
 
 ### 3.10    Best Practices
@@ -436,21 +436,21 @@ handle_event({"type": "keypress", "key": "S", "ctrl": True})
 ```python
 # ✅ Gut für strukturelle Daten
 match point:
-    case (0, 0): return "Origin"
-    case (x, 0): return f"X-axis: {x}"
-    case (0, y): return f"Y-axis: {y}"
-    case (x, y): return f"Point: ({x}, {y})"
+    case (0, 0): return 'Origin'
+    case (x, 0): return f'X-axis: {x}'
+    case (0, y): return f'Y-axis: {y}'
+    case (x, y): return f'Point: ({x}, {y})'
 ```
 
 **Wann `if-elif` verwenden:**
 ```python
 # ✅ Besser für einfache Vergleiche
 if age < 18:
-    return "Minor"
+    return 'Minor'
 elif age < 65:
-    return "Adult"
+    return 'Adult'
 else:
-    return "Senior"
+    return 'Senior'
 ```
 
 ### 3.12    Zusammenfassung
@@ -463,7 +463,7 @@ else:
 | OR                | `case 200 \| 201 \| 204:`                 | Mehrere Werte                  |
 | Sequence          | `case [x, y, z]:`                         | Listen/Tupel mit fester Länge  |
 | Sequence (rest)   | `case [first, *rest]:`                    | Variable Länge                 |
-| Mapping           | `case {"key": value}:`                    | Dictionaries                   |
+| Mapping           | `case {'key': value}:`                    | Dictionaries                   |
 | Class             | `case Point(x, y):`                       | Objekte/Dataclasses            |
 | Guard             | `case x if x > 0:`                        | Zusätzliche Bedingung          |
 | AS                | `case [x, *rest] as full:`                | Ganzes + Teile erfassen        |

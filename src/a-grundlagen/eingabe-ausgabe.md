@@ -70,7 +70,7 @@ logging.error('Fehler...')
 
 ## 3    Tabellen
 
-### 3.1    Mit "Bordmitteln" (ohne zus. Pakete)
+### 3.1    Mit 'Bordmitteln' (ohne zus. Pakete)
 
 **Beispiel 1:**
 
@@ -117,14 +117,14 @@ from prettytable import PrettyTable   # License: BSD (3 clause)
 head = ['Name', 'Alter']              # Überschriften
 data = [['Max', 33], ['Monika', 29]]  # Inhalt/Zeilen
 
-# Paket "tabulate"
+# Paket 'tabulate'
 # https://github.com/astanin/python-tabulate
 print(tabulate(tabular_data=data, headers=head, tablefmt='pretty',
                colalign=('left', 'right')))
 # Alternative: tablefmt='fancy_outline'
 print()
 
-# Paket "prettytable"
+# Paket 'prettytable'
 # https://github.com/jazzband/prettytable
 t = PrettyTable(head)
 t.add_rows(data)
@@ -158,7 +158,7 @@ Ausgabe:
 
 ```python
 from texttable import Texttable  # License: MIT
-# Paket "texttable"
+# Paket 'texttable'
 # https://github.com/foutaise/texttable/
 t = Texttable()
 t.set_cols_align(['l', 'c', 'r', 'l'])
@@ -274,7 +274,7 @@ import pandas as pd
 
 # Data frame erstellen
 # header = None, wenn keine Überschriften vorhanden sind
-df = pd.read_csv('beispieldateien/tabelle.csv', header=0, sep=";", decimal=",",
+df = pd.read_csv('beispieldateien/tabelle.csv', header=0, sep=';', decimal=',',
                  names=['x-Wert', 'y-Wert'])
 print(df)
 print()
@@ -317,11 +317,11 @@ Es gibt es zwei gängige Möglichkeiten, mit Dateipfaden und dem Dateisystem zu 
 import os
 
 # Pfad zusammensetzen
-pfad = os.path.join("verzeichnis", "datei.txt")
+pfad = os.path.join('verzeichnis', 'datei.txt')
 
 # Prüfen, ob Pfad existiert
 if os.path.exists(pfad):
-    print("Pfad existiert.")
+    print('Pfad existiert.')
 
 # Absoluten Pfad bekommen
 absolut = os.path.abspath(pfad)
@@ -333,11 +333,11 @@ absolut = os.path.abspath(pfad)
 from pathlib import Path
 
 # Pfad zusammensetzen
-pfad = Path("verzeichnis") / "datei.txt"
+pfad = Path('verzeichnis') / 'datei.txt'
 
 # Existenz prüfen
 if pfad.exists():
-    print("Pfad existiert.")
+    print('Pfad existiert.')
 
 # Absoluten Pfad bekommen
 absolut = pfad.resolve()
@@ -359,8 +359,8 @@ absolut = pfad.resolve()
 
 ```python
 import shutil
-pfad = Path("backup") / "datei.txt"
-shutil.copy(pfad, Path("ziel") / "kopie.txt")
+pfad = Path('backup') / 'datei.txt'
+shutil.copy(pfad, Path('ziel') / 'kopie.txt')
 ```
 
 ### 8.6    Zusammenfassung
@@ -392,7 +392,7 @@ data = {
 # In JSON-String konvertieren
 json_string = json.dumps(data)
 print(json_string)
-# {"name": "Alice", "age": 30, "hobbies": ["reading", "coding"], "active": true}
+# {'name': 'Alice', 'age': 30, 'hobbies': ['reading', 'coding'], 'active': true}
 
 # Zurück zu Python-Objekt
 parsed = json.loads(json_string)
@@ -423,9 +423,9 @@ data = {'name': 'Bob', 'age': 25, 'city': 'Berlin'}
 json_str = json.dumps(data, indent=4, sort_keys=True)
 print(json_str)
 # {
-#     "age": 25,
-#     "city": "Berlin",
-#     "name": "Bob"
+#     'age': 25,
+#     'city': 'Berlin',
+#     'name': 'Bob'
 # }
 ```
 
@@ -470,7 +470,7 @@ class PersonEncoder(json.JSONEncoder):
 person = Person('Alice', 30, datetime(1994, 5, 15))
 json_str = json.dumps(person, cls=PersonEncoder)
 print(json_str)
-# {"name": "Alice", "age": 30, "birthday": "1994-05-15T00:00:00"}
+# {'name': 'Alice', 'age': 30, 'birthday': '1994-05-15T00:00:00'}
 ```
 
 **Custom Decoder:**
@@ -519,7 +519,7 @@ data = {'users': [{'name': 'Alice', 'age': 30}, {'name': 'Bob', 'age': 25}]}
 # Kompakt (für Speicherung/Übertragung)
 compact = json.dumps(data, separators=(',', ':'))
 print(compact)
-# {"users":[{"name":"Alice","age":30},{"name":"Bob","age":25}]}
+# {'users':[{'name':'Alice','age':30},{'name':'Bob','age':25}]}
 
 # Lesbar (für Debugging)
 readable = json.dumps(data, indent=2)
@@ -725,7 +725,7 @@ class User:
         self.created = created
     
     def greet(self):
-        return f"Hello, I'm {self.name}"
+        return f'Hello, I'm {self.name}'
 
 user = User('Alice', datetime.now())
 
@@ -754,8 +754,8 @@ p4 = pickle.dumps(data, protocol=4)
 # Höchstes verfügbares Protokoll
 p_latest = pickle.dumps(data, protocol=pickle.HIGHEST_PROTOCOL)
 
-print(f"Protocol 0: {len(p0)} bytes")
-print(f"Protocol 4: {len(p4)} bytes")
+print(f'Protocol 0: {len(p0)} bytes')
+print(f'Protocol 4: {len(p4)} bytes')
 ```
 
 #### 9.3.5    Pickle-Sicherheitsrisiken
@@ -788,7 +788,7 @@ try:
     data = lambda x: x * 2
     pickle.dumps(data)
 except Exception as e:
-    print(f"Error: {e}")  # Can't pickle lambda functions
+    print(f'Error: {e}')  # Can't pickle lambda functions
 
 # ✅ Alternative: dill-Bibliothek
 import dill
@@ -806,7 +806,7 @@ class Database:
     
     def _connect(self):
         # Simulierte Verbindung
-        return f"Connection to {self.host}"
+        return f'Connection to {self.host}'
     
     def __getstate__(self):
         """Was gepickled wird"""
@@ -915,7 +915,7 @@ class Cache:
     
     def get(self, key):
         """Lädt gecachtes Objekt"""
-        cache_file = self.cache_dir / f"{key}.pkl"
+        cache_file = self.cache_dir / f'{key}.pkl'
         if cache_file.exists():
             with open(cache_file, 'rb') as f:
                 return pickle.load(f)
@@ -923,7 +923,7 @@ class Cache:
     
     def set(self, key, value):
         """Speichert Objekt im Cache"""
-        cache_file = self.cache_dir / f"{key}.pkl"
+        cache_file = self.cache_dir / f'{key}.pkl'
         with open(cache_file, 'wb') as f:
             pickle.dump(value, f)
     
@@ -943,11 +943,11 @@ def expensive_operation():
 # Mit Cache
 result = cache.get('computation')
 if result is None:
-    print("Computing...")
+    print('Computing...')
     result = expensive_operation()
     cache.set('computation', result)
 else:
-    print("From cache!")
+    print('From cache!')
 ```
 
 #### 9.6.3    Multi-Format Serializer
@@ -976,7 +976,7 @@ class Serializer:
                 pickle.dump(data, f)
         
         else:
-            raise ValueError(f"Unknown format: {format}")
+            raise ValueError(f'Unknown format: {format}')
     
     @staticmethod
     def load(filepath):
@@ -996,7 +996,7 @@ class Serializer:
                 return pickle.load(f)
         
         else:
-            raise ValueError(f"Unknown format: {path.suffix}")
+            raise ValueError(f'Unknown format: {path.suffix}')
 
 # Verwendung
 data = {'users': ['Alice', 'Bob'], 'count': 2}

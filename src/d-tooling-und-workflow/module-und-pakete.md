@@ -325,7 +325,7 @@ class CustomFinder(importlib.abc.MetaPathFinder):
     def find_spec(self, fullname, path, target=None):
         """Custom Module Finder"""
         if fullname.startswith('custom_'):
-            print(f"Custom finder handling: {fullname}")
+            print(f'Custom finder handling: {fullname}')
             # Eigene Logik zum Finden des Moduls
         return None
 
@@ -344,12 +344,12 @@ def find_module(module_name):
 
     spec = importlib.util.find_spec(module_name)
     if spec:
-        print(f"Found: {spec.origin}")
+        print(f'Found: {spec.origin}')
     else:
-        print(f"Not found: {module_name}")
-        print("\nSearching in:")
+        print(f'Not found: {module_name}')
+        print('\nSearching in:')
         for path in sys.path:
-            print(f"  {path}")
+            print(f'  {path}')
 
 find_module('numpy')
 

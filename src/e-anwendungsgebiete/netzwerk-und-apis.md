@@ -238,14 +238,14 @@ retry_strategy = Retry(
     total=3,                          # Maximale Anzahl Retries
     backoff_factor=1,                 # Wartezeit: 1s, 2s, 4s, ...
     status_forcelist=[429, 500, 502, 503, 504],  # Bei diesen Status-Codes
-    allowed_methods=["GET", "POST"]   # Nur für diese Methoden
+    allowed_methods=['GET', 'POST']   # Nur für diese Methoden
 )
 
 adapter = HTTPAdapter(max_retries=retry_strategy)
 
 session = requests.Session()
-session.mount("http://", adapter)
-session.mount("https://", adapter)
+session.mount('http://', adapter)
+session.mount('https://', adapter)
 
 # Request mit automatischen Retries
 response = session.get('https://api.example.com/data')

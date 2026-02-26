@@ -115,9 +115,9 @@ cProfile.run('compute_heavy_task()')
 import timeit
 
 # Zeitmessung für einfachen Ausdruck
-code = "sum([i*i for i in range(1000)])"
+code = 'sum([i*i for i in range(1000)])'
 duration = timeit.timeit(stmt=code, number=1000)
-print(f"Durchschnittszeit: {duration:.4f} Sekunden")
+print(f'Durchschnittszeit: {duration:.4f} Sekunden')
 ```
 
 ### 3.5    line_profiler (externe Installation nötig)

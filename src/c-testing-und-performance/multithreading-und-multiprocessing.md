@@ -34,7 +34,7 @@
 > from multiprocessing import Process, Queue
 >
 > def worker(q):
->     q.put("Hallo aus dem Prozess")
+>     q.put('Hallo aus dem Prozess')
 >
 > q = Queue()
 > p = Process(target=worker, args=(q,))
@@ -54,9 +54,9 @@
 > import asyncio
 >
 > async def task():
->     print("Task läuft")
+>     print('Task läuft')
 >     await asyncio.sleep(1)
->     print("Task beendet")
+>     print('Task beendet')
 >
 > loop = asyncio.get_event_loop()
 > loop.run_until_complete(task())
@@ -95,9 +95,9 @@ import threading
 import time
 
 def worker():
-    print("Thread startet")
+    print('Thread startet')
     time.sleep(2)
-    print("Thread endet")
+    print('Thread endet')
 
 t1 = threading.Thread(target=worker)
 t2 = threading.Thread(target=worker)
@@ -137,9 +137,9 @@ import multiprocessing
 import time
 
 def worker():
-    print("Prozess startet")
+    print('Prozess startet')
     time.sleep(2)
-    print("Prozess endet")
+    print('Prozess endet')
 
 p1 = multiprocessing.Process(target=worker)
 p2 = multiprocessing.Process(target=worker)
@@ -175,9 +175,9 @@ p2.join()
 import asyncio
 
 async def say_hello():
-    print("Hello")
+    print('Hello')
     await asyncio.sleep(1)
-    print("World")
+    print('World')
 
 asyncio.run(say_hello())
 ```
@@ -191,9 +191,9 @@ asyncio.run(say_hello())
 import asyncio
 
 async def task(n):
-    print(f"Task {n} startet")
+    print(f'Task {n} startet')
     await asyncio.sleep(n)
-    print(f"Task {n} endet")
+    print(f'Task {n} endet')
     return n * 10
 
 async def main():
@@ -202,7 +202,7 @@ async def main():
         task(2),
         task(3)
     )
-    print("Ergebnisse:", results)
+    print('Ergebnisse:', results)
 
 asyncio.run(main())
 ```

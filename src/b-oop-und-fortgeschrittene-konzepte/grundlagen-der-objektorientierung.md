@@ -13,10 +13,10 @@ class Person:
 
     def introduce(self):
         """Gibt eine Vorstellung der Person aus."""
-        print(f"Hallo, mein Name ist {self.name} und ich bin {self.age} Jahre alt.")
+        print(f'Hallo, mein Name ist {self.name} und ich bin {self.age} Jahre alt.')
 
 # Objekt erstellen
-person1 = Person("Alice", 30)
+person1 = Person('Alice', 30)
 person1.introduce()
 ```
 
@@ -33,10 +33,10 @@ class Student(Person):
 
     def introduce(self):
         """Überschreibt die Methode der Elternklasse."""
-        print(f"Hallo, mein Name ist {self.name}, ich bin {self.age} Jahre alt und studiere {self.major}.")
+        print(f'Hallo, mein Name ist {self.name}, ich bin {self.age} Jahre alt und studiere {self.major}.')
 
 # Objekt erstellen
-student1 = Student("Bob", 22, "Informatik")
+student1 = Student('Bob', 22, 'Informatik')
 student1.introduce()
 ```
 
@@ -52,7 +52,7 @@ class Worker:
 
     def work(self):
         """Gibt den Beruf des Arbeiters aus."""
-        print(f"Ich arbeite als {self.job}.")
+        print(f'Ich arbeite als {self.job}.')
 
 class StudentWorker(Student, Worker):
     """Eine Klasse für einen Studenten, der auch arbeitet."""
@@ -64,10 +64,10 @@ class StudentWorker(Student, Worker):
 
     def introduce(self):
         """Erweitert die Vorstellungsmethode."""
-        print(f"Ich bin {self.name}, {self.age} Jahre alt, studiere {self.major} und arbeite als {self.job}.")
+        print(f'Ich bin {self.name}, {self.age} Jahre alt, studiere {self.major} und arbeite als {self.job}.')
 
 # Objekt erstellen
-student_worker = StudentWorker("Clara", 25, "Maschinenbau", "Werkstudent")
+student_worker = StudentWorker('Clara', 25, 'Maschinenbau', 'Werkstudent')
 student_worker.introduce()
 ```
 
@@ -89,7 +89,7 @@ class Dog(Animal):
 
     def make_sound(self):
         """Implementiert die abstrakte Methode."""
-        print("Wuff Wuff!")
+        print('Wuff Wuff!')
 
 # Objekt erstellen
 dog = Dog()
@@ -114,7 +114,7 @@ class BankAccount:
     def balance(self, amount):
         """Setter für den Kontostand mit Validierung."""
         if amount < 0:
-            print("Fehler: Der Kontostand kann nicht negativ sein.")
+            print('Fehler: Der Kontostand kann nicht negativ sein.')
         else:
             self._balance = amount
 
@@ -138,14 +138,14 @@ class Car:
 
     def __str__(self):
         """Lesbare Darstellung des Objekts."""
-        return f"Auto: {self.brand} {self.model}"
+        return f'Auto: {self.brand} {self.model}'
 
     def __repr__(self):
         """Detaillierte Darstellung für Entwickler."""
-        return f"Car('{self.brand}', '{self.model}')"
+        return f'Car('{self.brand}', '{self.model}')'
 
 # Objekt erstellen
-car = Car("BMW", "X5")
+car = Car('BMW', 'X5')
 print(car)  # __str__ Methode
 print(repr(car))  # __repr__ Methode
 ```

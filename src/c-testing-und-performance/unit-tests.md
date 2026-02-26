@@ -33,7 +33,7 @@ def add(a, b):
 
 def divide(a, b):
     if b == 0:
-        raise ValueError("Cannot divide by zero")
+        raise ValueError('Cannot divide by zero')
     return a / b
 ```
 ```python
@@ -51,7 +51,7 @@ def test_divide():
     assert divide(9, 3) == 3
 
 def test_divide_by_zero():
-    with pytest.raises(ValueError, match="Cannot divide by zero"):
+    with pytest.raises(ValueError, match='Cannot divide by zero'):
         divide(10, 0)
 ```
 
@@ -80,7 +80,7 @@ pytest --cov=src tests/
 def test_assertions():
     # Gleichheit
     assert 1 + 1 == 2
-    assert "hello" == "hello"
+    assert 'hello' == 'hello'
     
     # Ungleichheit
     assert 5 != 3
@@ -91,7 +91,7 @@ def test_assertions():
     
     # Membership
     assert 3 in [1, 2, 3]
-    assert "a" not in "xyz"
+    assert 'a' not in 'xyz'
     
     # Identität
     x = [1, 2]
@@ -112,10 +112,10 @@ def test_advanced_assertions():
     assert {1, 2} == {2, 1}  # Set-Reihenfolge egal
     
     # Dictionaries
-    assert {"a": 1, "b": 2} == {"b": 2, "a": 1}
+    assert {'a': 1, 'b': 2} == {'b': 2, 'a': 1}
     
     # Teilmengen
-    assert {"a", "b"} <= {"a", "b", "c"}
+    assert {'a', 'b'} <= {'a', 'b', 'c'}
 ```
 
 #### 1.2.3    Exception-Testing
@@ -123,17 +123,17 @@ def test_advanced_assertions():
 def test_exceptions():
     # Einfach
     with pytest.raises(ValueError):
-        int("invalid")
+        int('invalid')
     
     # Mit Message-Check
-    with pytest.raises(ValueError, match="invalid literal"):
-        int("invalid")
+    with pytest.raises(ValueError, match='invalid literal'):
+        int('invalid')
     
     # Exception-Objekt inspizieren
     with pytest.raises(ValueError) as exc_info:
-        raise ValueError("Custom message")
+        raise ValueError('Custom message')
     
-    assert "Custom" in str(exc_info.value)
+    assert 'Custom' in str(exc_info.value)
     assert exc_info.type is ValueError
 ```
 
@@ -167,8 +167,8 @@ from pathlib import Path
 def temp_file(tmp_path):
     """Erstellt temporäre Datei, löscht sie nach Test"""
     # Setup
-    file_path = tmp_path / "test.txt"
-    file_path.write_text("Hello World")
+    file_path = tmp_path / 'test.txt'
+    file_path.write_text('Hello World')
     
     # Fixture-Wert übergeben
     yield file_path
@@ -176,11 +176,11 @@ def temp_file(tmp_path):
     # Teardown (wird nach Test ausgeführt)
     if file_path.exists():
         file_path.unlink()
-    print("Cleanup completed")
+    print('Cleanup completed')
 
 def test_file_content(temp_file):
     content = temp_file.read_text()
-    assert content == "Hello World"
+    assert content == 'Hello World'
 ```
 
 #### 1.3.3    Fixture-Scopes
@@ -188,30 +188,30 @@ def test_file_content(temp_file):
 import pytest
 
 # Function-Scope (Standard - für jeden Test neu)
-@pytest.fixture(scope="function")
+@pytest.fixture(scope='function')
 def function_fixture():
-    print("\nSetup function fixture")
-    return "data"
+    print('\nSetup function fixture')
+    return 'data'
 
 # Class-Scope (einmal pro Test-Klasse)
-@pytest.fixture(scope="class")
+@pytest.fixture(scope='class')
 def class_fixture():
-    print("\nSetup class fixture")
-    return "class data"
+    print('\nSetup class fixture')
+    return 'class data'
 
 # Module-Scope (einmal pro Modul)
-@pytest.fixture(scope="module")
+@pytest.fixture(scope='module')
 def module_fixture():
-    print("\nSetup module fixture")
+    print('\nSetup module fixture')
     db = Database()
     yield db
     db.close()
 
 # Session-Scope (einmal pro Test-Session)
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def session_fixture():
-    print("\nSetup session fixture")
-    return "session data"
+    print('\nSetup session fixture')
+    return 'session data'
 ```
 
 #### 1.3.4    Fixture-Dependencies
@@ -221,20 +221,20 @@ import pytest
 @pytest.fixture
 def database():
     """Simulierte Datenbank"""
-    db = {"users": []}
+    db = {'users': []}
     yield db
     db.clear()
 
 @pytest.fixture
 def user(database):
     """Benötigt database-Fixture"""
-    user = {"id": 1, "name": "Alice"}
-    database["users"].append(user)
+    user = {'id': 1, 'name': 'Alice'}
+    database['users'].append(user)
     return user
 
 def test_user_in_database(database, user):
-    assert user in database["users"]
-    assert len(database["users"]) == 1
+    assert user in database['users']
+    assert len(database['users']) == 1
 ```
 
 #### 1.3.5    Autouse-Fixtures
@@ -253,31 +253,31 @@ def reset_state():
 ```python
 def test_tmp_path(tmp_path):
     """tmp_path: Temporäres Verzeichnis (pathlib.Path)"""
-    file = tmp_path / "test.txt"
-    file.write_text("content")
-    assert file.read_text() == "content"
+    file = tmp_path / 'test.txt'
+    file.write_text('content')
+    assert file.read_text() == 'content'
 
 def test_tmp_path_factory(tmp_path_factory):
     """Erstellt mehrere temp Verzeichnisse"""
-    dir1 = tmp_path_factory.mktemp("data1")
-    dir2 = tmp_path_factory.mktemp("data2")
+    dir1 = tmp_path_factory.mktemp('data1')
+    dir2 = tmp_path_factory.mktemp('data2')
     assert dir1 != dir2
 
 def test_monkeypatch(monkeypatch):
     """monkeypatch: Temporär Code ändern"""
     import os
-    monkeypatch.setenv("API_KEY", "test_key")
-    assert os.environ["API_KEY"] == "test_key"
+    monkeypatch.setenv('API_KEY', 'test_key')
+    assert os.environ['API_KEY'] == 'test_key'
     # Nach Test wird original wiederhergestellt
 
 def test_capsys(capsys):
     """capsys: stdout/stderr erfassen"""
-    print("Hello")
-    print("World", file=sys.stderr)
+    print('Hello')
+    print('World', file=sys.stderr)
     
     captured = capsys.readouterr()
-    assert captured.out == "Hello\n"
-    assert captured.err == "World\n"
+    assert captured.out == 'Hello\n'
+    assert captured.err == 'World\n'
 ```
 
 ### 1.4    Parametrized Tests
@@ -288,7 +288,7 @@ Tests mit mehreren Input/Output-Kombinationen.
 ```python
 import pytest
 
-@pytest.mark.parametrize("input,expected", [
+@pytest.mark.parametrize('input,expected', [
     (2, 4),
     (3, 9),
     (4, 16),
@@ -306,7 +306,7 @@ def test_square(input, expected):
 
 #### 1.4.2    Mehrere Parameter
 ```python
-@pytest.mark.parametrize("a,b,expected", [
+@pytest.mark.parametrize('a,b,expected', [
     (2, 3, 5),
     (10, 5, 15),
     (-1, 1, 0),
@@ -318,11 +318,11 @@ def test_add(a, b, expected):
 
 #### 1.4.3    IDs für lesbare Test-Namen
 ```python
-@pytest.mark.parametrize("input,expected", [
+@pytest.mark.parametrize('input,expected', [
     (2, 4),
     (3, 9),
     (5, 25),
-], ids=["two", "three", "five"])
+], ids=['two', 'three', 'five'])
 def test_square(input, expected):
     assert input ** 2 == expected
 
@@ -334,7 +334,7 @@ def test_square(input, expected):
 
 #### 1.4.4    Parametrize mit pytest.param
 ```python
-@pytest.mark.parametrize("input,expected", [
+@pytest.mark.parametrize('input,expected', [
     (2, 4),
     pytest.param(0, 0, marks=pytest.mark.skip),
     pytest.param(3, 9, marks=pytest.mark.xfail),
@@ -346,8 +346,8 @@ def test_square(input, expected):
 
 #### 1.4.5    Verschachtelte Parametrize
 ```python
-@pytest.mark.parametrize("x", [1, 2, 3])
-@pytest.mark.parametrize("y", [10, 20])
+@pytest.mark.parametrize('x', [1, 2, 3])
+@pytest.mark.parametrize('y', [10, 20])
 def test_multiply(x, y):
     result = x * y
     assert result == x * y
@@ -373,15 +373,15 @@ def test_positive(number):
 ```python
 import pytest
 
-@pytest.mark.skip(reason="Not implemented yet")
+@pytest.mark.skip(reason='Not implemented yet')
 def test_feature():
     pass
 
-@pytest.mark.skipif(sys.platform == "win32", reason="Unix only")
+@pytest.mark.skipif(sys.platform == 'win32', reason='Unix only')
 def test_unix_feature():
     pass
 
-@pytest.mark.xfail(reason="Known bug #123")
+@pytest.mark.xfail(reason='Known bug #123')
 def test_buggy_feature():
     assert False
 
@@ -397,11 +397,11 @@ def test_expensive_operation():
 pytest -m slow
 
 # Alles außer slow
-pytest -m "not slow"
+pytest -m 'not slow'
 
 # Kombinationen
-pytest -m "slow and database"
-pytest -m "slow or database"
+pytest -m 'slow and database'
+pytest -m 'slow or database'
 ```
 
 #### 1.5.2    Custom Marks
@@ -439,7 +439,7 @@ class TestCalculator:
     def test_subtract(self):
         assert self.calc.subtract(5, 3) == 2
     
-    @pytest.mark.parametrize("a,b,expected", [
+    @pytest.mark.parametrize('a,b,expected', [
         (10, 2, 5),
         (20, 4, 5),
     ])
@@ -480,7 +480,7 @@ import requests
 
 def get_user_data(user_id):
     """Holt Daten von API"""
-    response = requests.get(f"https://api.example.com/users/{user_id}")
+    response = requests.get(f'https://api.example.com/users/{user_id}')
     return response.json()
 
 def test_get_user_data():
@@ -531,7 +531,7 @@ def test_side_effects():
     assert mock() == 3
     
     # Exception werfen
-    mock.side_effect = ValueError("Error")
+    mock.side_effect = ValueError('Error')
     with pytest.raises(ValueError):
         mock()
     
@@ -545,12 +545,12 @@ def test_side_effects():
 def test_mock_object():
     # Mock-Objekt mit Attributen
     mock_user = Mock()
-    mock_user.name = "Alice"
+    mock_user.name = 'Alice'
     mock_user.age = 30
-    mock_user.get_email.return_value = "alice@example.com"
+    mock_user.get_email.return_value = 'alice@example.com'
     
-    assert mock_user.name == "Alice"
-    assert mock_user.get_email() == "alice@example.com"
+    assert mock_user.name == 'Alice'
+    assert mock_user.get_email() == 'alice@example.com'
 ```
 
 #### 1.6.7    Pytest-mock Plugin
@@ -591,22 +591,22 @@ pytest --cov=src --cov-report=term-missing --cov-fail-under=80 tests/
 ```ini
 # .coveragerc oder pyproject.toml
 [tool.coverage.run]
-source = ["src"]
+source = ['src']
 omit = [
-    "*/tests/*",
-    "*/test_*.py",
-    "*/__pycache__/*",
-    "*/site-packages/*"
+    '*/tests/*',
+    '*/test_*.py',
+    '*/__pycache__/*',
+    '*/site-packages/*'
 ]
 
 [tool.coverage.report]
 exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if __name__ == .__main__.:",
-    "if TYPE_CHECKING:",
+    'pragma: no cover',
+    'def __repr__',
+    'raise AssertionError',
+    'raise NotImplementedError',
+    'if __name__ == .__main__.:',
+    'if TYPE_CHECKING:',
 ]
 ```
 
@@ -629,7 +629,7 @@ def critical_function():
 # conftest.py (wird automatisch geladen)
 import pytest
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def config():
     """Globale Konfiguration"""
     return {
@@ -638,10 +638,10 @@ def config():
         'debug': True
     }
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def database_url():
     """Test-Datenbank URL"""
-    return "sqlite:///:memory:"
+    return 'sqlite:///:memory:'
 ```
 
 #### 1.8.2    Datenbank-Tests
@@ -650,10 +650,10 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope='module')
 def engine():
     """Erstellt Test-Datenbank"""
-    engine = create_engine("sqlite:///:memory:")
+    engine = create_engine('sqlite:///:memory:')
     Base.metadata.create_all(engine)
     yield engine
     Base.metadata.drop_all(engine)
@@ -670,7 +670,7 @@ def db_session(engine):
     session.close()
 
 def test_create_user(db_session):
-    user = User(name="Alice", email="alice@example.com")
+    user = User(name='Alice', email='alice@example.com')
     db_session.add(user)
     db_session.commit()
     
@@ -687,20 +687,20 @@ import requests
 def api_client():
     """API Client mit Base URL"""
     class APIClient:
-        base_url = "http://localhost:8000/api"
+        base_url = 'http://localhost:8000/api'
         
         def get(self, endpoint):
-            return requests.get(f"{self.base_url}{endpoint}")
+            return requests.get(f'{self.base_url}{endpoint}')
         
         def post(self, endpoint, data):
-            return requests.post(f"{self.base_url}{endpoint}", json=data)
+            return requests.post(f'{self.base_url}{endpoint}', json=data)
     
     return APIClient()
 
 def test_get_users(api_client, mocker):
     # Mock HTTP-Call
     mock_response = mocker.Mock()
-    mock_response.json.return_value = [{"id": 1, "name": "Alice"}]
+    mock_response.json.return_value = [{'id': 1, 'name': 'Alice'}]
     mock_response.status_code = 200
     
     mocker.patch('requests.get', return_value=mock_response)

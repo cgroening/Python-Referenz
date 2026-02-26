@@ -462,8 +462,8 @@ data = [i for i in range(1000000)]
 
 # Aktuellen Speicherverbrauch abrufen
 current, peak = tracemalloc.get_traced_memory()
-print(f"Current memory: {current / 1024 / 1024:.2f} MB")
-print(f"Peak memory: {peak / 1024 / 1024:.2f} MB")
+print(f'Current memory: {current / 1024 / 1024:.2f} MB')
+print(f'Peak memory: {peak / 1024 / 1024:.2f} MB')
 
 # Tracking stoppen
 tracemalloc.stop()
@@ -489,7 +489,7 @@ snapshot2 = tracemalloc.take_snapshot()
 # Unterschiede anzeigen
 stats = snapshot2.compare_to(snapshot1, 'lineno')
 
-print("Top 10 Speicherzuwächse:")
+print('Top 10 Speicherzuwächse:')
 for stat in stats[:10]:
     print(stat)
 ```
@@ -510,9 +510,9 @@ snapshot = tracemalloc.take_snapshot()
 # Top 10 nach Speicherverbrauch
 top_stats = snapshot.statistics('lineno')
 
-print("Top 10 Memory Consumers:")
+print('Top 10 Memory Consumers:')
 for index, stat in enumerate(top_stats[:10], 1):
-    print(f"{index}. {stat}")
+    print(f'{index}. {stat}')
 
 tracemalloc.stop()
 ```
@@ -549,7 +549,7 @@ snapshot2 = tracemalloc.take_snapshot()
 # Differenz analysieren
 top_stats = snapshot2.compare_to(snapshot1, 'lineno')
 
-print("Memory increases:")
+print('Memory increases:')
 for stat in top_stats[:5]:
     print(stat)
 
@@ -570,9 +570,9 @@ snapshot = tracemalloc.take_snapshot()
 
 # Nur spezifische Dateien
 filters = [
-    tracemalloc.Filter(True, "*/my_module/*"),  # Include
-    tracemalloc.Filter(False, "<frozen*"),      # Exclude frozen modules
-    tracemalloc.Filter(False, "<unknown>"),     # Exclude unknown
+    tracemalloc.Filter(True, '*/my_module/*'),  # Include
+    tracemalloc.Filter(False, '<frozen*'),      # Exclude frozen modules
+    tracemalloc.Filter(False, '<unknown>'),     # Exclude unknown
 ]
 
 snapshot = snapshot.filter_traces(filters)
@@ -590,7 +590,7 @@ from contextlib import contextmanager
 import tracemalloc
 
 @contextmanager
-def memory_profiler(description="Code Block"):
+def memory_profiler(description='Code Block'):
     """Context Manager für Speicher-Profiling"""
     tracemalloc.start()
     snapshot_before = tracemalloc.take_snapshot()
@@ -601,19 +601,19 @@ def memory_profiler(description="Code Block"):
         snapshot_after = tracemalloc.take_snapshot()
         top_stats = snapshot_after.compare_to(snapshot_before, 'lineno')
         
-        print(f"\n=== Memory Profile: {description} ===")
+        print(f'\n=== Memory Profile: {description} ===')
         current, peak = tracemalloc.get_traced_memory()
-        print(f"Current: {current / 1024 / 1024:.2f} MB")
-        print(f"Peak: {peak / 1024 / 1024:.2f} MB")
+        print(f'Current: {current / 1024 / 1024:.2f} MB')
+        print(f'Peak: {peak / 1024 / 1024:.2f} MB')
         
-        print("\nTop 5 allocations:")
+        print('\nTop 5 allocations:')
         for stat in top_stats[:5]:
             print(stat)
         
         tracemalloc.stop()
 
 # Verwendung
-with memory_profiler("List Creation"):
+with memory_profiler('List Creation'):
     large_list = [i ** 2 for i in range(1000000)]
 ```
 
@@ -625,23 +625,23 @@ import linecache
 def display_top(snapshot, key_type='lineno', limit=10):
     """Zeigt Top-Speicherverbraucher mit Traceback"""
     snapshot = snapshot.filter_traces((
-        tracemalloc.Filter(False, "<frozen importlib._bootstrap>"),
-        tracemalloc.Filter(False, "<unknown>"),
+        tracemalloc.Filter(False, '<frozen importlib._bootstrap>'),
+        tracemalloc.Filter(False, '<unknown>'),
     ))
     top_stats = snapshot.statistics(key_type)
 
-    print(f"Top {limit} lines")
+    print(f'Top {limit} lines')
     for index, stat in enumerate(top_stats[:limit], 1):
         frame = stat.traceback[0]
         filename = frame.filename
         lineno = frame.lineno
         
-        print(f"#{index}: {filename}:{lineno}: {stat.size / 1024:.1f} KiB")
+        print(f'#{index}: {filename}:{lineno}: {stat.size / 1024:.1f} KiB')
         
         # Zeile aus Quelldatei
         line = linecache.getline(filename, lineno).strip()
         if line:
-            print(f"    {line}")
+            print(f'    {line}')
 
 # Verwendung
 tracemalloc.start()
@@ -697,12 +697,12 @@ implementations = [
     ('Map', create_map)
 ]
 
-print(f"Creating {n:,} elements\n")
+print(f'Creating {n:,} elements\n')
 for name, func in implementations:
     stats = benchmark_memory(func, n)
-    print(f"{name}:")
-    print(f"  Peak Memory: {stats['peak_mb']:.2f} MB")
-    print(f"  Time: {stats['time_s']:.4f} s\n")
+    print(f'{name}:')
+    print(f'  Peak Memory: {stats['peak_mb']:.2f} MB')
+    print(f'  Time: {stats['time_s']:.4f} s\n')
 ```
 
 ### 5.9    Speicherlecks in Klassen finden
@@ -744,12 +744,12 @@ def test_leak():
     snapshot3 = tracemalloc.take_snapshot()
     
     # Vergleich
-    print("=== Leaky Class ===")
+    print('=== Leaky Class ===')
     stats = snapshot2.compare_to(snapshot1, 'lineno')
     for stat in stats[:3]:
         print(stat)
     
-    print("\n=== Clean Class ===")
+    print('\n=== Clean Class ===')
     stats = snapshot3.compare_to(snapshot2, 'lineno')
     for stat in stats[:3]:
         print(stat)
@@ -778,7 +778,7 @@ class MemoryTestCase(unittest.TestCase):
         # Warnung bei hohem Speicherverbrauch
         for stat in top_stats[:5]:
             if stat.size_diff > 10 * 1024 * 1024:  # > 10 MB
-                print(f"\nWARNING: High memory increase: {stat}")
+                print(f'\nWARNING: High memory increase: {stat}')
         
         tracemalloc.stop()
     
@@ -844,7 +844,7 @@ pip install pympler
 from pympler import asizeof
 
 data = [i for i in range(1000)]
-print(f"Size: {asizeof.asizeof(data)} bytes")
+print(f'Size: {asizeof.asizeof(data)} bytes')
 ```
 
 ### 5.13    Praktisches Beispiel: Memory Leak finden
@@ -879,12 +879,12 @@ def find_leak():
         
         if i > 0:
             stats = snapshot.compare_to(snapshots[i-1], 'lineno')
-            print(f"\n=== Iteration {i} ===")
+            print(f'\n=== Iteration {i} ===')
             for stat in stats[:3]:
                 print(stat)
     
     # Cache-Größe
-    print(f"\nCache entries: {len(DataProcessor.cache)}")
+    print(f'\nCache entries: {len(DataProcessor.cache)}')
     
     tracemalloc.stop()
 

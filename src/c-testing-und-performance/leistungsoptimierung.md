@@ -51,7 +51,7 @@ int add(int a, int b) {
 }
 
 PYBIND11_MODULE(my_module, m) {
-    m.def("add", &add);
+    m.def('add', &add);
 }
 ```
 
@@ -103,10 +103,10 @@ print(fast_sum(1000000))
 Numba funktioniert besonders gut bei numerischen Berechnungen und Schleifen.
 
 > [!INFO] Was ist LLVM?
-LLVM steht für "Low-Level Virtual Machine", ist aber heute viel mehr als das: LLVM ist eine moderne Compiler-Infrastruktur, die aus mehreren modularen Tools besteht. Viele moderne Programmiersprachen verwenden LLVM, um ihren Code in Maschinencode zu übersetzen.
+LLVM steht für *Low-Level Virtual Machine*, ist aber heute viel mehr als das: LLVM ist eine moderne Compiler-Infrastruktur, die aus mehreren modularen Tools besteht. Viele moderne Programmiersprachen verwenden LLVM, um ihren Code in Maschinencode zu übersetzen.
 >
 > **Wichtigste Eigenschaften:**
-> - Zwischensprache (IR): LLVM übersetzt Code zuerst in eine eigene "Intermediate Representation" (IR), die dann weiter optimiert wird.
+> - Zwischensprache (IR): LLVM übersetzt Code zuerst in eine eigene 'Intermediate Representation' (IR), die dann weiter optimiert wird.
 > - Optimierungen: Bietet sehr fortschrittliche Optimierungen auf niedriger Ebene.
 > - Backend: Erzeugt optimierten Maschinencode für viele Plattformen.
 >
@@ -160,14 +160,14 @@ import ctypes
 
 # C-Bibliothek laden
 # Linux
-libc = ctypes.CDLL("libc.so.6")
+libc = ctypes.CDLL('libc.so.6')
 # macOS
-libc = ctypes.CDLL("libc.dylib")
+libc = ctypes.CDLL('libc.dylib')
 # Windows
-libc = ctypes.CDLL("msvcrt.dll")
+libc = ctypes.CDLL('msvcrt.dll')
 
 # C-Funktion aufrufen
-libc.printf(b"Hello from C! %d\n", 42)
+libc.printf(b'Hello from C! %d\n', 42)
 ```
 
 #### 6.1.2    Eigene C-Library einbinden
@@ -182,7 +182,7 @@ int add(int a, int b) {
 }
 
 void greet(const char* name) {
-    printf("Hello, %s!\n", name);
+    printf('Hello, %s!\n', name);
 }
 ```
 
@@ -204,21 +204,21 @@ gcc -shared -o mylib.dll mylib.c
 import ctypes
 
 # Library laden
-lib = ctypes.CDLL("./libmylib.so")
+lib = ctypes.CDLL('./libmylib.so')
 
 # add-Funktion aufrufen
 result = lib.add(5, 3)
-print(f"5 + 3 = {result}")  # 8
+print(f'5 + 3 = {result}')  # 8
 
 # greet-Funktion mit String
-lib.greet(b"Alice")  # Hello, Alice!
+lib.greet(b'Alice')  # Hello, Alice!
 ```
 
 #### 6.1.3    Typen und Argumente
 ```python
 import ctypes
 
-lib = ctypes.CDLL("./libmylib.so")
+lib = ctypes.CDLL('./libmylib.so')
 
 # Rückgabetyp deklarieren
 lib.add.restype = ctypes.c_int
@@ -229,7 +229,7 @@ print(result)
 
 # String-Argumente
 lib.greet.argtypes = [ctypes.c_char_p]
-lib.greet(b"Bob")
+lib.greet(b'Bob')
 ```
 
 #### 6.1.4    Komplexe Datentypen
@@ -239,8 +239,8 @@ import ctypes
 # Struct definieren
 class Point(ctypes.Structure):
     _fields_ = [
-        ("x", ctypes.c_int),
-        ("y", ctypes.c_int)
+        ('x', ctypes.c_int),
+        ('y', ctypes.c_int)
     ]
 
 # C-Funktion: void print_point(Point* p)
@@ -263,7 +263,7 @@ lib.sum_array.argtypes = [ctypes.POINTER(ctypes.c_int), ctypes.c_int]
 lib.sum_array.restype = ctypes.c_int
 
 result = lib.sum_array(arr, 5)
-print(f"Sum: {result}")
+print(f'Sum: {result}')
 ```
 
 #### 6.1.6    Callbacks (Python → C → Python)
@@ -273,7 +273,7 @@ import ctypes
 # Python-Funktion als C-Callback
 @ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_int)
 def callback(x):
-    print(f"Callback called with {x}")
+    print(f'Callback called with {x}')
     return x * 2
 
 # C-Funktion: int process(int (*func)(int), int value)
@@ -281,7 +281,7 @@ lib.process.argtypes = [ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_int), ctypes.c_i
 lib.process.restype = ctypes.c_int
 
 result = lib.process(callback, 5)
-print(f"Result: {result}")
+print(f'Result: {result}')
 ```
 
 ### 6.2    cffi – Modern FFI Interface
@@ -304,13 +304,13 @@ ffi.cdef("""
 """)
 
 # Library laden
-lib = ffi.dlopen("./libmylib.so")
+lib = ffi.dlopen('./libmylib.so')
 
 # Funktionen aufrufen
 result = lib.add(5, 3)
 print(result)  # 8
 
-lib.greet(b"Alice")
+lib.greet(b'Alice')
 ```
 
 #### 6.2.2    Out-of-Line Mode (Kompiliert)
@@ -324,14 +324,14 @@ ffibuilder.cdef("""
     int add(int a, int b);
 """)
 
-ffibuilder.set_source("_mylib",
+ffibuilder.set_source('_mylib',
     """
     int add(int a, int b) {
         return a + b;
     }
     """)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     ffibuilder.compile(verbose=True)
 ```
 ```bash
@@ -354,14 +354,14 @@ ffi.cdef("""
         int x;
         int y;
     } Point;
-    
+
     void print_point(Point* p);
 """)
 
-lib = ffi.dlopen("./libmylib.so")
+lib = ffi.dlopen('./libmylib.so')
 
 # Struct erstellen
-p = ffi.new("Point *")
+p = ffi.new('Point *')
 p.x = 10
 p.y = 20
 
@@ -379,14 +379,14 @@ ffi.cdef("""
     int process(callback_t func, int value);
 """)
 
-lib = ffi.dlopen("./libmylib.so")
+lib = ffi.dlopen('./libmylib.so')
 
 # Python-Callback
 @ffi.def_extern()
 def my_callback(x):
     return x * 2
 
-callback = ffi.callback("int(int)", my_callback)
+callback = ffi.callback('int(int)', my_callback)
 result = lib.process(callback, 5)
 print(result)
 ```
@@ -402,21 +402,21 @@ Direkte C-Extensions mit Python C-API für maximale Kontrolle.
 
 static PyObject* add(PyObject* self, PyObject* args) {
     int a, b;
-    if (!PyArg_ParseTuple(args, "ii", &a, &b))
+    if (!PyArg_ParseTuple(args, 'ii', &a, &b))
         return NULL;
-    
+
     return PyLong_FromLong(a + b);
 }
 
 static PyMethodDef ModuleMethods[] = {
-    {"add", add, METH_VARARGS, "Add two integers"},
+    {'add', add, METH_VARARGS, 'Add two integers'},
     {NULL, NULL, 0, NULL}
 };
 
 static struct PyModuleDef mymodule = {
     PyModuleDef_HEAD_INIT,
-    "mymodule",
-    "Example module",
+    'mymodule',
+    'Example module',
     -1,
     ModuleMethods
 };
@@ -467,15 +467,15 @@ import platform
 
 if platform.system() == 'Linux':
     libc = ctypes.CDLL('libc.so.6')
-    
+
     # getpid() System-Call
     pid = libc.getpid()
-    print(f"Process ID: {pid}")
-    
+    print(f'Process ID: {pid}')
+
     # gethostname()
     buf = ctypes.create_string_buffer(256)
     libc.gethostname(buf, 256)
-    print(f"Hostname: {buf.value.decode()}")
+    print(f'Hostname: {buf.value.decode()}')
 ```
 
 #### 6.5.2    Performance-kritischer Code mit cffi
@@ -489,7 +489,7 @@ ffibuilder.cdef("""
     void fast_sum(double* data, int size, double* result);
 """)
 
-ffibuilder.set_source("_fast",
+ffibuilder.set_source('_fast',
     """
     void fast_sum(double* data, int size, double* result) {
         double sum = 0.0;
@@ -513,14 +513,14 @@ data = list(range(10_000_000))
 # Python-Version
 start = time.time()
 py_sum = sum(data)
-print(f"Python: {time.time() - start:.3f}s")
+print(f'Python: {time.time() - start:.3f}s')
 
 # C-Version
 start = time.time()
-c_data = ffi.new("double[]", data)
-c_result = ffi.new("double*")
+c_data = ffi.new('double[]', data)
+c_result = ffi.new('double*')
 lib.fast_sum(c_data, len(data), c_result)
-print(f"C: {time.time() - start:.3f}s")
+print(f'C: {time.time() - start:.3f}s')
 ```
 
 #### 6.5.3    GPU-Zugriff mit ctypes (CUDA)
@@ -534,7 +534,7 @@ cuda = ctypes.CDLL('libcudart.so')
 # Device Properties
 prop = ctypes.c_int()
 cuda.cudaGetDeviceCount(ctypes.byref(prop))
-print(f"CUDA Devices: {prop.value}")
+print(f'CUDA Devices: {prop.value}')
 ```
 
 ### 6.6    Best Practices
@@ -570,14 +570,14 @@ import ctypes
 
 # Core Dumps aktivieren
 import resource
-resource.setrlimit(resource.RLIMIT_CORE, 
+resource.setrlimit(resource.RLIMIT_CORE,
                    (resource.RLIM_INFINITY, resource.RLIM_INFINITY))
 
 # Valgrind für Memory-Leaks
 # valgrind --leak-check=full python script.py
 
 # Logging in C-Code
-lib = ctypes.CDLL("./libmylib.so")
+lib = ctypes.CDLL('./libmylib.so')
 lib.set_debug(True)
 ```
 
@@ -671,30 +671,30 @@ maturin init
 #### 7.2.4    `cargo/config.toml`anpassen
 ```toml
 [build]
-target-dir = "/Users/cgroening/Downloads/cargo_target/notes"
+target-dir = '/Users/cgroening/Downloads/cargo_target/notes'
 ```
 #### 7.2.5    `cargo.toml` anpassen
 ```toml
 [package]
-name = "string_sum"
-version = "0.1.0"
-edition = "2021"
+name = 'string_sum'
+version = '0.1.0'
+edition = '2021'
 
 [lib]
 # The name of the native library. This is the name which will
 # be used in Python to import the library (i.e. `import string_sum`).
 # If you change this, you must also change the name of the
 # `#[pymodule]` in `src/lib.rs`.
-name = "string_sum"
+name = 'string_sum'
 
-# "cdylib" is necessary to produce a shared library for Python to import from.
-# Downstream Rust code (including code in `bin/`, `examples/`, and `tests/`) will not be able to `use string_sum;` unless the "rlib" or
-# "lib" crate type is also included, e.g.:
-# crate-type = ["cdylib", "rlib"]
-crate-type = ["cdylib"]
+# 'cdylib' is necessary to produce a shared library for Python to import from.
+# Downstream Rust code (including code in `bin/`, `examples/`, and `tests/`) will not be able to `use string_sum;` unless the 'rlib' or
+# 'lib' crate type is also included, e.g.:
+# crate-type = ['cdylib', 'rlib']
+crate-type = ['cdylib']
 
 [dependencies]
-pyo3 = { version = "0.24.0", features = ["extension-module"] }
+pyo3 = { version = '0.24.0', features = ['extension-module'] }
 ```
 
 #### 7.2.6    Code der Datei `lib.rs`
@@ -735,7 +735,7 @@ fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
         sum += a + b;
     }
     black_box(sum);  // Optimierung verhindern
-    Ok(format!("{}", sum))
+    Ok(format!('{}', sum))
 }
 // ...
 ```
@@ -777,12 +777,12 @@ import string_sum
 # Rust
 start = time.time()
 result = string_sum.sum_as_string(5, 3)
-print(f"Rust: {time.time() - start:.2f}s")
+print(f'Rust: {time.time() - start:.2f}s')
 
 # Python
 start = time.time()
 result = sum_as_string_py(5, 3)
-print(f"Python: {time.time() - start:.2f}s")
+print(f'Python: {time.time() - start:.2f}s')
 
 # Typisches Ergebnis:
 # Rust: 0.15s
@@ -807,11 +807,11 @@ impl Counter {
     fn new() -> Self {
         Counter { count: 0 }
     }
-    
+
     fn increment(&mut self) {
         self.count += 1;
     }
-    
+
     fn get(&self) -> i32 {
         self.count
     }
@@ -837,8 +837,8 @@ print(c.get())  # 1
 ```toml
 # Cargo.toml
 [dependencies]
-pyo3 = { version = "0.24.0", features = ["extension-module"] }
-numpy = "0.24.0"
+pyo3 = { version = '0.24.0', features = ['extension-module'] }
+numpy = '0.24.0'
 ```
 ```rust
 use numpy::PyArray1;
@@ -858,15 +858,15 @@ use pyo3::prelude::*;
 fn call_python_function() -> PyResult<()> {
     Python::with_gil(|py| {
         // Python-Code ausführen
-        let code = "print('Hello from Python!')";
+        let code = 'print('Hello from Python!')';
         py.run(code, None, None)?;
-        
+
         // Python-Modul importieren
-        let json = py.import("json")?;
-        let dumps = json.getattr("dumps")?;
-        let result = dumps.call1(("{\"key\": \"value\"}",))?;
-        
-        println!("JSON: {}", result);
+        let json = py.import('json')?;
+        let dumps = json.getattr('dumps')?;
+        let result = dumps.call1(('{\'key\': \'value\'}',))?;
+
+        println!('JSON: {}', result);
         Ok(())
     })
 }
@@ -880,7 +880,7 @@ use pyo3::prelude::*;
 #[pyfunction]
 fn divide(a: f64, b: f64) -> PyResult<f64> {
     if b == 0.0 {
-        Err(PyValueError::new_err("Division by zero"))
+        Err(PyValueError::new_err('Division by zero'))
     } else {
         Ok(a / b)
     }
@@ -892,7 +892,7 @@ fn divide(a: f64, b: f64) -> PyResult<f64> {
 try:
     result = my_module.divide(10, 0)
 except ValueError as e:
-    print(f"Error: {e}")
+    print(f'Error: {e}')
 ```
 
 ### 8.9 Distribution
@@ -922,16 +922,16 @@ maturin publish
 #### 8.9.3 pyproject.toml
 ```toml
 [build-system]
-requires = ["maturin>=1.0,<2.0"]
-build-backend = "maturin"
+requires = ['maturin>=1.0,<2.0']
+build-backend = 'maturin'
 
 [project]
-name = "string_sum"
-version = "0.1.0"
-requires-python = ">=3.8"
+name = 'string_sum'
+version = '0.1.0'
+requires-python = '>=3.8'
 classifiers = [
-    "Programming Language :: Rust",
-    "Programming Language :: Python :: Implementation :: CPython",
+    'Programming Language :: Rust',
+    'Programming Language :: Python :: Implementation :: CPython',
 ]
 ```
 
@@ -975,7 +975,7 @@ classifiers = [
 
 ### 8.13 Troubleshooting
 
-**Problem: "ImportError: DLL load failed"**
+**Problem: 'ImportError: DLL load failed'**
 ```bash
 # Windows: Visual C++ Redistributables fehlen
 # Lösung: Installiere VC++ Runtime
@@ -1029,7 +1029,7 @@ fn good_example(py: Python) -> PyResult<()> {
 maturin develop
 
 # 3. In Python testen
-python -c "import string_sum; print(string_sum.sum_as_string(1, 2))"
+python -c 'import string_sum; print(string_sum.sum_as_string(1, 2))'
 
 # 4. Release Build (optimiert)
 maturin develop --release

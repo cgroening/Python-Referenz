@@ -208,7 +208,7 @@ sns.jointplot(data=df, x='total_bill', y='tip', kind='reg')
 
 | Aufgabe            | Matplotlib                   | Seaborn                                       |
 | ------------------ | ---------------------------- | --------------------------------------------- |
-| Farbe ändern       | `color='red'`                | `palette='pastel'` oder `hue="Kategorie"`     |
+| Farbe ändern       | `color='red'`                | `palette='pastel'` oder `hue='Kategorie'`     |
 | Transparenz        | `alpha=0.5`                  | `alpha=0.5`                                   |
 | Figurgröße         | `plt.figure(figsize=(8, 4))` | `plt.figure(figsize=(8, 4))` davor verwenden  |
 | Achsenticks drehen | `plt.xticks(rotation=45)`    | `plt.xticks(rotation=45)`                     |

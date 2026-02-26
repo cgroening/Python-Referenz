@@ -113,7 +113,7 @@ print(str(p1))  # (1, 2)
 print(p1 == p2)  # True
 ```
 
-Diese Methoden machen Objekte "pythonisch".
+Diese Methoden machen Objekte 'pythonisch'.
 
 ## 5    Abstraktion und Vererbung
 
@@ -391,7 +391,7 @@ Class Decorators sind ein mächtiges Meta-Programmierungstool.
 
 ## 10    Metaclasses – Klassen von Klassen
 
-Metaclasses sind ein fortgeschrittenes Feature, mit dem man das Verhalten beim Erstellen von Klassen selbst kontrollieren kann. Sie sind die "Klassen von Klassen".
+Metaclasses sind ein fortgeschrittenes Feature, mit dem man das Verhalten beim Erstellen von Klassen selbst kontrollieren kann. Sie sind die 'Klassen von Klassen'.
 
 ### 10.1    Grundkonzept
 
@@ -433,13 +433,13 @@ print(type(x))  # <class 'int'>
 # Normale Klassendefinition
 class Dog:
     def bark(self):
-        return "Woof!"
+        return 'Woof!'
 
 # Äquivalent mit type()
-Dog = type('Dog', (), {'bark': lambda self: "Woof!"})
+Dog = type('Dog', (), {'bark': lambda self: 'Woof!'})
 
 dog = Dog()
-print(dog.bark())  # "Woof!"
+print(dog.bark())  # 'Woof!'
 ```
 
 **Syntax von `type()` zur Klassenerstellung:**
@@ -456,7 +456,7 @@ type(name, bases, dict)
 # Basisklasse
 class Animal:
     def breathe(self):
-        return "Breathing..."
+        return 'Breathing...'
 
 # Mit type() erstellen
 Dog = type(
@@ -464,14 +464,14 @@ Dog = type(
     (Animal,),                       # Basisklassen
     {
         'species': 'Canis familiaris',
-        'bark': lambda self: "Woof!"
+        'bark': lambda self: 'Woof!'
     }
 )
 
 dog = Dog()
-print(dog.breathe())  # "Breathing..." (geerbt)
-print(dog.bark())     # "Woof!"
-print(dog.species)    # "Canis familiaris"
+print(dog.breathe())  # 'Breathing...' (geerbt)
+print(dog.bark())     # 'Woof!'
+print(dog.species)    # 'Canis familiaris'
 ```
 
 ### 10.3    Eigene Metaclass erstellen
@@ -480,7 +480,7 @@ Eine Metaclass ist eine Klasse, die von `type` erbt.
 ```python
 class Meta(type):
     def __new__(mcs, name, bases, attrs):
-        print(f"Creating class {name}")
+        print(f'Creating class {name}')
         # Klasse erstellen
         cls = super().__new__(mcs, name, bases, attrs)
         return cls
@@ -504,13 +504,13 @@ class MyClass(metaclass=Meta):
 class Meta(type):
     def __new__(mcs, name, bases, attrs):
         """Wird WÄHREND der Klassenerstellung aufgerufen"""
-        print(f"__new__: Creating {name}")
+        print(f'__new__: Creating {name}')
         cls = super().__new__(mcs, name, bases, attrs)
         return cls
     
     def __init__(cls, name, bases, attrs):
         """Wird NACH der Klassenerstellung aufgerufen"""
-        print(f"__init__: Initializing {name}")
+        print(f'__init__: Initializing {name}')
         super().__init__(name, bases, attrs)
 
 class MyClass(metaclass=Meta):
@@ -537,18 +537,18 @@ class ValidatedMeta(type):
             if not key.startswith('_'):  # Private ignorieren
                 if not key[0].isupper():
                     raise ValueError(
-                        f"Attribute {key} must start with uppercase letter"
+                        f'Attribute {key} must start with uppercase letter'
                     )
         return super().__new__(mcs, name, bases, attrs)
 
 # ✅ Funktioniert
 class GoodClass(metaclass=ValidatedMeta):
-    Name = "valid"
+    Name = 'valid'
     Age = 25
 
 # ❌ Fehler
 # class BadClass(metaclass=ValidatedMeta):
-#     name = "invalid"  # ValueError!
+#     name = 'invalid'  # ValueError!
 ```
 
 #### 10.5.2    Automatische Registrierung
@@ -594,12 +594,12 @@ class SingletonMeta(type):
 
 class Database(metaclass=SingletonMeta):
     def __init__(self):
-        print("Connecting to database...")
+        print('Connecting to database...')
 
 # Erste Instanz
-db1 = Database()  # "Connecting to database..."
+db1 = Database()  # 'Connecting to database...'
 
-# Zweite "Instanz" - gibt dieselbe zurück
+# Zweite 'Instanz' - gibt dieselbe zurück
 db2 = Database()  # (kein Output)
 
 print(db1 is db2)  # True
@@ -612,10 +612,10 @@ class AutoReprMeta(type):
         # Automatisch __repr__ generieren
         def auto_repr(self):
             attrs_str = ', '.join(
-                f"{k}={v!r}" 
+                f'{k}={v!r}' 
                 for k, v in self.__dict__.items()
             )
-            return f"{name}({attrs_str})"
+            return f'{name}({attrs_str})'
         
         # Nur hinzufügen, wenn nicht vorhanden
         if '__repr__' not in attrs:
@@ -643,7 +643,7 @@ class InterfaceMeta(type):
                     for method in base._required_methods:
                         if method not in attrs:
                             raise TypeError(
-                                f"{name} must implement {method}()"
+                                f'{name} must implement {method}()'
                             )
         return super().__new__(mcs, name, bases, attrs)
 
@@ -671,12 +671,12 @@ class Circle(Shape):
 ```python
 class MetaA(type):
     def __new__(mcs, name, bases, attrs):
-        print(f"MetaA creating {name}")
+        print(f'MetaA creating {name}')
         return super().__new__(mcs, name, bases, attrs)
 
 class MetaB(MetaA):
     def __new__(mcs, name, bases, attrs):
-        print(f"MetaB creating {name}")
+        print(f'MetaB creating {name}')
         return super().__new__(mcs, name, bases, attrs)
 
 class MyClass(metaclass=MetaB):
@@ -700,7 +700,7 @@ class CounterMeta(type):
         # Wird bei MyClass() aufgerufen
         instance = super().__call__(*args, **kwargs)
         cls._instance_count += 1
-        print(f"Created instance #{cls._instance_count}")
+        print(f'Created instance #{cls._instance_count}')
         return instance
 
 class MyClass(metaclass=CounterMeta):
@@ -723,11 +723,11 @@ class OrderedMeta(type):
     @classmethod
     def __prepare__(mcs, name, bases):
         """Wird VOR __new__ aufgerufen"""
-        print(f"Preparing namespace for {name}")
+        print(f'Preparing namespace for {name}')
         return OrderedDict()
     
     def __new__(mcs, name, bases, namespace):
-        print(f"Attributes in order: {list(namespace.keys())}")
+        print(f'Attributes in order: {list(namespace.keys())}')
         return super().__new__(mcs, name, bases, dict(namespace))
 
 class MyClass(metaclass=OrderedMeta):
@@ -778,7 +778,7 @@ Metaclasses sind mächtig, aber oft gibt es einfachere Alternativen.
 class AutoStrMeta(type):
     def __new__(mcs, name, bases, attrs):
         def __str__(self):
-            return f"{name} instance"
+            return f'{name} instance'
         attrs['__str__'] = __str__
         return super().__new__(mcs, name, bases, attrs)
 
@@ -788,7 +788,7 @@ class MyClass(metaclass=AutoStrMeta):
 # Mit Decorator (einfacher!)
 def auto_str(cls):
     def __str__(self):
-        return f"{cls.__name__} instance"
+        return f'{cls.__name__} instance'
     cls.__str__ = __str__
     return cls
 
@@ -826,22 +826,22 @@ print(Plugin._registry)  # [<class 'AudioPlugin'>]
 ```python
 class DebugMeta(type):
     def __new__(mcs, name, bases, attrs):
-        print(f"\n=== Creating class {name} ===")
-        print(f"Metaclass: {mcs}")
-        print(f"Bases: {bases}")
-        print(f"Attributes: {list(attrs.keys())}")
+        print(f'\n=== Creating class {name} ===')
+        print(f'Metaclass: {mcs}')
+        print(f'Bases: {bases}')
+        print(f'Attributes: {list(attrs.keys())}')
         
         cls = super().__new__(mcs, name, bases, attrs)
         
-        print(f"Class created: {cls}")
-        print(f"MRO: {cls.__mro__}")
+        print(f'Class created: {cls}')
+        print(f'MRO: {cls.__mro__}')
         return cls
 
 class Parent:
-    parent_attr = "parent"
+    parent_attr = 'parent'
 
 class Child(Parent, metaclass=DebugMeta):
-    child_attr = "child"
+    child_attr = 'child'
 
 # Output zeigt detaillierte Informationen über Klassenerstellung
 ```
@@ -868,7 +868,7 @@ class Child(Parent, metaclass=DebugMeta):
 4. Erst dann: Metaclasses
 
 **Zitat von Tim Peters:**
-> "Metaclasses are deeper magic than 99% of users should ever worry about. If you wonder whether you need them, you don't."
+> 'Metaclasses are deeper magic than 99% of users should ever worry about. If you wonder whether you need them, you don't.'
 
 ### 10.13    Zusammenfassung
 
@@ -908,7 +908,7 @@ for i in counter:
 
 # Mit zip für begrenzte Iteration
 for i, letter in zip(count(1), ['a', 'b', 'c']):
-    print(f"{i}: {letter}")
+    print(f'{i}: {letter}')
 # 1: a
 # 2: b
 # 3: c
@@ -936,7 +936,7 @@ rows = ['Row 1', 'Row 2', 'Row 3', 'Row 4', 'Row 5']
 colors = cycle(['white', 'gray'])
 
 for row, color in zip(rows, colors):
-    print(f"{row} - {color}")
+    print(f'{row} - {color}')
 ```
 
 #### 11.1.3    `repeat()` – Element wiederholen
@@ -968,13 +968,13 @@ colors = ['red', 'blue']
 sizes = ['S', 'M', 'L']
 
 for color, size in product(colors, sizes):
-    print(f"{color}-{size}")
+    print(f'{color}-{size}')
 # red-S, red-M, red-L, blue-S, blue-M, blue-L
 
 # Äquivalent zu verschachtelten Schleifen
 for color in colors:
     for size in sizes:
-        print(f"{color}-{size}")
+        print(f'{color}-{size}')
 
 # Mit repeat-Parameter
 for item in product(range(2), repeat=3):
@@ -1116,7 +1116,7 @@ data = [
 
 # Nach zweitem Element gruppieren (NICHT sortiert → falsche Gruppen!)
 for key, group in groupby(data, key=lambda x: x[1]):
-    print(f"{key}: {list(group)}")
+    print(f'{key}: {list(group)}')
 # A: [('Alice', 'A')]
 # B: [('Bob', 'B')]
 # C: [('Charlie', 'C')]
@@ -1126,7 +1126,7 @@ for key, group in groupby(data, key=lambda x: x[1]):
 # Richtig: Erst sortieren
 data_sorted = sorted(data, key=lambda x: x[1])
 for key, group in groupby(data_sorted, key=lambda x: x[1]):
-    print(f"{key}: {list(group)}")
+    print(f'{key}: {list(group)}')
 # A: [('Alice', 'A'), ('David', 'A')]
 # B: [('Bob', 'B'), ('Eve', 'B')]
 # C: [('Charlie', 'C')]
@@ -1140,7 +1140,7 @@ words = ['a', 'bb', 'ccc', 'dd', 'e', 'fff']
 words_sorted = sorted(words, key=len)
 
 for length, group in groupby(words_sorted, key=len):
-    print(f"Length {length}: {list(group)}")
+    print(f'Length {length}: {list(group)}')
 # Length 1: ['a', 'e']
 # Length 2: ['bb', 'dd']
 # Length 3: ['ccc', 'fff']
@@ -1347,20 +1347,20 @@ from itertools import islice, count
 start = time.time()
 large_list = list(range(10_000_000))
 first_100 = large_list[:100]
-print(f"List: {time.time() - start:.3f}s")
+print(f'List: {time.time() - start:.3f}s')
 
 # ✅ Effizient: Iterator verwenden
 start = time.time()
 first_100 = list(islice(count(), 100))
-print(f"Iterator: {time.time() - start:.3f}s")
+print(f'Iterator: {time.time() - start:.3f}s')
 
 # Speichervergleich
 import sys
 numbers_list = list(range(1_000_000))
 numbers_iter = range(1_000_000)
 
-print(f"List: {sys.getsizeof(numbers_list)} bytes")     # ~8 MB
-print(f"Iterator: {sys.getsizeof(numbers_iter)} bytes") # ~48 bytes
+print(f'List: {sys.getsizeof(numbers_list)} bytes')     # ~8 MB
+print(f'Iterator: {sys.getsizeof(numbers_iter)} bytes') # ~48 bytes
 ```
 
 ### 11.7    Best Practices

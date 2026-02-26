@@ -85,7 +85,7 @@ conn.commit()
 
 ```python
 # ❌ NIEMALS SO (SQL-Injection-Risiko!)
-name = "Alice'; DROP TABLE users; --"
+name = 'Alice'; DROP TABLE users; --'
 cursor.execute(f"INSERT INTO users (name) VALUES ('{name}')")
 
 # ✅ Immer Platzhalter verwenden
@@ -178,11 +178,11 @@ cursor = conn.cursor()
 
 try:
     # Mehrere Operationen als Transaktion
-    cursor.execute('INSERT INTO users (name, email) VALUES (?, ?)', 
+    cursor.execute('INSERT INTO users (name, email) VALUES (?, ?)',
                    ('Eve', 'eve@example.com'))
-    cursor.execute('UPDATE users SET age = ? WHERE name = ?', 
+    cursor.execute('UPDATE users SET age = ? WHERE name = ?',
                    (40, 'Alice'))
-    
+
     # Alles erfolgreich → Commit
     conn.commit()
 except sqlite3.Error as e:
@@ -263,13 +263,13 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'users'
-    
+
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
     email = Column(String(100), unique=True, nullable=False)
     age = Column(Integer)
     created_at = Column(DateTime, default=datetime.utcnow)
-    
+
     def __repr__(self):
         return f"<User(name='{self.name}', email='{self.email}')>"
 
@@ -338,32 +338,32 @@ with get_session() as session:
 with get_session() as session:
     # Alle Datensätze
     all_users = session.query(User).all()
-    
+
     # Erster Datensatz
     first_user = session.query(User).first()
-    
+
     # Nach Primary Key
     user = session.query(User).get(1)  # Deprecated in SQLAlchemy 2.0
     user = session.get(User, 1)  # Neue Syntax
-    
+
     # Mit Filter
     alice = session.query(User).filter_by(name='Alice').first()
-    
+
     # Komplexere Filter
     from sqlalchemy import and_, or_
-    
+
     young_users = session.query(User).filter(User.age < 30).all()
-    
+
     results = session.query(User).filter(
         and_(User.age > 25, User.age < 35)
     ).all()
-    
+
     # ORDER BY
     users_sorted = session.query(User).order_by(User.age.desc()).all()
-    
+
     # LIMIT
     top_5 = session.query(User).limit(5).all()
-    
+
     # COUNT
     user_count = session.query(User).count()
 ```
@@ -405,21 +405,21 @@ from sqlalchemy.orm import relationship
 
 class User(Base):
     __tablename__ = 'users'
-    
+
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
-    
+
     # Relationship: Ein User hat viele Posts
     posts = relationship('Post', back_populates='author', cascade='all, delete-orphan')
 
 class Post(Base):
     __tablename__ = 'posts'
-    
+
     id = Column(Integer, primary_key=True)
     title = Column(String(200))
     content = Column(String)
     user_id = Column(Integer, ForeignKey('users.id'))
-    
+
     # Relationship: Ein Post gehört zu einem User
     author = relationship('User', back_populates='posts')
 
@@ -430,10 +430,10 @@ with get_session() as session:
     user = User(name='Alice')
     post1 = Post(title='First Post', content='Hello World')
     post2 = Post(title='Second Post', content='Another one')
-    
+
     user.posts.append(post1)
     user.posts.append(post2)
-    
+
     session.add(user)
     # Posts werden automatisch mit gespeichert
 
@@ -441,7 +441,7 @@ with get_session() as session:
 with get_session() as session:
     user = session.query(User).filter_by(name='Alice').first()
     print(f'{user.name} has {len(user.posts)} posts')
-    
+
     for post in user.posts:
         print(f'  - {post.title}')
 ```
@@ -461,19 +461,19 @@ user_role_association = Table(
 
 class User(Base):
     __tablename__ = 'users'
-    
+
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
-    
+
     # Many-to-Many Relationship
     roles = relationship('Role', secondary=user_role_association, back_populates='users')
 
 class Role(Base):
     __tablename__ = 'roles'
-    
+
     id = Column(Integer, primary_key=True)
     name = Column(String(50))
-    
+
     users = relationship('User', secondary=user_role_association, back_populates='roles')
 
 Base.metadata.create_all(engine)
@@ -482,13 +482,13 @@ Base.metadata.create_all(engine)
 with get_session() as session:
     admin_role = Role(name='admin')
     user_role = Role(name='user')
-    
+
     alice = User(name='Alice')
     alice.roles.extend([admin_role, user_role])
-    
+
     bob = User(name='Bob')
     bob.roles.append(user_role)
-    
+
     session.add_all([alice, bob])
 
 # Abfragen
@@ -502,21 +502,21 @@ with get_session() as session:
 ```python
 class User(Base):
     __tablename__ = 'users'
-    
+
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
-    
+
     # One-to-One: uselist=False
     profile = relationship('UserProfile', back_populates='user', uselist=False)
 
 class UserProfile(Base):
     __tablename__ = 'user_profiles'
-    
+
     id = Column(Integer, primary_key=True)
     bio = Column(String)
     avatar_url = Column(String)
     user_id = Column(Integer, ForeignKey('users.id'), unique=True)
-    
+
     user = relationship('User', back_populates='profile')
 
 # Verwendung
@@ -524,7 +524,7 @@ with get_session() as session:
     user = User(name='Alice')
     profile = UserProfile(bio='Software Developer', avatar_url='/avatars/alice.jpg')
     user.profile = profile
-    
+
     session.add(user)
 ```
 
@@ -538,10 +538,10 @@ from sqlalchemy import select
 with get_session() as session:
     # Implicit Join
     results = session.query(User, Post).filter(User.id == Post.user_id).all()
-    
+
     # Explicit Join
     results = session.query(User).join(Post).filter(Post.title.like('%Python%')).all()
-    
+
     # Left Outer Join
     results = session.query(User).outerjoin(Post).all()
 ```
@@ -554,18 +554,18 @@ from sqlalchemy import func
 with get_session() as session:
     # COUNT
     user_count = session.query(func.count(User.id)).scalar()
-    
+
     # AVG, MIN, MAX, SUM
     avg_age = session.query(func.avg(User.age)).scalar()
     min_age = session.query(func.min(User.age)).scalar()
     max_age = session.query(func.max(User.age)).scalar()
-    
+
     # GROUP BY
     post_counts = session.query(
         User.name,
         func.count(Post.id).label('post_count')
     ).join(Post).group_by(User.name).all()
-    
+
     for name, count in post_counts:
         print(f'{name}: {count} posts')
 ```
@@ -583,7 +583,7 @@ with get_session() as session:
         .having(func.count(Post.id) > 5)
         .subquery()
     )
-    
+
     active_users = session.query(User).join(
         subquery, User.id == subquery.c.user_id
     ).all()
@@ -599,12 +599,12 @@ with get_session() as session:
     users = session.query(User).all()
     for user in users:
         print(user.posts)  # Neuer Query für jeden User!
-    
+
     # ✅ Joined Load: Ein Query mit JOIN
     users = session.query(User).options(joinedload(User.posts)).all()
     for user in users:
         print(user.posts)  # Keine zusätzlichen Queries
-    
+
     # ✅ Select In Load: Zwei Queries (besser bei Many-to-Many)
     users = session.query(User).options(selectinload(User.roles)).all()
 ```
@@ -720,7 +720,7 @@ engine = create_engine(
 ```python
 # ✅ Effizient: Bulk Insert
 with get_session() as session:
-    users = [User(name=f'User{i}', email=f'user{i}@example.com') 
+    users = [User(name=f'User{i}', email=f'user{i}@example.com')
              for i in range(1000)]
     session.bulk_save_objects(users)
 
@@ -751,7 +751,7 @@ from sqlalchemy import create_engine
 
 def get_engine():
     env = os.getenv('ENVIRONMENT', 'development')
-    
+
     if env == 'production':
         return create_engine(
             os.getenv('DATABASE_URL'),
@@ -777,36 +777,36 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'users'
-    
+
     id = Column(Integer, primary_key=True)
     username = Column(String(50), unique=True, nullable=False)
     email = Column(String(100), unique=True, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
-    
+
     posts = relationship('Post', back_populates='author', cascade='all, delete-orphan')
     comments = relationship('Comment', back_populates='author')
 
 class Post(Base):
     __tablename__ = 'posts'
-    
+
     id = Column(Integer, primary_key=True)
     title = Column(String(200), nullable=False)
     content = Column(Text, nullable=False)
     published = Column(DateTime, default=datetime.utcnow)
     author_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    
+
     author = relationship('User', back_populates='posts')
     comments = relationship('Comment', back_populates='post', cascade='all, delete-orphan')
 
 class Comment(Base):
     __tablename__ = 'comments'
-    
+
     id = Column(Integer, primary_key=True)
     content = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     post_id = Column(Integer, ForeignKey('posts.id'), nullable=False)
     author_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    
+
     post = relationship('Post', back_populates='comments')
     author = relationship('User', back_populates='comments')
 
@@ -820,21 +820,21 @@ def create_sample_data():
     with Session() as session:
         # User erstellen
         alice = User(username='alice', email='alice@example.com')
-        
+
         # Post erstellen
         post = Post(
             title='My First Post',
             content='This is my first blog post!',
             author=alice
         )
-        
+
         # Kommentar erstellen
         comment = Comment(
             content='Great post!',
             post=post,
             author=alice
         )
-        
+
         session.add_all([alice, post, comment])
         session.commit()
 

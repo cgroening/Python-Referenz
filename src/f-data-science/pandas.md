@@ -284,7 +284,7 @@ df.loc[2, 'Spalte'] = None    # Einzelne Zelle auf NaN setzen
 > [!INFO] Hinweise
 > - `NaN` zählt bei `mean()`, `sum()` usw. nicht mit.
 > - Wenn man mit Strings arbeitet, verwendet man `pd.NA` und den Datentyp `string`, um sauber mit fehlenden Werten umzugehen.
-> - Bei CSV-Importen: `pd.read_csv(..., na_values=["NA", "-", "n/a"])` erkennt eigene Platzhalter als fehlend.
+> - Bei CSV-Importen: `pd.read_csv(..., na_values=['NA', '-', 'n/a'])` erkennt eigene Platzhalter als fehlend.
 > - Fehlende Daten sind normal - wichtig ist, sie zu erkennen und sinnvoll damit umzugehen!
 
 ## 10   Bedingtes Filtern und logische Masken
@@ -388,8 +388,8 @@ df = pd.DataFrame({
 
 # Manuell formatierte Kopie (als Strings)
 df_formatted = df.copy()
-df_formatted['A'] = df_formatted['A'].map(lambda x: f"{x:.1f}")
-df_formatted['B'] = df_formatted['B'].map(lambda x: f"{x:.3f}")
+df_formatted['A'] = df_formatted['A'].map(lambda x: f'{x:.1f}')
+df_formatted['B'] = df_formatted['B'].map(lambda x: f'{x:.3f}')
 
 print(df_formatted)
 ```

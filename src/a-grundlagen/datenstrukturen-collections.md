@@ -58,8 +58,8 @@ print(L1)       # [1, 2, 3, 4, 5, 6]
 Prüfen, ob Wert in Liste ist:
 
 ```python
-L = ["A", "B", "C"]
-x = "B"
+L = ['A', 'B', 'C']
+x = 'B'
 print(x in L)  # True
 ```
 
@@ -638,14 +638,14 @@ data_list = []
 start = time.time()
 for i in range(100000):
     data_list.insert(0, i)  # O(n) - langsam!
-print(f"List insert(0): {time.time() - start:.3f}s")
+print(f'List insert(0): {time.time() - start:.3f}s')
 
 # Deque
 data_deque = deque()
 start = time.time()
 for i in range(100000):
     data_deque.appendleft(i)  # O(1) - schnell!
-print(f"Deque appendleft: {time.time() - start:.3f}s")
+print(f'Deque appendleft: {time.time() - start:.3f}s')
 ```
 
 **Typisches Ergebnis:**
@@ -670,7 +670,7 @@ queue.append('Aufgabe 3')
 # Elemente verarbeiten (FIFO)
 while queue:
     task = queue.popleft()
-    print(f"Verarbeite: {task}")
+    print(f'Verarbeite: {task}')
 ```
 
 **Sliding Window:**
@@ -979,9 +979,9 @@ p3 = PersonClass('Anna', 30)
 
 # Speicherverbrauch
 import sys
-print(f"namedtuple: {sys.getsizeof(p1)} bytes")  # ~56
-print(f"dict: {sys.getsizeof(p2)} bytes")        # ~232
-print(f"class: {sys.getsizeof(p3)} bytes")       # ~48 + __dict__
+print(f'namedtuple: {sys.getsizeof(p1)} bytes')  # ~56
+print(f'dict: {sys.getsizeof(p2)} bytes')        # ~232
+print(f'class: {sys.getsizeof(p3)} bytes')       # ~48 + __dict__
 ```
 
 #### 6.5.6    Praktische Beispiele
@@ -1011,7 +1011,7 @@ for line in lines[1:]:
     people.append(person)
 
 for p in people:
-    print(f"{p.name} ist {p.age} Jahre alt und aus {p.city}")
+    print(f'{p.name} ist {p.age} Jahre alt und aus {p.city}')
 ```
 
 **Koordinaten-System:**
@@ -1029,7 +1029,7 @@ def distance(p1, p2):
 p1 = Point(0, 0)
 p2 = Point(3, 4)
 
-print(f"Distanz: {distance(p1, p2)}")  # 5.0
+print(f'Distanz: {distance(p1, p2)}')  # 5.0
 ```
 
 **RGB-Farben:**
