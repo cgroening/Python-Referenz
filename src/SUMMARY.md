@@ -1,6 +1,6 @@
 # Summary
 
-[Einleitung](Einleitung.md)
+[einleitung](einleitung.md)
 
 # TEIL I: GRUNDLAGEN
 

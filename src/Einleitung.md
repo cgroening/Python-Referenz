@@ -1,6 +1,6 @@
 # Willkommen zur Python-Referenz
 
-> **Eine umfassende, deutschsprachige Referenz für Python-Entwickler aller Erfahrungsstufen**
+> **Umfassende, deutschsprachige Referenz für Python-Entwickler aller Erfahrungsstufen**
 
 ## Über diese Referenz
 
@@ -28,11 +28,11 @@ Diese Referenz ist gleichermaßen geeignet, sie sequentiell zum Lernen zu verwen
 
 **✅ Praktisch, nicht theoretisch:**
 
-Jedes Konzept wird mit **funktionierenden Code-Beispielen** erklärt. Kein unnötiger Ballast – nur das, was man wirklich braucht.
+Jedes Konzept wird mit funktionierenden Code-Beispielen erklärt. Kein Ballast – nur das, was man wirklich braucht beim Nachschlagen.
 
 **✅ Modern und aktuell:**
 
-Diese Referenz deckt **Python 3.11+** ab und nutzt moderne Tools und Best Practices. Sie wird laufend aktualisiert.
+Diese Referenz deckt Python 3.11+ ab und nutzt moderne Tools und Best Practices. Sie wird laufend aktualisiert.
 
 **✅ Deutsch mit englischem Code:**
 
@@ -44,7 +44,7 @@ An vielen Stellen wird nicht nur erklärt, **wie** etwas funktioniert, sondern a
 
 ## Was diese Referenz NICHT ist
 
-❌ **Nicht für absolute Programmier-Anfänger**: Grundlegende Programmierkenntnisse (Variablen, Schleifen, Funktionen) werden vorausgesetzt.
+❌ **Nicht geeignet für Programmier-Anfänger**: Grundlegende Programmierkenntnisse (Variablen, Schleifen, Funktionen) werden vorausgesetzt.
 
 ❌ **Keine API-Dokumentation**: Eine detaillierte API-Referenz bietet die [offizielle Python-Dokumentation](https://docs.python.org/).
 

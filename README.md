@@ -5,9 +5,9 @@
 > 
 > [cgroening.github.io/Python-Referenz/](https://cgroening.github.io/Python-Referenz/)
 
-[![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/) [![License](LICENSE.md) [![Built with mdBook](https://img.shields.io/badge/built%20with-mdBook-orange.svg)](https://rust-lang.github.io/mdBook/)
+![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg) ![Built with mdBook](https://img.shields.io/badge/built%20with-mdBook-orange.svg)
 
-## 📚 Über dieses Projekt 
+## 📚 Über dieses Projekt
 
 Diese Python-Referenz ist eine umfassende Sammlung von Konzepten, Best Practices und praktischen Beispielen für Python-Entwickler aller Erfahrungsstufen. Von grundlegenden Datentypen bis zu fortgeschrittenen Themen wie Performance-Optimierung, Data Science und modernen Entwicklungs-Tools. 
 
@@ -21,12 +21,10 @@ Um die Themen aktuell zu halten, wird diese Referenz laufend aktualisiert. Hinwe
 ## 🎯 Highlights
 
 - ✅ **7 thematische Teile** mit über 40 Kapiteln
-- ✅ **Praktische Code-Beispiele** zu jedem Konzept
-- ✅ **Moderne Tools** (Ruff, pytest, PyO3)
-- ✅ **Data Science** (NumPy, Pandas, Matplotlib)
-- ✅ **Best Practices** und Anti-Patterns
 - ✅ **Deutsche Sprache**, weil komplexe Konzepte in der Muttersprache verständlicher sind
+- ✅ **Praktische Code-Beispiele** zu jedem Konzept
 - ✅ **Durchsuchbar** und übersichtlich strukturiert
+- ✅ **Best Practices** und Anti-Patterns
 
 ## 📖 Inhalt
 
@@ -62,14 +60,15 @@ Um die Themen aktuell zu halten, wird diese Referenz laufend aktualisiert. Hinwe
 
 ### Teil VI: Data Science & Machine Learning
 
-**Themen:** NumPy, Pandas, Matplotlib, Seaborn, Scikit-Learn, Jupyter Notebooks
-**Zielgruppe:** Data Scientists, Analysten  
+**Themen:** NumPy, Pandas, Matplotlib, Seaborn
+**Zielgruppe:** Angehende Data Scientists, Analysten  
 **Lernziel:** Daten analysieren, visualisieren, ML-Modelle trainieren
 
 ## 📝 Geplante Inhalte
 
-### TEIL VII: BENUTZEROBERFLÄCHEN
+### TEIL VII: INTERAKTIVE ANWENDUNGEN UND BENUTZEROBERFLÄCHEN
 
+- Jupyter-Notebooks
 - CLI mit argparse
 - TUI mit textual
 - GUI mit Tkinter
