@@ -94,7 +94,7 @@ def switcher(age):
 
     return msg
 
-print( witcher(50))  # Volljährig
+print(switcher(50))  # Volljährig
 ```
 
 ## 3    Pattern Matching mit `match`-`case` (Python 3.10+)
