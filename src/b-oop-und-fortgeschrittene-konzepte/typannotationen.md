@@ -392,11 +392,13 @@ Typannotationen allein werden von Python zur Laufzeit nicht überprüft. Um Typf
 mypy ist der offizielle und am weitesten verbreitete Type Checker für Python.
 
 **Installation:**
+
 ```bash
 pip install mypy
 ```
 
 **Grundlegende Verwendung:**
+
 ```python
 # example.py
 def greet(name: str) -> str:
@@ -404,12 +406,14 @@ def greet(name: str) -> str:
 
 result: int = greet('Alice')  # Typfehler!
 ```
+
 ```bash
 # Type Checking ausführen
 mypy example.py
 ```
 
 **Ausgabe:**
+
 ```
 example.py:4: error: Incompatible types in assignment (expression has type 'str', variable has type 'int')
 Found 1 error in 1 file (checked 1 source file)
@@ -418,6 +422,7 @@ Found 1 error in 1 file (checked 1 source file)
 ### 11.2    Konfiguration mit `mypy.ini` oder `pyproject.toml`
 
 **mypy.ini:**
+
 ```ini
 [mypy]
 python_version = 3.10
@@ -440,6 +445,7 @@ ignore_missing_imports = True
 ```
 
 **pyproject.toml:**
+
 ```toml
 [tool.mypy]
 python_version = '3.10'
@@ -466,6 +472,7 @@ ignore_missing_imports = true
 ### 11.4    Type Stubs für Drittbibliotheken
 
 Viele Bibliotheken haben keine eingebauten Typannotationen. Dafür gibt es separate Type Stubs.
+
 ```bash
 # Type Stubs installieren
 pip install types-requests
@@ -480,6 +487,7 @@ pip install pandas-stubs
 ### 11.5    Inline Type Ignores
 
 Manchmal ist man sich sicher, dass der Code korrekt ist, auch wenn mypy warnt:
+
 ```python
 from typing import Any
 
@@ -499,6 +507,7 @@ value = int('123')  # type: ignore[arg-type]
 Pyright ist ein schneller, moderner Type Checker von Microsoft, integriert in VS Code als Pylance.
 
 **Installation:**
+
 ```bash
 pip install pyright
 
@@ -507,11 +516,13 @@ npm install -g pyright
 ```
 
 **Verwendung:**
+
 ```bash
 pyright src/
 ```
 
 **Konfiguration (pyrightconfig.json):**
+
 ```json
 {
   'include': ['src'],
@@ -524,6 +535,7 @@ pyright src/
 ```
 
 **In pyproject.toml:**
+
 ```toml
 [tool.pyright]
 include = ['src']
@@ -546,6 +558,7 @@ pythonVersion = '3.10'
 ### 11.8    Integration in CI/CD
 
 **GitHub Actions:**
+
 ```yaml
 name: Type Check
 
@@ -569,6 +582,7 @@ jobs:
 ```
 
 **Pre-commit Hook:**
+
 ```yaml
 # .pre-commit-config.yaml
 repos:
@@ -582,6 +596,7 @@ repos:
 ### 11.9    Graduelle Typisierung
 
 Man muss nicht das gesamte Projekt auf einmal typisieren:
+
 ```python
 # Schritt 1: Keine Typen (Status Quo)
 def calculate(x, y):
@@ -597,6 +612,7 @@ def calculate(x: int, y: int) -> int:
 ```
 
 **Strategie für große Projekte:**
+
 1. Kritische/neue Module zuerst typisieren
 2. `# type: ignore` für Legacy-Code nutzen
 3. Schrittweise strengere mypy-Optionen aktivieren
@@ -605,6 +621,7 @@ def calculate(x: int, y: int) -> int:
 ### 11.10    Häufige Type Checker Fehler
 
 **Fehler: `Incompatible return value type`**
+
 ```python
 def get_name() -> str:
     return None  # Fehler!
@@ -617,6 +634,7 @@ def get_name() -> Optional[str]:
 ```
 
 **Fehler: `Argument has incompatible type`**
+
 ```python
 def greet(name: str) -> None:
     print(f'Hello, {name}')
@@ -628,6 +646,7 @@ greet('Alice')
 ```
 
 **Fehler: `Missing type parameters`**
+
 ```python
 from typing import List
 
@@ -642,6 +661,7 @@ def process(items: List[int]) -> None:
 ### 11.11    Best Practices
 
 **✅ DO:**
+
 - Type Checker in CI/CD Pipeline integrieren
 - Neue Module vollständig typisieren
 - `strict` Mode für neue Projekte aktivieren
@@ -649,6 +669,7 @@ def process(items: List[int]) -> None:
 - Pre-commit Hooks verwenden
 
 **❌ DON'T:**
+
 - Typen nur hinzufügen, um mypy zufriedenzustellen
 - Überall `Any` verwenden (verliert Typsicherheit)
 - Type Checking bei Tests vernachlässigen
@@ -657,19 +678,23 @@ def process(items: List[int]) -> None:
 ### 11.12    Weitere Tools
 
 **Pytype (Google):**
+
 ```bash
 pip install pytype
 pytype src/
 ```
+
 - Inferiert Typen automatisch
 - Weniger strikte als mypy
 - Gut für Legacy-Code
 
 **Pyre (Meta):**
+
 ```bash
 pip install pyre-check
 pyre check
 ```
+
 - Fokus auf Performance
 - Inkrementelles Type Checking
 - Hauptsächlich für große Codebases
@@ -683,7 +708,7 @@ pyre check
 | Type Stubs | Typen für Drittbibliotheken                |
 | `# type: ignore` | Einzelne Warnungen unterdrücken         |
 
-**Kernprinzip:** Type Checking ist ein Werkzeug zur Verbesserung der Code-Qualität, kein Selbstzweck. Beginne mit lockeren Einstellungen und erhöhe die Strenge schrittweise.
+Type Checking ist ein Werkzeug zur Verbesserung der Code-Qualität, kein Selbstzweck. Beginne mit lockeren Einstellungen und erhöhe die Strenge schrittweise.
 
 ## 12    Fazit
 

@@ -867,6 +867,7 @@ print(posts)
 | Alembic                | Datenbank-Migrationen                                |
 
 **Kernprinzipien:**
+
 - Verwende `?` Platzhalter bei SQLite (SQL-Injection vermeiden)
 - Nutze Context Manager für Verbindungen und Sessions
 - SQLAlchemy ORM für komplexe Anwendungen, Raw SQL für Performance-kritische Queries

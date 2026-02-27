@@ -87,11 +87,13 @@ Code Quality Tools wie Linter und Typer Checker analysieren den Quellcode. Sie w
 ### 2.1    Was sind Linter und Type Checker?
 
 **Linter:**
+
 - Analysieren Code auf Fehler und Stil-Probleme
 - Erzwingen Coding-Standards (PEP 8)
 - Finden potenzielle Bugs
 
 **Type Checker:**
+
 - Überprüfen Typannotationen
 - Finden Typ-Inkonsistenzen
 - Verbessern Code-Dokumentation
@@ -119,6 +121,7 @@ pip install ruff
 ```
 
 **Grundlegende Verwendung:**
+
 ```bash
 # Code prüfen
 ruff check .
@@ -134,6 +137,7 @@ ruff check --output-format=github .
 ```
 
 **Konfiguration (pyproject.toml):**
+
 ```toml
 [tool.ruff]
 line-length = 88
@@ -162,6 +166,7 @@ indent-style = "space"
 - Experimenteller mypy-Support, aber ist nicht so mächtig wie mypy selbst
 
 **Ersetzt folgende Tools:**
+
 - ✅ Flake8 (Linting)
 - ✅ isort (Import-Sortierung)
 - ✅ black (Formatierung)
@@ -187,11 +192,13 @@ Ruff gibt auf ihrer Homepage an, dass es deutlich schneller als vergleichbare To
 * Umfassender als Pylance, besonders für große Projekte
 
 **Installation:**
+
 ```bash
 pip install mypy
 ```
 
 **Verwendung:**
+
 ```bash
 # Einzelne Datei
 mypy script.py
@@ -204,6 +211,7 @@ mypy --strict src/
 ```
 
 **Konfiguration (pyproject.toml):**
+
 ```toml
 [tool.mypy]
 python_version = "3.11"
@@ -218,6 +226,7 @@ disallow_untyped_defs = false
 ```
 
 **Häufige Mypy-Patterns:**
+
 ```python
 from typing import Optional, List, Dict
 
@@ -235,9 +244,11 @@ result = legacy_function()  # type: ignore
 ##### Pyright
 
 **Merkmale:**
+
 - In TypeScript geschrieben (schneller als Mypy)
 - Basis für Pylance
 - Strikte Type Checks
+
 ```bash
 # Installation
 npm install -g pyright
@@ -252,6 +263,7 @@ pyright src/
 - Verbessert Autovervollständigung, Typinferenz und Fehleranalyse.
 
 **VS Code Einstellungen:**
+
 ```json
 {
     "python.analysis.typeCheckingMode": "basic",
@@ -267,6 +279,7 @@ ty ist ein extrem schneller Python Type Checker und Language Server von Astral (
 **Status:** Beta (seit Dezember 2025), Stable Release für 2026 geplant.
 
 **Stärken:**
+
 - 10–60× schneller als mypy/Pyright (ohne Cache)
 - Inkrementelle Updates in ~5ms (80× schneller als Pyright, 500× schneller als Pyrefly)
 - Eingebauter Language Server (LSP) für VS Code, Neovim, PyCharm u.a.
@@ -275,11 +288,13 @@ ty ist ein extrem schneller Python Type Checker und Language Server von Astral (
 - Geplante Integration mit Ruff (type-aware Linting, Dead Code Elimination)
 
 **Schwächen (Stand Februar 2026):**
+
 - Conformance mit der Python Typing Specification bei ~15% (Pyrefly ~70%, Pyright deutlich höher)
 - Noch viele False Positives bei komplexen Codebasen
 - Kein Plugin-System für Django/SQLAlchemy/Pydantic (noch)
 
 **Installation und Verwendung:**
+
 ```bash
 # Installation via uv
 uv tool install ty@latest
@@ -292,6 +307,7 @@ ty check --watch
 ```
 
 **Konfiguration (pyproject.toml):**
+
 ```toml
 [tool.ty.rules]
 # Regeln können individuell konfiguriert werden
@@ -310,6 +326,7 @@ Pyrefly ist Metas neuer Type Checker und Language Server, in Rust geschrieben. E
 **Status:** Beta (seit November 2025).
 
 **Stärken:**
+
 - Sehr hohe Performance (1,85 Mio. Zeilen/Sekunde, PyTorch in 2,4s vs. Pyright 35,2s vs. mypy 48,1s)
 - 70% Conformance mit Python Typing Specification (von 39% bei Alpha-Launch)
 - Automatische Type Inference für Rückgabewerte und lokale Variablen
@@ -319,11 +336,13 @@ Pyrefly ist Metas neuer Type Checker und Language Server, in Rust geschrieben. E
 - MIT-Lizenz, aktive Community (Discord, GitHub)
 
 **Schwächen:**
+
 - Inkrementelle Updates deutlich langsamer als ty (~2,4s vs. 4,7ms bei PyTorch)
 - Framework-Support (Django, SQLAlchemy) noch in Entwicklung
 - Weniger verbreitet als Pyright oder mypy
 
 **Installation und Verwendung:**
+
 ```bash
 # Installation
 pip install pyrefly
@@ -360,16 +379,19 @@ pyrefly check --summarize-errors
 ### 2.6    Zusammenfassung
 
 **Modern Stack (2024+):**
+
 - **Ruff**: Linting + Formatting (Standard)
 - **Mypy**: Type Checking
 - **Pyright/Pylance**: Type Checking (zuverlässigste Option)
 
-**Aufstrebend (Beta, 2025/2026):** -
+**Aufstrebend (Beta, 2025/2026):**
+
 - **ty** (Astral) – extrem schnell, noch geringe Conformance
 - **Pyrefly** (Meta) – schnell, bessere Conformance als ty 
 - **Zuban** – mypy-kompatibel, höchste Conformance der neuen Tools
 
 **Legacy Stack (nicht mehr empfohlen):**
+
 - ~~Flake8~~ → Ruff
 - ~~black~~ → Ruff format
 - ~~isort~~ → Ruff
@@ -1437,12 +1459,14 @@ pyinstaller --add-data "images;images" script.py
 ### 13.6    Häufige Probleme
 
 **Problem: "ModuleNotFoundError" nach Build**
+
 ```bash
 # Hidden Imports manuell angeben
 pyinstaller --hidden-import=pkg_resources script.py
 ```
 
 **Problem: Zu große .exe**
+
 ```bash
 # UPX Kompression (optional)
 pyinstaller --upx-dir=/path/to/upx script.py
@@ -1452,6 +1476,7 @@ pyinstaller --exclude-module tkinter script.py
 ```
 
 **Problem: Antivirus False Positive**
+
 - Signiere die .exe digital (Windows)
 - Reiche bei Antivirus-Herstellern als False Positive ein
 
@@ -1470,6 +1495,7 @@ pyinstaller --exclude-module tkinter script.py
 ### 13.8    Best Practices
 
 **✅ DO:**
+
 - Teste die .exe auf sauberem System
 - Verwende .spec-Datei für komplexe Builds
 - Versioniere die .spec-Datei
@@ -1477,6 +1503,7 @@ pyinstaller --exclude-module tkinter script.py
 - Verwende Virtual Environment für saubere Dependencies
 
 **❌ DON'T:**
+
 - Cross-compile nicht (Windows → Linux funktioniert nicht)
 - Zu viele Dependencies (Dateigröße)
 - Sensitive Daten im Binary (leicht extrahierbar)
@@ -1499,4 +1526,4 @@ pyinstaller --exclude-module tkinter script.py
 - **Library-Entwicklung**: Poetry oder Hatch
 - **Legacy-Migration**: Schrittweise zu `pyproject.toml` wechseln
 
-**Kernprinzip:** Nutze Lock-Files für reproduzierbare Builds, trenne abstrakte von konkreten Dependencies, und setze auf standardisiertes `pyproject.toml` statt proprietärer Konfigurationen.
+Nutze Lock-Files für reproduzierbare Builds, trenne abstrakte von konkreten Dependencies, und setze auf standardisiertes `pyproject.toml` statt proprietärer Konfigurationen.

@@ -285,9 +285,9 @@ print(p.name)
 
 Durch Properties kann die API einfach bleiben, während intern komplexe Logik stattfinden kann.
 
-## 5    Dunder Methods
+## 5    Dunder-Methods
 
-Dunder (Double Underscore) Methoden ermöglichen benutzerdefiniertes Verhalten für Operatoren und eingebaute Funktionen (`__str__`, `__len__`, `__getitem__` usw.).
+Dunder-Methoden ermöglichen benutzerdefiniertes Verhalten für Operatoren und eingebaute Funktionen (`__str__`, `__len__`, `__getitem__` usw.).
 
 ```python
 class Point:
@@ -303,13 +303,11 @@ class Point:
 
 p1 = Point(1, 2)
 p2 = Point(1, 2)
-print(str(p1))  # (1, 2)
+print(str(p1))   # (1, 2)
 print(p1 == p2)  # True
 ```
 
-Diese Methoden machen Objekte "pythonisch".
-
-## 6    Interation und Indizierung
+## 6    Iteration und Indizierung
 
 ### 6.1    Iterator-Klasse und Generator-Funktion
 

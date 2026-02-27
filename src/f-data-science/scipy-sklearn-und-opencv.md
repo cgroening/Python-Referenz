@@ -1,8 +1,9 @@
 # Scipy, Sklearn und OpenCV
 
-Scipy, Sklearn und OpenCV sind Bibliotheken, die in der Datenverarbeitung, im maschinellen Lernen und in der Bildverarbeitung häufig verwendet werden.
+Scipy, Sklearn und OpenCV sind Bibliotheken, die in der Datenverarbeitung, im maschinellen Lernen und in der Bildverarbeitung häufig verwendet werden. Im folgenden wird eine kurze Übersicht geboten.
 
 **SciPy:**
+
 - Name: Scientific Python
 - Zweck: Wissenschaftliches Rechnen und technische Berechnungen
 - Typische Anwendungen:
@@ -15,6 +16,7 @@ Scipy, Sklearn und OpenCV sind Bibliotheken, die in der Datenverarbeitung, im ma
 - Verwandt mit: NumPy (SciPy baut darauf auf)
 
 **Scikit-learn (sklearn):**
+
 - Name: Scikit-learn
 - Zweck: Maschinelles Lernen
 - Typische Anwendungen:
@@ -27,6 +29,7 @@ Scipy, Sklearn und OpenCV sind Bibliotheken, die in der Datenverarbeitung, im ma
 - Verwandt mit: Pandas, NumPy, Matplotlib (oft zusammen verwendet)
 
 **OpenCV:**
+
 - Name: Open Computer Vision
 - Zweck: Bild- und Videoverarbeitung
 - Typische Anwendungen:

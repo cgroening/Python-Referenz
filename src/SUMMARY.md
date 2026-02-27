@@ -11,7 +11,7 @@
 5. [Kontrollstrukturen](a-grundlagen/kontrollstrukturen.md)
 6. [Funktionen](a-grundlagen/funktionen.md)
 7. [Ein- und Ausgabe](a-grundlagen/eingabe-ausgabe.md)
-8. [Kommentare](kommentare-docstrings.md)
+8. [Kommentare und Docstrings](kommentare-docstrings.md)
 9. [Fehlerbehandlung](a-grundlagen/fehlerbehandlung.md)
 
 # TEIL II: OOP & FORTGESCHRITTENE KONZEPTE

@@ -1060,4 +1060,4 @@ print(to_hex(RED))  # #ff0000
 | `ChainMap`     | Mehrere Dictionaries verketten                | Konfiguration mit Fallbacks      |
 | `namedtuple`   | Tupel mit benannten Feldern                   | Lesbar, leichtgewichtig          |
 
-**Kernprinzip:** Das `collections`-Modul bietet spezialisierte Datenstrukturen für häufige Anwendungsfälle, die effizienter und lesbarer sind als selbstgebaute Lösungen.
+Das `collections`-Modul bietet spezialisierte Datenstrukturen für häufige Anwendungsfälle, die effizienter und lesbarer sind als selbstgebaute Lösungen.

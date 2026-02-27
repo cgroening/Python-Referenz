@@ -3,12 +3,14 @@
 Matplotlib und Seaborn sind zwei Bibliotheken zur Datenvisualisierung - also zum Erstellen von Diagrammen und Grafiken,n. Hier eine einfache Erklärung.
 
 **Matplotlib**
+
 - Eine grundlegende Bibliothek zur Visualisierung.
 - Ermöglicht die Erstellung von Diagrammen.
 - Sehr flexibel und anpassbar, jedoch manchmal etwas kompliziert und "low-level".
 - Das Modul `pyplot` (oft importiert als `plt`) ist der am häufigsten genutzte Teil.
 
 **Seaborn**
+
 - Baut auf Matplotlib auf - eine Erweiterung, die einfacher zu nutzen ist.
 - Hat ein schöneres Design und liefert automatisch ansprechende Diagramme.
 - Besonders gut für statistische Grafiken wie Boxplots, Violinplots, Heatmaps usw.
@@ -129,8 +131,6 @@ plt.show()
 plt.savefig('mein_plot.png', dpi=300, bbox_inches='tight')
 ```
 
----
-
 ## 2   Seaborn
 
 ```python
@@ -201,8 +201,6 @@ sns.pairplot(df, hue='sex', diag_kind='kde')
 ```python
 sns.jointplot(data=df, x='total_bill', y='tip', kind='reg')
 ```
-
----
 
 ### 2.4   Nützliche Tipps & Tricks
 

@@ -62,7 +62,9 @@ import my_module
 print(my_module.add(3, 4))  # Ausgabe: 7
 ```
 
-> [!INFO] Was ist eine Header-only-C++-Bibliothek?
+> [!INFO] 
+> **Was ist eine Header-only-C++-Bibliothek?**
+> 
 > In C++ bestehen Bibliotheken typischerweise aus:
 > - Header-Dateien (`.h` oder `.hpp`) – enthalten Deklarationen (z. B. Funktionen, Klassen).
 > - Implementierungsdateien (`.cpp`) – enthalten die eigentliche Logik.
@@ -102,8 +104,10 @@ print(fast_sum(1000000))
 
 Numba funktioniert besonders gut bei numerischen Berechnungen und Schleifen.
 
-> [!INFO] Was ist LLVM?
-LLVM steht für *Low-Level Virtual Machine*, ist aber heute viel mehr als das: LLVM ist eine moderne Compiler-Infrastruktur, die aus mehreren modularen Tools besteht. Viele moderne Programmiersprachen verwenden LLVM, um ihren Code in Maschinencode zu übersetzen.
+> [!INFO] 
+> **Was ist LLVM?**
+> 
+> LLVM steht für *Low-Level Virtual Machine*, ist aber heute viel mehr als das: LLVM ist eine moderne Compiler-Infrastruktur, die aus mehreren modularen Tools besteht. Viele moderne Programmiersprachen verwenden LLVM, um ihren Code in Maschinencode zu übersetzen.
 >
 > **Wichtigste Eigenschaften:**
 > - Zwischensprache (IR): LLVM übersetzt Code zuerst in eine eigene 'Intermediate Representation' (IR), die dann weiter optimiert wird.
@@ -155,6 +159,7 @@ Python kann mit C/C++-Code interagieren für maximale Performance oder Zugriff a
 `ctypes` ist eine Built-in Library zum Aufrufen von C-Funktionen aus Shared Libraries.
 
 #### 6.1.1    Grundlagen
+
 ```python
 import ctypes
 
@@ -173,6 +178,7 @@ libc.printf(b'Hello from C! %d\n', 42)
 #### 6.1.2    Eigene C-Library einbinden
 
 **C-Code (mylib.c):**
+
 ```c
 // mylib.c
 #include <stdio.h>
@@ -187,6 +193,7 @@ void greet(const char* name) {
 ```
 
 **Kompilieren:**
+
 ```bash
 # Shared Library erstellen
 # Linux
@@ -200,6 +207,7 @@ gcc -shared -o mylib.dll mylib.c
 ```
 
 **Python-Code:**
+
 ```python
 import ctypes
 
@@ -215,6 +223,7 @@ lib.greet(b'Alice')  # Hello, Alice!
 ```
 
 #### 6.1.3    Typen und Argumente
+
 ```python
 import ctypes
 
@@ -233,6 +242,7 @@ lib.greet(b'Bob')
 ```
 
 #### 6.1.4    Komplexe Datentypen
+
 ```python
 import ctypes
 
@@ -251,6 +261,7 @@ lib.print_point(ctypes.byref(p))
 ```
 
 #### 6.1.5    Arrays und Pointer
+
 ```python
 import ctypes
 
@@ -267,6 +278,7 @@ print(f'Sum: {result}')
 ```
 
 #### 6.1.6    Callbacks (Python → C → Python)
+
 ```python
 import ctypes
 
@@ -289,9 +301,11 @@ print(f'Result: {result}')
 `cffi` (C Foreign Function Interface) ist moderner und sicherer als ctypes.
 
 #### 6.2.1    Installation und Grundlagen
+
 ```bash
 pip install cffi
 ```
+
 ```python
 from cffi import FFI
 
@@ -314,6 +328,7 @@ lib.greet(b'Alice')
 ```
 
 #### 6.2.2    Out-of-Line Mode (Kompiliert)
+
 ```python
 # build_mylib.py
 from cffi import FFI
@@ -334,6 +349,7 @@ ffibuilder.set_source('_mylib',
 if __name__ == '__main__':
     ffibuilder.compile(verbose=True)
 ```
+
 ```bash
 # Kompilieren
 python build_mylib.py
@@ -344,6 +360,7 @@ print(lib.add(10, 20))
 ```
 
 #### 6.2.3    Structs mit cffi
+
 ```python
 from cffi import FFI
 
@@ -369,6 +386,7 @@ lib.print_point(p)
 ```
 
 #### 6.2.4    Callbacks mit cffi
+
 ```python
 from cffi import FFI
 
@@ -396,6 +414,7 @@ print(result)
 Direkte C-Extensions mit Python C-API für maximale Kontrolle.
 
 #### 6.3.1    Einfaches Modul
+
 ```c
 // mymodule.c
 #include <Python.h>
@@ -427,6 +446,7 @@ PyMODINIT_FUNC PyInit_mymodule(void) {
 ```
 
 **setup.py:**
+
 ```python
 from setuptools import setup, Extension
 
@@ -438,6 +458,7 @@ setup(
     ext_modules=[module]
 )
 ```
+
 ```bash
 # Kompilieren
 python setup.py build_ext --inplace
@@ -461,6 +482,7 @@ print(mymodule.add(5, 3))
 ### 6.5    Praktische Beispiele
 
 #### 6.5.1    System-Calls mit ctypes
+
 ```python
 import ctypes
 import platform
@@ -479,6 +501,7 @@ if platform.system() == 'Linux':
 ```
 
 #### 6.5.2    Performance-kritischer Code mit cffi
+
 ```python
 # build_fast.py
 from cffi import FFI
@@ -502,6 +525,7 @@ ffibuilder.set_source('_fast',
 
 ffibuilder.compile(verbose=True)
 ```
+
 ```python
 # usage.py
 from _fast import ffi, lib
@@ -524,6 +548,7 @@ print(f'C: {time.time() - start:.3f}s')
 ```
 
 #### 6.5.3    GPU-Zugriff mit ctypes (CUDA)
+
 ```python
 import ctypes
 import numpy as np
@@ -540,29 +565,34 @@ print(f'CUDA Devices: {prop.value}')
 ### 6.6    Best Practices
 
 **✅ Verwende ctypes wenn:**
+
 - Einfacher FFI-Zugriff nötig
 - Prototyping
 - Standard-Libraries (libc, etc.)
 - Keine Kompilierung gewünscht
 
 **✅ Verwende cffi wenn:**
+
 - Performance wichtig
 - PyPy-Kompatibilität
 - Komplexere C-Interaktion
 - Typsicherheit zur Compile-Zeit
 
 **✅ Verwende C-API wenn:**
+
 - Maximale Performance
 - Volle Python-Kontrolle nötig
 - Existierende C/C++-Codebasis
 - NumPy-ähnliche Extensions
 
 **✅ Verwende Pybind11 wenn:**
+
 - C++ Code
 - Modern C++ Features
 - Header-only bevorzugt
 
 ### 6.7    Debugging C-Extensions
+
 ```python
 # Mit gdb debuggen
 import sys
@@ -612,17 +642,12 @@ PyO3 nutzt Rusts Foreign Function Interface (FFI), um eine nahtlose Interoperabi
 | ctypes   | C       | ✅ Hoch      | ❌ Unsicher    | Niedrig     |     |
 | Cython   | Python  | ✅ Hoch      | ⚠️ Manuell    | Niedrig     |     |
 
-
 ### 7.1    Anwendungsfälle von PyO3
 
 - Beschleunigung von Python-Code durch performanten Rust-Code
 - Erstellung von Python-Erweiterungsmodulen
 - Rust-Programme mit einer Python-API ausstatten
 - Einbinden von Python-Bibliotheken in Rust
-
-### Installation
-
-
 
 ### 7.2    Beispiel für ein Rust-Modul für Python
 
@@ -669,11 +694,13 @@ maturin init
 `pyo3` aus der Liste auswählen
 
 #### 7.2.4    `cargo/config.toml`anpassen
+
 ```toml
 [build]
 target-dir = '/Users/cgroening/Downloads/cargo_target/notes'
 ```
 #### 7.2.5    `cargo.toml` anpassen
+
 ```toml
 [package]
 name = 'string_sum'
@@ -716,7 +743,9 @@ fn string_sum(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-> [!warning] Leistungstest mit vielen Iterationen
+> [!warning] 
+> **Leistungstest mit vielen Iterationen:**
+> 
 > Den Leistungsunterschied zwischen Rust und Python kann man vereinfacht testen, indem man eine Aktion durch eine Schleife viele Millionen Mal wiederholt. Rusts Compiler (`rustc`) ist jedoch extrem aggressiv in der Optimierung. Falls das Ergebnis nicht wirklich genutzt wird, erkennt der Compiler, dass die Berechnung nutzlos ist und eliminiert die gesamte Schleife (Dead Code Elimination).
 >
 > Um diese Optimierung zu umgehen, kann man die Funktion `black_box()` aus `std::hint` nutzen, um sicherzustellen, dass der Wert wirklich berechnet wird.
@@ -758,6 +787,7 @@ string_sum.sum_as_string(1, 2)
 ### Vergleich der Leistung
 
 **Performance-Vergleich:**
+
 ```python
 # Python-Version
 def sum_as_string_py(a, b):
@@ -770,6 +800,7 @@ def sum_as_string_py(a, b):
 ```
 
 **Benchmark:**
+
 ```python
 import time
 import string_sum
@@ -793,6 +824,7 @@ print(f'Python: {time.time() - start:.2f}s')
 ### 8.7 Fortgeschrittene Features
 
 #### 8.7.1 Python-Klassen in Rust
+
 ```rust
 use pyo3::prelude::*;
 
@@ -825,6 +857,7 @@ fn my_module(_py: Python, m: &PyModule) -> PyResult<()> {
 ```
 
 **Python-Verwendung:**
+
 ```python
 from my_module import Counter
 
@@ -834,12 +867,14 @@ print(c.get())  # 1
 ```
 
 #### 8.7.2 NumPy-Integration
+
 ```toml
 # Cargo.toml
 [dependencies]
 pyo3 = { version = '0.24.0', features = ['extension-module'] }
 numpy = '0.24.0'
 ```
+
 ```rust
 use numpy::PyArray1;
 use pyo3::prelude::*;
@@ -852,6 +887,7 @@ fn sum_array(arr: &PyArray1<f64>) -> PyResult<f64> {
 ```
 
 #### 8.7.3 Python aus Rust aufrufen
+
 ```rust
 use pyo3::prelude::*;
 
@@ -873,6 +909,7 @@ fn call_python_function() -> PyResult<()> {
 ```
 
 ### 8.8 Fehlerbehandlung
+
 ```rust
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
@@ -888,6 +925,7 @@ fn divide(a: f64, b: f64) -> PyResult<f64> {
 ```
 
 **In Python:**
+
 ```python
 try:
     result = my_module.divide(10, 0)
@@ -898,6 +936,7 @@ except ValueError as e:
 ### 8.9 Distribution
 
 #### 8.9.1 Wheel bauen
+
 ```bash
 # Für aktuelle Platform
 maturin build --release
@@ -911,6 +950,7 @@ maturin build --release --universal2
 ```
 
 #### 8.9.2 PyPI veröffentlichen
+
 ```bash
 # Testweise
 maturin publish --repository testpypi
@@ -920,6 +960,7 @@ maturin publish
 ```
 
 #### 8.9.3 pyproject.toml
+
 ```toml
 [build-system]
 requires = ['maturin>=1.0,<2.0']
@@ -938,6 +979,7 @@ classifiers = [
 ### 8.10 Bekannte PyO3-Projekte
 
 **Production Use Cases:**
+
 - **ruff**: Python Linter (1000x schneller als pylint)
 - **polars**: DataFrame-Bibliothek (schneller als pandas)
 - **pydantic-core**: Validierung für pydantic v2
@@ -960,6 +1002,7 @@ classifiers = [
 ### 8.12 Best Practices
 
 **✅ DO:**
+
 - Nutze `maturin develop --release` für Benchmarks
 - Verwende `black_box()` für realistische Performance-Tests
 - Nutze Rust's Ownership für Memory-Safety
@@ -968,6 +1011,7 @@ classifiers = [
 - Teste auf mehreren Platforms (CI/CD)
 
 **❌ DON'T:**
+
 - Python GIL ignorieren (bei Multi-Threading)
 - Zu kleine Funktionen (FFI-Overhead)
 - Komplexe Python-Objekte ständig konvertieren
@@ -976,6 +1020,7 @@ classifiers = [
 ### 8.13 Troubleshooting
 
 **Problem: 'ImportError: DLL load failed'**
+
 ```bash
 # Windows: Visual C++ Redistributables fehlen
 # Lösung: Installiere VC++ Runtime
@@ -985,6 +1030,7 @@ ldd target/release/libmy_module.so
 ```
 
 **Problem: GIL-Deadlocks**
+
 ```rust
 // ❌ Kann deadlocken
 fn bad_example(py: Python) -> PyResult<()> {
@@ -1005,9 +1051,10 @@ fn good_example(py: Python) -> PyResult<()> {
 
 ### Zusammenfassung
 
-**Kernprinzip:** PyO3 kombiniert Rust's Performance und Safety mit Python's Einfachheit. Ideal für moderne, performance-kritische Python-Extensions.
+PyO3 kombiniert Rust's Performance und Safety mit Python's Einfachheit. Ideal für moderne, performance-kritische Python-Extensions.
 
 **Wann PyO3 verwenden:**
+
 - ✅ CPU-intensive Berechnungen
 - ✅ Memory-Safety wichtig
 - ✅ Moderne Codebase
@@ -1015,6 +1062,7 @@ fn good_example(py: Python) -> PyResult<()> {
 - ✅ Async/Concurrent Workloads
 
 **Wann Alternativen:**
+
 - Pybind11: Existierende C++-Codebase
 - Cython: Python-Entwickler, graduelle Optimierung
 - NumPy/Numba: Wissenschaftliches Computing
@@ -1048,9 +1096,7 @@ maturin build --release
 | Pybind11     | C++ Integration                   | Medium     | Very High   |
 | Cython       | Python-like, gradual optimization | Low-Medium | High        |
 
-**Kernprinzip:** Wähle ctypes für einfache FFI-Calls, cffi für moderne Performance-kritische Anwendungen, und C-API/Pybind11 für maximale Kontrolle. Cython bleibt die einfachste Option für Python-Entwickler, die Performance brauchen.
-
-
+Wähle ctypes für einfache FFI-Calls, cffi für moderne Performance-kritische Anwendungen, und C-API/Pybind11 für maximale Kontrolle. Cython bleibt die einfachste Option für Python-Entwickler, die Performance brauchen.
 
 ## 8    Vergleich: Python Performance & Extension Tools
 
@@ -1070,32 +1116,38 @@ maturin build --release
 ### 8.1    Legende
 
 **Komplexität:**
+
 - Niedrig: Einfach zu verwenden, wenig Boilerplate
 - Mittel: Erfordert Setup und Verständnis
 - Hoch: Tiefes Verständnis von Internals nötig
 
 **Performance:**
+
 - Mittel: 2-5x schneller als CPython
 - Hoch: 5-20x schneller
 - Sehr hoch: 20-100x+ schneller (bei geeigneten Workloads)
 
 **Speichersicherheit:**
+
 - ✅ Sicher: Compiler garantiert Speichersicherheit
 - ⚠️ Manuell: Entwickler verantwortlich
 - ❌ Unsicher: Leicht Fehler zu machen
 
 **Build-Zeit:**
+
 - Keine: Keine Kompilierung (JIT oder reines Python)
 - Schnell: < 1 Sekunde
 - Mittel: 1-10 Sekunden
 - Langsam: 10+ Sekunden
 
 **Lernkurve:**
+
 - ✅ Einfach: Python-Kenntnisse ausreichend
 - ⚠️ Mittel: Neue Sprache/Konzepte lernen
 - ❌ Schwer: Tiefe C/C++-Kenntnisse + Python C-API
 
 **PyPy-Support:**
+
 - ✅ Schnell/Nativ: Optimiert für PyPy
 - ⚠️ Langsam: Funktioniert, aber langsamer
 - ❌ Nein: Nicht kompatibel
@@ -1118,28 +1170,28 @@ maturin build --release
 ### 8.3    Entscheidungshilfe
 
 **Szenario: Numerische Berechnungen mit Arrays**
-→ **Numba** (einfachste Option) oder **Cython** (volle Kontrolle)
+→ Numba (einfachste Option) oder Cython (volle Kontrolle)
 
 **Szenario: Vorhandene C-Bibliothek einbinden**
-→ **cffi** (modern) oder **ctypes** (schnell & einfach)
+→ cffi (modern) oder ctypes (schnell & einfach)
 
 **Szenario: Vorhandene C++-Codebasis**
-→ **Pybind11**
+→ Pybind11
 
 **Szenario: Moderne, sichere Extension**
-→ **PyO3** (Rust) oder **Pybind11** (C++)
+→ PyO3 (Rust) oder Pybind11 (C++)
 
 **Szenario: Python-Code beschleunigen ohne neue Sprache**
-→ **PyPy** (reines Python) oder **Numba** (NumPy-fokussiert)
+→ PyPy (reines Python) oder Numba (NumPy-fokussiert)
 
 **Szenario: Typisiertes Python zu nativem Code**
-→ **Mypyc**
+→ Mypyc
 
 **Szenario: Python + C Hybrid**
-→ **Cython**
+→ Cython
 
 **Szenario: Maximale Performance, volle Kontrolle**
-→ **Python C-API** oder **PyO3** (mit Speichersicherheit)
+→ Python C-API oder PyO3 (mit Speichersicherheit)
 
 **Szenario: Distribution als Binary**
-→ **Nuitka** (kompiliert) oder **PyInstaller** (bündelt)
+→ Nuitka (kompiliert) oder PyInstaller (bündelt)

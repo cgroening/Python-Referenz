@@ -68,6 +68,7 @@ Beim `import`-Statement sucht Python in dieser Reihenfolge:
 3. **`PYTHONPATH`** Environment Variable
 4. **Standard-Library-Pfade**
 5. **Site-Packages** (installierte Pakete)
+
 ```python
 import sys
 
@@ -84,6 +85,7 @@ for path in sys.path:
 #### 2.1.2    `sys.path` manipulieren
 
 `sys.path` ist eine Liste und kann zur Laufzeit modifiziert werden.
+
 ```python
 import sys
 
@@ -98,6 +100,7 @@ import my_custom_module
 ```
 
 **Praktisches Beispiel – Projekt-Root finden:**
+
 ```python
 import sys
 from pathlib import Path
@@ -113,6 +116,7 @@ from src.utils import helper
 #### 2.1.3    `PYTHONPATH` Environment Variable
 
 Permanent Pfade hinzufügen ohne Code-Änderung:
+
 ```bash
 # Linux/macOS
 export PYTHONPATH="/path/to/modules:$PYTHONPATH"
@@ -125,6 +129,7 @@ echo 'export PYTHONPATH="/path/to/modules:$PYTHONPATH"' >> ~/.bashrc
 ```
 
 **In Python-Scripts:**
+
 ```python
 import os
 
@@ -137,6 +142,7 @@ os.environ['PYTHONPATH'] = '/path/to/modules'
 `importlib` erlaubt programmatisches Importieren zur Laufzeit.
 
 **Modul aus String importieren:**
+
 ```python
 import importlib
 
@@ -152,6 +158,7 @@ helper = importlib.import_module('..utils.helper', package='mypackage.submodule'
 ```
 
 **Modul neu laden:**
+
 ```python
 import importlib
 import my_module
@@ -161,6 +168,7 @@ importlib.reload(my_module)
 ```
 
 **Plugin-System mit dynamischen Imports:**
+
 ```python
 import importlib
 import os
@@ -202,6 +210,7 @@ for plugin in plugins:
 4. Code wird ausgeführt
 5. Modul-Objekt wird in `sys.modules` gecacht
 6. Name wird im lokalen Namespace gebunden
+
 ```python
 import sys
 
@@ -216,6 +225,7 @@ import math  # Lädt nicht neu, nutzt Cache
 ```
 
 **Cache manuell leeren:**
+
 ```python
 import sys
 
@@ -228,6 +238,7 @@ import my_module
 ```
 
 #### 2.1.6    Import-Varianten
+
 ```python
 # 1. Ganzes Modul importieren
 import math
@@ -255,10 +266,12 @@ from ..sibling_package import module
 Die `__init__.py` kontrolliert, was beim Import eines Pakets passiert.
 
 **Leere `__init__.py`:**
+
 ```python
 # my_package/__init__.py
 # (leer)
 ```
+
 ```python
 # Verwendung
 import my_package.module  # OK
@@ -267,6 +280,7 @@ import my_package  # OK, aber nichts verfügbar
 ```
 
 **Mit Exporten:**
+
 ```python
 # my_package/__init__.py
 from .module_a import function_a
@@ -275,6 +289,7 @@ from .subpackage import helper
 
 __all__ = ['function_a', 'ClassB', 'helper']
 ```
+
 ```python
 # Verwendung
 from my_package import function_a, ClassB
@@ -283,6 +298,7 @@ my_package.function_a()  # Funktioniert!
 ```
 
 **Mit `__all__` für `from package import *`:**
+
 ```python
 # my_package/__init__.py
 from .module_a import function_a
@@ -295,6 +311,7 @@ __all__ = ['function_a', 'function_b']
 #### 2.1.8    Namespace Packages (PEP 420)
 
 Seit Python 3.3: Packages ohne `__init__.py` (für verteilte Packages).
+
 ```
 namespace_package/
 ├── part1/
@@ -302,6 +319,7 @@ namespace_package/
 └── part2/
     └── module_b.py
 ```
+
 ```python
 # Beide Teile werden als ein Namespace-Package behandelt
 from namespace_package.part1 import module_a
@@ -309,6 +327,7 @@ from namespace_package.part2 import module_b
 ```
 
 **Wann verwenden:**
+
 - Große Packages über mehrere Repositories verteilt
 - Plugin-Systeme
 - Unternehmens-interne Package-Strukturen
@@ -316,6 +335,7 @@ from namespace_package.part2 import module_b
 #### 2.1.9    Import-Hooks und Finder
 
 Fortgeschritten: Eigene Import-Mechanismen implementieren.
+
 ```python
 import sys
 import importlib.abc
@@ -334,6 +354,7 @@ sys.meta_path.insert(0, CustomFinder())
 ```
 
 #### 2.1.10    Debugging von Import-Problemen
+
 ```python
 import sys
 
@@ -370,6 +391,7 @@ importlib.import_module('my_module')
 #### 2.1.11    Best Practices
 
 **✅ DO:**
+
 ```python
 # Absolute Imports bevorzugen
 from my_package.module import function
@@ -387,6 +409,7 @@ __all__ = ['public_function', 'PublicClass']
 ```
 
 **❌ DON'T:**
+
 ```python
 # Vermeiden: from module import *
 from math import *  # Namespace pollution!
@@ -405,6 +428,7 @@ sys.path.append('/hardcoded/path')  # Nicht portabel!
 #### 2.1.12    Häufige Import-Probleme
 
 **Problem 1: `ModuleNotFoundError`**
+
 ```python
 # Fehler: ModuleNotFoundError: No module named 'my_module'
 
@@ -423,6 +447,7 @@ sys.path.insert(0, '/path/to/module')
 ```
 
 **Problem 2: Zirkuläre Imports**
+
 ```python
 # module_a.py
 from module_b import function_b
@@ -440,6 +465,7 @@ def my_function():
 ```
 
 **Problem 3: Name Conflicts**
+
 ```python
 # ❌ Überschreibt builtin
 from mymodule import open  # Überschreibt open()!
@@ -449,6 +475,7 @@ from mymodule import open as myopen
 ```
 
 #### 2.1.13    Praktisches Beispiel: Projekt-Setup
+
 ```
 myproject/
 ├── src/
@@ -465,6 +492,7 @@ myproject/
 ```
 
 **In Tests importieren:**
+
 ```python
 # tests/test_engine.py
 import sys
@@ -480,6 +508,7 @@ from src.utils.helpers import helper_function
 ```
 
 **Bessere Lösung: Editable Install**
+
 ```bash
 # Im Projekt-Root
 pip install -e .
@@ -500,7 +529,7 @@ from src.core.engine import Engine
 | `__all__`           | Kontrolliert `from package import *`         |
 | Namespace Packages  | Packages ohne `__init__.py` (PEP 420)        |
 
-**Kernprinzip:** Python's Import-System ist flexibel und erweiterbar. Für normale Projekte reichen Standard-Imports, aber `importlib` und `sys.path` ermöglichen erweiterte Szenarien wie Plugin-Systeme und dynamisches Laden.
+Python's Import-System ist flexibel und erweiterbar. Für normale Projekte reichen Standard-Imports, aber `importlib` und `sys.path` ermöglichen erweiterte Szenarien wie Plugin-Systeme und dynamisches Laden.
 
 ### HTML-Dokumentation
 
@@ -515,6 +544,7 @@ Docstrings dokumentieren Module, Klassen und Funktionen direkt im Code.
 #### 9.1.1 Drei Hauptstile
 
 **Google Style (empfohlen für Lesbarkeit):**
+
 ````python
 def calculate_distance(x1: float, y1: float, x2: float, y2: float) -> float:
     """Berechnet die euklidische Distanz zwischen zwei Punkten.
@@ -539,6 +569,7 @@ def calculate_distance(x1: float, y1: float, x2: float, y2: float) -> float:
 ````
 
 **NumPy Style (wissenschaftliche Pakete):**
+
 ````python
 def calculate_distance(x1, y1, x2, y2):
     """
@@ -569,6 +600,7 @@ def calculate_distance(x1, y1, x2, y2):
 ````
 
 **Sphinx Style (klassisch):**
+
 ````python
 def calculate_distance(x1, y1, x2, y2):
     """Berechnet die euklidische Distanz zwischen zwei Punkten.
@@ -591,6 +623,7 @@ def calculate_distance(x1, y1, x2, y2):
 #### 9.1.2 Docstring-Konventionen
 
 **Modul-Docstring:**
+
 ````python
 """Geometrie-Utilities für 2D-Berechnungen.
 
@@ -609,6 +642,7 @@ import math
 ````
 
 **Klassen-Docstring:**
+
 ````python
 class Circle:
     """Repräsentiert einen Kreis.
@@ -635,6 +669,7 @@ class Circle:
 ````
 
 **Best Practices:**
+
 ````python
 # ✅ DO
 def process_data(data: list[str]) -> dict:
@@ -659,11 +694,13 @@ def process_data(data):
 Sphinx ist das Standard-Tool für Python-Dokumentation (verwendet von Python selbst, Django, Flask, etc.).
 
 #### 9.2.1 Installation und Setup
+
 ````bash
 pip install sphinx sphinx-rtd-theme
 ````
 
 **Projekt initialisieren:**
+
 ````bash
 # Im Projekt-Root
 mkdir docs
@@ -678,6 +715,7 @@ sphinx-quickstart
 ````
 
 **Struktur:**
+
 ````
 myproject/
 ├── docs/
@@ -693,6 +731,7 @@ myproject/
 ````
 
 #### 9.2.2 Konfiguration (conf.py)
+
 ````python
 # docs/source/conf.py
 
@@ -725,6 +764,7 @@ napoleon_include_init_with_doc = True
 #### 9.2.3 Dokumentation schreiben
 
 **index.rst:**
+
 ````rst
 Willkommen zu My Project
 ========================
@@ -746,6 +786,7 @@ Indices
 ````
 
 **api.rst (automatische API-Dokumentation):**
+
 ````rst
 API Reference
 =============
@@ -761,6 +802,7 @@ API Reference
 ````
 
 #### 9.2.4 Build und Vorschau
+
 ````bash
 # HTML generieren
 cd docs
@@ -812,17 +854,20 @@ sphinx-rtd-theme
 MkDocs ist einfacher als Sphinx und verwendet Markdown statt reStructuredText.
 
 #### 9.3.1 Installation und Setup
+
 ````bash
 pip install mkdocs mkdocs-material
 ````
 
 **Projekt initialisieren:**
+
 ````bash
 mkdocs new my-project
 cd my-project
 ````
 
 **Struktur:**
+
 ````
 my-project/
 ├── docs/
@@ -833,6 +878,7 @@ my-project/
 ````
 
 #### 9.3.2 Konfiguration (mkdocs.yml)
+
 ````yaml
 site_name: My Project
 site_description: Awesome Python project
@@ -874,11 +920,13 @@ markdown_extensions:
 ````
 
 #### 9.3.3 Automatische API-Docs mit mkdocstrings
+
 ````bash
 pip install mkdocstrings[python]
 ````
 
 **docs/api.md:**
+
 ````markdown
 # API Reference
 
@@ -899,6 +947,7 @@ pip install mkdocstrings[python]
 ````
 
 #### 9.3.4 Build und Deploy
+
 ````bash
 # Lokaler Server
 mkdocs serve
@@ -916,11 +965,13 @@ mkdocs gh-deploy
 pdoc generiert automatisch Dokumentation aus Docstrings – kein Setup nötig.
 
 #### 9.4.1 Installation und Verwendung
+
 ````bash
 pip install pdoc
 ````
 
 **Einfache Verwendung:**
+
 ````bash
 # HTML-Dokumentation generieren
 pdoc myproject -o docs/
@@ -933,12 +984,14 @@ pdoc myproject --http :8080
 #### 9.4.2 Konfiguration
 
 **Eigenes Template (optional):**
+
 ````bash
 # Template anpassen
 pdoc myproject -o docs/ --template-dir ./templates/
 ````
 
 **Ausgabe anpassen:**
+
 ````python
 # myproject/__init__.py
 
@@ -972,6 +1025,7 @@ __pdoc__ = {
 - ✅ Single-Command
 
 **Wann verwenden:**
+
 - Schnelle API-Dokumentation
 - Kleine bis mittlere Projekte
 - Kein komplexes Layout nötig
@@ -987,6 +1041,7 @@ __pdoc__ = {
 ### 9.6 Praktisches Beispiel: Vollständige Dokumentation
 
 **Projekt-Struktur:**
+
 ````
 myproject/
 ├── src/
@@ -1005,6 +1060,7 @@ myproject/
 ````
 
 **calculator.py mit vollständigen Docstrings:**
+
 ````python
 """Mathematische Berechnungen.
 
@@ -1076,6 +1132,7 @@ class Calculator:
 ### 9.7 CI/CD Integration
 
 **GitHub Actions für automatische Docs:**
+
 ````yaml
 # .github/workflows/docs.yml
 name: Documentation
@@ -1113,6 +1170,7 @@ jobs:
 ### 9.8 Best Practices
 
 **✅ DO:**
+
 - Google-Style Docstrings für Lesbarkeit
 - Docstrings für alle öffentlichen Funktionen/Klassen
 - Examples in Docstrings (mit doctest-Syntax)
@@ -1121,6 +1179,7 @@ jobs:
 - CI/CD für Docs-Build
 
 **❌ DON'T:**
+
 - Docstrings nur für komplexe Funktionen (alle dokumentieren!)
 - Informationen in Docstrings und Code duplizieren
 - Veraltete Docstrings (bei Code-Änderung aktualisieren!)
@@ -1129,7 +1188,8 @@ jobs:
 ### 9.9 Docstring-Linting
 
 **Tools zur Validierung:**
-````bash
+
+```bash
 # pydocstyle - Docstring-Konventionen prüfen
 pip install pydocstyle
 pydocstyle src/
@@ -1144,17 +1204,18 @@ interrogate -v src/
 
 # Mit Ruff (bereits integriert)
 ruff check --select D .
-````
+```
 
 **Pre-commit Hook:**
-````yaml
+
+```yaml
 # .pre-commit-config.yaml
 repos:
   - repo: https://github.com/pycqa/pydocstyle
     rev: 6.3.0
     hooks:
       - id: pydocstyle
-````
+```
 
 ### 9.10 Zusammenfassung
 
@@ -1167,4 +1228,4 @@ repos:
 | Hosting        | Read the Docs / GitHub Pages        |
 | Validierung    | pydocstyle / Ruff                   |
 
-**Kernprinzip:** Gute Dokumentation ist Teil des Codes. Nutze Docstrings konsequent, automatische Generierung (Sphinx/MkDocs/pdoc), und CI/CD für stets aktuelle Dokumentation.
+Gute Dokumentation ist Teil des Codes. Nutze Docstrings konsequent, automatische Generierung (Sphinx/MkDocs/pdoc), und CI/CD für stets aktuelle Dokumentation.

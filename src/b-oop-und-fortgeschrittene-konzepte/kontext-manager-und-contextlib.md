@@ -529,4 +529,4 @@ print(os.environ.get('DEBUG'))  # None oder alter Wert
 | `contextlib.ExitStack`       | Dynamische Anzahl von Kontextmanagern                      |
 | `async with`                 | Asynchrone Kontextmanager mit `__aenter__` / `__aexit__`   |
 
-**Kernprinzip:** Kontextmanager garantieren, dass Cleanup-Code ausgeführt wird – egal ob der Code normal endet oder eine Exception auftritt. Sie sind der Standard-Ansatz für Ressourcenverwaltung in Python.
+Kontextmanager garantieren, dass Cleanup-Code ausgeführt wird – egal ob der Code normal endet oder eine Exception auftritt. Sie sind der Standard-Ansatz für Ressourcenverwaltung in Python.

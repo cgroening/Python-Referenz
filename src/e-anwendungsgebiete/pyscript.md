@@ -16,6 +16,7 @@ PyScript ist ein Framework von Anaconda, das Python im Browser lauffähig macht:
 ## 2    Erste Schritte
 
 ### 2.1    Minimales Beispiel
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +42,7 @@ PyScript ist ein Framework von Anaconda, das Python im Browser lauffähig macht:
 ```
 
 ### 2.2    Output anzeigen
+
 ```html
 <body>
     <h1>Calculator</h1>
@@ -59,6 +61,7 @@ PyScript ist ein Framework von Anaconda, das Python im Browser lauffähig macht:
 ## 3    Python-Pakete verwenden
 
 ### 3.1    Pakete deklarieren
+
 ```html
 <head>
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
@@ -93,12 +96,14 @@ PyScript ist ein Framework von Anaconda, das Python im Browser lauffähig macht:
 PyScript/Pyodide unterstützt viele populäre Pakete:
 
 **Wissenschaftlich:**
+
 - NumPy, SciPy, Pandas
 - Matplotlib, Plotly
 - Scikit-learn
 - SymPy
 
 **Web/Utility:**
+
 - Requests (pyodide-http)
 - BeautifulSoup
 - Pillow
@@ -109,6 +114,7 @@ PyScript/Pyodide unterstützt viele populäre Pakete:
 ## 4    DOM-Manipulation
 
 ### 4.1    JavaScript-Interoperabilität
+
 ```html
 <body>
     <button id="myButton">Click Me!</button>
@@ -129,6 +135,7 @@ PyScript/Pyodide unterstützt viele populäre Pakete:
 ```
 
 ### 4.2    HTML-Elemente erstellen
+
 ```html
 <body>
     <div id="container"></div>
@@ -151,6 +158,7 @@ PyScript/Pyodide unterstützt viele populäre Pakete:
 ## 5    Interaktive Anwendungen
 
 ### 5.1    Eingabefelder verarbeiten
+
 ```html
 <body>
     <input type="text" id="nameInput" placeholder="Enter your name">
@@ -174,6 +182,7 @@ PyScript/Pyodide unterstützt viele populäre Pakete:
 ```
 
 ### 5.2    Formular mit Validierung
+
 ```html
 <body>
     <form id="myForm">
@@ -206,6 +215,7 @@ PyScript/Pyodide unterstützt viele populäre Pakete:
 ## 6    Datenvisualisierung
 
 ### 6.1    Matplotlib im Browser
+
 ```html
 <head>
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
@@ -241,6 +251,7 @@ PyScript/Pyodide unterstützt viele populäre Pakete:
 ```
 
 ### 6.2    Interaktive Plots
+
 ```html
 <body>
     <h1>Interactive Plot</h1>
@@ -277,6 +288,7 @@ PyScript/Pyodide unterstützt viele populäre Pakete:
 ## 7    Dateien und Storage
 
 ### 7.1    Dateien hochladen
+
 ```html
 <body>
     <input type="file" id="fileInput" accept=".csv">
@@ -305,6 +317,7 @@ PyScript/Pyodide unterstützt viele populäre Pakete:
 ```
 
 ### 7.2    localStorage verwenden
+
 ```html
 <body>
     <input type="text" id="dataInput" placeholder="Enter data">
@@ -331,6 +344,7 @@ PyScript/Pyodide unterstützt viele populäre Pakete:
 ```
 
 ## 8    HTTP-Requests
+
 ```html
 <body>
     <button id="fetchBtn">Fetch Data</button>
@@ -359,6 +373,7 @@ PyScript/Pyodide unterstützt viele populäre Pakete:
 ## 9    Externe Python-Dateien
 
 ### 9.1    Dateien importieren
+
 ```html
 <!-- index.html -->
 <head>
@@ -378,6 +393,7 @@ PyScript/Pyodide unterstützt viele populäre Pakete:
     </py-script>
 </body>
 ```
+
 ```python
 # utils.py
 def greet(name):
@@ -392,41 +408,49 @@ def calculate(a, b):
 ### 10.1    Vorteile
 
 **✅ Kein Server nötig**
+
 - Statisches Hosting (GitHub Pages, Netlify)
 - Keine Backend-Infrastruktur
 - Kostenlos hostbar
 
 **✅ Python-Ökosystem**
+
 - NumPy, Pandas, Matplotlib
 - Wissenschaftliche Bibliotheken
 - Bekannte Syntax
 
 **✅ Offline-fähig**
+
 - Nach initialem Laden
 - Progressive Web Apps möglich
 
 **✅ Sicherheit**
+
 - Browser-Sandbox
 - Kein direkter Dateisystem-Zugriff
 
 ### 10.2    Nachteile
 
 **❌ Ladezeit**
+
 - Initial: 5-10 Sekunden (Pyodide + Pakete)
 - ~6 MB Download
 - Langsam auf mobilen Geräten
 
 **❌ Performance**
+
 - Langsamer als natives JavaScript
 - WebAssembly-Overhead
 - Nicht für alle Use Cases geeignet
 
 **❌ Eingeschränkte Pakete**
+
 - Nicht alle Python-Pakete verfügbar
 - C-Extensions müssen kompiliert sein
 - Keine native System-Calls
 
 **❌ Browser-Support**
+
 - Moderne Browser nötig
 - WebAssembly erforderlich
 - IE nicht unterstützt
@@ -434,6 +458,7 @@ def calculate(a, b):
 ## 11    Use Cases
 
 **✅ Gut geeignet für:**
+
 - Datenvisualisierung
 - Wissenschaftliche Demos
 - Interaktive Tutorials
@@ -443,6 +468,7 @@ def calculate(a, b):
 - Statische Webseiten mit Python-Logik
 
 **❌ Nicht geeignet für:**
+
 - Performance-kritische Apps
 - Große Enterprise-Anwendungen
 - Real-time Anwendungen
@@ -454,6 +480,7 @@ def calculate(a, b):
 ### 12.1    Pyodide (direkt)
 
 PyScript basiert auf Pyodide. Kann auch direkt verwendet werden:
+
 ```html
 <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
 
@@ -473,17 +500,20 @@ PyScript basiert auf Pyodide. Kann auch direkt verwendet werden:
 ```
 
 **Vorteile:**
+
 - Mehr Kontrolle
 - Kleinerer Overhead
 - Direkter JavaScript-Zugriff
 
 **Nachteile:**
+
 - Mehr Boilerplate
 - Weniger Python-freundlich
 
 ### 12.2    Brython
 
 Browser-Python-Implementierung (kein WebAssembly):
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js"></script>
 
@@ -502,10 +532,12 @@ Browser-Python-Implementierung (kein WebAssembly):
 ```
 
 **Vorteile:**
+
 - Schnellerer Start
 - Leichtgewichtiger
 
 **Nachteile:**
+
 - Weniger Pakete
 - Nicht vollständig Python-kompatibel
 - Langsamer bei Berechnungen
@@ -513,6 +545,7 @@ Browser-Python-Implementierung (kein WebAssembly):
 ### 12.3    Skulpt
 
 Weitere Browser-Python-Alternative:
+
 ```html
 <script src="http://skulpt.org/js/skulpt.min.js"></script>
 <script src="http://skulpt.org/js/skulpt-stdlib.js"></script>
@@ -537,6 +570,7 @@ print("Hello from Skulpt!")
 | Skulpt    | JS           | ❌ Minimal| ✅ Schneller| ✅ Kurz  | 2.x            |
 
 ## 14    Praktisches Beispiel: Todo-App
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -603,6 +637,7 @@ print("Hello from Skulpt!")
 ## 15    Deployment
 
 ### 15.1    GitHub Pages
+
 ```bash
 # 1. Erstelle Repository
 git init
@@ -621,6 +656,7 @@ git push -u origin main
 ```
 
 ### 15.2    Netlify
+
 ```bash
 # 1. netlify.toml erstellen
 [build]
@@ -633,6 +669,7 @@ netlify deploy --prod
 ## 16    Best Practices
 
 **✅ DO:**
+
 - Loading-Indicator während Pyodide lädt
 - Pakete nur wenn nötig laden
 - Code in externe .py-Dateien auslagern
@@ -640,6 +677,7 @@ netlify deploy --prod
 - Progressive Enhancement (JS Fallback)
 
 **❌ DON'T:**
+
 - Zu viele Pakete auf einmal laden
 - Große Berechnungen synchron
 - PyScript für SEO-kritische Seiten
@@ -649,6 +687,7 @@ netlify deploy --prod
 ## 17    Zukunft von PyScript
 
 **Entwicklungen:**
+
 - Performance-Verbesserungen
 - Kleinere Bundle-Größen
 - Mehr Pakete
@@ -656,6 +695,7 @@ netlify deploy --prod
 - Framework-Integration (React, Vue)
 
 **Versionen:**
+
 - 2023: PyScript 1.0 (stabil)
 - 2024: Verbesserte Performance, kleinere Bundles
 - Zukunft: Native WebAssembly-Integration
@@ -670,9 +710,10 @@ netlify deploy --prod
 | Produktion   | ⚠️ Mit Vorsicht (Ladezeit beachten)      |
 | Zukunft      | ✅ Aktive Entwicklung                    |
 
-**Kernprinzip:** PyScript ermöglicht Python im Browser für Visualisierung und interaktive Demos. Ideal für statische Seiten mit wissenschaftlichen Inhalten, aber nicht als vollständiger JavaScript-Ersatz. Beachte Ladezeiten und Browser-Kompatibilität.
+PyScript ermöglicht Python im Browser für Visualisierung und interaktive Demos. Ideal für statische Seiten mit wissenschaftlichen Inhalten, aber nicht als vollständiger JavaScript-Ersatz. Beachte Ladezeiten und Browser-Kompatibilität.
 
 **Ressourcen:**
+
 - Offizielle Docs: https://docs.pyscript.net/
 - Examples: https://pyscript.net/examples/
 - Pyodide: https://pyodide.org/

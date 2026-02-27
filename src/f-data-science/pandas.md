@@ -50,7 +50,6 @@ Da pandas auf NumPy basiert sind viele der Datentypen direkt übernommen worden.
 | **`datetime64[ns]`** | Datum/Zeit-Typ im Nanosekundenformat                 |
 | **`timedelta[ns]`**  | Zeitdifferenz-Typ im Nanosekundenformat              |
 
-
 ### 2.1   Unterschiede bzw. pandas-spezifische Ergänzungen
 
 1. **`string`**: kein `object` mehr, kann sauber mit fehlenden Werten umgehen
@@ -112,6 +111,7 @@ Man kann sich einen DataFrame wie eine Tabelle in einer Tabellenkalkulation oder
 Er ist in der Regel das am häufigsten verwendete `pandas`-Objekt.
 
 Wie bei `Series` akzeptiert der `DataFrame` viele verschiedene Eingabetypen:
+
 - Dictionary aus 1D-ndarrays, Listen, Dictionaries oder Series
 - Zwei-dimensionale `numpy.ndarray`
 - Strukturierte oder rekordbasierte `ndarray`

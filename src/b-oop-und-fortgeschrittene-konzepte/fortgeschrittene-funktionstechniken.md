@@ -235,7 +235,7 @@ print(list(doubled))
 # [[2, 4, 6], [8, 10, 12]]
 ```
 
-#### **4.1.7 `map()` vs List Comprehension**
+#### 4.1.7 `map()` vs List Comprehension
 
 ```python
 numbers = [1, 2, 3, 4, 5]
@@ -442,13 +442,11 @@ result = [x**2 for x in positive]
 |`filter()`|Filtern nach Bedingung|Iterator|`filter(lambda x: x > 0, nums)`|
 |`reduce()`|Akkumulation zu 1 Wert|Einzelner Wert|`reduce(lambda a,b: a+b, nums)`|
 
-**Kernprinzip:** Moderne Python-Entwickler bevorzugen meist **List/Generator Comprehensions** über `map()/filter()` für bessere Lesbarkeit. `map()` ist aber elegant, wenn bereits eine passende Funktion existiert (`map(str.strip, data)`).
+Moderne Python-Entwickler bevorzugen meist **List/Generator Comprehensions** über `map()/filter()` für bessere Lesbarkeit. `map()` ist aber elegant, wenn bereits eine passende Funktion existiert (`map(str.strip, data)`).
 
-### **4.2 `filter()` – Elemente filtern**
+### 4.2 `filter()` – Elemente filtern
 
 `filter(func, iterable)` behält nur Elemente, für die `func` `True` zurückgibt.
-
-python
 
 ```python
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -464,8 +462,6 @@ print(list(greater_five))  # [6, 7, 8, 9, 10]
 
 **Mit benannten Funktionen:**
 
-python
-
 ```python
 def is_positive(n):
     return n > 0
@@ -477,8 +473,6 @@ print(list(positive))  # [1, 2, 3]
 
 **Ohne Lambda (None als Funktion):**
 
-python
-
 ```python
 # filter(None, iterable) filtert 'falsy' Werte
 mixed = [0, 1, '', 'hello', None, [], [1, 2], False, True]
@@ -486,11 +480,9 @@ truthy = filter(None, mixed)
 print(list(truthy))  # [1, 'hello', [1, 2], True]
 ```
 
-### **4.3 `reduce()` – Akkumulation**
+### 4.3 `reduce()` – Akkumulation
 
 `reduce(func, iterable, initial)` aus `functools` reduziert Iterable auf einzelnen Wert.
-
-python
 
 ```python
 from functools import reduce
@@ -513,9 +505,7 @@ maximum = reduce(lambda acc, x: x if x > acc else acc, numbers)
 print(maximum)  # 5
 ```
 
-### **4.4 Kombination aller drei**
-
-python
+### 4.4 Kombination aller drei
 
 ```python
 # Pipeline: filter → map → reduce
@@ -541,7 +531,7 @@ result = reduce(
 print(result)  # 220
 ```
 
-### **4.5 Best Practices**
+### 4.5 Best Practices
 
 **✅ DO:**
 
@@ -584,7 +574,7 @@ result = [x**2 for x in positive]
 |`filter()`|Filtern nach Bedingung|Iterator|`filter(lambda x: x > 0, nums)`|
 |`reduce()`|Akkumulation zu 1 Wert|Einzelner Wert|`reduce(lambda a,b: a+b, nums)`|
 
-**Kernprinzip:** Moderne Python-Entwickler bevorzugen meist **List/Generator Comprehensions** über `map()/filter()` für bessere Lesbarkeit. `map()` ist aber elegant, wenn bereits eine passende Funktion existiert (`map(str.strip, data)`).
+Moderne Python-Entwickler bevorzugen meist **List/Generator Comprehensions** über `map()/filter()` für bessere Lesbarkeit. `map()` ist aber elegant, wenn bereits eine passende Funktion existiert (`map(str.strip, data)`).
 
 ## 5    Partial Functions
 
@@ -726,6 +716,7 @@ Das `functools`-Modul bietet Werkzeuge für funktionale Programmierung und erwei
 `lru_cache` (Least Recently Used Cache) speichert Funktionsergebnisse und vermeidet redundante Berechnungen.
 
 #### 8.1.1    Grundlegende Verwendung
+
 ```python
 from functools import lru_cache
 
@@ -743,6 +734,7 @@ print(fibonacci.cache_info())
 ```
 
 #### 8.1.2    Cache-Größe konfigurieren
+
 ```python
 from functools import lru_cache
 
@@ -763,17 +755,20 @@ expensive_computation.cache_clear()
 #### 8.1.3    Wann `lru_cache` verwenden?
 
 **✅ Gut für:**
+
 - Rekursive Funktionen (Fibonacci, Factorial)
 - Teure Berechnungen mit wiederholten Inputs
 - Datenbankabfragen mit gleichen Parametern
 - API-Calls mit identischen Requests
 
 **❌ Nicht verwenden bei:**
+
 - Funktionen mit mutable Argumenten (Listen, Dicts)
 - Funktionen mit Seiteneffekten
 - Sehr großen oder seltenen Inputs
 
 #### 8.1.4    `cache` vs. `lru_cache`
+
 ```python
 from functools import cache, lru_cache
 
@@ -789,6 +784,7 @@ def compute(x):
 ```
 
 #### 8.1.5    Performance-Beispiel
+
 ```python
 import time
 from functools import lru_cache
@@ -819,6 +815,7 @@ print(f'Mit Cache: {time.time() - start:.6f}s')   # ~0.000050s
 ### 8.2    `wraps` – Decorator-Metadaten erhalten
 
 `wraps` erhält die Metadaten der ursprünglichen Funktion beim Dekorieren.
+
 ```python
 from functools import wraps
 
@@ -859,6 +856,7 @@ print(greet.__doc__)   # 'Greet a person' (richtig!)
 ### 8.3    `partial` – Funktionen teilweise anwenden
 
 Bereits in Abschnitt 5 erwähnt, hier mehr Details:
+
 ```python
 from functools import partial
 
@@ -879,6 +877,7 @@ print(double(3))  # 8 (2³)
 #### 8.3.1    Praktische Beispiele
 
 **Logging mit festem Format:**
+
 ```python
 from functools import partial
 import logging
@@ -897,6 +896,7 @@ error('Error occurred')
 ```
 
 **Callback-Funktionen:**
+
 ```python
 from functools import partial
 
@@ -914,6 +914,7 @@ notify_user(user='alice', message='Welcome!')
 ### 8.4    `reduce` – Akkumulation
 
 `reduce` reduziert ein Iterable auf einen einzelnen Wert durch wiederholte Anwendung einer Funktion.
+
 ```python
 from functools import reduce
 
@@ -936,6 +937,7 @@ print(maximum)  # 5
 ```
 
 **Besser mit `operator`:**
+
 ```python
 from functools import reduce
 import operator
@@ -954,6 +956,7 @@ print(reduce(operator.add, words))  # 'Hello World!'
 ```
 
 **Moderne Alternativen:**
+
 ```python
 # ✅ Besser als reduce für einfache Fälle
 numbers = [1, 2, 3, 4, 5]
@@ -973,6 +976,7 @@ product = math.prod(numbers)
 ### 8.5    `singledispatch` – Funktions-Overloading
 
 `singledispatch` ermöglicht verschiedene Implementierungen basierend auf dem Typ des ersten Arguments.
+
 ```python
 from functools import singledispatch
 
@@ -1000,6 +1004,7 @@ print(process([1,2,3]))  # 3
 ```
 
 **Mit Type Hints (Python 3.7+):**
+
 ```python
 from functools import singledispatch
 from typing import List
@@ -1035,6 +1040,7 @@ print(to_json({'a': 1, 'b': 'two'}))  # '{'a': 1, 'b': 'two'}'
 ```
 
 **Registrierte Typen anzeigen:**
+
 ```python
 print(to_json.registry)  # Zeigt alle registrierten Typen
 print(to_json.registry[int])  # Zeigt Implementierung für int
@@ -1043,6 +1049,7 @@ print(to_json.registry[int])  # Zeigt Implementierung für int
 ### 8.6    `cmp_to_key` – Vergleichsfunktion zu Schlüsselfunktion
 
 Konvertiert alte-style Vergleichsfunktionen (die -1, 0, 1 zurückgeben) zu modernen Key-Funktionen.
+
 ```python
 from functools import cmp_to_key
 
@@ -1064,6 +1071,7 @@ print(sorted_words)  # ['a', 'on', 'pie', 'apple', 'cherry']
 ```
 
 **Praktisches Beispiel – Custom Card Sorting:**
+
 ```python
 from functools import cmp_to_key
 
@@ -1109,6 +1117,7 @@ for card in sorted_cards:
 ### 8.7    `total_ordering` – Vergleichsoperatoren automatisch generieren
 
 Generiert alle Vergleichsoperatoren aus `__eq__` und einem weiteren (`__lt__`, `__le__`, `__gt__`, oder `__ge__`).
+
 ```python
 from functools import total_ordering
 
@@ -1139,6 +1148,7 @@ print(alice == bob)  # False
 ### 8.8    `cached_property` – Lazy Property mit Cache
 
 Wie `@property`, aber Wert wird nur einmal berechnet und dann gecacht.
+
 ```python
 from functools import cached_property
 import time
@@ -1165,6 +1175,7 @@ print(processor.processed_data)  # [2, 4, 6, 8, 10] (instant!)
 ```
 
 **Unterschied zu `@property`:**
+
 ```python
 class Example:
     @property
@@ -1191,6 +1202,7 @@ obj.cached_prop  # (kein 'Computing...')
 ### 8.9    Praktische Kombinationen
 
 #### 8.9.1    Decorator mit LRU Cache
+
 ```python
 from functools import lru_cache, wraps
 import time
@@ -1224,6 +1236,7 @@ fibonacci(30)  # Cache-Hit: schnell
 ```
 
 #### 8.9.2    Partial mit Singledispatch
+
 ```python
 from functools import singledispatch, partial
 
@@ -1263,6 +1276,7 @@ print(format_2dp(1000000))   # '1,000,000'
 | `cached_property`  | Property mit einmaliger Berechnung           |
 
 **Best Practices:**
+
 - Immer `@wraps` in Decorators verwenden
 - `lru_cache` für teure, wiederholte Berechnungen
 - `singledispatch` statt if-elif Typ-Checks
@@ -1446,8 +1460,8 @@ root.mainloop()
 
 ### 9.4    Zusammenfassung
 
-| Verhalten       | Beschreibung                        | Beispiel-Use-Case          |
-| --------------- | ----------------------------------- | -------------------------- |
+| Verhalten   | Beschreibung                        | Beispiel-Use-Case          |
+| ----------- | ----------------------------------- | -------------------------- |
 | **Throttle**    | Maximal alle X Sekunden ausführen   | Live-Preview, Autosave     |
 | **Debounce**    | Nur wenn X Sekunden nichts passiert | Validierung, End-Save      |
 | **Kombination** | Regelmäßig + abschließend nach Ruhe | Markdown-Live + Final Save |
@@ -1456,11 +1470,11 @@ root.mainloop()
 
 | Konzept             | Nutzen                                                        |
 | ------------------- | ------------------------------------------------------------- |
-| Closures            | Zustand bewahren, Daten kapseln                               |
-| Lambda              | Kürzere anonyme Funktionen                                    |
-| Higher-Order Funcs  | Flexible Funktionskomposition                                 |
-| map/filter/reduce   | Funktionale Verarbeitung von Listen                           |
-| Partial Functions   | Vorbelegte Funktionen                                         |
-| Decorators          | Funktion erweitern ohne Quellcode zu ändern                   |
-| functools           | Werkzeuge für funktionale Programmierung (cache, wraps, etc.) |
-| Throttle & Debounce | Event-Rate-Limiting für Performance und User Experience       |
+| **Closures**            | Zustand bewahren, Daten kapseln                               |
+| **Lambda**              | Kürzere anonyme Funktionen                                    |
+| **Higher-Order Funcs**  | Flexible Funktionskomposition                                 |
+| **map/filter/reduce**   | Funktionale Verarbeitung von Listen                           |
+| **Partial Functions**   | Vorbelegte Funktionen                                         |
+| **Decorators**          | Funktion erweitern ohne Quellcode zu ändern                   |
+| **functools**           | Werkzeuge für funktionale Programmierung (cache, wraps, etc.) |
+| **Throttle & Debounce** | Event-Rate-Limiting für Performance und User Experience       |

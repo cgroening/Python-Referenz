@@ -91,7 +91,6 @@ arr_bool = arr.astype(bool)
 arr_str = arr.astype(str)
 ```
 
-
 ## 5   Arrays erstellen
 
 ```python
@@ -338,6 +337,7 @@ Ufuncs sind teilweise 1000-2000 x schneller, als eine Lösung über Python-Code 
 | `np.abs(x)`         | Absoluter Betrag jedes Elements                    |
 | `np.maximum(x, y)`  | Größter Wert zwischen `x` und `y` (elementweise)   |
 | `np.minimum(x, y)`  | Kleinster Wert zwischen `x` und `y` (elementweise) |
+
 [NumPy user guide: Universal functions](https://numpy.org/doc/2.2/reference/ufuncs.html#ufuncs)
 
 **Beispiel:**

@@ -790,6 +790,7 @@ data = retry_with_backoff(make_request, max_retries=3)
 | `aiohttp`              | Asynchrone Requests für hohe Parallelität            |
 
 **Kernprinzipien:**
+
 - Immer Timeouts setzen
 - Sessions für mehrere Requests nutzen
 - Error Handling nicht vergessen (`raise_for_status()`)

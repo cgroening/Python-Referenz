@@ -12,8 +12,8 @@ Unit Tests prüfen einzelne Komponenten (Funktionen, Klassen) isoliert. Pytest i
 pip install pytest pytest-cov
 ```
 
-**Projekt-Struktur:
-**
+**Projekt-Struktur:**
+
 ```
 myproject/
 ├── src/
@@ -150,6 +150,7 @@ def test_exceptions():
 Fixtures sind wiederverwendbare Setup-Funktionen für Tests.
 
 #### 1.3.1    Basis-Fixtures
+
 ```python
 import pytest
 
@@ -167,6 +168,7 @@ def test_length(sample_data):
 ```
 
 #### 1.3.2    Setup und Teardown
+
 ```python
 import pytest
 from pathlib import Path
@@ -192,6 +194,7 @@ def test_file_content(temp_file):
 ```
 
 #### 1.3.3    Fixture-Scopes
+
 ```python
 import pytest
 
@@ -223,6 +226,7 @@ def session_fixture():
 ```
 
 #### 1.3.4    Fixture-Dependencies
+
 ```python
 import pytest
 
@@ -246,6 +250,7 @@ def test_user_in_database(database, user):
 ```
 
 #### 1.3.5    Autouse-Fixtures
+
 ```python
 import pytest
 
@@ -258,6 +263,7 @@ def reset_state():
 ```
 
 #### 1.3.6    Built-in Fixtures
+
 ```python
 def test_tmp_path(tmp_path):
     """tmp_path: Temporäres Verzeichnis (pathlib.Path)"""
@@ -293,6 +299,7 @@ def test_capsys(capsys):
 Tests mit mehreren Input/Output-Kombinationen.
 
 #### 1.4.1    Basis-Parametrize
+
 ```python
 import pytest
 
@@ -313,6 +320,7 @@ def test_square(input, expected):
 ```
 
 #### 1.4.2    Mehrere Parameter
+
 ```python
 @pytest.mark.parametrize('a,b,expected', [
     (2, 3, 5),
@@ -325,6 +333,7 @@ def test_add(a, b, expected):
 ```
 
 #### 1.4.3    IDs für lesbare Test-Namen
+
 ```python
 @pytest.mark.parametrize('input,expected', [
     (2, 4),
@@ -341,6 +350,7 @@ def test_square(input, expected):
 ```
 
 #### 1.4.4    Parametrize mit pytest.param
+
 ```python
 @pytest.mark.parametrize('input,expected', [
     (2, 4),
@@ -353,6 +363,7 @@ def test_square(input, expected):
 ```
 
 #### 1.4.5    Verschachtelte Parametrize
+
 ```python
 @pytest.mark.parametrize('x', [1, 2, 3])
 @pytest.mark.parametrize('y', [10, 20])
@@ -364,6 +375,7 @@ def test_multiply(x, y):
 ```
 
 #### 1.4.6    Parametrize mit Fixtures
+
 ```python
 @pytest.fixture(params=[1, 2, 3])
 def number(request):
@@ -378,6 +390,7 @@ def test_positive(number):
 ### 1.5    Marks und Test-Organisation
 
 #### 1.5.1    Basis-Marks
+
 ```python
 import pytest
 
@@ -400,6 +413,7 @@ def test_expensive_operation():
 ```
 
 **Tests nach Marks ausführen:**
+
 ```bash
 # Nur slow Tests
 pytest -m slow
@@ -413,6 +427,7 @@ pytest -m 'slow or database'
 ```
 
 #### 1.5.2    Custom Marks
+
 ```python
 # pytest.ini
 [pytest]
@@ -434,6 +449,7 @@ def test_full_workflow():
 ```
 
 #### 1.5.3    Test-Klassen
+
 ```python
 class TestCalculator:
     @pytest.fixture(autouse=True)
@@ -460,6 +476,7 @@ class TestCalculator:
 Mocking ersetzt echte Objekte durch kontrollierte Fakes.
 
 #### 1.6.1    unittest.mock Basics
+
 ```python
 from unittest.mock import Mock, MagicMock, patch
 
@@ -482,6 +499,7 @@ def test_mock_basics():
 ```
 
 #### 1.6.2    Funktionen patchen
+
 ```python
 from unittest.mock import patch
 import requests
@@ -507,6 +525,7 @@ def test_get_user_data():
 ```
 
 #### 1.6.3    Decorator-Style Patching
+
 ```python
 @patch('requests.get')
 def test_api_call(mock_get):
@@ -518,6 +537,7 @@ def test_api_call(mock_get):
 ```
 
 #### 1.6.4    Mehrere Patches
+
 ```python
 @patch('module.function_b')
 @patch('module.function_a')
@@ -528,6 +548,7 @@ def test_multiple_patches(mock_a, mock_b):
 ```
 
 #### 1.6.5    Side Effects
+
 ```python
 def test_side_effects():
     mock = Mock()
@@ -549,6 +570,7 @@ def test_side_effects():
 ```
 
 #### 1.6.6    Attribute und Methoden mocken
+
 ```python
 def test_mock_object():
     # Mock-Objekt mit Attributen
@@ -562,9 +584,11 @@ def test_mock_object():
 ```
 
 #### 1.6.7    Pytest-mock Plugin
+
 ```bash
 pip install pytest-mock
 ```
+
 ```python
 def test_with_mocker(mocker):
     # Eleganter als unittest.mock
@@ -580,6 +604,7 @@ def test_with_mocker(mocker):
 Coverage misst, welcher Code von Tests abgedeckt wird.
 
 #### 1.7.1    Coverage ausführen
+
 ```bash
 # Basic Coverage
 pytest --cov=src tests/
@@ -596,6 +621,7 @@ pytest --cov=src --cov-report=term-missing --cov-fail-under=80 tests/
 ```
 
 #### 1.7.2    Coverage-Konfiguration
+
 ```ini
 # .coveragerc oder pyproject.toml
 [tool.coverage.run]
@@ -619,6 +645,7 @@ exclude_lines = [
 ```
 
 #### 1.7.3    Coverage ausschließen
+
 ```python
 def critical_function():
     result = complex_operation()
@@ -633,6 +660,7 @@ def critical_function():
 ### 1.8    Praktische Patterns
 
 #### 1.8.1    Konfigurations-Fixture
+
 ```python
 # conftest.py (wird automatisch geladen)
 import pytest
@@ -653,6 +681,7 @@ def database_url():
 ```
 
 #### 1.8.2    Datenbank-Tests
+
 ```python
 import pytest
 from sqlalchemy import create_engine
@@ -687,6 +716,7 @@ def test_create_user(db_session):
 ```
 
 #### 1.8.3    API-Testing
+
 ```python
 import pytest
 import requests
@@ -721,6 +751,7 @@ def test_get_users(api_client, mocker):
 ### 1.9    Best Practices
 
 **✅ DO:**
+
 - Ein Assert pro Test (wenn möglich)
 - Descriptive Test-Namen (`test_user_creation_with_invalid_email`)
 - Fixtures für Setup/Teardown
@@ -729,6 +760,7 @@ def test_get_users(api_client, mocker):
 - Coverage > 80% anstreben
 
 **❌ DON'T:**
+
 - Tests von anderen Tests abhängig machen
 - Global State zwischen Tests teilen
 - Zu komplexe Fixtures
@@ -736,6 +768,7 @@ def test_get_users(api_client, mocker):
 - Tests ohne Assertions
 
 ### 1.10    pytest.ini Konfiguration
+
 ```ini
 [pytest]
 # Mindest-Python-Version
@@ -782,4 +815,4 @@ filterwarnings =
 | Coverage        | Code-Abdeckung messen                    |
 | conftest.py     | Gemeinsame Fixtures                      |
 
-**Kernprinzip:** Pytest macht Tests einfach und lesbar. Nutze Fixtures für Setup, Parametrize für Wiederholung, Mocking für Isolation, und Coverage für Vollständigkeit. Schreibe Tests, die schnell, isoliert und deterministisch sind.
+Pytest macht Tests einfach und lesbar. Nutze Fixtures für Setup, Parametrize für Wiederholung, Mocking für Isolation, und Coverage für Vollständigkeit. Schreibe Tests, die schnell, isoliert und deterministisch sind.

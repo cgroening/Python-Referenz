@@ -451,6 +451,7 @@ print(deep)       # [{'a': 1}, {'b': 2}]
 `tracemalloc` ist ein eingebautes Modul zum Überwachen und Analysieren des Speicherverbrauchs von Python-Programmen. Es hilft, Speicherlecks zu finden und den Speicherverbrauch zu optimieren.
 
 ### 5.1    Grundlegende Verwendung
+
 ```python
 import tracemalloc
 
@@ -472,6 +473,7 @@ tracemalloc.stop()
 ### 5.2    Snapshots und Vergleiche
 
 Snapshots ermöglichen es, den Speicherverbrauch zu verschiedenen Zeitpunkten zu vergleichen.
+
 ```python
 import tracemalloc
 
@@ -495,6 +497,7 @@ for stat in stats[:10]:
 ```
 
 ### 5.3    Top-Statistiken anzeigen
+
 ```python
 import tracemalloc
 
@@ -518,6 +521,7 @@ tracemalloc.stop()
 ```
 
 **Ausgabe-Beispiel:**
+
 ```
 Top 10 Memory Consumers:
 1. memory_example.py:7: size=38.1 MiB, count=1, average=38.1 MiB
@@ -525,6 +529,7 @@ Top 10 Memory Consumers:
 ```
 
 ### 5.4    Speicherlecks finden
+
 ```python
 import tracemalloc
 
@@ -557,6 +562,7 @@ tracemalloc.stop()
 ```
 
 ### 5.5    Filtern nach Dateien/Modulen
+
 ```python
 import tracemalloc
 import fnmatch
@@ -585,6 +591,7 @@ tracemalloc.stop()
 ```
 
 ### 5.6    Context Manager für Profiling
+
 ```python
 from contextlib import contextmanager
 import tracemalloc
@@ -618,6 +625,7 @@ with memory_profiler('List Creation'):
 ```
 
 ### 5.7    Detaillierte Traceback-Information
+
 ```python
 import tracemalloc
 import linecache
@@ -657,6 +665,7 @@ tracemalloc.stop()
 ```
 
 ### 5.8    Vergleich: Verschiedene Implementierungen
+
 ```python
 import tracemalloc
 import time
@@ -706,6 +715,7 @@ for name, func in implementations:
 ```
 
 ### 5.9    Speicherlecks in Klassen finden
+
 ```python
 import tracemalloc
 import weakref
@@ -760,6 +770,7 @@ test_leak()
 ```
 
 ### 5.10    Integration in Unit Tests
+
 ```python
 import tracemalloc
 import unittest
@@ -794,6 +805,7 @@ if __name__ == '__main__':
 ### 5.11    Best Practices
 
 **✅ DO:**
+
 - `tracemalloc` für Entwicklung und Debugging verwenden
 - Snapshots vor/nach kritischen Operationen
 - Filter verwenden um Noise zu reduzieren
@@ -801,6 +813,7 @@ if __name__ == '__main__':
 - Peak Memory beachten, nicht nur Current
 
 **❌ DON'T:**
+
 - `tracemalloc` in Produktion laufen lassen (Performance-Overhead ~2-3x)
 - Zu häufig Snapshots nehmen (selbst speicherintensiv)
 - Ohne Filter arbeiten bei großen Projekten
@@ -809,9 +822,11 @@ if __name__ == '__main__':
 ### 5.12    Alternative Tools
 
 #### 5.12.1    `memory_profiler`
+
 ```bash
 pip install memory_profiler
 ```
+
 ```python
 from memory_profiler import profile
 
@@ -826,9 +841,11 @@ def my_func():
 ```
 
 #### 5.12.2    `guppy3` / `heapy`
+
 ```bash
 pip install guppy3
 ```
+
 ```python
 from guppy import hpy
 
@@ -837,9 +854,11 @@ print(h.heap())
 ```
 
 #### 5.12.3    `pympler`
+
 ```bash
 pip install pympler
 ```
+
 ```python
 from pympler import asizeof
 
@@ -848,6 +867,7 @@ print(f'Size: {asizeof.asizeof(data)} bytes')
 ```
 
 ### 5.13    Praktisches Beispiel: Memory Leak finden
+
 ```python
 import tracemalloc
 
@@ -892,6 +912,7 @@ find_leak()
 ```
 
 **Lösung:**
+
 ```python
 from functools import lru_cache
 
@@ -904,14 +925,14 @@ class DataProcessor:
 
 ### 5.14    Zusammenfassung
 
-| Funktion                   | Zweck                                    |
-| -------------------------- | ---------------------------------------- |
-| `tracemalloc.start()`      | Tracking starten                         |
-| `tracemalloc.stop()`       | Tracking stoppen                         |
-| `take_snapshot()`          | Speicher-Snapshot erstellen              |
-| `get_traced_memory()`      | Current/Peak Memory abrufen              |
-| `snapshot.statistics()`    | Top-Verbraucher analysieren              |
-| `snapshot.compare_to()`    | Zwei Snapshots vergleichen               |
-| `Filter()`                 | Traces filtern                           |
+| Funktion                | Zweck                       |     |
+| ----------------------- | --------------------------- | --- |
+| `tracemalloc.start()`   | Tracking starten            |     |
+| `tracemalloc.stop()`    | Tracking stoppen            |     |
+| `take_snapshot()`       | Speicher-Snapshot erstellen |     |
+| `get_traced_memory()`   | Current/Peak Memory abrufen |     |
+| `snapshot.statistics()` | Top-Verbraucher analysieren |     |
+| `snapshot.compare_to()` | Zwei Snapshots vergleichen  |     |
+| `Filter()`              | Traces filtern              |     |
 
-**Kernprinzip:** `tracemalloc` hilft, Speicherlecks zu finden und Speicherverbrauch zu optimieren. Es sollte während der Entwicklung verwendet werden, nicht in Produktion. Kombiniere es mit Snapshots und Filtern für präzise Analysen.
+`tracemalloc` hilft, Speicherlecks zu finden und Speicherverbrauch zu optimieren. Es sollte während der Entwicklung verwendet werden, nicht in Produktion. Kombiniere es mit Snapshots und Filtern für präzise Analysen.
