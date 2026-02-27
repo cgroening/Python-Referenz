@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
+            window.path_to_searchindex_js = "../searchindex-62bd4aa3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-e23b86dd.js"></script>
+        <script src="../toc-2c92a6fb.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -597,7 +597,7 @@ doubled = map(lambda row: list(map(lambda x: x * 2, row)), matrix)
 print(list(doubled))
 # [[2, 4, 6], [8, 10, 12]]
 </code></pre>
-<h4 id="417-map-vs-list-comprehension"><a class="header" href="#417-map-vs-list-comprehension"><strong>4.1.7 <code>map()</code> vs List Comprehension</strong></a></h4>
+<h4 id="417-map-vs-list-comprehension"><a class="header" href="#417-map-vs-list-comprehension">4.1.7 <code>map()</code> vs List Comprehension</a></h4>
 <pre><code class="language-python">numbers = [1, 2, 3, 4, 5]
 
 # Mit map()
@@ -778,10 +778,9 @@ result = [x**2 for x in positive]
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Moderne Python-Entwickler bevorzugen meist <strong>List/Generator Comprehensions</strong> über <code>map()/filter()</code> für bessere Lesbarkeit. <code>map()</code> ist aber elegant, wenn bereits eine passende Funktion existiert (<code>map(str.strip, data)</code>).</p>
-<h3 id="42-filter--elemente-filtern-1"><a class="header" href="#42-filter--elemente-filtern-1"><strong>4.2 <code>filter()</code> – Elemente filtern</strong></a></h3>
+<p>Moderne Python-Entwickler bevorzugen meist <strong>List/Generator Comprehensions</strong> über <code>map()/filter()</code> für bessere Lesbarkeit. <code>map()</code> ist aber elegant, wenn bereits eine passende Funktion existiert (<code>map(str.strip, data)</code>).</p>
+<h3 id="42-filter--elemente-filtern-1"><a class="header" href="#42-filter--elemente-filtern-1">4.2 <code>filter()</code> – Elemente filtern</a></h3>
 <p><code>filter(func, iterable)</code> behält nur Elemente, für die <code>func</code> <code>True</code> zurückgibt.</p>
-<p>python</p>
 <pre><code class="language-python">numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Nur gerade Zahlen
@@ -793,7 +792,6 @@ greater_five = filter(lambda x: x &gt; 5, numbers)
 print(list(greater_five))  # [6, 7, 8, 9, 10]
 </code></pre>
 <p><strong>Mit benannten Funktionen:</strong></p>
-<p>python</p>
 <pre><code class="language-python">def is_positive(n):
     return n &gt; 0
 
@@ -802,15 +800,13 @@ positive = filter(is_positive, numbers)
 print(list(positive))  # [1, 2, 3]
 </code></pre>
 <p><strong>Ohne Lambda (None als Funktion):</strong></p>
-<p>python</p>
 <pre><code class="language-python"># filter(None, iterable) filtert 'falsy' Werte
 mixed = [0, 1, '', 'hello', None, [], [1, 2], False, True]
 truthy = filter(None, mixed)
 print(list(truthy))  # [1, 'hello', [1, 2], True]
 </code></pre>
-<h3 id="43-reduce--akkumulation-1"><a class="header" href="#43-reduce--akkumulation-1"><strong>4.3 <code>reduce()</code> – Akkumulation</strong></a></h3>
+<h3 id="43-reduce--akkumulation-1"><a class="header" href="#43-reduce--akkumulation-1">4.3 <code>reduce()</code> – Akkumulation</a></h3>
 <p><code>reduce(func, iterable, initial)</code> aus <code>functools</code> reduziert Iterable auf einzelnen Wert.</p>
-<p>python</p>
 <pre><code class="language-python">from functools import reduce
 
 # Summe
@@ -830,8 +826,7 @@ print(product)  # 120
 maximum = reduce(lambda acc, x: x if x &gt; acc else acc, numbers)
 print(maximum)  # 5
 </code></pre>
-<h3 id="44-kombination-aller-drei"><a class="header" href="#44-kombination-aller-drei"><strong>4.4 Kombination aller drei</strong></a></h3>
-<p>python</p>
+<h3 id="44-kombination-aller-drei"><a class="header" href="#44-kombination-aller-drei">4.4 Kombination aller drei</a></h3>
 <pre><code class="language-python"># Pipeline: filter → map → reduce
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -854,7 +849,7 @@ result = reduce(
 )
 print(result)  # 220
 </code></pre>
-<h3 id="45-best-practices-1"><a class="header" href="#45-best-practices-1"><strong>4.5 Best Practices</strong></a></h3>
+<h3 id="45-best-practices-1"><a class="header" href="#45-best-practices-1">4.5 Best Practices</a></h3>
 <p><strong>✅ DO:</strong></p>
 <p>python</p>
 <pre><code class="language-python"># map() für existierende Funktionen
@@ -893,7 +888,7 @@ result = [x**2 for x in positive]
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Moderne Python-Entwickler bevorzugen meist <strong>List/Generator Comprehensions</strong> über <code>map()/filter()</code> für bessere Lesbarkeit. <code>map()</code> ist aber elegant, wenn bereits eine passende Funktion existiert (<code>map(str.strip, data)</code>).</p>
+<p>Moderne Python-Entwickler bevorzugen meist <strong>List/Generator Comprehensions</strong> über <code>map()/filter()</code> für bessere Lesbarkeit. <code>map()</code> ist aber elegant, wenn bereits eine passende Funktion existiert (<code>map(str.strip, data)</code>).</p>
 <h2 id="5----partial-functions"><a class="header" href="#5----partial-functions">5    Partial Functions</a></h2>
 <p>Vorkonfigurierte Funktionen mit <code>functools.partial</code> erlauben das Vorbelegen von Argumenten einer Funktion. Das ist nützlich, wenn man spezialisierte Varianten einer Funktion benötigt.</p>
 <pre><code class="language-python">from functools import partial
@@ -1683,14 +1678,14 @@ root.mainloop()
 <tr><th>Konzept</th><th>Nutzen</th></tr>
 </thead>
 <tbody>
-<tr><td>Closures</td><td>Zustand bewahren, Daten kapseln</td></tr>
-<tr><td>Lambda</td><td>Kürzere anonyme Funktionen</td></tr>
-<tr><td>Higher-Order Funcs</td><td>Flexible Funktionskomposition</td></tr>
-<tr><td>map/filter/reduce</td><td>Funktionale Verarbeitung von Listen</td></tr>
-<tr><td>Partial Functions</td><td>Vorbelegte Funktionen</td></tr>
-<tr><td>Decorators</td><td>Funktion erweitern ohne Quellcode zu ändern</td></tr>
-<tr><td>functools</td><td>Werkzeuge für funktionale Programmierung (cache, wraps, etc.)</td></tr>
-<tr><td>Throttle &amp; Debounce</td><td>Event-Rate-Limiting für Performance und User Experience</td></tr>
+<tr><td><strong>Closures</strong></td><td>Zustand bewahren, Daten kapseln</td></tr>
+<tr><td><strong>Lambda</strong></td><td>Kürzere anonyme Funktionen</td></tr>
+<tr><td><strong>Higher-Order Funcs</strong></td><td>Flexible Funktionskomposition</td></tr>
+<tr><td><strong>map/filter/reduce</strong></td><td>Funktionale Verarbeitung von Listen</td></tr>
+<tr><td><strong>Partial Functions</strong></td><td>Vorbelegte Funktionen</td></tr>
+<tr><td><strong>Decorators</strong></td><td>Funktion erweitern ohne Quellcode zu ändern</td></tr>
+<tr><td><strong>functools</strong></td><td>Werkzeuge für funktionale Programmierung (cache, wraps, etc.)</td></tr>
+<tr><td><strong>Throttle &amp; Debounce</strong></td><td>Event-Rate-Limiting für Performance und User Experience</td></tr>
 </tbody>
 </table>
 </div>

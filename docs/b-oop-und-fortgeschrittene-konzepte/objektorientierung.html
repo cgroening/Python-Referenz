@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
+            window.path_to_searchindex_js = "../searchindex-62bd4aa3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-e23b86dd.js"></script>
+        <script src="../toc-2c92a6fb.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -663,8 +663,8 @@ p.name = 'Bob'
 print(p.name)
 </code></pre>
 <p>Durch Properties kann die API einfach bleiben, während intern komplexe Logik stattfinden kann.</p>
-<h2 id="5----dunder-methods"><a class="header" href="#5----dunder-methods">5    Dunder Methods</a></h2>
-<p>Dunder (Double Underscore) Methoden ermöglichen benutzerdefiniertes Verhalten für Operatoren und eingebaute Funktionen (<code>__str__</code>, <code>__len__</code>, <code>__getitem__</code> usw.).</p>
+<h2 id="5----dunder-methods"><a class="header" href="#5----dunder-methods">5    Dunder-Methods</a></h2>
+<p>Dunder-Methoden ermöglichen benutzerdefiniertes Verhalten für Operatoren und eingebaute Funktionen (<code>__str__</code>, <code>__len__</code>, <code>__getitem__</code> usw.).</p>
 <pre><code class="language-python">class Point:
     def __init__(self, x, y):
         self.x = x
@@ -678,11 +678,10 @@ print(p.name)
 
 p1 = Point(1, 2)
 p2 = Point(1, 2)
-print(str(p1))  # (1, 2)
+print(str(p1))   # (1, 2)
 print(p1 == p2)  # True
 </code></pre>
-<p>Diese Methoden machen Objekte “pythonisch”.</p>
-<h2 id="6----interation-und-indizierung"><a class="header" href="#6----interation-und-indizierung">6    Interation und Indizierung</a></h2>
+<h2 id="6----iteration-und-indizierung"><a class="header" href="#6----iteration-und-indizierung">6    Iteration und Indizierung</a></h2>
 <h3 id="61----iterator-klasse-und-generator-funktion"><a class="header" href="#61----iterator-klasse-und-generator-funktion">6.1    Iterator-Klasse und Generator-Funktion</a></h3>
 <p>Ein Iterator benötigt die Methoden <code>__iter__</code> und <code>__next__</code>. Alternativ kann <code>yield</code> verwendet werden.</p>
 <pre><code class="language-python">class Count:

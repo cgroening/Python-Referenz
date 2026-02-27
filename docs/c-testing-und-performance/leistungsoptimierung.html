@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
+            window.path_to_searchindex_js = "../searchindex-62bd4aa3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-e23b86dd.js"></script>
+        <script src="../toc-2c92a6fb.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -461,12 +461,9 @@ PYBIND11_MODULE(my_module, m) {
 <pre><code class="language-python">import my_module
 print(my_module.add(3, 4))  # Ausgabe: 7
 </code></pre>
-<div class="mdbook-callouts mdbook-callouts-info">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  was ist eine header-only-c++-bibliothek?
-</p>
-
+<blockquote>
+<p>[!INFO]
+<strong>Was ist eine Header-only-C++-Bibliothek?</strong></p>
 <p>In C++ bestehen Bibliotheken typischerweise aus:</p>
 <ul>
 <li>Header-Dateien (<code>.h</code> oder <code>.hpp</code>) – enthalten Deklarationen (z. B. Funktionen, Klassen).</li>
@@ -485,9 +482,7 @@ Stattdessen ist die gesamte Implementierung direkt in den Header-Dateien enthalt
 <li>Portabler, da es keine Abhängigkeit zu vorcompilierten Binaries gibt.</li>
 <li>Gut geeignet für Templates und generischen Code.</li>
 </ul>
-<blockquote></blockquote>
-</div>
-
+</blockquote>
 <p><strong>Nachteil:</strong></p>
 <blockquote>
 <ul>
@@ -509,16 +504,10 @@ def fast_sum(n):
 print(fast_sum(1000000))
 </code></pre>
 <p>Numba funktioniert besonders gut bei numerischen Berechnungen und Schleifen.</p>
-<div class="mdbook-callouts mdbook-callouts-info">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  was ist llvm?
-</p>
-
-</div>
-
-<p>LLVM steht für <em>Low-Level Virtual Machine</em>, ist aber heute viel mehr als das: LLVM ist eine moderne Compiler-Infrastruktur, die aus mehreren modularen Tools besteht. Viele moderne Programmiersprachen verwenden LLVM, um ihren Code in Maschinencode zu übersetzen.</p>
 <blockquote>
+<p>[!INFO]
+<strong>Was ist LLVM?</strong></p>
+<p>LLVM steht für <em>Low-Level Virtual Machine</em>, ist aber heute viel mehr als das: LLVM ist eine moderne Compiler-Infrastruktur, die aus mehreren modularen Tools besteht. Viele moderne Programmiersprachen verwenden LLVM, um ihren Code in Maschinencode zu übersetzen.</p>
 <p><strong>Wichtigste Eigenschaften:</strong></p>
 <ul>
 <li>Zwischensprache (IR): LLVM übersetzt Code zuerst in eine eigene ‘Intermediate Representation’ (IR), die dann weiter optimiert wird.</li>
@@ -985,7 +974,6 @@ lib.set_debug(True)
 <li>Rust-Programme mit einer Python-API ausstatten</li>
 <li>Einbinden von Python-Bibliotheken in Rust</li>
 </ul>
-<h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
 <h3 id="72----beispiel-für-ein-rust-modul-für-python"><a class="header" href="#72----beispiel-für-ein-rust-modul-für-python">7.2    Beispiel für ein Rust-Modul für Python</a></h3>
 <h4 id="721----python-umgebung-auswählen-und-maturin-installieren"><a class="header" href="#721----python-umgebung-auswählen-und-maturin-installieren">7.2.1    Python-Umgebung auswählen und <code>maturin</code> installieren</a></h4>
 <pre><code class="language-zsh">conda activate py312
@@ -1054,16 +1042,12 @@ fn string_sum(m: &amp;Bound&lt;'_, PyModule&gt;) -&gt; PyResult&lt;()&gt; {
     Ok(())
 }
 <span class="boring">}</span></code></pre>
-<div class="mdbook-callouts mdbook-callouts-warning">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  leistungstest mit vielen iterationen
-</p>
-
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p><strong>Leistungstest mit vielen Iterationen:</strong></p>
 <p>Den Leistungsunterschied zwischen Rust und Python kann man vereinfacht testen, indem man eine Aktion durch eine Schleife viele Millionen Mal wiederholt. Rusts Compiler (<code>rustc</code>) ist jedoch extrem aggressiv in der Optimierung. Falls das Ergebnis nicht wirklich genutzt wird, erkennt der Compiler, dass die Berechnung nutzlos ist und eliminiert die gesamte Schleife (Dead Code Elimination).</p>
 <p>Um diese Optimierung zu umgehen, kann man die Funktion <code>black_box()</code> aus <code>std::hint</code> nutzen, um sicherzustellen, dass der Wert wirklich berechnet wird.</p>
-</div>
-
+</blockquote>
 <p><strong>Beispiel für <code>black_box()</code>:</strong></p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -1324,7 +1308,7 @@ fn good_example(py: Python) -&gt; PyResult&lt;()&gt; {
 }
 <span class="boring">}</span></code></pre>
 <h3 id="zusammenfassung"><a class="header" href="#zusammenfassung">Zusammenfassung</a></h3>
-<p><strong>Kernprinzip:</strong> PyO3 kombiniert Rust’s Performance und Safety mit Python’s Einfachheit. Ideal für moderne, performance-kritische Python-Extensions.</p>
+<p>PyO3 kombiniert Rust’s Performance und Safety mit Python’s Einfachheit. Ideal für moderne, performance-kritische Python-Extensions.</p>
 <p><strong>Wann PyO3 verwenden:</strong></p>
 <ul>
 <li>✅ CPU-intensive Berechnungen</li>
@@ -1370,7 +1354,7 @@ maturin build --release
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Wähle ctypes für einfache FFI-Calls, cffi für moderne Performance-kritische Anwendungen, und C-API/Pybind11 für maximale Kontrolle. Cython bleibt die einfachste Option für Python-Entwickler, die Performance brauchen.</p>
+<p>Wähle ctypes für einfache FFI-Calls, cffi für moderne Performance-kritische Anwendungen, und C-API/Pybind11 für maximale Kontrolle. Cython bleibt die einfachste Option für Python-Entwickler, die Performance brauchen.</p>
 <h2 id="8----vergleich-python-performance--extension-tools"><a class="header" href="#8----vergleich-python-performance--extension-tools">8    Vergleich: Python Performance &amp; Extension Tools</a></h2>
 <div class="table-wrapper">
 <table>
@@ -1451,23 +1435,23 @@ maturin build --release
 </div>
 <h3 id="83----entscheidungshilfe"><a class="header" href="#83----entscheidungshilfe">8.3    Entscheidungshilfe</a></h3>
 <p><strong>Szenario: Numerische Berechnungen mit Arrays</strong>
-→ <strong>Numba</strong> (einfachste Option) oder <strong>Cython</strong> (volle Kontrolle)</p>
+→ Numba (einfachste Option) oder Cython (volle Kontrolle)</p>
 <p><strong>Szenario: Vorhandene C-Bibliothek einbinden</strong>
-→ <strong>cffi</strong> (modern) oder <strong>ctypes</strong> (schnell &amp; einfach)</p>
+→ cffi (modern) oder ctypes (schnell &amp; einfach)</p>
 <p><strong>Szenario: Vorhandene C++-Codebasis</strong>
-→ <strong>Pybind11</strong></p>
+→ Pybind11</p>
 <p><strong>Szenario: Moderne, sichere Extension</strong>
-→ <strong>PyO3</strong> (Rust) oder <strong>Pybind11</strong> (C++)</p>
+→ PyO3 (Rust) oder Pybind11 (C++)</p>
 <p><strong>Szenario: Python-Code beschleunigen ohne neue Sprache</strong>
-→ <strong>PyPy</strong> (reines Python) oder <strong>Numba</strong> (NumPy-fokussiert)</p>
+→ PyPy (reines Python) oder Numba (NumPy-fokussiert)</p>
 <p><strong>Szenario: Typisiertes Python zu nativem Code</strong>
-→ <strong>Mypyc</strong></p>
+→ Mypyc</p>
 <p><strong>Szenario: Python + C Hybrid</strong>
-→ <strong>Cython</strong></p>
+→ Cython</p>
 <p><strong>Szenario: Maximale Performance, volle Kontrolle</strong>
-→ <strong>Python C-API</strong> oder <strong>PyO3</strong> (mit Speichersicherheit)</p>
+→ Python C-API oder PyO3 (mit Speichersicherheit)</p>
 <p><strong>Szenario: Distribution als Binary</strong>
-→ <strong>Nuitka</strong> (kompiliert) oder <strong>PyInstaller</strong> (bündelt)</p>
+→ Nuitka (kompiliert) oder PyInstaller (bündelt)</p>
 
                     </main>
 

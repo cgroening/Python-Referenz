@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-14f07e07.js";
+            window.path_to_searchindex_js = "searchindex-62bd4aa3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-e23b86dd.js"></script>
+        <script src="toc-2c92a6fb.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -2379,7 +2379,7 @@ print(to_hex(RED))  # #ff0000
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Das <code>collections</code>-Modul bietet spezialisierte Datenstrukturen für häufige Anwendungsfälle, die effizienter und lesbarer sind als selbstgebaute Lösungen.</p>
+<p>Das <code>collections</code>-Modul bietet spezialisierte Datenstrukturen für häufige Anwendungsfälle, die effizienter und lesbarer sind als selbstgebaute Lösungen.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
   padding: 8px 16px;
@@ -5146,7 +5146,7 @@ print(restored.connection)  # Connection to localhost
   --color-pink: #d53984;
 }
 </style>
-<h1 id="kommentare"><a class="header" href="#kommentare">Kommentare</a></h1>
+<h1 id="kommentare-und-docstrings"><a class="header" href="#kommentare-und-docstrings">Kommentare und Docstrings</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
   padding: 8px 16px;
@@ -5977,8 +5977,8 @@ p.name = 'Bob'
 print(p.name)
 </code></pre>
 <p>Durch Properties kann die API einfach bleiben, während intern komplexe Logik stattfinden kann.</p>
-<h2 id="5----dunder-methods"><a class="header" href="#5----dunder-methods">5    Dunder Methods</a></h2>
-<p>Dunder (Double Underscore) Methoden ermöglichen benutzerdefiniertes Verhalten für Operatoren und eingebaute Funktionen (<code>__str__</code>, <code>__len__</code>, <code>__getitem__</code> usw.).</p>
+<h2 id="5----dunder-methods"><a class="header" href="#5----dunder-methods">5    Dunder-Methods</a></h2>
+<p>Dunder-Methoden ermöglichen benutzerdefiniertes Verhalten für Operatoren und eingebaute Funktionen (<code>__str__</code>, <code>__len__</code>, <code>__getitem__</code> usw.).</p>
 <pre><code class="language-python">class Point:
     def __init__(self, x, y):
         self.x = x
@@ -5992,11 +5992,10 @@ print(p.name)
 
 p1 = Point(1, 2)
 p2 = Point(1, 2)
-print(str(p1))  # (1, 2)
+print(str(p1))   # (1, 2)
 print(p1 == p2)  # True
 </code></pre>
-<p>Diese Methoden machen Objekte “pythonisch”.</p>
-<h2 id="6----interation-und-indizierung"><a class="header" href="#6----interation-und-indizierung">6    Interation und Indizierung</a></h2>
+<h2 id="6----iteration-und-indizierung"><a class="header" href="#6----iteration-und-indizierung">6    Iteration und Indizierung</a></h2>
 <h3 id="61----iterator-klasse-und-generator-funktion"><a class="header" href="#61----iterator-klasse-und-generator-funktion">6.1    Iterator-Klasse und Generator-Funktion</a></h3>
 <p>Ein Iterator benötigt die Methoden <code>__iter__</code> und <code>__next__</code>. Alternativ kann <code>yield</code> verwendet werden.</p>
 <pre><code class="language-python">class Count:
@@ -7589,7 +7588,7 @@ doubled = map(lambda row: list(map(lambda x: x * 2, row)), matrix)
 print(list(doubled))
 # [[2, 4, 6], [8, 10, 12]]
 </code></pre>
-<h4 id="417-map-vs-list-comprehension"><a class="header" href="#417-map-vs-list-comprehension"><strong>4.1.7 <code>map()</code> vs List Comprehension</strong></a></h4>
+<h4 id="417-map-vs-list-comprehension"><a class="header" href="#417-map-vs-list-comprehension">4.1.7 <code>map()</code> vs List Comprehension</a></h4>
 <pre><code class="language-python">numbers = [1, 2, 3, 4, 5]
 
 # Mit map()
@@ -7770,10 +7769,9 @@ result = [x**2 for x in positive]
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Moderne Python-Entwickler bevorzugen meist <strong>List/Generator Comprehensions</strong> über <code>map()/filter()</code> für bessere Lesbarkeit. <code>map()</code> ist aber elegant, wenn bereits eine passende Funktion existiert (<code>map(str.strip, data)</code>).</p>
-<h3 id="42-filter--elemente-filtern-1"><a class="header" href="#42-filter--elemente-filtern-1"><strong>4.2 <code>filter()</code> – Elemente filtern</strong></a></h3>
+<p>Moderne Python-Entwickler bevorzugen meist <strong>List/Generator Comprehensions</strong> über <code>map()/filter()</code> für bessere Lesbarkeit. <code>map()</code> ist aber elegant, wenn bereits eine passende Funktion existiert (<code>map(str.strip, data)</code>).</p>
+<h3 id="42-filter--elemente-filtern-1"><a class="header" href="#42-filter--elemente-filtern-1">4.2 <code>filter()</code> – Elemente filtern</a></h3>
 <p><code>filter(func, iterable)</code> behält nur Elemente, für die <code>func</code> <code>True</code> zurückgibt.</p>
-<p>python</p>
 <pre><code class="language-python">numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Nur gerade Zahlen
@@ -7785,7 +7783,6 @@ greater_five = filter(lambda x: x &gt; 5, numbers)
 print(list(greater_five))  # [6, 7, 8, 9, 10]
 </code></pre>
 <p><strong>Mit benannten Funktionen:</strong></p>
-<p>python</p>
 <pre><code class="language-python">def is_positive(n):
     return n &gt; 0
 
@@ -7794,15 +7791,13 @@ positive = filter(is_positive, numbers)
 print(list(positive))  # [1, 2, 3]
 </code></pre>
 <p><strong>Ohne Lambda (None als Funktion):</strong></p>
-<p>python</p>
 <pre><code class="language-python"># filter(None, iterable) filtert 'falsy' Werte
 mixed = [0, 1, '', 'hello', None, [], [1, 2], False, True]
 truthy = filter(None, mixed)
 print(list(truthy))  # [1, 'hello', [1, 2], True]
 </code></pre>
-<h3 id="43-reduce--akkumulation-1"><a class="header" href="#43-reduce--akkumulation-1"><strong>4.3 <code>reduce()</code> – Akkumulation</strong></a></h3>
+<h3 id="43-reduce--akkumulation-1"><a class="header" href="#43-reduce--akkumulation-1">4.3 <code>reduce()</code> – Akkumulation</a></h3>
 <p><code>reduce(func, iterable, initial)</code> aus <code>functools</code> reduziert Iterable auf einzelnen Wert.</p>
-<p>python</p>
 <pre><code class="language-python">from functools import reduce
 
 # Summe
@@ -7822,8 +7817,7 @@ print(product)  # 120
 maximum = reduce(lambda acc, x: x if x &gt; acc else acc, numbers)
 print(maximum)  # 5
 </code></pre>
-<h3 id="44-kombination-aller-drei"><a class="header" href="#44-kombination-aller-drei"><strong>4.4 Kombination aller drei</strong></a></h3>
-<p>python</p>
+<h3 id="44-kombination-aller-drei"><a class="header" href="#44-kombination-aller-drei">4.4 Kombination aller drei</a></h3>
 <pre><code class="language-python"># Pipeline: filter → map → reduce
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -7846,7 +7840,7 @@ result = reduce(
 )
 print(result)  # 220
 </code></pre>
-<h3 id="45-best-practices-1"><a class="header" href="#45-best-practices-1"><strong>4.5 Best Practices</strong></a></h3>
+<h3 id="45-best-practices-1"><a class="header" href="#45-best-practices-1">4.5 Best Practices</a></h3>
 <p><strong>✅ DO:</strong></p>
 <p>python</p>
 <pre><code class="language-python"># map() für existierende Funktionen
@@ -7885,7 +7879,7 @@ result = [x**2 for x in positive]
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Moderne Python-Entwickler bevorzugen meist <strong>List/Generator Comprehensions</strong> über <code>map()/filter()</code> für bessere Lesbarkeit. <code>map()</code> ist aber elegant, wenn bereits eine passende Funktion existiert (<code>map(str.strip, data)</code>).</p>
+<p>Moderne Python-Entwickler bevorzugen meist <strong>List/Generator Comprehensions</strong> über <code>map()/filter()</code> für bessere Lesbarkeit. <code>map()</code> ist aber elegant, wenn bereits eine passende Funktion existiert (<code>map(str.strip, data)</code>).</p>
 <h2 id="5----partial-functions"><a class="header" href="#5----partial-functions">5    Partial Functions</a></h2>
 <p>Vorkonfigurierte Funktionen mit <code>functools.partial</code> erlauben das Vorbelegen von Argumenten einer Funktion. Das ist nützlich, wenn man spezialisierte Varianten einer Funktion benötigt.</p>
 <pre><code class="language-python">from functools import partial
@@ -8675,14 +8669,14 @@ root.mainloop()
 <tr><th>Konzept</th><th>Nutzen</th></tr>
 </thead>
 <tbody>
-<tr><td>Closures</td><td>Zustand bewahren, Daten kapseln</td></tr>
-<tr><td>Lambda</td><td>Kürzere anonyme Funktionen</td></tr>
-<tr><td>Higher-Order Funcs</td><td>Flexible Funktionskomposition</td></tr>
-<tr><td>map/filter/reduce</td><td>Funktionale Verarbeitung von Listen</td></tr>
-<tr><td>Partial Functions</td><td>Vorbelegte Funktionen</td></tr>
-<tr><td>Decorators</td><td>Funktion erweitern ohne Quellcode zu ändern</td></tr>
-<tr><td>functools</td><td>Werkzeuge für funktionale Programmierung (cache, wraps, etc.)</td></tr>
-<tr><td>Throttle &amp; Debounce</td><td>Event-Rate-Limiting für Performance und User Experience</td></tr>
+<tr><td><strong>Closures</strong></td><td>Zustand bewahren, Daten kapseln</td></tr>
+<tr><td><strong>Lambda</strong></td><td>Kürzere anonyme Funktionen</td></tr>
+<tr><td><strong>Higher-Order Funcs</strong></td><td>Flexible Funktionskomposition</td></tr>
+<tr><td><strong>map/filter/reduce</strong></td><td>Funktionale Verarbeitung von Listen</td></tr>
+<tr><td><strong>Partial Functions</strong></td><td>Vorbelegte Funktionen</td></tr>
+<tr><td><strong>Decorators</strong></td><td>Funktion erweitern ohne Quellcode zu ändern</td></tr>
+<tr><td><strong>functools</strong></td><td>Werkzeuge für funktionale Programmierung (cache, wraps, etc.)</td></tr>
+<tr><td><strong>Throttle &amp; Debounce</strong></td><td>Event-Rate-Limiting für Performance und User Experience</td></tr>
 </tbody>
 </table>
 </div>
@@ -9504,7 +9498,7 @@ pyre check
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Type Checking ist ein Werkzeug zur Verbesserung der Code-Qualität, kein Selbstzweck. Beginne mit lockeren Einstellungen und erhöhe die Strenge schrittweise.</p>
+<p>Type Checking ist ein Werkzeug zur Verbesserung der Code-Qualität, kein Selbstzweck. Beginne mit lockeren Einstellungen und erhöhe die Strenge schrittweise.</p>
 <h2 id="12----fazit"><a class="header" href="#12----fazit">12    Fazit</a></h2>
 <p>Typannotationen machen Python-Code robuster, verständlicher und besser wartbar, ohne die Flexibilität der Sprache einzuschränken. Es lohnt sich, sie konsequent zu verwenden, besonders bei größeren Projekten.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
@@ -10558,20 +10552,20 @@ class DataProcessor:
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Funktion</th><th>Zweck</th></tr>
+<tr><th>Funktion</th><th>Zweck</th><th></th></tr>
 </thead>
 <tbody>
-<tr><td><code>tracemalloc.start()</code></td><td>Tracking starten</td></tr>
-<tr><td><code>tracemalloc.stop()</code></td><td>Tracking stoppen</td></tr>
-<tr><td><code>take_snapshot()</code></td><td>Speicher-Snapshot erstellen</td></tr>
-<tr><td><code>get_traced_memory()</code></td><td>Current/Peak Memory abrufen</td></tr>
-<tr><td><code>snapshot.statistics()</code></td><td>Top-Verbraucher analysieren</td></tr>
-<tr><td><code>snapshot.compare_to()</code></td><td>Zwei Snapshots vergleichen</td></tr>
-<tr><td><code>Filter()</code></td><td>Traces filtern</td></tr>
+<tr><td><code>tracemalloc.start()</code></td><td>Tracking starten</td><td></td></tr>
+<tr><td><code>tracemalloc.stop()</code></td><td>Tracking stoppen</td><td></td></tr>
+<tr><td><code>take_snapshot()</code></td><td>Speicher-Snapshot erstellen</td><td></td></tr>
+<tr><td><code>get_traced_memory()</code></td><td>Current/Peak Memory abrufen</td><td></td></tr>
+<tr><td><code>snapshot.statistics()</code></td><td>Top-Verbraucher analysieren</td><td></td></tr>
+<tr><td><code>snapshot.compare_to()</code></td><td>Zwei Snapshots vergleichen</td><td></td></tr>
+<tr><td><code>Filter()</code></td><td>Traces filtern</td><td></td></tr>
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> <code>tracemalloc</code> hilft, Speicherlecks zu finden und Speicherverbrauch zu optimieren. Es sollte während der Entwicklung verwendet werden, nicht in Produktion. Kombiniere es mit Snapshots und Filtern für präzise Analysen.</p>
+<p><code>tracemalloc</code> hilft, Speicherlecks zu finden und Speicherverbrauch zu optimieren. Es sollte während der Entwicklung verwendet werden, nicht in Produktion. Kombiniere es mit Snapshots und Filtern für präzise Analysen.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
   padding: 8px 16px;
@@ -11268,7 +11262,7 @@ print(os.environ.get('DEBUG'))  # None oder alter Wert
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Kontextmanager garantieren, dass Cleanup-Code ausgeführt wird – egal ob der Code normal endet oder eine Exception auftritt. Sie sind der Standard-Ansatz für Ressourcenverwaltung in Python.</p>
+<p>Kontextmanager garantieren, dass Cleanup-Code ausgeführt wird – egal ob der Code normal endet oder eine Exception auftritt. Sie sind der Standard-Ansatz für Ressourcenverwaltung in Python.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
   padding: 8px 16px;
@@ -11920,8 +11914,7 @@ logger.debug("That's it, beautiful and simple logging!")
 <h4 id="111----installation-und-setup"><a class="header" href="#111----installation-und-setup">1.1.1    Installation und Setup</a></h4>
 <pre><code class="language-bash">pip install pytest pytest-cov
 </code></pre>
-<p>**Projekt-Struktur:
-**</p>
+<p><strong>Projekt-Struktur:</strong></p>
 <pre><code>myproject/
 ├── src/
 │   ├── __init__.py
@@ -12605,7 +12598,7 @@ filterwarnings =
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Pytest macht Tests einfach und lesbar. Nutze Fixtures für Setup, Parametrize für Wiederholung, Mocking für Isolation, und Coverage für Vollständigkeit. Schreibe Tests, die schnell, isoliert und deterministisch sind.</p>
+<p>Pytest macht Tests einfach und lesbar. Nutze Fixtures für Setup, Parametrize für Wiederholung, Mocking für Isolation, und Coverage für Vollständigkeit. Schreibe Tests, die schnell, isoliert und deterministisch sind.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
   padding: 8px 16px;
@@ -13396,12 +13389,9 @@ PYBIND11_MODULE(my_module, m) {
 <pre><code class="language-python">import my_module
 print(my_module.add(3, 4))  # Ausgabe: 7
 </code></pre>
-<div class="mdbook-callouts mdbook-callouts-info">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  was ist eine header-only-c++-bibliothek?
-</p>
-
+<blockquote>
+<p>[!INFO]
+<strong>Was ist eine Header-only-C++-Bibliothek?</strong></p>
 <p>In C++ bestehen Bibliotheken typischerweise aus:</p>
 <ul>
 <li>Header-Dateien (<code>.h</code> oder <code>.hpp</code>) – enthalten Deklarationen (z. B. Funktionen, Klassen).</li>
@@ -13420,9 +13410,7 @@ Stattdessen ist die gesamte Implementierung direkt in den Header-Dateien enthalt
 <li>Portabler, da es keine Abhängigkeit zu vorcompilierten Binaries gibt.</li>
 <li>Gut geeignet für Templates und generischen Code.</li>
 </ul>
-<blockquote></blockquote>
-</div>
-
+</blockquote>
 <p><strong>Nachteil:</strong></p>
 <blockquote>
 <ul>
@@ -13444,16 +13432,10 @@ def fast_sum(n):
 print(fast_sum(1000000))
 </code></pre>
 <p>Numba funktioniert besonders gut bei numerischen Berechnungen und Schleifen.</p>
-<div class="mdbook-callouts mdbook-callouts-info">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  was ist llvm?
-</p>
-
-</div>
-
-<p>LLVM steht für <em>Low-Level Virtual Machine</em>, ist aber heute viel mehr als das: LLVM ist eine moderne Compiler-Infrastruktur, die aus mehreren modularen Tools besteht. Viele moderne Programmiersprachen verwenden LLVM, um ihren Code in Maschinencode zu übersetzen.</p>
 <blockquote>
+<p>[!INFO]
+<strong>Was ist LLVM?</strong></p>
+<p>LLVM steht für <em>Low-Level Virtual Machine</em>, ist aber heute viel mehr als das: LLVM ist eine moderne Compiler-Infrastruktur, die aus mehreren modularen Tools besteht. Viele moderne Programmiersprachen verwenden LLVM, um ihren Code in Maschinencode zu übersetzen.</p>
 <p><strong>Wichtigste Eigenschaften:</strong></p>
 <ul>
 <li>Zwischensprache (IR): LLVM übersetzt Code zuerst in eine eigene ‘Intermediate Representation’ (IR), die dann weiter optimiert wird.</li>
@@ -13920,7 +13902,6 @@ lib.set_debug(True)
 <li>Rust-Programme mit einer Python-API ausstatten</li>
 <li>Einbinden von Python-Bibliotheken in Rust</li>
 </ul>
-<h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
 <h3 id="72----beispiel-für-ein-rust-modul-für-python"><a class="header" href="#72----beispiel-für-ein-rust-modul-für-python">7.2    Beispiel für ein Rust-Modul für Python</a></h3>
 <h4 id="721----python-umgebung-auswählen-und-maturin-installieren"><a class="header" href="#721----python-umgebung-auswählen-und-maturin-installieren">7.2.1    Python-Umgebung auswählen und <code>maturin</code> installieren</a></h4>
 <pre><code class="language-zsh">conda activate py312
@@ -13989,16 +13970,12 @@ fn string_sum(m: &amp;Bound&lt;'_, PyModule&gt;) -&gt; PyResult&lt;()&gt; {
     Ok(())
 }
 <span class="boring">}</span></code></pre>
-<div class="mdbook-callouts mdbook-callouts-warning">
-<p class="mdbook-callouts-title">
-  <span class="mdbook-callouts-icon"></span>
-  leistungstest mit vielen iterationen
-</p>
-
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p><strong>Leistungstest mit vielen Iterationen:</strong></p>
 <p>Den Leistungsunterschied zwischen Rust und Python kann man vereinfacht testen, indem man eine Aktion durch eine Schleife viele Millionen Mal wiederholt. Rusts Compiler (<code>rustc</code>) ist jedoch extrem aggressiv in der Optimierung. Falls das Ergebnis nicht wirklich genutzt wird, erkennt der Compiler, dass die Berechnung nutzlos ist und eliminiert die gesamte Schleife (Dead Code Elimination).</p>
 <p>Um diese Optimierung zu umgehen, kann man die Funktion <code>black_box()</code> aus <code>std::hint</code> nutzen, um sicherzustellen, dass der Wert wirklich berechnet wird.</p>
-</div>
-
+</blockquote>
 <p><strong>Beispiel für <code>black_box()</code>:</strong></p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -14259,7 +14236,7 @@ fn good_example(py: Python) -&gt; PyResult&lt;()&gt; {
 }
 <span class="boring">}</span></code></pre>
 <h3 id="zusammenfassung"><a class="header" href="#zusammenfassung">Zusammenfassung</a></h3>
-<p><strong>Kernprinzip:</strong> PyO3 kombiniert Rust’s Performance und Safety mit Python’s Einfachheit. Ideal für moderne, performance-kritische Python-Extensions.</p>
+<p>PyO3 kombiniert Rust’s Performance und Safety mit Python’s Einfachheit. Ideal für moderne, performance-kritische Python-Extensions.</p>
 <p><strong>Wann PyO3 verwenden:</strong></p>
 <ul>
 <li>✅ CPU-intensive Berechnungen</li>
@@ -14305,7 +14282,7 @@ maturin build --release
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Wähle ctypes für einfache FFI-Calls, cffi für moderne Performance-kritische Anwendungen, und C-API/Pybind11 für maximale Kontrolle. Cython bleibt die einfachste Option für Python-Entwickler, die Performance brauchen.</p>
+<p>Wähle ctypes für einfache FFI-Calls, cffi für moderne Performance-kritische Anwendungen, und C-API/Pybind11 für maximale Kontrolle. Cython bleibt die einfachste Option für Python-Entwickler, die Performance brauchen.</p>
 <h2 id="8----vergleich-python-performance--extension-tools"><a class="header" href="#8----vergleich-python-performance--extension-tools">8    Vergleich: Python Performance &amp; Extension Tools</a></h2>
 <div class="table-wrapper">
 <table>
@@ -14386,23 +14363,23 @@ maturin build --release
 </div>
 <h3 id="83----entscheidungshilfe"><a class="header" href="#83----entscheidungshilfe">8.3    Entscheidungshilfe</a></h3>
 <p><strong>Szenario: Numerische Berechnungen mit Arrays</strong>
-→ <strong>Numba</strong> (einfachste Option) oder <strong>Cython</strong> (volle Kontrolle)</p>
+→ Numba (einfachste Option) oder Cython (volle Kontrolle)</p>
 <p><strong>Szenario: Vorhandene C-Bibliothek einbinden</strong>
-→ <strong>cffi</strong> (modern) oder <strong>ctypes</strong> (schnell &amp; einfach)</p>
+→ cffi (modern) oder ctypes (schnell &amp; einfach)</p>
 <p><strong>Szenario: Vorhandene C++-Codebasis</strong>
-→ <strong>Pybind11</strong></p>
+→ Pybind11</p>
 <p><strong>Szenario: Moderne, sichere Extension</strong>
-→ <strong>PyO3</strong> (Rust) oder <strong>Pybind11</strong> (C++)</p>
+→ PyO3 (Rust) oder Pybind11 (C++)</p>
 <p><strong>Szenario: Python-Code beschleunigen ohne neue Sprache</strong>
-→ <strong>PyPy</strong> (reines Python) oder <strong>Numba</strong> (NumPy-fokussiert)</p>
+→ PyPy (reines Python) oder Numba (NumPy-fokussiert)</p>
 <p><strong>Szenario: Typisiertes Python zu nativem Code</strong>
-→ <strong>Mypyc</strong></p>
+→ Mypyc</p>
 <p><strong>Szenario: Python + C Hybrid</strong>
-→ <strong>Cython</strong></p>
+→ Cython</p>
 <p><strong>Szenario: Maximale Performance, volle Kontrolle</strong>
-→ <strong>Python C-API</strong> oder <strong>PyO3</strong> (mit Speichersicherheit)</p>
+→ Python C-API oder PyO3 (mit Speichersicherheit)</p>
 <p><strong>Szenario: Distribution als Binary</strong>
-→ <strong>Nuitka</strong> (kompiliert) oder <strong>PyInstaller</strong> (bündelt)</p>
+→ Nuitka (kompiliert) oder PyInstaller (bündelt)</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
   padding: 8px 16px;
@@ -15522,7 +15499,7 @@ from src.core.engine import Engine
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Python’s Import-System ist flexibel und erweiterbar. Für normale Projekte reichen Standard-Imports, aber <code>importlib</code> und <code>sys.path</code> ermöglichen erweiterte Szenarien wie Plugin-Systeme und dynamisches Laden.</p>
+<p>Python’s Import-System ist flexibel und erweiterbar. Für normale Projekte reichen Standard-Imports, aber <code>importlib</code> und <code>sys.path</code> ermöglichen erweiterte Szenarien wie Plugin-Systeme und dynamisches Laden.</p>
 <h3 id="html-dokumentation"><a class="header" href="#html-dokumentation">HTML-Dokumentation</a></h3>
 <h2 id="9-dokumentation-erstellen"><a class="header" href="#9-dokumentation-erstellen">9 Dokumentation erstellen</a></h2>
 <p>Gute Dokumentation ist essenziell für wartbaren Code. Python bietet mehrere Tools zur automatischen Generierung von Dokumentation aus Docstrings.</p>
@@ -16123,7 +16100,7 @@ repos:
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> Gute Dokumentation ist Teil des Codes. Nutze Docstrings konsequent, automatische Generierung (Sphinx/MkDocs/pdoc), und CI/CD für stets aktuelle Dokumentation.</p>
+<p>Gute Dokumentation ist Teil des Codes. Nutze Docstrings konsequent, automatische Generierung (Sphinx/MkDocs/pdoc), und CI/CD für stets aktuelle Dokumentation.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
   padding: 8px 16px;
@@ -16691,7 +16668,7 @@ pyrefly check --summarize-errors
 <li><strong>Mypy</strong>: Type Checking</li>
 <li><strong>Pyright/Pylance</strong>: Type Checking (zuverlässigste Option)</li>
 </ul>
-<p><strong>Aufstrebend (Beta, 2025/2026):</strong> -</p>
+<p><strong>Aufstrebend (Beta, 2025/2026):</strong></p>
 <ul>
 <li><strong>ty</strong> (Astral) – extrem schnell, noch geringe Conformance</li>
 <li><strong>Pyrefly</strong> (Meta) – schnell, bessere Conformance als ty</li>
@@ -17643,7 +17620,7 @@ pyinstaller --exclude-module tkinter script.py
 <li><strong>Library-Entwicklung</strong>: Poetry oder Hatch</li>
 <li><strong>Legacy-Migration</strong>: Schrittweise zu <code>pyproject.toml</code> wechseln</li>
 </ul>
-<p><strong>Kernprinzip:</strong> Nutze Lock-Files für reproduzierbare Builds, trenne abstrakte von konkreten Dependencies, und setze auf standardisiertes <code>pyproject.toml</code> statt proprietärer Konfigurationen.</p>
+<p>Nutze Lock-Files für reproduzierbare Builds, trenne abstrakte von konkreten Dependencies, und setze auf standardisiertes <code>pyproject.toml</code> statt proprietärer Konfigurationen.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
   padding: 8px 16px;
@@ -20788,7 +20765,7 @@ netlify deploy --prod
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> PyScript ermöglicht Python im Browser für Visualisierung und interaktive Demos. Ideal für statische Seiten mit wissenschaftlichen Inhalten, aber nicht als vollständiger JavaScript-Ersatz. Beachte Ladezeiten und Browser-Kompatibilität.</p>
+<p>PyScript ermöglicht Python im Browser für Visualisierung und interaktive Demos. Ideal für statische Seiten mit wissenschaftlichen Inhalten, aber nicht als vollständiger JavaScript-Ersatz. Beachte Ladezeiten und Browser-Kompatibilität.</p>
 <p><strong>Ressourcen:</strong></p>
 <ul>
 <li>Offizielle Docs: https://docs.pyscript.net/</li>
@@ -21605,10 +21582,10 @@ loaded_array = np.load('array.npy')  # Laden
 <tr><td><code>np.abs(x)</code></td><td>Absoluter Betrag jedes Elements</td></tr>
 <tr><td><code>np.maximum(x, y)</code></td><td>Größter Wert zwischen <code>x</code> und <code>y</code> (elementweise)</td></tr>
 <tr><td><code>np.minimum(x, y)</code></td><td>Kleinster Wert zwischen <code>x</code> und <code>y</code> (elementweise)</td></tr>
-<tr><td><a href="https://numpy.org/doc/2.2/reference/ufuncs.html#ufuncs">NumPy user guide: Universal functions</a></td><td></td></tr>
 </tbody>
 </table>
 </div>
+<p><a href="https://numpy.org/doc/2.2/reference/ufuncs.html#ufuncs">NumPy user guide: Universal functions</a></p>
 <p><strong>Beispiel:</strong></p>
 <pre><code class="language-python">import numpy as np
 
@@ -22934,7 +22911,6 @@ plt.show()
 <h4 id="126---speichern"><a class="header" href="#126---speichern">1.2.6   Speichern</a></h4>
 <pre><code class="language-python">plt.savefig('mein_plot.png', dpi=300, bbox_inches='tight')
 </code></pre>
-<hr>
 <h2 id="2---seaborn"><a class="header" href="#2---seaborn">2   Seaborn</a></h2>
 <pre><code class="language-python">import seaborn as sns
 import matplotlib.pyplot as plt
@@ -22974,7 +22950,6 @@ sns.heatmap(corr, annot=True, cmap='coolwarm', linewidths=0.5)
 <h4 id="233---jointplot"><a class="header" href="#233---jointplot">2.3.3   Jointplot</a></h4>
 <pre><code class="language-python">sns.jointplot(data=df, x='total_bill', y='tip', kind='reg')
 </code></pre>
-<hr>
 <h3 id="24---nützliche-tipps--tricks"><a class="header" href="#24---nützliche-tipps--tricks">2.4   Nützliche Tipps &amp; Tricks</a></h3>
 <div class="table-wrapper">
 <table>
@@ -23229,7 +23204,7 @@ sns.heatmap(corr, annot=True, cmap='coolwarm', linewidths=0.5)
 }
 </style>
 <h1 id="scipy-sklearn-und-opencv"><a class="header" href="#scipy-sklearn-und-opencv">Scipy, Sklearn und OpenCV</a></h1>
-<p>Scipy, Sklearn und OpenCV sind Bibliotheken, die in der Datenverarbeitung, im maschinellen Lernen und in der Bildverarbeitung häufig verwendet werden.</p>
+<p>Scipy, Sklearn und OpenCV sind Bibliotheken, die in der Datenverarbeitung, im maschinellen Lernen und in der Bildverarbeitung häufig verwendet werden. Im folgenden wird eine kurze Übersicht geboten.</p>
 <p><strong>SciPy:</strong></p>
 <ul>
 <li>Name: Scientific Python</li>

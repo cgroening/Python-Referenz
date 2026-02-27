@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-14f07e07.js";
+            window.path_to_searchindex_js = "../searchindex-62bd4aa3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-e23b86dd.js"></script>
+        <script src="../toc-2c92a6fb.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -1230,20 +1230,20 @@ class DataProcessor:
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Funktion</th><th>Zweck</th></tr>
+<tr><th>Funktion</th><th>Zweck</th><th></th></tr>
 </thead>
 <tbody>
-<tr><td><code>tracemalloc.start()</code></td><td>Tracking starten</td></tr>
-<tr><td><code>tracemalloc.stop()</code></td><td>Tracking stoppen</td></tr>
-<tr><td><code>take_snapshot()</code></td><td>Speicher-Snapshot erstellen</td></tr>
-<tr><td><code>get_traced_memory()</code></td><td>Current/Peak Memory abrufen</td></tr>
-<tr><td><code>snapshot.statistics()</code></td><td>Top-Verbraucher analysieren</td></tr>
-<tr><td><code>snapshot.compare_to()</code></td><td>Zwei Snapshots vergleichen</td></tr>
-<tr><td><code>Filter()</code></td><td>Traces filtern</td></tr>
+<tr><td><code>tracemalloc.start()</code></td><td>Tracking starten</td><td></td></tr>
+<tr><td><code>tracemalloc.stop()</code></td><td>Tracking stoppen</td><td></td></tr>
+<tr><td><code>take_snapshot()</code></td><td>Speicher-Snapshot erstellen</td><td></td></tr>
+<tr><td><code>get_traced_memory()</code></td><td>Current/Peak Memory abrufen</td><td></td></tr>
+<tr><td><code>snapshot.statistics()</code></td><td>Top-Verbraucher analysieren</td><td></td></tr>
+<tr><td><code>snapshot.compare_to()</code></td><td>Zwei Snapshots vergleichen</td><td></td></tr>
+<tr><td><code>Filter()</code></td><td>Traces filtern</td><td></td></tr>
 </tbody>
 </table>
 </div>
-<p><strong>Kernprinzip:</strong> <code>tracemalloc</code> hilft, Speicherlecks zu finden und Speicherverbrauch zu optimieren. Es sollte während der Entwicklung verwendet werden, nicht in Produktion. Kombiniere es mit Snapshots und Filtern für präzise Analysen.</p>
+<p><code>tracemalloc</code> hilft, Speicherlecks zu finden und Speicherverbrauch zu optimieren. Es sollte während der Entwicklung verwendet werden, nicht in Produktion. Kombiniere es mit Snapshots und Filtern für präzise Analysen.</p>
 
                     </main>
 
