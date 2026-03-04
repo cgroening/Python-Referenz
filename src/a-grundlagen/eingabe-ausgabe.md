@@ -1,6 +1,6 @@
 # Ein- und Ausgabe
 
-## 1    Ausgabe mit print()
+## 1    Ausgabe mit `print()`
 
 ### 1.1    Mit und ohne Zeilenumbruch
 
@@ -27,7 +27,7 @@ Ausgabe:
 1, 2
 ```
 
-> [!inote] 
+>[!note] 
 > **Besonderheit bei der Verwendung von `print()` mit `end=''`:**
 > 
 > Normalerweise geht die Ausgabe von `print()` in den Puffer. Wenn der `end`-Parameter verändert wird, wird der Puffer nicht mehr gespült, d. h. aus Effizienzgründen kann es sein, dass die Ausgabe nicht sofort erfolgt, wenn `print()` aufgerufen wird (z. B. in Schleifen). Abhilfe schafft die Verwendung des Parameters `flush`:
@@ -209,7 +209,75 @@ Petersen                         Kommentar
 
 ### 3.4    Rich
 
-TODO: Beispiel mit rich
+[Rich](https://github.com/Textualize/rich) ermöglicht formatierte, farbige Tabellen im Terminal mit minimalem Aufwand.
+
+```python
+from rich.console import Console
+from rich.table import Table
+# Paket rich:
+# https://github.com/Textualize/rich
+
+console = Console()
+
+# Tabelle erstellen und Spalten definieren
+t = Table(title='Personenliste', show_header=True, header_style='bold cyan')
+t.add_column('Name', justify='left')
+t.add_column('Spitzname', justify='center')
+t.add_column('Alter', justify='right', style='green')
+t.add_column('Kommentar', justify='left')
+
+# Zeilen hinzufügen (Rich Markup in Strings möglich)
+t.add_row('Herr Maximilian Hansen', 'Max', '33', '2 Kinder')
+t.add_row('Frau Monika Petersen', 'Moni', '29', 'kein Kommentar')
+t.add_row('[bold red]Werner Schmidt[/bold red]', 'Werni', '44', '[yellow]Gast[/yellow]')
+
+console.print(t)
+```
+
+Ausgabe (schematisch, im Terminal farbig):
+
+```
+Personenliste
+┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━━━┓
+┃ Name                   ┃ Spitzname ┃ Alter ┃ Kommentar      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━━━┩
+│ Herr Maximilian Hansen │    Max    │    33 │ 2 Kinder       │
+│ Frau Monika Petersen   │   Moni    │    29 │ kein Kommentar │
+│ Werner Schmidt         │   Werni   │    44 │ Gast           │
+└────────────────────────┴───────────┴───────┴────────────────┘
+```
+
+Weitere nützliche Parameter für `Table()`:
+
+| Parameter      | Beschreibung                                           |
+| -------------- | ------------------------------------------------------ |
+| `title`        | Überschrift über der Tabelle                           |
+| `show_header`  | Kopfzeile ein-/ausblenden (Standard: `True`)           |
+| `header_style` | Rich-Style für die Kopfzeile, z. B. `'bold cyan'`      |
+| `box`          | Rahmenart, z. B. `rich.box.SIMPLE`, `MINIMAL`, `ASCII` |
+| `show_lines`   | Trennlinien zwischen Zeilen anzeigen (`True`/`False`)  |
+| `row_styles`   | Abwechselnde Zeilenfarben, z. B. `['', 'dim']`         |
+| `expand`       | Tabelle auf volle Terminalbreite ausdehnen             |
+
+Kompaktere Darstellung mit abwechselnden Zeilen und ohne Außenrahmen:
+
+```python
+import rich.box
+from rich.console import Console
+from rich.table import Table
+
+console = Console()
+
+t = Table(box=rich.box.SIMPLE, show_lines=False,
+          row_styles=['', 'dim'], header_style='bold')
+t.add_column('Name')
+t.add_column('Alter', justify='right')
+
+for name, alter in [('Max', 33), ('Monika', 29), ('Werner', 44)]:
+    t.add_row(name, str(alter))
+
+console.print(t)
+```
 
 ## 4    Eingabe mit `input()`
 
@@ -892,7 +960,7 @@ print(restored.connection)  # Connection to localhost
 - ✅ Performance kritische Anwendung
 - ✅ Temporärer Cache
 - ❌ NICHT für nicht-vertrauenswürdige Daten
-### 9.7    Best Practices
+### 9.6    Best Practices
 
 **✅ DO:**
 
@@ -911,7 +979,7 @@ print(restored.connection)  # Connection to localhost
 - Sensitive Daten ohne Verschlüsselung speichern
 - Große Dateien komplett im Speicher laden
 
-### 9.8    Zusammenfassung
+### 9.7    Zusammenfassung
 
 | Format  | Zweck                                | Vorteil                    |
 | ------- | ------------------------------------ | -------------------------- |
@@ -919,4 +987,4 @@ print(restored.connection)  # Connection to localhost
 | YAML    | Config, CI/CD, menschenlesbar        | Kommentare, lesbar         |
 | Pickle  | Python-Cache, temporäre Speicherung  | Alle Python-Typen, schnell |
 
-Das Serialisierungsformat sollte basierend auf Use Case, Sicherheit und Interoperabilität gewählt werden. JSON ist der sichere Standard, YAML für Konfiguration, Pickle nur für vertrauenswürdige Python-interne Daten.
+Das Serialisierungsformat sollte basierend auf Anwendungsfall, Sicherheit und Interoperabilität gewählt werden. JSON ist der sichere Standard, YAML für Konfiguration, Pickle nur für vertrauenswürdige Python-interne Daten.

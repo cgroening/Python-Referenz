@@ -140,7 +140,7 @@ return_val_2 : str or None
 """
 ```
 
-#### Raises
+#### 2.1.4    Raises
 
 ```python
 """
@@ -151,7 +151,7 @@ TypeError
 """
 ```
 
-#### See Also
+#### 2.1.5    See Also
 
 ```python
 """
@@ -172,7 +172,7 @@ package.module.submodule.func_a :
 """
 ```
 
-#### Notes
+#### 2.1.6    Notes
 
 ```python
 """
@@ -182,7 +182,7 @@ Further notes on a method or class.
 """
 ```
 
-#### Klassen
+#### 2.1.7    Klassen
 
 ```python
 class BankAccount:

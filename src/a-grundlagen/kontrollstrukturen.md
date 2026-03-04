@@ -81,6 +81,22 @@ msg = output or 'Keine Daten'
 print(msg)  # Keine Daten
 ```
 
+### 1.5    Verkettete Vergleiche
+
+Python erlaubt mathematisch natürliche Vergleichsketten, die von links nach rechts ausgewertet werden:
+
+```python
+x = 1.5
+
+# Andere Sprachen:
+if x > 1 and x < 2:
+    print('x liegt zwischen 1 und 2')
+
+# Python-Kurzform:
+if 1 < x < 2:
+    print('x liegt zwischen 1 und 2')
+```
+
 ## 2    `Switch`-`Case`-Äquivalent für Python-Version < 3.10
 
 Vor Python-Version 3.10 gibt es keine `Switch`-`Case`-Anweisung, sie muss simuliert werden:
@@ -312,7 +328,7 @@ match command:
 # Ausgabe: Bewege zu (10, 20)
 ```
 
-### 3.10    Best Practices
+### 3.9    Best Practices
 
 **✅ DO:**
 
@@ -325,7 +341,7 @@ match command:
 
 - Verwende nicht `match` für einfache `if`-elif-Ketten
 - Vermeide zu komplexe, verschachtelte Patterns
-### 3.11    Pattern Matching vs. `if`-`elif`
+### 3.10    Pattern Matching vs. `if`-`elif`
 
 **Wann `match` verwenden:**
 
@@ -350,7 +366,7 @@ else:
     return 'Senior'
 ```
 
-### 3.12    Zusammenfassung
+### 3.11    Zusammenfassung
 
 | Pattern-Typ       | Beispiel                                  | Verwendung                     |
 | ----------------- | ----------------------------------------- | ------------------------------ |
@@ -473,4 +489,79 @@ while True:
     print(i)
     if i == m: break
     i += 1
+```
+
+### 4.3    `for`-`else` und `while`-`else`
+
+Der `else`-Block einer Schleife wird ausgeführt, wenn die Schleife **ohne `break` beendet** wurde, d. h. vollständig durchgelaufen ist.
+
+```python
+# Suche nach einem Element
+values = [1, 3, 5, 7, 9]
+
+for v in values:
+    if v == 4:
+        print('Gefunden!')
+        break
+else:
+    print('Nicht gefunden.')  # Wird ausgeführt, da kein break
+
+# Ausgabe: Nicht gefunden.
+```
+
+Typischer Anwendungsfall: Prüfen, ob eine Bedingung in einer Schleife **jemals** erfüllt wurde, ohne eine Extra-Flag-Variable.
+
+```python
+# Mit Flag (umständlicher):
+found = False
+for v in values:
+    if v % 2 == 0:
+        found = True
+        break
+if not found:
+    print('Keine geraden Zahlen.')
+
+# Kürzer mit for-else:
+for v in values:
+    if v % 2 == 0:
+        break
+else:
+    print('Keine geraden Zahlen.')
+```
+
+### `Counter` aus `collections`
+
+`Counter` zählt Häufigkeiten von Elementen in einem Iterable und eignet sich gut als Alternative zu manuellen Zählschleifen.
+
+```python
+from collections import Counter
+
+words = ['apfel', 'birne', 'apfel', 'kirsche', 'birne', 'apfel']
+
+# Manuell (umständlich):
+counts = {}
+for w in words:
+    counts[w] = counts.get(w, 0) + 1
+
+# Mit Counter:
+counts = Counter(words)
+print(counts)
+# Counter({'apfel': 3, 'birne': 2, 'kirsche': 1})
+
+# Häufigste Elemente
+print(counts.most_common(2))  # [('apfel', 3), ('birne', 2)]
+
+# Einzelne Abfrage
+print(counts['apfel'])   # 3
+print(counts['zitrone']) # 0  (kein KeyError!)
+```
+
+`Counter` lässt sich auch mit anderen `Counter`-Objekten addieren oder subtrahieren:
+
+```python
+a = Counter(['x', 'y', 'x'])
+b = Counter(['y', 'y', 'z'])
+
+print(a + b)  # Counter({'y': 3, 'x': 2, 'z': 1})
+print(a - b)  # Counter({'x': 2})  (nur positive Werte)
 ```
