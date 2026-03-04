@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-62bd4aa3.js";
+            window.path_to_searchindex_js = "../searchindex-7948d2ab.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2c92a6fb.js"></script>
@@ -417,7 +417,7 @@
 }
 </style>
 <h1 id="ein--und-ausgabe"><a class="header" href="#ein--und-ausgabe">Ein- und Ausgabe</a></h1>
-<h2 id="1----ausgabe-mit-print"><a class="header" href="#1----ausgabe-mit-print">1    Ausgabe mit print()</a></h2>
+<h2 id="1----ausgabe-mit-print"><a class="header" href="#1----ausgabe-mit-print">1    Ausgabe mit <code>print()</code></a></h2>
 <h3 id="11----mit-und-ohne-zeilenumbruch"><a class="header" href="#11----mit-und-ohne-zeilenumbruch">1.1    Mit und ohne Zeilenumbruch</a></h3>
 <pre><code class="language-python">x = 1
 y = 2
@@ -437,9 +437,9 @@ print(y)
 1, 2 (Meine Werte)
 1, 2
 </code></pre>
-<blockquote>
-<p>[!inote]
-<strong>Besonderheit bei der Verwendung von <code>print()</code> mit <code>end=''</code>:</strong></p>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p><strong>Besonderheit bei der Verwendung von <code>print()</code> mit <code>end=''</code>:</strong></p>
 <p>Normalerweise geht die Ausgabe von <code>print()</code> in den Puffer. Wenn der <code>end</code>-Parameter verändert wird, wird der Puffer nicht mehr gespült, d. h. aus Effizienzgründen kann es sein, dass die Ausgabe nicht sofort erfolgt, wenn <code>print()</code> aufgerufen wird (z. B. in Schleifen). Abhilfe schafft die Verwendung des Parameters <code>flush</code>:</p>
 <pre><code class="language-python">print('Hallo', end='', flush=True)
 </code></pre>
@@ -584,7 +584,72 @@ Monika         Moni         29   kein
 Petersen                         Kommentar
 </code></pre>
 <h3 id="34----rich"><a class="header" href="#34----rich">3.4    Rich</a></h3>
-<p>TODO: Beispiel mit rich</p>
+<p><a href="https://github.com/Textualize/rich">Rich</a> ermöglicht formatierte, farbige Tabellen im Terminal mit minimalem Aufwand.</p>
+<pre><code class="language-python">from rich.console import Console
+from rich.table import Table
+# Paket rich:
+# https://github.com/Textualize/rich
+
+console = Console()
+
+# Tabelle erstellen und Spalten definieren
+t = Table(title='Personenliste', show_header=True, header_style='bold cyan')
+t.add_column('Name', justify='left')
+t.add_column('Spitzname', justify='center')
+t.add_column('Alter', justify='right', style='green')
+t.add_column('Kommentar', justify='left')
+
+# Zeilen hinzufügen (Rich Markup in Strings möglich)
+t.add_row('Herr Maximilian Hansen', 'Max', '33', '2 Kinder')
+t.add_row('Frau Monika Petersen', 'Moni', '29', 'kein Kommentar')
+t.add_row('[bold red]Werner Schmidt[/bold red]', 'Werni', '44', '[yellow]Gast[/yellow]')
+
+console.print(t)
+</code></pre>
+<p>Ausgabe (schematisch, im Terminal farbig):</p>
+<pre><code>Personenliste
+┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━━━┓
+┃ Name                   ┃ Spitzname ┃ Alter ┃ Kommentar      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━━━┩
+│ Herr Maximilian Hansen │    Max    │    33 │ 2 Kinder       │
+│ Frau Monika Petersen   │   Moni    │    29 │ kein Kommentar │
+│ Werner Schmidt         │   Werni   │    44 │ Gast           │
+└────────────────────────┴───────────┴───────┴────────────────┘
+</code></pre>
+<p>Weitere nützliche Parameter für <code>Table()</code>:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Beschreibung</th></tr>
+</thead>
+<tbody>
+<tr><td><code>title</code></td><td>Überschrift über der Tabelle</td></tr>
+<tr><td><code>show_header</code></td><td>Kopfzeile ein-/ausblenden (Standard: <code>True</code>)</td></tr>
+<tr><td><code>header_style</code></td><td>Rich-Style für die Kopfzeile, z. B. <code>'bold cyan'</code></td></tr>
+<tr><td><code>box</code></td><td>Rahmenart, z. B. <code>rich.box.SIMPLE</code>, <code>MINIMAL</code>, <code>ASCII</code></td></tr>
+<tr><td><code>show_lines</code></td><td>Trennlinien zwischen Zeilen anzeigen (<code>True</code>/<code>False</code>)</td></tr>
+<tr><td><code>row_styles</code></td><td>Abwechselnde Zeilenfarben, z. B. <code>['', 'dim']</code></td></tr>
+<tr><td><code>expand</code></td><td>Tabelle auf volle Terminalbreite ausdehnen</td></tr>
+</tbody>
+</table>
+</div>
+<p>Kompaktere Darstellung mit abwechselnden Zeilen und ohne Außenrahmen:</p>
+<pre><code class="language-python">import rich.box
+from rich.console import Console
+from rich.table import Table
+
+console = Console()
+
+t = Table(box=rich.box.SIMPLE, show_lines=False,
+          row_styles=['', 'dim'], header_style='bold')
+t.add_column('Name')
+t.add_column('Alter', justify='right')
+
+for name, alter in [('Max', 33), ('Monika', 29), ('Werner', 44)]:
+    t.add_row(name, str(alter))
+
+console.print(t)
+</code></pre>
 <h2 id="4----eingabe-mit-input"><a class="header" href="#4----eingabe-mit-input">4    Eingabe mit <code>input()</code></a></h2>
 <p>Eine Benutzereingabe aus der Konsole kann wie folgt eingelesen werden:</p>
 <pre><code class="language-python">print('Gib etwas ein:')
@@ -1192,7 +1257,7 @@ print(restored.connection)  # Connection to localhost
 <li>✅ Temporärer Cache</li>
 <li>❌ NICHT für nicht-vertrauenswürdige Daten</li>
 </ul>
-<h3 id="97----best-practices"><a class="header" href="#97----best-practices">9.7    Best Practices</a></h3>
+<h3 id="96----best-practices"><a class="header" href="#96----best-practices">9.6    Best Practices</a></h3>
 <p><strong>✅ DO:</strong></p>
 <ul>
 <li>Verwende JSON für APIs und Webdienste</li>
@@ -1210,7 +1275,7 @@ print(restored.connection)  # Connection to localhost
 <li>Sensitive Daten ohne Verschlüsselung speichern</li>
 <li>Große Dateien komplett im Speicher laden</li>
 </ul>
-<h3 id="98----zusammenfassung"><a class="header" href="#98----zusammenfassung">9.8    Zusammenfassung</a></h3>
+<h3 id="97----zusammenfassung"><a class="header" href="#97----zusammenfassung">9.7    Zusammenfassung</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1223,7 +1288,7 @@ print(restored.connection)  # Connection to localhost
 </tbody>
 </table>
 </div>
-<p>Das Serialisierungsformat sollte basierend auf Use Case, Sicherheit und Interoperabilität gewählt werden. JSON ist der sichere Standard, YAML für Konfiguration, Pickle nur für vertrauenswürdige Python-interne Daten.</p>
+<p>Das Serialisierungsformat sollte basierend auf Anwendungsfall, Sicherheit und Interoperabilität gewählt werden. JSON ist der sichere Standard, YAML für Konfiguration, Pickle nur für vertrauenswürdige Python-interne Daten.</p>
 
                     </main>
 

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-62bd4aa3.js";
+            window.path_to_searchindex_js = "searchindex-7948d2ab.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-2c92a6fb.js"></script>
@@ -682,15 +682,15 @@
 }
 </style>
 <h1 id="links-zu-online-ressourcen"><a class="header" href="#links-zu-online-ressourcen">Links zu Online-Ressourcen</a></h1>
-<h2 id="pythonorg--python-software-foundation-englisch"><a class="header" href="#pythonorg--python-software-foundation-englisch">Python.org – Python Software Foundation (englisch)</a></h2>
+<h2 id="1----pythonorg--python-software-foundation-englisch"><a class="header" href="#1----pythonorg--python-software-foundation-englisch">1    Python.org – Python Software Foundation (englisch)</a></h2>
 <ul>
 <li><a href="https://docs.python.org/3/tutorial/">The Python Tutorial</a> – Offizielles Tutorial für Einsteiger, deckt Grundlagen bis fortgeschrittene Konzepte ab</li>
 <li><a href="http://docs.python.org/3/reference/">The Python Language Reference</a> – Vollständige Sprachspezifikation, Syntax und Semantik von Python</li>
 <li><a href="http://docs.python.org/3/library/">The Python Standard Library</a> – Referenz aller eingebauten Module und Funktionen</li>
 <li><a href="http://www.python.org/dev/peps/pep-0008/">PEP-8: Style Guide for Python Code</a> – Offizieller Style-Guide für konsistenten, lesbaren Python-Code</li>
 </ul>
-<h2 id="deutschsprachige-ressourcen"><a class="header" href="#deutschsprachige-ressourcen">Deutschsprachige Ressourcen</a></h2>
-<h3 id="tutorials--kurse"><a class="header" href="#tutorials--kurse">Tutorials &amp; Kurse</a></h3>
+<h2 id="2----deutschsprachige-ressourcen"><a class="header" href="#2----deutschsprachige-ressourcen">2    Deutschsprachige Ressourcen</a></h2>
+<h3 id="21----tutorials--kurse"><a class="header" href="#21----tutorials--kurse">2.1    Tutorials &amp; Kurse</a></h3>
 <ul>
 <li><a href="https://www.python-lernen.de/">Python Lernen</a> – Umfangreiches deutsches Tutorial von Grundlagen bis OOP</li>
 <li><a href="https://py-tutorial-de.readthedocs.io/">Programmieren lernen mit Python</a> – Strukturiertes Tutorial für Anfänger</li>
@@ -2379,7 +2379,7 @@ print(to_hex(RED))  # #ff0000
 </tbody>
 </table>
 </div>
-<p>Das <code>collections</code>-Modul bietet spezialisierte Datenstrukturen für häufige Anwendungsfälle, die effizienter und lesbarer sind als selbstgebaute Lösungen.</p>
+<p>Das <code>collections</code>-Modul bietet spezialisierte Datenstrukturen für häufige Anwendungsfälle, die effizienter und lesbarer sind, als selbstgebaute Lösungen.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
   padding: 8px 16px;
@@ -3075,6 +3075,18 @@ print(comment)  # a ist kleiner als b
 msg = output or 'Keine Daten'
 print(msg)  # Keine Daten
 </code></pre>
+<h3 id="15----verkettete-vergleiche"><a class="header" href="#15----verkettete-vergleiche">1.5    Verkettete Vergleiche</a></h3>
+<p>Python erlaubt mathematisch natürliche Vergleichsketten, die von links nach rechts ausgewertet werden:</p>
+<pre><code class="language-python">x = 1.5
+
+# Andere Sprachen:
+if x &gt; 1 and x &lt; 2:
+    print('x liegt zwischen 1 und 2')
+
+# Python-Kurzform:
+if 1 &lt; x &lt; 2:
+    print('x liegt zwischen 1 und 2')
+</code></pre>
 <h2 id="2----switch-case-äquivalent-für-python-version--310"><a class="header" href="#2----switch-case-äquivalent-für-python-version--310">2    <code>Switch</code>-<code>Case</code>-Äquivalent für Python-Version &lt; 3.10</a></h2>
 <p>Vor Python-Version 3.10 gibt es keine <code>Switch</code>-<code>Case</code>-Anweisung, sie muss simuliert werden:</p>
 <pre><code class="language-python">def switcher(age):
@@ -3263,7 +3275,7 @@ match command:
 
 # Ausgabe: Bewege zu (10, 20)
 </code></pre>
-<h3 id="310----best-practices"><a class="header" href="#310----best-practices">3.10    Best Practices</a></h3>
+<h3 id="39----best-practices"><a class="header" href="#39----best-practices">3.9    Best Practices</a></h3>
 <p><strong>✅ DO:</strong></p>
 <ul>
 <li>Nutze Pattern Matching für komplexe Datenstrukturen</li>
@@ -3276,7 +3288,7 @@ match command:
 <li>Verwende nicht <code>match</code> für einfache <code>if</code>-elif-Ketten</li>
 <li>Vermeide zu komplexe, verschachtelte Patterns</li>
 </ul>
-<h3 id="311----pattern-matching-vs-if-elif"><a class="header" href="#311----pattern-matching-vs-if-elif">3.11    Pattern Matching vs. <code>if</code>-<code>elif</code></a></h3>
+<h3 id="310----pattern-matching-vs-if-elif"><a class="header" href="#310----pattern-matching-vs-if-elif">3.10    Pattern Matching vs. <code>if</code>-<code>elif</code></a></h3>
 <p><strong>Wann <code>match</code> verwenden:</strong></p>
 <pre><code class="language-python"># Gut für strukturelle Daten
 match point:
@@ -3294,7 +3306,7 @@ elif age &lt; 65:
 else:
     return 'Senior'
 </code></pre>
-<h3 id="312----zusammenfassung"><a class="header" href="#312----zusammenfassung">3.12    Zusammenfassung</a></h3>
+<h3 id="311----zusammenfassung"><a class="header" href="#311----zusammenfassung">3.11    Zusammenfassung</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -3401,6 +3413,67 @@ while True:
     print(i)
     if i == m: break
     i += 1
+</code></pre>
+<h3 id="43----for-else-und-while-else"><a class="header" href="#43----for-else-und-while-else">4.3    <code>for</code>-<code>else</code> und <code>while</code>-<code>else</code></a></h3>
+<p>Der <code>else</code>-Block einer Schleife wird ausgeführt, wenn die Schleife <strong>ohne <code>break</code> beendet</strong> wurde, d. h. vollständig durchgelaufen ist.</p>
+<pre><code class="language-python"># Suche nach einem Element
+values = [1, 3, 5, 7, 9]
+
+for v in values:
+    if v == 4:
+        print('Gefunden!')
+        break
+else:
+    print('Nicht gefunden.')  # Wird ausgeführt, da kein break
+
+# Ausgabe: Nicht gefunden.
+</code></pre>
+<p>Typischer Anwendungsfall: Prüfen, ob eine Bedingung in einer Schleife <strong>jemals</strong> erfüllt wurde, ohne eine Extra-Flag-Variable.</p>
+<pre><code class="language-python"># Mit Flag (umständlicher):
+found = False
+for v in values:
+    if v % 2 == 0:
+        found = True
+        break
+if not found:
+    print('Keine geraden Zahlen.')
+
+# Kürzer mit for-else:
+for v in values:
+    if v % 2 == 0:
+        break
+else:
+    print('Keine geraden Zahlen.')
+</code></pre>
+<h3 id="counter-aus-collections"><a class="header" href="#counter-aus-collections"><code>Counter</code> aus <code>collections</code></a></h3>
+<p><code>Counter</code> zählt Häufigkeiten von Elementen in einem Iterable und eignet sich gut als Alternative zu manuellen Zählschleifen.</p>
+<pre><code class="language-python">from collections import Counter
+
+words = ['apfel', 'birne', 'apfel', 'kirsche', 'birne', 'apfel']
+
+# Manuell (umständlich):
+counts = {}
+for w in words:
+    counts[w] = counts.get(w, 0) + 1
+
+# Mit Counter:
+counts = Counter(words)
+print(counts)
+# Counter({'apfel': 3, 'birne': 2, 'kirsche': 1})
+
+# Häufigste Elemente
+print(counts.most_common(2))  # [('apfel', 3), ('birne', 2)]
+
+# Einzelne Abfrage
+print(counts['apfel'])   # 3
+print(counts['zitrone']) # 0  (kein KeyError!)
+</code></pre>
+<p><code>Counter</code> lässt sich auch mit anderen <code>Counter</code>-Objekten addieren oder subtrahieren:</p>
+<pre><code class="language-python">a = Counter(['x', 'y', 'x'])
+b = Counter(['y', 'y', 'z'])
+
+print(a + b)  # Counter({'y': 3, 'x': 2, 'z': 1})
+print(a - b)  # Counter({'x': 2})  (nur positive Werte)
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
@@ -4102,7 +4175,7 @@ World
 }
 </style>
 <h1 id="ein--und-ausgabe"><a class="header" href="#ein--und-ausgabe">Ein- und Ausgabe</a></h1>
-<h2 id="1----ausgabe-mit-print"><a class="header" href="#1----ausgabe-mit-print">1    Ausgabe mit print()</a></h2>
+<h2 id="1----ausgabe-mit-print"><a class="header" href="#1----ausgabe-mit-print">1    Ausgabe mit <code>print()</code></a></h2>
 <h3 id="11----mit-und-ohne-zeilenumbruch"><a class="header" href="#11----mit-und-ohne-zeilenumbruch">1.1    Mit und ohne Zeilenumbruch</a></h3>
 <pre><code class="language-python">x = 1
 y = 2
@@ -4122,9 +4195,9 @@ print(y)
 1, 2 (Meine Werte)
 1, 2
 </code></pre>
-<blockquote>
-<p>[!inote]
-<strong>Besonderheit bei der Verwendung von <code>print()</code> mit <code>end=''</code>:</strong></p>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p><strong>Besonderheit bei der Verwendung von <code>print()</code> mit <code>end=''</code>:</strong></p>
 <p>Normalerweise geht die Ausgabe von <code>print()</code> in den Puffer. Wenn der <code>end</code>-Parameter verändert wird, wird der Puffer nicht mehr gespült, d. h. aus Effizienzgründen kann es sein, dass die Ausgabe nicht sofort erfolgt, wenn <code>print()</code> aufgerufen wird (z. B. in Schleifen). Abhilfe schafft die Verwendung des Parameters <code>flush</code>:</p>
 <pre><code class="language-python">print('Hallo', end='', flush=True)
 </code></pre>
@@ -4269,7 +4342,72 @@ Monika         Moni         29   kein
 Petersen                         Kommentar
 </code></pre>
 <h3 id="34----rich"><a class="header" href="#34----rich">3.4    Rich</a></h3>
-<p>TODO: Beispiel mit rich</p>
+<p><a href="https://github.com/Textualize/rich">Rich</a> ermöglicht formatierte, farbige Tabellen im Terminal mit minimalem Aufwand.</p>
+<pre><code class="language-python">from rich.console import Console
+from rich.table import Table
+# Paket rich:
+# https://github.com/Textualize/rich
+
+console = Console()
+
+# Tabelle erstellen und Spalten definieren
+t = Table(title='Personenliste', show_header=True, header_style='bold cyan')
+t.add_column('Name', justify='left')
+t.add_column('Spitzname', justify='center')
+t.add_column('Alter', justify='right', style='green')
+t.add_column('Kommentar', justify='left')
+
+# Zeilen hinzufügen (Rich Markup in Strings möglich)
+t.add_row('Herr Maximilian Hansen', 'Max', '33', '2 Kinder')
+t.add_row('Frau Monika Petersen', 'Moni', '29', 'kein Kommentar')
+t.add_row('[bold red]Werner Schmidt[/bold red]', 'Werni', '44', '[yellow]Gast[/yellow]')
+
+console.print(t)
+</code></pre>
+<p>Ausgabe (schematisch, im Terminal farbig):</p>
+<pre><code>Personenliste
+┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━━━┓
+┃ Name                   ┃ Spitzname ┃ Alter ┃ Kommentar      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━━━┩
+│ Herr Maximilian Hansen │    Max    │    33 │ 2 Kinder       │
+│ Frau Monika Petersen   │   Moni    │    29 │ kein Kommentar │
+│ Werner Schmidt         │   Werni   │    44 │ Gast           │
+└────────────────────────┴───────────┴───────┴────────────────┘
+</code></pre>
+<p>Weitere nützliche Parameter für <code>Table()</code>:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Beschreibung</th></tr>
+</thead>
+<tbody>
+<tr><td><code>title</code></td><td>Überschrift über der Tabelle</td></tr>
+<tr><td><code>show_header</code></td><td>Kopfzeile ein-/ausblenden (Standard: <code>True</code>)</td></tr>
+<tr><td><code>header_style</code></td><td>Rich-Style für die Kopfzeile, z. B. <code>'bold cyan'</code></td></tr>
+<tr><td><code>box</code></td><td>Rahmenart, z. B. <code>rich.box.SIMPLE</code>, <code>MINIMAL</code>, <code>ASCII</code></td></tr>
+<tr><td><code>show_lines</code></td><td>Trennlinien zwischen Zeilen anzeigen (<code>True</code>/<code>False</code>)</td></tr>
+<tr><td><code>row_styles</code></td><td>Abwechselnde Zeilenfarben, z. B. <code>['', 'dim']</code></td></tr>
+<tr><td><code>expand</code></td><td>Tabelle auf volle Terminalbreite ausdehnen</td></tr>
+</tbody>
+</table>
+</div>
+<p>Kompaktere Darstellung mit abwechselnden Zeilen und ohne Außenrahmen:</p>
+<pre><code class="language-python">import rich.box
+from rich.console import Console
+from rich.table import Table
+
+console = Console()
+
+t = Table(box=rich.box.SIMPLE, show_lines=False,
+          row_styles=['', 'dim'], header_style='bold')
+t.add_column('Name')
+t.add_column('Alter', justify='right')
+
+for name, alter in [('Max', 33), ('Monika', 29), ('Werner', 44)]:
+    t.add_row(name, str(alter))
+
+console.print(t)
+</code></pre>
 <h2 id="4----eingabe-mit-input"><a class="header" href="#4----eingabe-mit-input">4    Eingabe mit <code>input()</code></a></h2>
 <p>Eine Benutzereingabe aus der Konsole kann wie folgt eingelesen werden:</p>
 <pre><code class="language-python">print('Gib etwas ein:')
@@ -4877,7 +5015,7 @@ print(restored.connection)  # Connection to localhost
 <li>✅ Temporärer Cache</li>
 <li>❌ NICHT für nicht-vertrauenswürdige Daten</li>
 </ul>
-<h3 id="97----best-practices"><a class="header" href="#97----best-practices">9.7    Best Practices</a></h3>
+<h3 id="96----best-practices"><a class="header" href="#96----best-practices">9.6    Best Practices</a></h3>
 <p><strong>✅ DO:</strong></p>
 <ul>
 <li>Verwende JSON für APIs und Webdienste</li>
@@ -4895,7 +5033,7 @@ print(restored.connection)  # Connection to localhost
 <li>Sensitive Daten ohne Verschlüsselung speichern</li>
 <li>Große Dateien komplett im Speicher laden</li>
 </ul>
-<h3 id="98----zusammenfassung"><a class="header" href="#98----zusammenfassung">9.8    Zusammenfassung</a></h3>
+<h3 id="97----zusammenfassung"><a class="header" href="#97----zusammenfassung">9.7    Zusammenfassung</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -4908,7 +5046,7 @@ print(restored.connection)  # Connection to localhost
 </tbody>
 </table>
 </div>
-<p>Das Serialisierungsformat sollte basierend auf Use Case, Sicherheit und Interoperabilität gewählt werden. JSON ist der sichere Standard, YAML für Konfiguration, Pickle nur für vertrauenswürdige Python-interne Daten.</p>
+<p>Das Serialisierungsformat sollte basierend auf Anwendungsfall, Sicherheit und Interoperabilität gewählt werden. JSON ist der sichere Standard, YAML für Konfiguration, Pickle nur für vertrauenswürdige Python-interne Daten.</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
   padding: 8px 16px;

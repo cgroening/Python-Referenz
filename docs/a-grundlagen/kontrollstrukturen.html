@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-62bd4aa3.js";
+            window.path_to_searchindex_js = "../searchindex-7948d2ab.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2c92a6fb.js"></script>
@@ -473,6 +473,18 @@ print(comment)  # a ist kleiner als b
 msg = output or 'Keine Daten'
 print(msg)  # Keine Daten
 </code></pre>
+<h3 id="15----verkettete-vergleiche"><a class="header" href="#15----verkettete-vergleiche">1.5    Verkettete Vergleiche</a></h3>
+<p>Python erlaubt mathematisch natürliche Vergleichsketten, die von links nach rechts ausgewertet werden:</p>
+<pre><code class="language-python">x = 1.5
+
+# Andere Sprachen:
+if x &gt; 1 and x &lt; 2:
+    print('x liegt zwischen 1 und 2')
+
+# Python-Kurzform:
+if 1 &lt; x &lt; 2:
+    print('x liegt zwischen 1 und 2')
+</code></pre>
 <h2 id="2----switch-case-äquivalent-für-python-version--310"><a class="header" href="#2----switch-case-äquivalent-für-python-version--310">2    <code>Switch</code>-<code>Case</code>-Äquivalent für Python-Version &lt; 3.10</a></h2>
 <p>Vor Python-Version 3.10 gibt es keine <code>Switch</code>-<code>Case</code>-Anweisung, sie muss simuliert werden:</p>
 <pre><code class="language-python">def switcher(age):
@@ -661,7 +673,7 @@ match command:
 
 # Ausgabe: Bewege zu (10, 20)
 </code></pre>
-<h3 id="310----best-practices"><a class="header" href="#310----best-practices">3.10    Best Practices</a></h3>
+<h3 id="39----best-practices"><a class="header" href="#39----best-practices">3.9    Best Practices</a></h3>
 <p><strong>✅ DO:</strong></p>
 <ul>
 <li>Nutze Pattern Matching für komplexe Datenstrukturen</li>
@@ -674,7 +686,7 @@ match command:
 <li>Verwende nicht <code>match</code> für einfache <code>if</code>-elif-Ketten</li>
 <li>Vermeide zu komplexe, verschachtelte Patterns</li>
 </ul>
-<h3 id="311----pattern-matching-vs-if-elif"><a class="header" href="#311----pattern-matching-vs-if-elif">3.11    Pattern Matching vs. <code>if</code>-<code>elif</code></a></h3>
+<h3 id="310----pattern-matching-vs-if-elif"><a class="header" href="#310----pattern-matching-vs-if-elif">3.10    Pattern Matching vs. <code>if</code>-<code>elif</code></a></h3>
 <p><strong>Wann <code>match</code> verwenden:</strong></p>
 <pre><code class="language-python"># Gut für strukturelle Daten
 match point:
@@ -692,7 +704,7 @@ elif age &lt; 65:
 else:
     return 'Senior'
 </code></pre>
-<h3 id="312----zusammenfassung"><a class="header" href="#312----zusammenfassung">3.12    Zusammenfassung</a></h3>
+<h3 id="311----zusammenfassung"><a class="header" href="#311----zusammenfassung">3.11    Zusammenfassung</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -799,6 +811,67 @@ while True:
     print(i)
     if i == m: break
     i += 1
+</code></pre>
+<h3 id="43----for-else-und-while-else"><a class="header" href="#43----for-else-und-while-else">4.3    <code>for</code>-<code>else</code> und <code>while</code>-<code>else</code></a></h3>
+<p>Der <code>else</code>-Block einer Schleife wird ausgeführt, wenn die Schleife <strong>ohne <code>break</code> beendet</strong> wurde, d. h. vollständig durchgelaufen ist.</p>
+<pre><code class="language-python"># Suche nach einem Element
+values = [1, 3, 5, 7, 9]
+
+for v in values:
+    if v == 4:
+        print('Gefunden!')
+        break
+else:
+    print('Nicht gefunden.')  # Wird ausgeführt, da kein break
+
+# Ausgabe: Nicht gefunden.
+</code></pre>
+<p>Typischer Anwendungsfall: Prüfen, ob eine Bedingung in einer Schleife <strong>jemals</strong> erfüllt wurde, ohne eine Extra-Flag-Variable.</p>
+<pre><code class="language-python"># Mit Flag (umständlicher):
+found = False
+for v in values:
+    if v % 2 == 0:
+        found = True
+        break
+if not found:
+    print('Keine geraden Zahlen.')
+
+# Kürzer mit for-else:
+for v in values:
+    if v % 2 == 0:
+        break
+else:
+    print('Keine geraden Zahlen.')
+</code></pre>
+<h3 id="counter-aus-collections"><a class="header" href="#counter-aus-collections"><code>Counter</code> aus <code>collections</code></a></h3>
+<p><code>Counter</code> zählt Häufigkeiten von Elementen in einem Iterable und eignet sich gut als Alternative zu manuellen Zählschleifen.</p>
+<pre><code class="language-python">from collections import Counter
+
+words = ['apfel', 'birne', 'apfel', 'kirsche', 'birne', 'apfel']
+
+# Manuell (umständlich):
+counts = {}
+for w in words:
+    counts[w] = counts.get(w, 0) + 1
+
+# Mit Counter:
+counts = Counter(words)
+print(counts)
+# Counter({'apfel': 3, 'birne': 2, 'kirsche': 1})
+
+# Häufigste Elemente
+print(counts.most_common(2))  # [('apfel', 3), ('birne', 2)]
+
+# Einzelne Abfrage
+print(counts['apfel'])   # 3
+print(counts['zitrone']) # 0  (kein KeyError!)
+</code></pre>
+<p><code>Counter</code> lässt sich auch mit anderen <code>Counter</code>-Objekten addieren oder subtrahieren:</p>
+<pre><code class="language-python">a = Counter(['x', 'y', 'x'])
+b = Counter(['y', 'y', 'z'])
+
+print(a + b)  # Counter({'y': 3, 'x': 2, 'z': 1})
+print(a - b)  # Counter({'x': 2})  (nur positive Werte)
 </code></pre>
 
                     </main>
