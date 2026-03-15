@@ -196,6 +196,11 @@ def test_assertions():
     assert x is not [1, 2]
 ```
 
+`assert` akzeptiert optional eine Nachricht als zweites Argument, die im Fehlerfall angezeigt wird. Sinnvoll, wenn der fehlgeschlagene Wert allein nicht selbsterklärend ist:
+
+```python
+assert result == expected, f"Expected {expected}, got {result} for input {input}"
+```
 ### 2.2    Erweiterte Assertions
 
 Für Vergleiche, die mit einfachem `==` nicht funktionieren – etwa Floats oder Mengen mit Toleranzbereich – bietet pytest ergänzende Hilfsmittel wie `pytest.approx`.
@@ -238,6 +243,30 @@ def test_exceptions():
     assert 'Custom' in str(exc_info.value)
     assert exc_info.type is ValueError
 ```
+
+### 2.4    Testen eigener Exception-Klassen
+
+Eigene Exception-Klassen sind Teil der öffentlichen API eines Moduls und sollten ebenfalls getestet werden: Enthält die Fehlermeldung die relevanten Informationen? Ist die Vererbungshierarchie korrekt? Sind die `args` für `except`-Blöcke zugänglich?
+
+python
+
+```python
+class TestConfigNotFoundError:
+    def test_is_exception(self):
+        err = ConfigNotFoundError(Path('/some/path'))
+        assert isinstance(err, Exception)
+
+    def test_str_contains_path(self):
+        err = ConfigNotFoundError(Path('/some/path/config.yaml'))
+        assert '/some/path/config.yaml' in str(err)
+
+    def test_message_passed_to_parent(self):
+        # Stellt sicher, dass args[0] gesetzt ist – wichtig für except-Blöcke
+        err = ConfigNotFoundError(Path('/cfg.yaml'))
+        assert err.args[0] == str(err)
+```
+
+`err.args[0]` ist der Wert, den Python bei `except ConfigNotFoundError as e` in `str(e)` ausgibt. Ist er nicht korrekt gesetzt, zeigen Fehlermeldungen in Logs und Terminals leere oder irreführende Texte.
 
 ## 3    Fixtures
 
@@ -371,6 +400,8 @@ def reset_state():
 `pytest` bringt mehrere Built-in Fixtures mit, die häufige Anforderungen abdecken: temporäre Verzeichnisse, Umgebungsvariablen patchen oder `stdout`/`stderr` abfangen – ohne dass dafür zusätzliche Pakete nötig sind.
 
 ```python
+import logging
+
 def test_tmp_path(tmp_path):
     """tmp_path: Temporäres Verzeichnis (pathlib.Path)"""
     file = tmp_path / 'test.txt'
@@ -398,6 +429,16 @@ def test_capsys(capsys):
     captured = capsys.readouterr()
     assert captured.out == 'Hello\n'
     assert captured.err == 'World\n'
+    
+def test_caplog(caplog):
+    """caplog: Log-Ausgaben erfassen"""
+    logger = logging.getLogger('my_module')
+
+    with caplog.at_level(logging.WARNING):
+        logger.warning('Something went wrong')
+
+    assert 'Something went wrong' in caplog.text
+    assert caplog.records[0].levelname == 'WARNING'
 ```
 
 ## 4    Parametrized Tests
@@ -626,6 +667,11 @@ def test_mock_basics():
     mock.assert_called_with(1, 2, key='value')
 ```
 
+> [!NOTE]
+> **`Mock` vs `MagicMock`**
+> 
+> `Mock` ist die Basisklasse für einfache Mocks ohne besondere Protokollunterstützung. `MagicMock` ist eine Unterklasse, die zusätzlich alle Python-Magic-Methods (`__len__`, `__iter__`, `__enter__`/`__exit__` für Kontextmanager usw.) automatisch implementiert. In der Praxis ist `MagicMock` die sicherere Wahl, wenn das gemockte Objekt in Kontexten verwendet wird, die Magic-Methods voraussetzen – z. B. als Rückgabewert eines Services oder als Objekt, das mit `with` verwendet wird. `Mock` reicht, wenn ein einfaches Callable oder Attribut-Container ausreicht.
+
 ### 6.2    Funktionen patchen
 
 Mit `patch` als Kontextmanager wird eine Funktion oder ein Objekt temporär durch einen Mock ersetzt – nur für die Dauer des `with`-Blocks. Danach wird automatisch das Original wiederhergestellt.
@@ -681,7 +727,25 @@ def test_multiple_patches(mock_a, mock_b):
     mock_b.return_value = 'B'
 ```
 
-### 6.5    Side Effects
+### 6.5    `patch.object` – Methoden auf Instanzen patchen
+
+Während `patch('module.Class.method')` über einen Import-Pfad als String arbeitet, patcht `patch.object()` direkt auf einem bereits existierenden Objekt. Das ist besonders nützlich, wenn die Instanz erst im Test erzeugt wird und ein spezifischer Methodenaufruf auf genau dieser Instanz überwacht oder unterdrückt werden soll.
+
+```python
+from unittest.mock import patch
+
+def test_warning_printed_for_invalid_repos():
+    command = SelectCommand(service)
+
+    with patch.object(command, '_print_missing_paths_warning') as mock_warn:
+        command._assort_invalid_repos([invalid_repo])
+
+    mock_warn.assert_called_once()
+```
+
+Der erste Parameter ist die Instanz (oder Klasse), der zweite ist der Name des Attributs als String. Das Original wird nach dem `with`-Block automatisch wiederhergestellt.
+
+### 6.6    Side Effects
 
 `side_effect` erlaubt komplexeres Verhalten als ein einzelner Rückgabewert: sequenzielle Werte, das Werfen von Exceptions oder eine eigene Funktion, die bei jedem Aufruf ausgeführt wird.
 
@@ -705,7 +769,7 @@ def test_side_effects():
     assert mock(5) == 10
 ```
 
-### 6.6    Attribute und Methoden mocken
+### 6.7    Attribute und Methoden mocken
 
 Attribute eines Mock-Objekts lassen sich direkt zuweisen; Methoden werden über `return_value` konfiguriert. `Mock()` akzeptiert jeden Zugriff ohne Fehler, was das schnelle Aufbauen von Fake-Objekten ermöglicht.
 
@@ -721,7 +785,7 @@ def test_mock_object():
     assert mock_user.get_email() == 'alice@example.com'
 ```
 
-### 6.7    Pytest-mock Plugin
+### 6.8    Pytest-mock Plugin
 
 Das Plugin `pytest-mock` stellt die `mocker`-Fixture bereit, die `patch` und Mock-Erstellung in einem pytest-nativen Stil vereint. Im Vergleich zu `unittest.mock` entfällt der `with`-Block – das Patching gilt automatisch für die Dauer des Tests.
 
@@ -737,6 +801,19 @@ def test_with_mocker(mocker):
 
     result = get_user_data(1)
     assert result == {'data': 'test'}
+```
+
+`patch` ersetzt eine Funktion komplett. `mocker.spy` hingegen lässt die echte Implementierung laufen und ergänzt sie nur um Call-Tracking. Sehr nützlich, wenn man prüfen will _ob_ eine Methode aufgerufen wurde, aber das echte Verhalten beibehalten möchte:
+
+```python
+def test_with_spy(mocker):
+    # Echte Funktion läuft durch – aber Aufrufe werden aufgezeichnet
+    spy = mocker.spy(some_module, 'expensive_function')
+
+    result = some_module.expensive_function(42)
+
+    spy.assert_called_once_with(42)
+    assert result is not None  # echtes Ergebnis, kein Mock
 ```
 
 ## 7    Test Coverage
@@ -901,6 +978,33 @@ def test_get_users(api_client, mocker):
     assert response.status_code == 200
     assert len(response.json()) == 1
 ```
+
+### 8.4    Helper Factory Functions
+
+Nicht jede Testvorbereitung muss eine Fixture sein. Bei Tests, die dasselbe Objekt in leicht unterschiedlichen Varianten benötigen, sind einfache Factory-Funktionen auf Modulebene oft die schlankere Lösung. Sie sind sofort sichtbar, akzeptieren Parameter für Varianten und müssen nicht als Fixture injiziert werden.
+
+```python
+# Keine Fixture – einfache Hilfsfunktion
+def make_config(repos=None, git_tool_name='lazygit'):
+    return Config(
+        config_path=Path('/fake/config.yaml'),
+        git_tool_name=git_tool_name,
+        repos=repos if repos is not None else [],
+    )
+
+def test_filters_hidden_repos():
+    config = make_config(repos=[
+        Repo(name='visible', path='/a', show=True),
+        Repo(name='hidden', path='/b', show=False),
+    ])
+    result = filter_repos(config)
+    assert len(result) == 1
+```
+
+> [!TIP]
+> **Wann Factory Functions, wann Fixtures?** 
+> 
+> Fixtures sind sinnvoll, wenn Setup und Teardown zusammengehören (`yield`), wenn Scoping relevant ist (z. B. `scope='session'`), oder wenn die Testvorbereitung in vielen Tests ohne Variation benötigt wird. Factory Functions passen besser, wenn verschiedene Tests dasselbe Objekt in unterschiedlichen Zuständen brauchen – parametriert durch Argumente, nicht durch `pytest`-Injection.
 
 ## 9    Best Practices
 
