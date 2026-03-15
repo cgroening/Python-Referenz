@@ -37,7 +37,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-e3edc862.js";
+            window.path_to_searchindex_js = "../searchindex-3a8d677a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-4cd0ede6.js"></script>
@@ -593,6 +593,9 @@ FAILED tests/test_calculator.py::test_divide - assert 3.0 == 4
     assert x is y
     assert x is not [1, 2]
 </code></pre>
+<p><code>assert</code> akzeptiert optional eine Nachricht als zweites Argument, die im Fehlerfall angezeigt wird. Sinnvoll, wenn der fehlgeschlagene Wert allein nicht selbsterklärend ist:</p>
+<pre><code class="language-python">assert result == expected, f"Expected {expected}, got {result} for input {input}"
+</code></pre>
 <h3 id="22----erweiterte-assertions"><a class="header" href="#22----erweiterte-assertions">2.2    Erweiterte Assertions</a></h3>
 <p>Für Vergleiche, die mit einfachem <code>==</code> nicht funktionieren – etwa Floats oder Mengen mit Toleranzbereich – bietet pytest ergänzende Hilfsmittel wie <code>pytest.approx</code>.</p>
 <pre><code class="language-python">def test_advanced_assertions():
@@ -628,6 +631,24 @@ FAILED tests/test_calculator.py::test_divide - assert 3.0 == 4
     assert 'Custom' in str(exc_info.value)
     assert exc_info.type is ValueError
 </code></pre>
+<h3 id="24----testen-eigener-exception-klassen"><a class="header" href="#24----testen-eigener-exception-klassen">2.4    Testen eigener Exception-Klassen</a></h3>
+<p>Eigene Exception-Klassen sind Teil der öffentlichen API eines Moduls und sollten ebenfalls getestet werden: Enthält die Fehlermeldung die relevanten Informationen? Ist die Vererbungshierarchie korrekt? Sind die <code>args</code> für <code>except</code>-Blöcke zugänglich?</p>
+<p>python</p>
+<pre><code class="language-python">class TestConfigNotFoundError:
+    def test_is_exception(self):
+        err = ConfigNotFoundError(Path('/some/path'))
+        assert isinstance(err, Exception)
+
+    def test_str_contains_path(self):
+        err = ConfigNotFoundError(Path('/some/path/config.yaml'))
+        assert '/some/path/config.yaml' in str(err)
+
+    def test_message_passed_to_parent(self):
+        # Stellt sicher, dass args[0] gesetzt ist – wichtig für except-Blöcke
+        err = ConfigNotFoundError(Path('/cfg.yaml'))
+        assert err.args[0] == str(err)
+</code></pre>
+<p><code>err.args[0]</code> ist der Wert, den Python bei <code>except ConfigNotFoundError as e</code> in <code>str(e)</code> ausgibt. Ist er nicht korrekt gesetzt, zeigen Fehlermeldungen in Logs und Terminals leere oder irreführende Texte.</p>
 <h2 id="3----fixtures"><a class="header" href="#3----fixtures">3    Fixtures</a></h2>
 <p>Fixtures sind wiederverwendbare Setup-Funktionen für Tests. Statt Vorbereitungslogik in jeden Test zu kopieren, wird sie einmal als Fixture definiert und dann per Parameter-Name injiziert. <code>pytest</code> erkennt die Abhängigkeit automatisch und führt die Fixture vor dem Test aus. Mit <code>yield</code> lässt sich auch Teardown-Logik sauber integrieren.</p>
 <h3 id="31----basis-fixtures"><a class="header" href="#31----basis-fixtures">3.1    Basis-Fixtures</a></h3>
@@ -735,7 +756,9 @@ def reset_state():
 </code></pre>
 <h3 id="36----built-in-fixtures"><a class="header" href="#36----built-in-fixtures">3.6    Built-in Fixtures</a></h3>
 <p><code>pytest</code> bringt mehrere Built-in Fixtures mit, die häufige Anforderungen abdecken: temporäre Verzeichnisse, Umgebungsvariablen patchen oder <code>stdout</code>/<code>stderr</code> abfangen – ohne dass dafür zusätzliche Pakete nötig sind.</p>
-<pre><code class="language-python">def test_tmp_path(tmp_path):
+<pre><code class="language-python">import logging
+
+def test_tmp_path(tmp_path):
     """tmp_path: Temporäres Verzeichnis (pathlib.Path)"""
     file = tmp_path / 'test.txt'
     file.write_text('content')
@@ -762,6 +785,16 @@ def test_capsys(capsys):
     captured = capsys.readouterr()
     assert captured.out == 'Hello\n'
     assert captured.err == 'World\n'
+    
+def test_caplog(caplog):
+    """caplog: Log-Ausgaben erfassen"""
+    logger = logging.getLogger('my_module')
+
+    with caplog.at_level(logging.WARNING):
+        logger.warning('Something went wrong')
+
+    assert 'Something went wrong' in caplog.text
+    assert caplog.records[0].levelname == 'WARNING'
 </code></pre>
 <h2 id="4----parametrized-tests"><a class="header" href="#4----parametrized-tests">4    Parametrized Tests</a></h2>
 <p>Oft soll dieselbe Logik mit verschiedenen Eingaben getestet werden. Statt den Test-Code mehrfach zu duplizieren, erlaubt <code>@pytest.mark.parametrize</code> das deklarative Definieren von Eingabe-/Erwartungspaaren. <code>pytest</code> generiert daraus eigenständige Testfälle, die einzeln ausgeführt, gefiltert und im Fehlerfall präzise identifiziert werden können.</p>
@@ -940,6 +973,16 @@ def test_mock_basics():
     mock(1, 2, key='value')
     mock.assert_called_with(1, 2, key='value')
 </code></pre>
+<div class="mdbook-callouts mdbook-callouts-note">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  note
+</p>
+
+<p><strong><code>Mock</code> vs <code>MagicMock</code></strong></p>
+<p><code>Mock</code> ist die Basisklasse für einfache Mocks ohne besondere Protokollunterstützung. <code>MagicMock</code> ist eine Unterklasse, die zusätzlich alle Python-Magic-Methods (<code>__len__</code>, <code>__iter__</code>, <code>__enter__</code>/<code>__exit__</code> für Kontextmanager usw.) automatisch implementiert. In der Praxis ist <code>MagicMock</code> die sicherere Wahl, wenn das gemockte Objekt in Kontexten verwendet wird, die Magic-Methods voraussetzen – z. B. als Rückgabewert eines Services oder als Objekt, das mit <code>with</code> verwendet wird. <code>Mock</code> reicht, wenn ein einfaches Callable oder Attribut-Container ausreicht.</p>
+</div>
+
 <h3 id="62----funktionen-patchen"><a class="header" href="#62----funktionen-patchen">6.2    Funktionen patchen</a></h3>
 <p>Mit <code>patch</code> als Kontextmanager wird eine Funktion oder ein Objekt temporär durch einen Mock ersetzt – nur für die Dauer des <code>with</code>-Blocks. Danach wird automatisch das Original wiederhergestellt.</p>
 <pre><code class="language-python">from unittest.mock import patch
@@ -983,7 +1026,20 @@ def test_multiple_patches(mock_a, mock_b):
     mock_a.return_value = 'A'
     mock_b.return_value = 'B'
 </code></pre>
-<h3 id="65----side-effects"><a class="header" href="#65----side-effects">6.5    Side Effects</a></h3>
+<h3 id="65----patchobject--methoden-auf-instanzen-patchen"><a class="header" href="#65----patchobject--methoden-auf-instanzen-patchen">6.5    <code>patch.object</code> – Methoden auf Instanzen patchen</a></h3>
+<p>Während <code>patch('module.Class.method')</code> über einen Import-Pfad als String arbeitet, patcht <code>patch.object()</code> direkt auf einem bereits existierenden Objekt. Das ist besonders nützlich, wenn die Instanz erst im Test erzeugt wird und ein spezifischer Methodenaufruf auf genau dieser Instanz überwacht oder unterdrückt werden soll.</p>
+<pre><code class="language-python">from unittest.mock import patch
+
+def test_warning_printed_for_invalid_repos():
+    command = SelectCommand(service)
+
+    with patch.object(command, '_print_missing_paths_warning') as mock_warn:
+        command._assort_invalid_repos([invalid_repo])
+
+    mock_warn.assert_called_once()
+</code></pre>
+<p>Der erste Parameter ist die Instanz (oder Klasse), der zweite ist der Name des Attributs als String. Das Original wird nach dem <code>with</code>-Block automatisch wiederhergestellt.</p>
+<h3 id="66----side-effects"><a class="header" href="#66----side-effects">6.6    Side Effects</a></h3>
 <p><code>side_effect</code> erlaubt komplexeres Verhalten als ein einzelner Rückgabewert: sequenzielle Werte, das Werfen von Exceptions oder eine eigene Funktion, die bei jedem Aufruf ausgeführt wird.</p>
 <pre><code class="language-python">def test_side_effects():
     mock = Mock()
@@ -1003,7 +1059,7 @@ def test_multiple_patches(mock_a, mock_b):
     mock.side_effect = lambda x: x * 2
     assert mock(5) == 10
 </code></pre>
-<h3 id="66----attribute-und-methoden-mocken"><a class="header" href="#66----attribute-und-methoden-mocken">6.6    Attribute und Methoden mocken</a></h3>
+<h3 id="67----attribute-und-methoden-mocken"><a class="header" href="#67----attribute-und-methoden-mocken">6.7    Attribute und Methoden mocken</a></h3>
 <p>Attribute eines Mock-Objekts lassen sich direkt zuweisen; Methoden werden über <code>return_value</code> konfiguriert. <code>Mock()</code> akzeptiert jeden Zugriff ohne Fehler, was das schnelle Aufbauen von Fake-Objekten ermöglicht.</p>
 <pre><code class="language-python">def test_mock_object():
     # Mock-Objekt mit Attributen
@@ -1015,7 +1071,7 @@ def test_multiple_patches(mock_a, mock_b):
     assert mock_user.name == 'Alice'
     assert mock_user.get_email() == 'alice@example.com'
 </code></pre>
-<h3 id="67----pytest-mock-plugin"><a class="header" href="#67----pytest-mock-plugin">6.7    Pytest-mock Plugin</a></h3>
+<h3 id="68----pytest-mock-plugin"><a class="header" href="#68----pytest-mock-plugin">6.8    Pytest-mock Plugin</a></h3>
 <p>Das Plugin <code>pytest-mock</code> stellt die <code>mocker</code>-Fixture bereit, die <code>patch</code> und Mock-Erstellung in einem pytest-nativen Stil vereint. Im Vergleich zu <code>unittest.mock</code> entfällt der <code>with</code>-Block – das Patching gilt automatisch für die Dauer des Tests.</p>
 <pre><code class="language-bash">pip install pytest-mock
 </code></pre>
@@ -1026,6 +1082,16 @@ def test_multiple_patches(mock_a, mock_b):
 
     result = get_user_data(1)
     assert result == {'data': 'test'}
+</code></pre>
+<p><code>patch</code> ersetzt eine Funktion komplett. <code>mocker.spy</code> hingegen lässt die echte Implementierung laufen und ergänzt sie nur um Call-Tracking. Sehr nützlich, wenn man prüfen will <em>ob</em> eine Methode aufgerufen wurde, aber das echte Verhalten beibehalten möchte:</p>
+<pre><code class="language-python">def test_with_spy(mocker):
+    # Echte Funktion läuft durch – aber Aufrufe werden aufgezeichnet
+    spy = mocker.spy(some_module, 'expensive_function')
+
+    result = some_module.expensive_function(42)
+
+    spy.assert_called_once_with(42)
+    assert result is not None  # echtes Ergebnis, kein Mock
 </code></pre>
 <h2 id="7----test-coverage"><a class="header" href="#7----test-coverage">7    Test Coverage</a></h2>
 <p>Coverage misst, welcher Anteil des Quellcodes beim Ausführen der Tests tatsächlich durchlaufen wird. Eine hohe Abdeckung ist kein Qualitätsbeweis, aber eine niedrige Abdeckung zeigt zuverlässig untestete Bereiche auf. Das Plugin <code>pytest-cov</code> integriert Coverage direkt in den <code>pytest</code>-Workflow.</p>
@@ -1162,6 +1228,34 @@ def test_get_users(api_client, mocker):
     assert response.status_code == 200
     assert len(response.json()) == 1
 </code></pre>
+<h3 id="84----helper-factory-functions"><a class="header" href="#84----helper-factory-functions">8.4    Helper Factory Functions</a></h3>
+<p>Nicht jede Testvorbereitung muss eine Fixture sein. Bei Tests, die dasselbe Objekt in leicht unterschiedlichen Varianten benötigen, sind einfache Factory-Funktionen auf Modulebene oft die schlankere Lösung. Sie sind sofort sichtbar, akzeptieren Parameter für Varianten und müssen nicht als Fixture injiziert werden.</p>
+<pre><code class="language-python"># Keine Fixture – einfache Hilfsfunktion
+def make_config(repos=None, git_tool_name='lazygit'):
+    return Config(
+        config_path=Path('/fake/config.yaml'),
+        git_tool_name=git_tool_name,
+        repos=repos if repos is not None else [],
+    )
+
+def test_filters_hidden_repos():
+    config = make_config(repos=[
+        Repo(name='visible', path='/a', show=True),
+        Repo(name='hidden', path='/b', show=False),
+    ])
+    result = filter_repos(config)
+    assert len(result) == 1
+</code></pre>
+<div class="mdbook-callouts mdbook-callouts-tip">
+<p class="mdbook-callouts-title">
+  <span class="mdbook-callouts-icon"></span>
+  tip
+</p>
+
+<p><strong>Wann Factory Functions, wann Fixtures?</strong></p>
+<p>Fixtures sind sinnvoll, wenn Setup und Teardown zusammengehören (<code>yield</code>), wenn Scoping relevant ist (z. B. <code>scope='session'</code>), oder wenn die Testvorbereitung in vielen Tests ohne Variation benötigt wird. Factory Functions passen besser, wenn verschiedene Tests dasselbe Objekt in unterschiedlichen Zuständen brauchen – parametriert durch Argumente, nicht durch <code>pytest</code>-Injection.</p>
+</div>
+
 <h2 id="9----best-practices"><a class="header" href="#9----best-practices">9    Best Practices</a></h2>
 <p>ute Tests sind keine Frage des Frameworks, sondern des Stils. Die folgenden Regeln helfen dabei, eine Test-Suite zu schreiben, die langfristig wartbar, schnell und aussagekräftig bleibt.</p>
 <p><strong>✅ DO:</strong></p>
