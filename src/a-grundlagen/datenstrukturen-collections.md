@@ -132,7 +132,7 @@ results = [x**2 * 2 - 1 for x in range(10) if x**2 % 3 == 0 and x**2 > 5]
 ```
 
 > [!TIP] 
-> Sobald die List Comprehension nicht mehr auf eine Zeile passt oder mehrere verschachtelte Bedingungen enthält, ist die normale Schreibweise vorzuziehen.
+> Sobald die List Comprehension nicht mehr in eine einzelne Zeile passt oder mehrere verschachtelte Bedingungen enthält, ist die normale Schreibweise vorzuziehen.
 
 #### 1.4.2    List comprehensions mit `if`-Bedingungen
 
