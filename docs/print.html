@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-3a8d677a.js";
+            window.path_to_searchindex_js = "searchindex-c4943453.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-4cd0ede6.js"></script>
+        <script src="toc-00b6e245.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -5285,6 +5285,238 @@ print(restored.connection)  # Connection to localhost
 }
 </style>
 <h1 id="kommentare-und-docstrings"><a class="header" href="#kommentare-und-docstrings">Kommentare und Docstrings</a></h1>
+<h2 id="1----ein--und-mehrzeilige-kommentare"><a class="header" href="#1----ein--und-mehrzeilige-kommentare">1    Ein- und mehrzeilige Kommentare</a></h2>
+<pre><code class="language-python"># Line comment
+</code></pre>
+<pre><code class="language-python">'''
+Multi 
+line 
+comment
+'''
+</code></pre>
+<pre><code class="language-python">"""
+Multi 
+line 
+comment 
+"""
+</code></pre>
+<h2 id="2----docstrings"><a class="header" href="#2----docstrings">2    Docstrings</a></h2>
+<h3 id="21----numpy-style"><a class="header" href="#21----numpy-style">2.1    NumPy-Style</a></h3>
+<p><a href="https://numpydoc.readthedocs.io/en/latest/format.html">Style guide — numpydoc Manual</a></p>
+<pre><code class="language-python">def divide(a: float, b: float) -&gt; float:
+    """
+    Divides two numbers.
+
+    Parameters
+    ----------
+    a : float
+        The first number.
+    b : float
+        The second number.
+
+    Returns
+    -------
+    float
+        The result of the division.
+
+    Raises
+    ------
+    ZeroDivisionError
+        If `b` is zero.
+    TypeError
+        If either input is not a float or int.
+    """
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+        raise TypeError('Both values must be numbers.')
+    if b == 0:
+        raise ZeroDivisionError('Division by zero is not allowed.')
+    return a / b
+</code></pre>
+<p><strong>Vorteile:</strong></p>
+<ul>
+<li>Besonders gut für wissenschaftliche Bibliotheken (<code>NumPy</code>, <code>SciPy</code>, <code>Pandas</code>)</li>
+<li>Strukturiert mit Abschnittsüberschriften (<code>Parameters</code>, <code>Returns</code>, <code>Raises</code>)</li>
+</ul>
+<h4 id="211----kurze-zusammenfassung"><a class="header" href="#211----kurze-zusammenfassung">2.1.1    Kurze Zusammenfassung</a></h4>
+<pre><code class="language-python">def divide(a, b):
+    """
+    Divides two numbers.
+    """
+</code></pre>
+<h4 id="212----parameter"><a class="header" href="#212----parameter">2.1.2    Parameter</a></h4>
+<pre><code class="language-python">"""
+Parameters
+----------
+x : int
+    Description of parameter `x`.
+y
+    Description of parameter `y` (with type not specified).
+z : int, optional
+    Description of parameter `z`.
+do_something : bool, default=True
+    Description of parameter `do_something`.
+*args
+    Description of keyword arguments.
+**kwargs
+    Description of extra arguments
+"""
+</code></pre>
+<h4 id="213----rückgabewerte"><a class="header" href="#213----rückgabewerte">2.1.3    Rückgabewerte</a></h4>
+<h5 id="returns"><a class="header" href="#returns">Returns</a></h5>
+<pre><code class="language-python">"""
+Returns
+-------
+int
+    Description of the return value.
+"""
+</code></pre>
+<pre><code class="language-python">"""
+Returns
+-------
+return_val_1 : int
+    Description of `return_value_1`.
+return_val_2 : str or None
+    Description of `return_value_2`.
+"""
+</code></pre>
+<h5 id="yields"><a class="header" href="#yields">Yields</a></h5>
+<pre><code class="language-python">"""
+Yields
+-------
+int
+    Description of the return value.
+"""
+</code></pre>
+<pre><code class="language-python">"""
+Yields
+------
+return_val_1 : int
+    Description of `return_value_1`.
+return_val_2 : str or None
+    Description of `return_value_2`.
+"""
+</code></pre>
+<h4 id="214----raises"><a class="header" href="#214----raises">2.1.4    Raises</a></h4>
+<pre><code class="language-python">"""
+Raises
+------
+TypeError
+	Description when this error is thrown.
+"""
+</code></pre>
+<h4 id="215----see-also"><a class="header" href="#215----see-also">2.1.5    See Also</a></h4>
+<pre><code class="language-python">"""
+See Also
+--------
+func_a : Description of `func_a`.
+func_b, func_c
+func_d
+"""
+</code></pre>
+<pre><code class="language-python">"""
+See Also
+--------
+package.module.submodule.func_a :
+    Description of `func_a`.
+"""
+</code></pre>
+<h4 id="216----notes"><a class="header" href="#216----notes">2.1.6    Notes</a></h4>
+<pre><code class="language-python">"""
+Notes
+-----
+Further notes on a method or class.
+"""
+</code></pre>
+<h4 id="217----klassen"><a class="header" href="#217----klassen">2.1.7    Klassen</a></h4>
+<pre><code class="language-python">class BankAccount:
+    """
+    A bank account with basic transaction functionality.
+
+    Attributes
+    ----------
+    owner : str
+        Full name of the account holder.
+    balance : float
+        Current account balance in euros.
+    iban : str
+        International Bank Account Number.
+
+    Methods
+    -------
+    deposit(amount)
+        Add funds to the account.
+    withdraw(amount)
+        Remove funds from the account.
+    transfer(target, amount)
+        Transfer funds to another BankAccount.
+
+    """
+</code></pre>
+<h3 id="22----google-style"><a class="header" href="#22----google-style">2.2    Google-Style</a></h3>
+<p><a href="https://google.github.io/styleguide/pyguide.html">styleguide | Style guides for Google-originated open-source projects</a></p>
+<p>Dies ist das Google-Dokumentationsformat. Es ist einfach zu lesen und wird oft in größeren Projekten verwendet.</p>
+<pre><code class="language-python">def add(a: int, b: int) -&gt; int:
+    """
+    Adds two numbers and returns the result.
+
+    Args:
+        a (int): The first number.
+        b (int): The second number.
+
+    Returns:
+        int: The sum of both numbers.
+
+    Raises:
+        TypeError: If either input is not an integer.
+    """
+    if not isinstance(a, int) or not isinstance(b, int):
+        raise TypeError('Both values must be of type int.')
+    return a + b
+</code></pre>
+<p><strong>Vorteile:</strong></p>
+<ul>
+<li>Leicht verständlich</li>
+<li>Strukturierte Abschnitte (<code>Args</code>, <code>Returns</code>, <code>Raises</code>)</li>
+</ul>
+<h3 id="23----restructuredtext-rest"><a class="header" href="#23----restructuredtext-rest">2.3    reStructuredText (reST)</a></h3>
+<p><a href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">reStructuredText Primer — Sphinx documentation</a></p>
+<p>Dieses Format wird in Sphinx-Dokumentationen häufig verwendet.</p>
+<pre><code class="language-python">def multiply(a: float, b: float) -&gt; float:
+    """
+    Multiplies two numbers.
+
+    :param a: The first number.
+    :type a: float
+    :param b: The second number.
+    :type b: float
+    :return: The product of a and b.
+    :rtype: float
+    :raises TypeError: If either input is not a float or int.
+    """
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+        raise TypeError('Both values must be numbers.')
+    return a * b
+</code></pre>
+<p><strong>Vorteile:</strong></p>
+<ul>
+<li>Unterstützt von Sphinx für automatisch generierte Dokumentationen</li>
+<li>Klar strukturierte Parameter (<code>:param</code>, <code>:return</code>, <code>:rtype</code>, <code>:raises</code>)</li>
+</ul>
+<h3 id="24----vergleich"><a class="header" href="#24----vergleich">2.4    Vergleich</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Format</th><th>Vorteile</th><th>Geeignet für</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>NumPy</strong></td><td>Wissenschaftliche Standards</td><td>Data Science, ML, Forschung</td></tr>
+<tr><td><strong>Google</strong></td><td>Einfach zu lesen, klare Struktur</td><td>Allgemeine Python-Projekte</td></tr>
+<tr><td><strong>reST (Sphinx)</strong></td><td>Unterstützt in automatisierten Dokus</td><td>Große Dokumentationen, APIs</td></tr>
+</tbody>
+</table>
+</div>
+<p>Siehe auch:</p>
+<p><a href="https://www.datacamp.com/tutorial/docstrings-python">Python Docstrings Tutorial : Examples &amp; Format for Pydoc, Numpy, Sphinx Doc Strings</a>, insbesondere Abschnitt Comparison of docstring formats</p>
 <div style="break-before: page; page-break-before: always;"></div><style>
 .mdbook-callouts {
   padding: 8px 16px;
