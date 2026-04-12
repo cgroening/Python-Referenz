@@ -346,7 +346,7 @@ print(isinstance(x, int))           # True
 print(isinstance(x, (int, float)))  # True (einer der Typen reicht)
 ```
 
-Mehr zu Typvergleichen in [[typannotationen#10 Typenvergleich]].
+Mehr zu Typvergleichen in [[../b-oop-und-fortgeschrittene-konzepte/typannotationen#10 Typenvergleich]].
 
 ### 5.4    Fehlerbehandlung bei Typumwandlungen
 
